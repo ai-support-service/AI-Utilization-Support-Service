@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI活用支援サービス｜賢い会社は、人を雇う前にAIを使う。</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2744; --navy-l:#253460;
+  --orange:#C8860A; --orange-l:#FDF4E0; --orange-d:#A06A00;
+  --cream:#FDF8EE; --cream-d:#F5EDD5; --cream-dd:#EAD9B0;
+  --gray:#4B4438; --gray-l:#A0917A; --border:#E2D5B8;
+  --green:#2D7A3A; --green-bg:#EEF7EE;
+  --red:#B83232;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--navy);}
+
+/* ══ ナビ ══ */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;box-shadow:0 2px 16px rgba(0,0,0,0.2);
+}
+.nav-brand{font-family:'Oswald',sans-serif;font-size:15px;font-weight:500;color:#fff;letter-spacing:0.05em;}
+.nav-brand span{color:var(--orange);}
+.nav-cta{
+  background:var(--orange);color:#fff;border:none;
+  padding:8px 20px;border-radius:6px;
+  font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:all 0.18s;text-decoration:none;display:inline-block;
+}
+.nav-cta:hover{background:var(--orange-d);}
+
+/* ══ ヒーロー ══ */
+.hero{
+  background:var(--navy);
+  padding:80px 40px 70px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 70% 50%,rgba(200,134,10,0.12) 0%,transparent 60%);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(200,134,10,0.15);border:1px solid rgba(200,134,10,0.4);
+  color:var(--orange);font-size:11px;font-weight:700;
+  padding:5px 16px;border-radius:20px;letter-spacing:0.08em;
+  margin-bottom:28px;
+}
+.hero-catch{
+  font-family:'Oswald',sans-serif;
+  font-size:52px;font-weight:700;color:#fff;line-height:1.25;
+  margin-bottom:10px;
+}
+.hero-catch em{font-style:normal;color:var(--orange);}
+.hero-sub{
+  font-size:16px;color:rgba(255,255,255,0.65);
+  line-height:1.9;margin-bottom:40px;
+}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-main{
+  background:var(--orange);color:#fff;border:none;
+  padding:16px 36px;border-radius:8px;
+  font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;
+}
+.btn-main:hover{background:var(--orange-d);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,134,10,0.4);}
+.btn-sub{
+  background:rgba(255,255,255,0.08);color:#fff;
+  border:1.5px solid rgba(255,255,255,0.3);
+  padding:16px 36px;border-radius:8px;
+  font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;
+}
+.btn-sub:hover{background:rgba(255,255,255,0.15);}
+
+/* KPIバー */
+.kpi-bar{
+  background:var(--cream-d);border-top:3px solid var(--orange);
+  padding:28px 40px;
+  display:flex;justify-content:center;gap:0;
+}
+.kpi-item{
+  flex:1;max-width:200px;text-align:center;
+  padding:0 24px;border-right:1px solid var(--border);
+}
+.kpi-item:last-child{border-right:none;}
+.kpi-num{font-family:'Oswald',sans-serif;font-size:36px;font-weight:700;color:var(--navy);line-height:1;}
+.kpi-num span{font-size:16px;color:var(--orange);margin-left:2px;}
+.kpi-lbl{font-size:11px;color:var(--gray-l);margin-top:4px;line-height:1.5;}
+
+/* ══ セクション共通 ══ */
+.section{padding:72px 40px;}
+.section.dark{background:var(--navy);}
+.section.cream{background:var(--cream);}
+.section.cream-d{background:var(--cream-d);}
+.sec-tag{
+  display:inline-block;
+  background:var(--orange-l);color:var(--orange);
+  font-size:10px;font-weight:700;padding:4px 12px;border-radius:4px;
+  letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;
+}
+.sec-tag.white{background:rgba(200,134,10,0.2);color:var(--orange);}
+.sec-title{font-size:32px;font-weight:900;color:var(--navy);line-height:1.3;margin-bottom:10px;}
+.sec-title.white{color:#fff;}
+.sec-sub{font-size:14px;color:var(--gray-l);line-height:1.8;margin-bottom:40px;}
+.sec-sub.white{color:rgba(255,255,255,0.6);}
+.center{text-align:center;}
+.inner{max-width:960px;margin:0 auto;}
+
+/* ══ 課題セクション ══ */
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.pain-card{
+  background:var(--cream);border-radius:12px;
+  border:1.5px solid var(--border);overflow:hidden;
+  display:flex;align-items:flex-start;gap:16px;
+  padding:20px 20px;
+}
+.pain-ico{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--orange-l);display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0;
+}
+.pain-text h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.pain-text p{font-size:12px;color:var(--gray);line-height:1.75;}
+.pain-cta{
+  text-align:center;margin-top:36px;
+  padding:24px;background:var(--navy);border-radius:12px;
+}
+.pain-cta p{font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:16px;}
+
+/* ══ Before/After ══ */
+.ba-list{display:flex;flex-direction:column;gap:14px;}
+.ba-row{
+  background:var(--cream);border-radius:10px;
+  display:grid;grid-template-columns:1fr 44px 1fr 100px;
+  align-items:center;overflow:hidden;border:1.5px solid var(--border);
+}
+.ba-col{padding:16px 18px;}
+.ba-badge{
+  display:inline-block;font-size:9px;font-weight:700;
+  padding:2px 8px;border-radius:3px;margin-bottom:6px;letter-spacing:0.05em;
+}
+.ba-badge.b{background:var(--red-bg,#FDF0F0);color:var(--red);}
+.ba-badge.a{background:var(--green-bg);color:var(--green);}
+.ba-col h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.ba-col p{font-size:11px;color:var(--gray);line-height:1.6;}
+.ba-arrow{text-align:center;font-size:20px;color:var(--orange);}
+.ba-result{
+  padding:16px 12px;text-align:center;
+  border-left:2px solid var(--border);
+}
+.ba-result-val{
+  font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;
+  color:var(--green);background:var(--green-bg);
+  padding:8px 10px;border-radius:8px;line-height:1.3;
+}
+
+/* ══ できること ══ */
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.feature-card{
+  background:var(--cream-d);border-radius:12px;
+  border:1.5px solid var(--border);padding:24px 20px;
+}
+.feature-ico{font-size:28px;margin-bottom:12px;}
+.feature-card h3{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:10px;}
+.feature-list{display:flex;flex-direction:column;gap:6px;}
+.fl-item{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;color:var(--gray);line-height:1.6;}
+.fl-dot{width:16px;height:16px;background:var(--orange-l);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:9px;font-weight:700;flex-shrink:0;margin-top:2px;}
+
+/* ══ プランセクション ══ */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start;}
+.plan-card{
+  background:var(--cream-d);border-radius:14px;
+  border:2px solid var(--border);overflow:hidden;position:relative;
+}
+.plan-card.rec{border-color:var(--orange);}
+.rec-badge{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--orange);color:#fff;font-size:10px;font-weight:700;
+  padding:3px 14px;border-radius:12px;white-space:nowrap;
+}
+.plan-acc{height:4px;background:var(--border);}
+.plan-card.rec .plan-acc{background:var(--orange);}
+.plan-hd{padding:20px 18px 14px;text-align:center;border-bottom:1px solid var(--border);}
+.plan-name{font-size:14px;font-weight:900;color:var(--navy);margin-bottom:8px;}
+.plan-price{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
+.plan-card.rec .plan-price{color:var(--orange);}
+.plan-unit{font-size:11px;color:var(--gray-l);margin-top:3px;}
+.plan-desc{font-size:10.5px;color:var(--gray-l);margin-top:7px;line-height:1.5;}
+.plan-feats{padding:14px 16px;}
+.pf{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--border);}
+.pf:last-child{border-bottom:none;}
+.pf-chk{width:16px;height:16px;background:var(--orange-l);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;color:var(--orange);font-size:8px;font-weight:700;}
+.pf-title{font-size:11px;font-weight:700;color:var(--navy);line-height:1.4;}
+.pf-desc{font-size:9.5px;color:var(--gray-l);line-height:1.4;margin-top:1px;}
+
+/* ══ 選ばれる理由 ══ */
+.reason-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.reason-card{
+  background:rgba(255,255,255,0.06);border-radius:12px;
+  border:1px solid rgba(255,255,255,0.1);padding:24px 20px;
+}
+.reason-ico{width:46px;height:46px;background:rgba(200,134,10,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.reason-card h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:8px;}
+.reason-stat{font-size:10px;font-weight:700;color:var(--orange);background:rgba(200,134,10,0.15);padding:2px 8px;border-radius:4px;margin-bottom:10px;display:inline-block;}
+.reason-card p{font-size:11.5px;color:rgba(255,255,255,0.6);line-height:1.8;}
+
+/* コスト比較 */
+.cost-box{
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:28px 32px;
+  display:grid;grid-template-columns:1fr 120px;gap:24px;align-items:center;
+}
+.cost-title{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:14px;letter-spacing:0.05em;}
+.cost-bars{display:flex;flex-direction:column;gap:10px;}
+.cost-bar-row{display:flex;align-items:center;gap:12px;}
+.cost-lbl{font-size:11px;color:rgba(255,255,255,0.65);width:100px;flex-shrink:0;}
+.cost-track{flex:1;height:24px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;}
+.cost-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:10px;}
+.cost-fill span{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
+.cost-right{text-align:center;}
+.cost-big{font-family:'Oswald',sans-serif;font-size:38px;font-weight:700;color:var(--orange);line-height:1;}
+.cost-lbl2{font-size:10px;color:rgba(255,255,255,0.5);margin-top:4px;line-height:1.5;}
+
+/* ══ CTA ══ */
+.cta-section{
+  background:var(--orange);padding:72px 40px;text-align:center;
+}
+.cta-section h2{font-size:32px;font-weight:900;color:#fff;margin-bottom:12px;line-height:1.3;}
+.cta-section p{font-size:14px;color:rgba(255,255,255,0.85);margin-bottom:36px;line-height:1.8;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-white{
+  background:#fff;color:var(--orange);border:none;
+  padding:16px 36px;border-radius:8px;
+  font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;
+}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.15);}
+.btn-outline-white{
+  background:transparent;color:#fff;
+  border:2px solid rgba(255,255,255,0.6);
+  padding:16px 36px;border-radius:8px;
+  font-family:'Noto Sans JP',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;
+}
+.btn-outline-white:hover{background:rgba(255,255,255,0.15);}
+
+/* ══ フッター ══ */
+footer{
+  background:var(--navy);padding:28px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.foot-brand{font-family:'Oswald',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);letter-spacing:0.05em;}
+.foot-note{font-size:10px;color:rgba(255,255,255,0.3);}
+
+/* アニメーション */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.fade-in.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ナビ -->
+<nav class="nav">
+  <div class="nav-brand">AI活用支援<span>サービス</span></div>
+  <a href="shindan.html" class="nav-cta">✦ 60秒で無料診断する</a>
+</nav>
+
+<!-- ヒーロー -->
+<section class="hero">
+  <div class="inner">
+    <div class="hero-tag">🤖 中小企業向け AI 活用支援</div>
+    <h1 class="hero-catch">賢い会社は、<br>人を雇う前に<em>AIを使う。</em></h1>
+    <p class="hero-sub">難しい知識ゼロ・月額定額・担当者がずっと伴走。<br>あなたの会社の業務を理解した上で、「使える状態」まで持っていきます。</p>
+    <div class="hero-btns">
+      <a href="shindan.html" class="btn-main">✦ AIで何が変わる？60秒で診断する</a>
+      <a href="#service" class="btn-sub">サービスの詳細を見る →</a>
+    </div>
+  </div>
+</section>
+
+<!-- KPIバー -->
+<div class="kpi-bar">
+  <div class="kpi-item"><div class="kpi-num">2週間<span>〜</span></div><div class="kpi-lbl">稼働開始まで</div></div>
+  <div class="kpi-item"><div class="kpi-num">3万円<span>/月〜</span></div><div class="kpi-lbl">月額費用</div></div>
+  <div class="kpi-item"><div class="kpi-num">知識ゼロ<span></span></div><div class="kpi-lbl">でOK・準備不要</div></div>
+  <div class="kpi-item"><div class="kpi-num">毎月<span>伴走</span></div><div class="kpi-lbl">導入後も継続改善</div></div>
+</div>
+
+<!-- 課題セクション -->
+<section class="section cream-d" id="pain">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="sec-tag">こんな悩み、ありませんか？</div>
+      <h2 class="sec-title">多くの中小企業オーナーが、<br>同じ壁にぶつかっています。</h2>
+      <p class="sec-sub">時間・人・チャンス。この3つが足りないと感じているなら、AIで解決できます。</p>
+    </div>
+    <div class="pain-grid fade-in">
+      <div class="pain-card"><div class="pain-ico">⏰</div><div class="pain-text"><h3>事務作業で本業ができない</h3><p>見積・メール・請求書対応だけで半日が消えていく。年間240時間以上が「作業」に消えています。</p></div></div>
+      <div class="pain-card"><div class="pain-ico">👥</div><div class="pain-text"><h3>人を雇うコストが重い</h3><p>採用しても育成に3ヶ月。コスト50〜100万円以上。AIなら月3万円〜で即戦力になります。</p></div></div>
+      <div class="pain-card"><div class="pain-ico">📉</div><div class="pain-text"><h3>フォローが遅れて失注している</h3><p>商談後48時間が勝負。対応が追いつかず、取れるはずだった仕事を逃しています。</p></div></div>
+      <div class="pain-card"><div class="pain-ico">🤔</div><div class="pain-text"><h3>AIは難しそうで手が出ない</h3><p>「自分には無理」と思っている。でも何もしないのも怖い。実は2週間で始められます。</p></div></div>
+    </div>
+    <div class="pain-cta fade-in">
+      <p>どれか1つでも当てはまるなら、60秒で診断してみてください。</p>
+      <a href="shindan.html" class="btn-main">✦ 無料で診断する（60秒）</a>
+    </div>
+  </div>
+</section>
+
+<!-- Before/After -->
+<section class="section cream" id="result">
+  <div class="inner">
+    <div class="fade-in">
+      <div class="sec-tag">導入事例</div>
+      <h2 class="sec-title">AIで、こう変わります。</h2>
+      <p class="sec-sub">業種を問わず、共通して「時間」と「ミス」が削減されています。</p>
+    </div>
+    <div class="ba-list fade-in">
+      <div class="ba-row">
+        <div class="ba-col"><div class="ba-badge b">BEFORE</div><h4>🏗 建設業・工務店 15名</h4><p>現場報告書を手書き→清書で毎日30分以上かかる</p></div>
+        <div class="ba-arrow">→</div>
+        <div class="ba-col"><div class="ba-badge a">AFTER</div><h4>音声録音→AI要約まで自動化</h4><p>スマホで話すだけで報告書が完成。清書ゼロ。</p></div>
+        <div class="ba-result"><div class="ba-result-val">残業<br>▲10h/月</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-col"><div class="ba-badge b">BEFORE</div><h4>🏭 製造業・部品メーカー 22名</h4><p>見積書を担当者が1件ずつ手入力。1件30分かかる</p></div>
+        <div class="ba-arrow">→</div>
+        <div class="ba-col"><div class="ba-badge a">AFTER</div><h4>AIドラフト→確認修正のみ</h4><p>Excelに数量を入れるだけで見積書が自動生成。</p></div>
+        <div class="ba-result"><div class="ba-result-val">商談数<br>×1.5倍</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-col"><div class="ba-badge b">BEFORE</div><h4>💆 サービス業・整体院 4名</h4><p>電話・LINEの予約を毎日手動対応。漏れも多い</p></div>
+        <div class="ba-arrow">→</div>
+        <div class="ba-col"><div class="ba-badge a">AFTER</div><h4>チャットBotが自動処理</h4><p>予約受付・確認・リマインドまですべて自動化。</p></div>
+        <div class="ba-result"><div class="ba-result-val">予約<br>漏れゼロ</div></div>
+      </div>
+      <div class="ba-row">
+        <div class="ba-col"><div class="ba-badge b">BEFORE</div><h4>🏪 小売業・雑貨店 8名</h4><p>SNS投稿・商品説明を毎週手作業で4本しか出せない</p></div>
+        <div class="ba-arrow">→</div>
+        <div class="ba-col"><div class="ba-badge a">AFTER</div><h4>AIが自動生成・3倍に増加</h4><p>商品情報を入れるだけで投稿文・画像テキストが完成。</p></div>
+        <div class="ba-result"><div class="ba-result-val">▲8h/月<br>削減</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- できること -->
+<section class="section cream-d" id="service">
+  <div class="inner">
+    <div class="fade-in center">
+      <div class="sec-tag">できること</div>
+      <h2 class="sec-title">AIで、具体的に何ができるのか</h2>
+      <p class="sec-sub">スプレッドシートに入力するだけで、その先の作業が自動で動きます。<br>今の業務を変えなくていいのが最大のポイントです。</p>
+    </div>
+    <div class="feature-grid fade-in">
+      <div class="feature-card">
+        <div class="feature-ico">📄</div>
+        <h3>書類・データの自動化</h3>
+        <div class="feature-list">
+          <div class="fl-item"><div class="fl-dot">✓</div>見積書・請求書・納品書を自動生成（30分→5分）</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>Excelの集計・整理・グラフ化を自動化</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>手書き書類・伝票の写真からデータ化</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>業界専用システムへの自動入力</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ico">💬</div>
+        <h3>コミュニケーションの自動化</h3>
+        <div class="feature-list">
+          <div class="fl-item"><div class="fl-dot">✓</div>問い合わせ対応・フォローメールの自動送信</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>SNS投稿・メルマガ文章の自動生成</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>スプレッドシート入力→発注メール自動送信</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>クレーム対応・営業フォロー文のひな形作成</div>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-ico">📋</div>
+        <h3>情報整理・資料作成</h3>
+        <div class="feature-list">
+          <div class="fl-item"><div class="fl-dot">✓</div>会議の音声・メモ→議事録を自動整形</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>現場報告書の音声入力→文書化</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>売上データを見て分析・改善提案</div>
+          <div class="fl-item"><div class="fl-dot">✓</div>名刺・在庫棚の写真→データリスト化</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:var(--orange-l);border-left:4px solid var(--orange);border-radius:0 10px 10px 0;padding:14px 20px;font-size:13px;color:var(--navy);font-weight:600;line-height:1.7;" class="fade-in">
+      💡 ポイントは「今の業務を変えなくていい」こと。今使っているスプレッドシートをそのまま使いながら、その先の作業だけが自動になります。
+    </div>
+  </div>
+</section>
+
+<!-- プラン -->
+<section class="section cream" id="plan">
+  <div class="inner">
+    <div class="fade-in center">
+      <div class="sec-tag">料金プラン</div>
+      <h2 class="sec-title">まずは小さく始めて、<br>成果を見ながら拡張できます。</h2>
+      <p class="sec-sub">解約自由。必要な分だけ使えます。</p>
+    </div>
+    <div class="plan-grid fade-in">
+      <div class="plan-card">
+        <div class="plan-acc"></div>
+        <div class="plan-hd">
+          <div class="plan-name">業務お片付け診断</div>
+          <div class="plan-price">¥3〜5万</div>
+          <div class="plan-unit">スポット（1回）</div>
+          <div class="plan-desc">まず何から始めればいいかわからない方へ</div>
+        </div>
+        <div class="plan-feats">
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">業務整理マップ</div><div class="pf-desc">今の業務を可視化したレポート</div></div></div>
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">AI活用ポイントリスト</div><div class="pf-desc">自動化できる業務の一覧</div></div></div>
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">費用対効果の試算</div><div class="pf-desc">月何時間削減できるかを金額換算</div></div></div>
+        </div>
+      </div>
+      <div class="plan-card rec">
+        <div class="rec-badge">★ おすすめ</div>
+        <div class="plan-acc"></div>
+        <div class="plan-hd">
+          <div class="plan-name">おまかせプラン</div>
+          <div class="plan-price">¥3〜10万</div>
+          <div class="plan-unit">/月</div>
+          <div class="plan-desc">専用ツールを実際に作って渡します</div>
+        </div>
+        <div class="plan-feats">
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">会社専用ツール・仕組みを作成</div><div class="pf-desc">渡したらすぐ使える状態でお届け</div></div></div>
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">スプレッドシート起点の自動化</div><div class="pf-desc">入力したら勝手に動く仕組みを構築</div></div></div>
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">チャット＋月1回MTG</div><div class="pf-desc">関わる時間・量に応じて金額が変わります</div></div></div>
+        </div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-acc"></div>
+        <div class="plan-hd">
+          <div class="plan-name">まるごとプラン</div>
+          <div class="plan-price">¥10〜15万</div>
+          <div class="plan-unit">/月</div>
+          <div class="plan-desc">担当者として入ってほしい方へ</div>
+        </div>
+        <div class="plan-feats">
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">おまかせプランの全内容</div><div class="pf-desc">上記内容をすべて含みます</div></div></div>
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">月2回MTG＋社内レクチャー</div><div class="pf-desc">スタッフが使いこなせるまでサポート</div></div></div>
+          <div class="pf"><div class="pf-chk">✓</div><div><div class="pf-title">専任担当制</div><div class="pf-desc">いつでも相談できる窓口として対応</div></div></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--gray-l);margin-top:16px;text-align:center;">※ 初期費用 ¥50,000（ヒアリング・設計・初期設定）　最低契約期間 3ヶ月　価格はすべて税抜</p>
+  </div>
+</section>
+
+<!-- 選ばれる理由 -->
+<section class="section dark" id="why">
+  <div class="inner">
+    <div class="fade-in center">
+      <div class="sec-tag white">なぜ選ばれるのか</div>
+      <h2 class="sec-title white">ツールを売るのではなく、<br>「使える状態」を作ります。</h2>
+      <p class="sec-sub white">中小企業がAIを使いこなせない理由は、ツールが難しいからではなく、<br>「業務をAIに正しく伝える」作業が難しいから。ここに人が介在することが私たちの価値です。</p>
+    </div>
+    <div class="reason-grid fade-in">
+      <div class="reason-card">
+        <div class="reason-ico">🏃</div>
+        <h3>最短2週間で始められる</h3>
+        <div class="reason-stat">準備ゼロ・知識ゼロでOK</div>
+        <p>業務棚卸し→ヒアリング→設定→レクチャーまで全部代行。オーナーが動く手間はほとんどゼロです。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-ico">👤</div>
+        <h3>毎月、人が伴走する</h3>
+        <div class="reason-stat">月1MTGで継続改善</div>
+        <p>AIを導入して終わり、ではありません。毎月の定例MTGで効果を確認し、改善提案を続けます。</p>
+      </div>
+      <div class="reason-card">
+        <div class="reason-ico">💰</div>
+        <h3>採用より圧倒的に安い</h3>
+        <div class="reason-stat">月3万〜・パート以下のコスト</div>
+        <p>正社員採用で年収400〜600万円。このサービスなら月3万円から。必要な分だけ使えます。</p>
+      </div>
+    </div>
+    <div class="cost-box fade-in">
+      <div>
+        <div class="cost-title">💴 コスト比較（年間）</div>
+        <div class="cost-bars">
+          <div class="cost-bar-row"><div class="cost-lbl">正社員を採用</div><div class="cost-track"><div class="cost-fill" style="width:100%;background:linear-gradient(90deg,#F87171,#DC2626)"><span>400〜600万円/年</span></div></div></div>
+          <div class="cost-bar-row"><div class="cost-lbl">パートを採用</div><div class="cost-track"><div class="cost-fill" style="width:55%;background:linear-gradient(90deg,#FCA5A5,#F87171)"><span>120〜180万円/年</span></div></div></div>
+          <div class="cost-bar-row"><div class="cost-lbl">このサービス</div><div class="cost-track"><div class="cost-fill" style="width:18%;background:linear-gradient(90deg,#C8860A,#A06A00)"><span>36〜120万円/年</span></div></div></div>
+        </div>
+      </div>
+      <div class="cost-right"><div class="cost-big">最大<br>93%</div><div class="cost-lbl2">正社員採用比<br>コスト削減</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="inner">
+    <h2>まず、60秒で診断してみてください。</h2>
+    <p>あなたの会社でAIを使うと、月何時間削減できるか。<br>どのプランが合っているか。無料で今すぐわかります。</p>
+    <div class="cta-btns">
+      <a href="shindan.html" class="btn-white">✦ 無料で診断する（60秒）</a>
+    </div>
+  </div>
+</section>
+
+<!-- フッター -->
+<footer>
+  <div class="foot-brand">AI活用支援サービス</div>
+  <div class="foot-note">© 2026 AI活用支援サービス</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
