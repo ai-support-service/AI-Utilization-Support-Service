@@ -4,190 +4,122 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>60秒AI活用診断｜あなたの会社に合うプランがわかる</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#1a2744;
-  --orange:#C8860A; --orange-l:#FDF4E0; --orange-d:#A06A00;
-  --cream:#FDF8EE; --cream-d:#F5EDD5; --cream-dd:#EAD9B0;
-  --gray:#4B4438; --gray-l:#A0917A; --border:#E2D5B8;
-  --green:#2D7A3A; --green-bg:#EEF7EE;
+  --cream:#FDFAF5; --white:#FFFFFF;
+  --ink:#1A1A2E; --ink2:#2D3561; --muted:#6B7280;
+  --border:#E5E0D8; --amber:#F59E0B; --amber-l:#FEF3C7;
+  --coral:#EF4444; --coral-l:#FEE2E2;
+  --green:#10B981; --green-l:#D1FAE5;
+  --blue:#3B82F6; --blue-l:#DBEAFE;
+  --accent:#F97316; --accent-l:#FFEDD5;
+  --shadow:0 4px 24px rgba(26,26,46,0.08);
+  --shadow-lg:0 8px 40px rgba(26,26,46,0.13);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;display:flex;flex-direction:column;}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
 
 /* ナビ */
-.nav{
-  background:var(--navy);height:52px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 32px;flex-shrink:0;
-}
-.nav-brand{font-family:'Oswald',sans-serif;font-size:14px;color:#fff;letter-spacing:0.05em;}
-.nav-brand span{color:var(--orange);}
-.nav-back{font-size:12px;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.15s;}
-.nav-back:hover{color:var(--orange);}
+.nav{background:var(--white);border-bottom:2px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;flex-shrink:0;box-shadow:var(--shadow);}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-logo{width:30px;height:30px;background:var(--ink2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.nav-ttl{font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;color:var(--ink);}
+.nav-back{font-size:12px;color:var(--muted);text-decoration:none;transition:color 0.15s;display:flex;align-items:center;gap:4px;}
+.nav-back:hover{color:var(--ink2);}
 
 /* メイン */
 .main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px 60px;}
-.card{width:100%;max-width:620px;}
+.card{width:100%;max-width:640px;}
 
-/* ヘッダー */
-.card-head{
-  background:var(--navy);border-radius:14px 14px 0 0;
-  padding:28px 32px 24px;position:relative;overflow:hidden;
-}
-.card-head::before{
-  content:'';position:absolute;right:-20px;top:-20px;
-  width:120px;height:120px;border-radius:50%;
-  background:rgba(200,134,10,0.1);
-}
-.head-tag{
-  display:inline-block;
-  background:rgba(200,134,10,0.2);color:var(--orange);
-  font-size:10px;font-weight:700;padding:3px 10px;border-radius:4px;
-  letter-spacing:0.08em;margin-bottom:12px;
-}
-.head-title{font-size:22px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:6px;}
+/* カードヘッダー */
+.card-head{background:var(--ink2);border-radius:18px 18px 0 0;padding:30px 36px 26px;position:relative;overflow:hidden;}
+.card-head::before{content:'';position:absolute;right:-30px;top:-30px;width:150px;height:150px;border-radius:50%;background:rgba(245,158,11,0.12);pointer-events:none;}
+.head-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.2);color:var(--amber);font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:0.08em;margin-bottom:12px;}
+.head-title{font-family:'Noto Sans JP',sans-serif;font-size:22px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:6px;}
 .head-sub{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.7;}
 
 /* プログレス */
-.progress-wrap{
-  background:var(--cream-d);border-left:1px solid var(--border);border-right:1px solid var(--border);
-  padding:14px 32px 12px;
-}
-.progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.progress-label{font-size:11px;font-weight:700;color:var(--gray);}
-.progress-count{font-family:'Oswald',sans-serif;font-size:13px;color:var(--orange);font-weight:700;}
-.progress-bar-bg{height:6px;background:var(--cream-dd);border-radius:3px;overflow:hidden;}
-.progress-bar-fill{height:100%;background:var(--orange);border-radius:3px;transition:width 0.4s ease;}
+.progress-wrap{background:var(--white);border-left:1px solid var(--border);border-right:1px solid var(--border);padding:16px 36px 14px;}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.prog-lbl{font-size:11px;font-weight:700;color:var(--muted);}
+.prog-cnt{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:var(--accent);font-weight:500;}
+.prog-bg{height:6px;background:var(--cream);border-radius:3px;overflow:hidden;border:1px solid var(--border);}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--ink2),var(--accent));border-radius:3px;transition:width 0.4s ease;}
 
 /* 質問エリア */
-.question-area{
-  background:var(--cream);border:1px solid var(--border);border-top:none;
-  padding:28px 32px 32px;border-radius:0 0 14px 14px;
-  min-height:360px;display:flex;flex-direction:column;
-}
-.q-num{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:0.1em;margin-bottom:8px;}
-.q-text{font-size:18px;font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:6px;}
-.q-sub{font-size:12px;color:var(--gray-l);line-height:1.6;margin-bottom:24px;}
+.q-area{background:var(--white);border:1px solid var(--border);border-top:none;padding:30px 36px 34px;border-radius:0 0 18px 18px;min-height:380px;display:flex;flex-direction:column;}
+.q-num{font-family:'Noto Sans JP',sans-serif;font-size:10px;font-weight:500;color:var(--accent);letter-spacing:0.1em;margin-bottom:8px;}
+.q-text{font-family:'Noto Sans JP',sans-serif;font-size:19px;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:6px;}
+.q-sub{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:24px;}
 .choices{display:flex;flex-direction:column;gap:10px;flex:1;}
-.choice{
-  padding:14px 18px;
-  background:var(--cream-d);border:2px solid var(--border);border-radius:10px;
-  font-size:13px;font-weight:500;color:var(--navy);
-  cursor:pointer;transition:all 0.18s;text-align:left;
-  display:flex;align-items:center;gap:12px;
-}
-.choice:hover{border-color:var(--orange);background:var(--orange-l);transform:translateX(4px);}
-.choice.selected{border-color:var(--orange);background:var(--orange-l);}
-.choice-ico{font-size:20px;flex-shrink:0;}
-.choice-text h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:2px;}
-.choice-text p{font-size:10.5px;color:var(--gray-l);line-height:1.4;}
+.choice{padding:14px 18px;background:var(--cream);border:2px solid var(--border);border-radius:12px;font-size:13px;font-weight:500;color:var(--ink);cursor:pointer;transition:all 0.18s;text-align:left;display:flex;align-items:center;gap:12px;}
+.choice:hover{border-color:var(--ink2);background:var(--blue-l);transform:translateX(4px);}
+.choice.selected{border-color:var(--ink2);background:var(--blue-l);}
+.ch-ico{font-size:20px;flex-shrink:0;}
+.ch-ttl{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.ch-dsc{font-size:10.5px;color:var(--muted);line-height:1.4;}
 
 /* ナビボタン */
 .nav-btns{display:flex;gap:10px;margin-top:24px;}
-.btn-next{
-  flex:1;padding:14px;background:var(--orange);color:#fff;border:none;
-  border-radius:8px;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;transition:all 0.18s;
-}
-.btn-next:hover{background:var(--orange-d);}
-.btn-next:disabled{background:var(--cream-dd);color:var(--gray-l);cursor:not-allowed;}
-.btn-back{
-  padding:14px 20px;background:var(--cream);color:var(--gray);
-  border:1.5px solid var(--border);border-radius:8px;
-  font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;
-}
-.btn-back:hover{border-color:var(--gray);}
+.btn-next{flex:1;padding:14px;background:var(--ink2);color:#fff;border:none;border-radius:10px;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.18s;}
+.btn-next:hover{background:var(--accent);transform:translateY(-1px);}
+.btn-next:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;transform:none;}
+.btn-back{padding:14px 20px;background:var(--white);color:var(--muted);border:1.5px solid var(--border);border-radius:10px;font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.18s;}
+.btn-back:hover{border-color:var(--ink2);color:var(--ink2);}
 
 /* 結果画面 */
-.result-area{display:none;flex-direction:column;gap:0;}
-.result-head{
-  background:var(--navy);border-radius:14px 14px 0 0;
-  padding:24px 32px;text-align:center;
-}
-.result-head h2{font-size:20px;font-weight:900;color:#fff;margin-bottom:6px;}
-.result-head p{font-size:12px;color:rgba(255,255,255,0.55);}
+.result-area{display:none;flex-direction:column;}
+.res-head{background:var(--ink2);border-radius:18px 18px 0 0;padding:24px 36px;text-align:center;position:relative;overflow:hidden;}
+.res-head::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,0.15) 0%,transparent 60%);border-radius:50%;}
+.res-head h2{font-family:'Noto Sans JP',sans-serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;}
+.res-head p{font-size:12px;color:rgba(255,255,255,0.5);}
+.res-body{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 18px 18px;padding:26px 30px 30px;}
 
-.result-body{
-  background:var(--cream);border:1px solid var(--border);border-top:none;
-  border-radius:0 0 14px 14px;padding:24px 28px 28px;
-}
-
-/* 削減時間 */
-.saving-box{
-  background:var(--navy);border-radius:10px;padding:20px 24px;
-  display:flex;align-items:center;gap:20px;margin-bottom:20px;
-}
-.saving-left{flex:1;}
-.saving-label{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.08em;margin-bottom:4px;}
-.saving-val{font-family:'Oswald',sans-serif;font-size:38px;font-weight:700;color:var(--orange);line-height:1;}
-.saving-val span{font-size:16px;color:rgba(255,255,255,0.6);}
-.saving-sub{font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;line-height:1.5;}
-.saving-right{text-align:center;flex-shrink:0;}
-.saving-money{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--orange);line-height:1;}
+/* 削減時間ボックス */
+.saving-box{background:var(--ink2);border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;margin-bottom:20px;}
+.saving-lbl{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.08em;margin-bottom:4px;}
+.saving-val{font-family:'Noto Sans JP',sans-serif;font-size:40px;font-weight:500;color:var(--amber);line-height:1;}
+.saving-val span{font-size:16px;color:rgba(255,255,255,0.5);}
+.saving-sub{font-size:11px;color:rgba(255,255,255,0.45);margin-top:4px;line-height:1.5;}
+.saving-right{text-align:center;}
+.saving-money{font-family:'Noto Sans JP',sans-serif;font-size:22px;font-weight:500;color:var(--amber);line-height:1;}
 .saving-mlbl{font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;}
 
-/* おすすめプラン */
-.rec-plan{
-  border:2px solid var(--orange);border-radius:10px;
-  overflow:hidden;margin-bottom:16px;
-}
-.rec-plan-head{
-  background:var(--orange);padding:12px 18px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.rec-plan-head h3{font-size:14px;font-weight:700;color:#fff;}
-.rec-plan-head span{font-size:10px;color:rgba(255,255,255,0.75);background:rgba(0,0,0,0.2);padding:2px 8px;border-radius:4px;}
-.rec-plan-body{padding:16px 18px;background:var(--cream-d);}
-.rec-plan-price{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:var(--orange);line-height:1;margin-bottom:8px;}
-.rec-plan-price span{font-size:13px;color:var(--gray-l);}
-.rec-plan-reason{font-size:12px;color:var(--gray);line-height:1.8;margin-bottom:12px;}
-.rec-plan-points{display:flex;flex-direction:column;gap:5px;}
-.rpp{display:flex;align-items:flex-start;gap:7px;font-size:11.5px;color:var(--gray);}
-.rpp-dot{width:16px;height:16px;background:var(--orange-l);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:8px;font-weight:700;flex-shrink:0;margin-top:1px;}
-
 /* 課題リスト */
-.issues-box{
-  background:var(--cream-d);border-radius:8px;border:1px solid var(--border);
-  padding:14px 16px;margin-bottom:16px;
-}
-.issues-title{font-size:11px;font-weight:700;color:var(--gray-l);letter-spacing:0.06em;margin-bottom:10px;}
-.issue-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--gray);line-height:1.6;}
+.issues-box{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.issues-title{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.06em;margin-bottom:12px;}
+.issue-item{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:12px;color:var(--muted);line-height:1.6;}
 .issue-item:last-child{border-bottom:none;}
-.issue-tag{
-  font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;
-  white-space:nowrap;flex-shrink:0;margin-top:2px;
-}
-.issue-tag.ai{background:var(--green-bg);color:var(--green);}
-.issue-tag.human{background:var(--orange-l);color:var(--orange-d);}
+.issue-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+.issue-tag.ai{background:var(--green-l);color:var(--green);}
+.issue-tag.human{background:var(--amber-l);color:#B45309;}
 
-/* CTAボタン */
-.result-cta{display:flex;flex-direction:column;gap:10px;}
-.cta-btn-main{
-  width:100%;padding:15px;background:var(--orange);color:#fff;border:none;
-  border-radius:8px;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;
-}
-.cta-btn-main:hover{background:var(--orange-d);transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,134,10,0.35);}
-.cta-btn-sub{
-  width:100%;padding:13px;background:var(--cream);color:var(--navy);
-  border:1.5px solid var(--border);border-radius:8px;
-  font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:500;
-  cursor:pointer;transition:all 0.18s;text-decoration:none;display:block;text-align:center;
-}
-.cta-btn-sub:hover{border-color:var(--navy);}
-.retry-btn{
-  font-size:11px;color:var(--gray-l);text-align:center;cursor:pointer;
-  margin-top:6px;text-decoration:underline;
-}
-.retry-btn:hover{color:var(--orange);}
+/* おすすめプラン */
+.rec-plan{border:2px solid var(--ink2);border-radius:14px;overflow:hidden;margin-bottom:18px;box-shadow:0 4px 20px rgba(45,53,97,0.1);}
+.rec-plan-head{background:var(--ink2);padding:13px 20px;display:flex;align-items:center;justify-content:space-between;}
+.rec-plan-head h3{font-size:14px;font-weight:700;color:#fff;}
+.rec-plan-head span{font-size:10px;color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.1);padding:3px 9px;border-radius:20px;}
+.rec-plan-body{padding:18px 20px;background:var(--cream);}
+.rec-plan-price{font-family:'Noto Sans JP',sans-serif;font-size:28px;font-weight:500;color:var(--ink);line-height:1;margin-bottom:10px;}
+.rec-plan-price span{font-size:13px;color:var(--muted);}
+.rec-plan-reason{font-size:12.5px;color:var(--muted);line-height:1.85;margin-bottom:14px;}
+.rpp{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px dashed var(--border);font-size:12px;color:var(--muted);}
+.rpp:last-child{border-bottom:none;}
+.rpp-dot{width:16px;height:16px;border-radius:5px;background:var(--green-l);color:var(--green);font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+
+/* CTA */
+.res-cta{display:flex;flex-direction:column;gap:10px;}
+.cta-main{width:100%;padding:15px;background:var(--ink2);color:#fff;border:none;border-radius:10px;font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;}
+.cta-main:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 6px 20px rgba(249,115,22,0.3);}
+.retry-lnk{font-size:11px;color:var(--muted);text-align:center;cursor:pointer;text-decoration:underline;margin-top:4px;}
+.retry-lnk:hover{color:var(--ink2);}
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <div class="nav-brand">AI活用支援<span>サービス</span></div>
+  <div class="nav-brand"><div class="nav-logo">🤖</div><div class="nav-ttl">AI活用支援サービス</div></div>
   <a href="lp.html" class="nav-back">← サービス紹介に戻る</a>
 </nav>
 
@@ -199,16 +131,13 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--n
       <div class="card-head">
         <div class="head-tag">✦ 無料 AI活用診断</div>
         <div class="head-title">60秒でわかる、<br>あなたの会社のAI活用度</div>
-        <div class="head-sub">5つの質問に答えるだけ。あなたの会社に合ったプランと、月何時間削減できるかがわかります。</div>
+        <div class="head-sub">5つの質問に答えるだけ。月何時間削減できるか・どのプランが合うかがわかります。</div>
       </div>
       <div class="progress-wrap">
-        <div class="progress-top">
-          <span class="progress-label" id="prog-label">質問 1 / 5</span>
-          <span class="progress-count" id="prog-count">20%</span>
-        </div>
-        <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-bar" style="width:20%"></div></div>
+        <div class="prog-top"><span class="prog-lbl" id="prog-label">質問 1 / 5</span><span class="prog-cnt" id="prog-count">20%</span></div>
+        <div class="prog-bg"><div class="prog-fill" id="prog-bar" style="width:20%"></div></div>
       </div>
-      <div class="question-area">
+      <div class="q-area">
         <div class="q-num" id="q-num">QUESTION 01</div>
         <div class="q-text" id="q-text"></div>
         <div class="q-sub" id="q-sub"></div>
@@ -222,43 +151,24 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--n
 
     <!-- 結果画面 -->
     <div class="result-area" id="result-area">
-      <div class="result-head">
-        <h2>診断結果</h2>
-        <p id="result-company-label">あなたの会社に合ったプランはこちらです</p>
-      </div>
-      <div class="result-body">
+      <div class="res-head"><h2>診断結果</h2><p id="result-sub">あなたの会社に合ったプランはこちらです</p></div>
+      <div class="res-body">
         <div class="saving-box">
-          <div class="saving-left">
-            <div class="saving-label">月間削減できる時間（推定）</div>
-            <div class="saving-val" id="saving-val">-- <span>時間/月</span></div>
-            <div class="saving-sub" id="saving-sub">担当者の作業時間を大幅に削減できます</div>
-          </div>
-          <div class="saving-right">
-            <div class="saving-money" id="saving-money">--万円</div>
-            <div class="saving-mlbl">年間換算コスト削減</div>
-          </div>
+          <div><div class="saving-lbl">月間削減できる時間（推定）</div><div class="saving-val" id="saving-val">-- <span>時間/月</span></div><div class="saving-sub" id="saving-sub"></div></div>
+          <div class="saving-right"><div class="saving-money" id="saving-money">--万円</div><div class="saving-mlbl">年間換算コスト削減</div></div>
         </div>
-
-        <div class="issues-box">
-          <div class="issues-title">AIで解決できる課題</div>
-          <div id="issues-list"></div>
-        </div>
-
-        <div class="rec-plan" id="rec-plan">
-          <div class="rec-plan-head">
-            <h3 id="plan-name">おすすめプラン</h3>
-            <span id="plan-badge">★ あなたにぴったり</span>
-          </div>
+        <div class="issues-box"><div class="issues-title">AIで解決できる課題</div><div id="issues-list"></div></div>
+        <div class="rec-plan">
+          <div class="rec-plan-head"><h3 id="plan-name">おすすめプラン</h3><span id="plan-badge">★ あなたにぴったり</span></div>
           <div class="rec-plan-body">
-            <div class="rec-plan-price" id="plan-price">¥3〜5万 <span>スポット</span></div>
+            <div class="rec-plan-price" id="plan-price"></div>
             <div class="rec-plan-reason" id="plan-reason"></div>
-            <div class="rec-plan-points" id="plan-points"></div>
+            <div id="plan-points"></div>
           </div>
         </div>
-
-        <div class="result-cta">
-          <a href="lp.html#plan" class="cta-btn-main">✦ プラン一覧・詳細を確認する</a>
-          <div class="retry-btn" onclick="restart()">もう一度診断する</div>
+        <div class="res-cta">
+          <a href="lp.html#plan" class="cta-main">✦ プラン一覧・詳細を確認する</a>
+          <div class="retry-lnk" onclick="restart()">もう一度診断する</div>
         </div>
       </div>
     </div>
@@ -267,232 +177,152 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--n
 </div>
 
 <script>
-const questions = [
-  {
-    num:'01',
-    text:'今、一番時間がかかっている作業は何ですか？',
-    sub:'当てはまるものを1つ選んでください。',
-    choices:[
-      {ico:'📄', title:'書類・帳票作成', desc:'見積書・請求書・報告書の作成', score:{doc:3,com:0,info:0,busy:2}},
-      {ico:'💬', title:'メール・連絡対応', desc:'問い合わせ・発注・フォローのメール', score:{doc:0,com:3,info:0,busy:2}},
-      {ico:'📊', title:'データ入力・集計', desc:'Excelへの入力・転記・集計作業', score:{doc:2,com:0,info:2,busy:3}},
-      {ico:'📋', title:'報告書・議事録', desc:'現場報告・会議メモの整理', score:{doc:1,com:0,info:3,busy:2}},
-    ]
-  },
-  {
-    num:'02',
-    text:'月に繰り返している作業に、どのくらい時間をかけていますか？',
-    sub:'概算で構いません。',
-    choices:[
-      {ico:'🟢', title:'5〜10時間くらい', desc:'週1〜2時間程度', score:{hours:8, level:1}},
-      {ico:'🟡', title:'10〜20時間くらい', desc:'週2〜5時間程度', score:{hours:15, level:2}},
-      {ico:'🟠', title:'20〜40時間くらい', desc:'週5〜10時間程度', score:{hours:30, level:3}},
-      {ico:'🔴', title:'40時間以上', desc:'ほぼ毎日2時間以上', score:{hours:50, level:4}},
-    ]
-  },
-  {
-    num:'03',
-    text:'現在、主にどのツールを使っていますか？',
-    sub:'最もよく使うものを選んでください。',
-    choices:[
-      {ico:'📗', title:'Excel・スプレッドシート', desc:'データ管理・集計に使用', score:{tool:'excel'}},
-      {ico:'📝', title:'紙・手書き', desc:'伝票・帳票・メモは紙が中心', score:{tool:'paper'}},
-      {ico:'💻', title:'業界専用システム', desc:'受発注・在庫管理などの専用ソフト', score:{tool:'system'}},
-      {ico:'📱', title:'スマホ・LINE・メール', desc:'連絡・共有はスマホが中心', score:{tool:'mobile'}},
-    ]
-  },
-  {
-    num:'04',
-    text:'AIやデジタル化への印象を教えてください。',
-    sub:'正直なところを選んでください。',
-    choices:[
-      {ico:'🔥', title:'すぐ始めたい', desc:'興味あり・導入意欲が高い', score:{ai:4}},
-      {ico:'🤔', title:'興味はあるが半信半疑', desc:'効果があるのか少し疑っている', score:{ai:3}},
-      {ico:'😅', title:'苦手意識があるが試したい', desc:'ITは得意ではないが前向きに考えたい', score:{ai:2}},
-      {ico:'🧐', title:'もう少し様子を見たい', desc:'慎重に検討したい', score:{ai:1}},
-    ]
-  },
-  {
-    num:'05',
-    text:'時間を取り戻せたら、何に使いたいですか？',
-    sub:'一番やりたいことを選んでください。',
-    choices:[
-      {ico:'📣', title:'営業・新規顧客開拓', desc:'もっとお客さんと話す時間を増やしたい', score:{goal:'sales'}},
-      {ico:'🔧', title:'現場・本業に集中', desc:'本来の仕事に専念したい', score:{goal:'core'}},
-      {ico:'📈', title:'経営・戦略を考える時間', desc:'会社の将来を考える余裕が欲しい', score:{goal:'mgmt'}},
-      {ico:'🏠', title:'プライベートの時間', desc:'家族や自分の時間を取り戻したい', score:{goal:'life'}},
-    ]
-  }
+const questions=[
+  {num:'01',text:'今、一番時間がかかっている作業は何ですか？',sub:'当てはまるものを1つ選んでください。',
+   choices:[
+    {ico:'📄',title:'書類・帳票作成',desc:'見積書・請求書・報告書の作成',score:{type:0}},
+    {ico:'💬',title:'メール・連絡対応',desc:'問い合わせ・発注・フォローのメール',score:{type:1}},
+    {ico:'📊',title:'データ入力・集計',desc:'Excelへの入力・転記・集計作業',score:{type:2}},
+    {ico:'📋',title:'報告書・議事録',desc:'現場報告・会議メモの整理',score:{type:3}},
+  ]},
+  {num:'02',text:'月に繰り返している作業に、どのくらい時間をかけていますか？',sub:'概算で構いません。',
+   choices:[
+    {ico:'🟢',title:'5〜10時間くらい',desc:'週1〜2時間程度',score:{hours:8,level:1}},
+    {ico:'🟡',title:'10〜20時間くらい',desc:'週2〜5時間程度',score:{hours:15,level:2}},
+    {ico:'🟠',title:'20〜40時間くらい',desc:'週5〜10時間程度',score:{hours:30,level:3}},
+    {ico:'🔴',title:'40時間以上',desc:'ほぼ毎日2時間以上',score:{hours:50,level:4}},
+  ]},
+  {num:'03',text:'現在、主にどのツールを使っていますか？',sub:'最もよく使うものを選んでください。',
+   choices:[
+    {ico:'📗',title:'Excel・スプレッドシート',desc:'データ管理・集計に使用',score:{tool:'excel'}},
+    {ico:'📝',title:'紙・手書き',desc:'伝票・帳票・メモは紙が中心',score:{tool:'paper'}},
+    {ico:'💻',title:'業界専用システム',desc:'受発注・在庫管理などの専用ソフト',score:{tool:'system'}},
+    {ico:'📱',title:'スマホ・LINE・メール',desc:'連絡・共有はスマホが中心',score:{tool:'mobile'}},
+  ]},
+  {num:'04',text:'AIやデジタル化への印象を教えてください。',sub:'正直なところを選んでください。',
+   choices:[
+    {ico:'🔥',title:'すぐ始めたい',desc:'興味あり・導入意欲が高い',score:{ai:4}},
+    {ico:'🤔',title:'興味はあるが半信半疑',desc:'効果があるのか少し疑っている',score:{ai:3}},
+    {ico:'😅',title:'苦手意識があるが試したい',desc:'ITは得意ではないが前向き',score:{ai:2}},
+    {ico:'🧐',title:'もう少し様子を見たい',desc:'慎重に検討したい',score:{ai:1}},
+  ]},
+  {num:'05',text:'時間を取り戻せたら、何に使いたいですか？',sub:'一番やりたいことを選んでください。',
+   choices:[
+    {ico:'📣',title:'営業・新規顧客開拓',desc:'もっとお客さんと話す時間を増やしたい',score:{goal:'sales'}},
+    {ico:'🔧',title:'現場・本業に集中',desc:'本来の仕事に専念したい',score:{goal:'core'}},
+    {ico:'📈',title:'経営・戦略を考える時間',desc:'会社の将来を考える余裕が欲しい',score:{goal:'mgmt'}},
+    {ico:'🏠',title:'プライベートの時間',desc:'家族や自分の時間を取り戻したい',score:{goal:'life'}},
+  ]},
 ];
 
-let current = 0;
-let answers = [];
-let selected = null;
+let current=0,answers=[],selected=null;
 
-function renderQ() {
-  const q = questions[current];
-  document.getElementById('q-num').textContent = 'QUESTION ' + q.num;
-  document.getElementById('q-text').textContent = q.text;
-  document.getElementById('q-sub').textContent = q.sub;
-  document.getElementById('prog-label').textContent = `質問 ${current+1} / ${questions.length}`;
-  const pct = Math.round((current+1)/questions.length*100);
-  document.getElementById('prog-count').textContent = pct + '%';
-  document.getElementById('prog-bar').style.width = pct + '%';
-  document.getElementById('q-num').textContent = `QUESTION 0${current+1}`;
-
-  const choicesEl = document.getElementById('choices');
-  choicesEl.innerHTML = '';
-  q.choices.forEach((c, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'choice' + (selected === i ? ' selected' : '');
-    btn.innerHTML = `<div class="choice-ico">${c.ico}</div><div class="choice-text"><h4>${c.title}</h4><p>${c.desc}</p></div>`;
-    btn.onclick = () => selectChoice(i);
+function renderQ(){
+  const q=questions[current];
+  document.getElementById('q-num').textContent='QUESTION 0'+(current+1);
+  document.getElementById('q-text').textContent=q.text;
+  document.getElementById('q-sub').textContent=q.sub;
+  const pct=Math.round((current+1)/questions.length*100);
+  document.getElementById('prog-label').textContent=`質問 ${current+1} / ${questions.length}`;
+  document.getElementById('prog-count').textContent=pct+'%';
+  document.getElementById('prog-bar').style.width=pct+'%';
+  const choicesEl=document.getElementById('choices');
+  choicesEl.innerHTML='';
+  q.choices.forEach((c,i)=>{
+    const btn=document.createElement('button');
+    btn.className='choice'+(selected===i?' selected':'');
+    btn.innerHTML=`<div class="ch-ico">${c.ico}</div><div><div class="ch-ttl">${c.title}</div><div class="ch-dsc">${c.desc}</div></div>`;
+    btn.onclick=()=>selectChoice(i);
     choicesEl.appendChild(btn);
   });
-
-  document.getElementById('btn-next').disabled = selected === null;
-  document.getElementById('btn-back').style.display = current > 0 ? 'block' : 'none';
-  document.getElementById('btn-next').textContent = current === questions.length - 1 ? '診断結果を見る →' : '次の質問 →';
+  document.getElementById('btn-next').disabled=selected===null;
+  document.getElementById('btn-back').style.display=current>0?'block':'none';
+  document.getElementById('btn-next').textContent=current===questions.length-1?'診断結果を見る →':'次の質問 →';
 }
 
-function selectChoice(i) {
-  selected = i;
-  document.querySelectorAll('.choice').forEach((el, idx) => {
-    el.classList.toggle('selected', idx === i);
-  });
-  document.getElementById('btn-next').disabled = false;
+function selectChoice(i){
+  selected=i;
+  document.querySelectorAll('.choice').forEach((el,idx)=>el.classList.toggle('selected',idx===i));
+  document.getElementById('btn-next').disabled=false;
 }
 
-function nextQ() {
-  if (selected === null) return;
-  answers[current] = selected;
-  if (current < questions.length - 1) {
-    current++;
-    selected = answers[current] !== undefined ? answers[current] : null;
-    renderQ();
-  } else {
-    showResult();
-  }
+function nextQ(){
+  if(selected===null)return;
+  answers[current]=selected;
+  if(current<questions.length-1){current++;selected=answers[current]!==undefined?answers[current]:null;renderQ();}
+  else showResult();
 }
 
-function prevQ() {
-  if (current > 0) {
-    current--;
-    selected = answers[current] !== undefined ? answers[current] : null;
-    renderQ();
-  }
+function prevQ(){
+  if(current>0){current--;selected=answers[current]!==undefined?answers[current]:null;renderQ();}
 }
 
-function restart() {
-  current = 0; answers = []; selected = null;
-  document.getElementById('result-area').style.display = 'none';
-  document.getElementById('quiz-area').style.display = 'block';
+function restart(){
+  current=0;answers=[];selected=null;
+  document.getElementById('result-area').style.display='none';
+  document.getElementById('quiz-area').style.display='block';
   renderQ();
 }
 
-function showResult() {
-  const a = answers;
-  const hoursChoice = questions[1].choices[a[1]].score;
-  const monthlyHours = hoursChoice.hours;
-  const level = hoursChoice.level;
-  const aiScore = questions[3].choices[a[3]].score.ai;
-  const tool = questions[2].choices[a[2]].score.tool;
+function showResult(){
+  const a=answers;
+  const hoursChoice=questions[1].choices[a[1]].score;
+  const monthlyHours=hoursChoice.hours;
+  const level=hoursChoice.level;
+  const aiScore=questions[3].choices[a[3]].score.ai;
+  const tool=questions[2].choices[a[2]].score.tool;
+  const reductionRate=level===4?0.60:level===3?0.55:level===2?0.50:0.40;
+  const savedHours=Math.round(monthlyHours*reductionRate);
+  const hourlyRate=2500;
+  const annualSaving=Math.round(savedHours*hourlyRate*12/10000);
 
-  // 削減時間の試算（月次作業時間の40〜60%削減）
-  const reductionRate = level === 4 ? 0.60 : level === 3 ? 0.55 : level === 2 ? 0.50 : 0.40;
-  const savedHours = Math.round(monthlyHours * reductionRate);
+  document.getElementById('saving-val').innerHTML=`${savedHours} <span>時間/月</span>`;
+  document.getElementById('saving-money').textContent=`年間約${annualSaving}万円`;
+  document.getElementById('saving-sub').textContent=`月${monthlyHours}時間の繰り返し作業を約${Math.round(reductionRate*100)}%削減。人件費換算で年間${annualSaving}万円相当。`;
 
-  // コスト削減は「採用コストとの比較」で表現（時給換算ではなく年間換算）
-  // パート1名（時給1,200円×月160h=月19.2万円）を基準に
-  // 削減時間を人件費換算（時給2,500円で算出）→ 年換算で表示
-  const hourlyRate = 2500;
-  const annualSaving = Math.round(savedHours * hourlyRate * 12 / 10000);
-
-  document.getElementById('saving-val').innerHTML = `${savedHours} <span>時間/月</span>`;
-  document.getElementById('saving-money').textContent = `年間約${annualSaving}万円`;
-  document.getElementById('saving-sub').textContent = `月${monthlyHours}時間の繰り返し作業を約${Math.round(reductionRate*100)}%削減。人件費換算で年間${annualSaving}万円相当。`;
-
-  // 課題リスト
-  const issueMap = [
-    {text:'書類・帳票作成の自動化（見積書・請求書）', type:'ai'},
-    {text:'メール・連絡対応の自動送信', type:'ai'},
-    {text:'データ入力・集計の自動化', type:'ai'},
-    {text:'報告書・議事録の音声入力→自動整形', type:'ai'},
-    {text:'ツールの選定と初期設定（人が伴走）', type:'human'},
-    {text:'社員・スタッフへのレクチャー（人が伴走）', type:'human'},
+  const issueMap=[
+    {text:'書類・帳票作成の自動化（見積書・請求書）',type:'ai'},
+    {text:'メール・連絡対応の自動送信',type:'ai'},
+    {text:'データ入力・集計の自動化',type:'ai'},
+    {text:'報告書・議事録の音声入力→自動整形',type:'ai'},
+    {text:'ツールの選定と初期設定（人が伴走）',type:'human'},
+    {text:'社員・スタッフへのレクチャー（人が伴走）',type:'human'},
   ];
-  const selected0 = a[0];
-  const issues = [
-    issueMap[selected0],
-    issueMap[(selected0+1)%4],
-    issueMap[4],
-    issueMap[5],
-  ];
-  const issueList = document.getElementById('issues-list');
-  issueList.innerHTML = issues.map(iss => `
-    <div class="issue-item">
-      <span class="issue-tag ${iss.type}">${iss.type === 'ai' ? 'AI対応' : '人が伴走'}</span>
-      ${iss.text}
-    </div>`).join('');
+  const t=questions[0].choices[a[0]].score.type;
+  const issues=[issueMap[t],issueMap[(t+1)%4],issueMap[4],issueMap[5]];
+  document.getElementById('issues-list').innerHTML=issues.map(iss=>`<div class="issue-item"><span class="issue-tag ${iss.type}">${iss.type==='ai'?'AI対応':'人が伴走'}</span>${iss.text}</div>`).join('');
 
-  // ═══ プラン判定（年間削減コスト vs プラン費用で逆転しない設計）═══
-  // 診断スポット：3〜5万円 → 年間削減が30万円以上ないと元が取れない
-  // おまかせ3万/月：年36万円 → 年間削減が50万円以上で費用対効果が出る
-  // おまかせ5〜10万/月：年60〜120万円 → 年間削減が80万円以上
-  const monthlySaving = Math.round(savedHours * hourlyRate / 10000 * 10) / 10;
-
-  let planName, planPrice, planUnit, planReason, planPoints;
-
-  if (annualSaving < 15) {
-    // 年間削減15万円未満 → 診断以前にまず無料相談
-    planName = 'まずは無料相談から';
-    planPrice = '¥0';
-    planUnit = '無料';
-    planReason = `現在の繰り返し作業量（月${monthlyHours}時間）では、いきなりプランを導入するより「どの業務から手をつけるか」を一緒に整理することが先決です。無料で現状をお聞きして、費用対効果が出る進め方をご提案します。`;
-    planPoints = ['現状ヒアリング（無料・30分）', 'AI化に向いている業務の見極め', '最適なスタート方法をご提案'];
-
-  } else if (annualSaving < 50 || aiScore <= 2 || tool === 'paper') {
-    // 年間削減15〜50万円 or 苦手意識あり → 診断スポットが最適
-    planName = '業務お片付け診断';
-    planPrice = '¥3〜5万';
-    planUnit = 'スポット（1回）';
-    if (aiScore <= 2) {
-      planReason = 'AIへの苦手意識がある状態でいきなり月額契約は不安になりやすいです。まず診断（3〜5万円）で「自社でどれだけ効果が出るか」を数字で確認してから判断するのが最も安心です。';
-    } else if (tool === 'paper') {
-      planReason = '紙・手書きが中心の場合、まず現在の業務を整理してどこからデジタル化するかを設計する必要があります。診断から入ることで無駄のない順序で進められます。';
-    } else {
-      planReason = `年間約${annualSaving}万円のコスト削減が見込めます。診断（3〜5万円）でどの業務から始めるかを整理すれば、投資回収は数ヶ月で実現できます。まず診断で全体像をつかみましょう。`;
-    }
-    planPoints = ['業務整理マップ（今の業務を可視化）', 'AI活用ポイントリスト（自動化できる業務一覧）', '月削減時間・コスト削減の試算レポート'];
-
-  } else if (annualSaving < 80) {
-    // 年間削減50〜80万円 → おまかせ月3万円ライン
-    planName = 'おまかせプラン';
-    planPrice = '¥3万';
-    planUnit = '/月〜';
-    planReason = `年間約${annualSaving}万円のコスト削減に対して、月3万円（年36万円）の投資。差し引き年間約${annualSaving - 36}万円のプラスになる計算です。今使っているスプレッドシートをそのまま使いながら、その先の作業を自動化する仕組みを作って渡します。`;
-    planPoints = ['会社専用ツール・仕組みの作成', 'スプレッドシート起点の自動化', 'チャットサポート＋月1回MTG'];
-
+  let planName,planPrice,planUnit,planReason,planPoints;
+  if(annualSaving<15){
+    planName='まずは無料相談から';planPrice='¥0';planUnit='無料';
+    planReason=`現在の繰り返し作業量（月${monthlyHours}時間）では、いきなりプランを導入するより「どの業務から手をつけるか」を一緒に整理することが先決です。無料で現状をお聞きして、費用対効果が出る進め方をご提案します。`;
+    planPoints=['現状ヒアリング（無料・30分）','AI化に向いている業務の見極め','最適なスタート方法をご提案'];
+  } else if(annualSaving<50||aiScore<=2||tool==='paper'){
+    planName='業務お片付け診断';planPrice='¥3〜5万';planUnit='スポット（1回）';
+    if(aiScore<=2)planReason='AIへの苦手意識がある状態でいきなり月額契約は不安になりやすいです。まず診断（3〜5万円）で「自社でどれだけ効果が出るか」を数字で確認してから判断するのが最も安心です。';
+    else if(tool==='paper')planReason='紙・手書きが中心の場合、まず現在の業務を整理してどこからデジタル化するかを設計する必要があります。診断から入ることで無駄のない順序で進められます。';
+    else planReason=`年間約${annualSaving}万円のコスト削減が見込めます。診断（3〜5万円）でどの業務から始めるかを整理すれば、投資回収は数ヶ月で実現できます。`;
+    planPoints=['業務整理マップ（今の業務を可視化）','AI活用ポイントリスト（自動化できる業務一覧）','月削減時間・コスト削減の試算レポート'];
+  } else if(annualSaving<80){
+    planName='おまかせプラン';planPrice='¥3万';planUnit='/月〜';
+    planReason=`年間約${annualSaving}万円のコスト削減に対して、月3万円（年36万円）の投資。差し引き年間約${annualSaving-36}万円のプラスになる計算です。今使っているスプレッドシートをそのまま使いながら、その先の作業を自動化する仕組みを作って渡します。`;
+    planPoints=['会社専用ツール・仕組みの作成','スプレッドシート起点の自動化','チャットサポート＋月1回MTG'];
   } else {
-    // 年間削減80万円以上 → おまかせ拡張・まるごとプラン
-    planName = 'おまかせプラン（拡張）';
-    planPrice = '¥5〜10万';
-    planUnit = '/月';
-    planReason = `年間約${annualSaving}万円のコスト削減に対して、月5〜10万円（年60〜120万円）の投資。費用対効果が明確に出るボリュームです。複数業務を同時に自動化し、月次MTGで継続改善します。`;
-    planPoints = ['複数業務の同時自動化', 'スプレッドシート起点の仕組み構築', '月次MTG＋週次チャットサポート'];
+    planName='おまかせプラン（拡張）';planPrice='¥5〜10万';planUnit='/月';
+    planReason=`年間約${annualSaving}万円のコスト削減に対して、月5〜10万円（年60〜120万円）の投資。費用対効果が明確に出るボリュームです。複数業務を同時に自動化し、月次MTGで継続改善します。`;
+    planPoints=['複数業務の同時自動化','スプレッドシート起点の仕組み構築','月次MTG＋週次チャットサポート'];
   }
 
-  document.getElementById('plan-name').textContent = planName;
-  document.getElementById('plan-price').innerHTML = `${planPrice} <span>${planUnit}</span>`;
-  document.getElementById('plan-reason').textContent = planReason;
-  document.getElementById('plan-points').innerHTML = planPoints.map(p =>
-    `<div class="rpp"><div class="rpp-dot">✓</div>${p}</div>`).join('');
+  document.getElementById('plan-name').textContent=planName;
+  document.getElementById('plan-price').innerHTML=`${planPrice} <span>${planUnit}</span>`;
+  document.getElementById('plan-reason').textContent=planReason;
+  document.getElementById('plan-points').innerHTML=planPoints.map(p=>`<div class="rpp"><div class="rpp-dot">✓</div>${p}</div>`).join('');
 
-  document.getElementById('quiz-area').style.display = 'none';
-  document.getElementById('result-area').style.display = 'flex';
+  document.getElementById('quiz-area').style.display='none';
+  const ra=document.getElementById('result-area');
+  ra.style.display='flex';
 }
 
-// 初期表示
 renderQ();
 </script>
 </body>
