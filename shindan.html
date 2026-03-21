@@ -114,6 +114,27 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--cream);color:var(--i
 .cta-main:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 6px 20px rgba(249,115,22,0.3);}
 .retry-lnk{font-size:11px;color:var(--muted);text-align:center;cursor:pointer;text-decoration:underline;margin-top:4px;}
 .retry-lnk:hover{color:var(--ink2);}
+
+/* ===== スマホ対応 ===== */
+@media(max-width:768px){
+  .nav{padding:0 16px;height:48px;}
+  .nav-ttl{font-size:13px;}
+  .nav-back{font-size:11px;}
+  .main{padding:20px 12px 40px;}
+  .card-head{padding:22px 20px 20px;}
+  .head-title{font-size:18px;}
+  .progress-wrap{padding:12px 20px 10px;}
+  .q-area{padding:22px 20px 24px;min-height:auto;}
+  .q-text{font-size:16px;}
+  .choice{padding:12px 14px;}
+  .nav-btns{flex-direction:column-reverse;}
+  .btn-back{width:100%;}
+  .res-head{padding:18px 20px;}
+  .res-body{padding:18px 16px 22px;}
+  .saving-box{grid-template-columns:1fr;gap:12px;}
+  .saving-val{font-size:32px;}
+  .saving-right{text-align:left;}
+}
 </style>
 </head>
 <body>
