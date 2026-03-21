@@ -187,6 +187,56 @@ footer{background:var(--white);border-top:2px solid var(--border);padding:28px 4
 /* フェードイン */
 .fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease;}
 .fade-in.visible{opacity:1;transform:translateY(0);}
+
+/* ===== スマホ対応 ===== */
+@media(max-width:768px){
+  /* ナビ */
+  .nav{padding:0 16px;height:52px;}
+  .nav-title{font-size:13px;}
+  .nav-cta{padding:7px 14px;font-size:11px;}
+
+  /* ヒーロー */
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-left{padding:36px 20px 28px;}
+  .hero-catch{font-size:32px;line-height:1.4;}
+  .hero-right{border-left:none;border-top:1px solid var(--border);padding:24px 20px;}
+  .hero-btns{flex-direction:column;}
+  .btn-main,.btn-sub{width:100%;text-align:center;padding:14px 20px;}
+
+  /* セクション共通 */
+  .sec{padding:48px 16px;}
+  .sec-title{font-size:24px;}
+
+  /* 課題グリッド */
+  .pain-grid{grid-template-columns:1fr;}
+  .pain-cta-box{flex-direction:column;gap:12px;}
+  .pain-cta-box a{width:100%;text-align:center;}
+
+  /* Before/After */
+  .ba-stats{grid-template-columns:repeat(2,1fr);}
+  .ba-grid{grid-template-columns:1fr;}
+
+  /* できること */
+  .flow-bar{flex-direction:column;gap:6px;}
+  .fa{transform:rotate(90deg);}
+  .feat-grid{grid-template-columns:1fr;}
+
+  /* プラン */
+  .plan-grid{grid-template-columns:1fr;}
+
+  /* 選ばれる理由 */
+  .reason-grid{grid-template-columns:1fr;}
+  .vs-panel{grid-template-columns:1fr;gap:12px;}
+  .vs-sep{display:none;}
+
+  /* CTA */
+  .cta-sec{padding:56px 16px;}
+  .cta-sec h2{font-size:24px;}
+  .btn-amber{width:100%;text-align:center;}
+
+  /* フッター */
+  footer{padding:20px 16px;flex-direction:column;gap:8px;text-align:center;}
+}
 </style>
 </head>
 <body>
