@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>兵庫県立大学附属中学校 面接対策</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FDFAF5;--white:#FFFFFF;
+  --ink:#1A1A2E;--ink2:#2D3561;--muted:#6B7280;
+  --border:#E5E0D8;--amber:#F59E0B;--amber-l:#FEF3C7;
+  --coral:#EF4444;--coral-l:#FEE2E2;
+  --green:#10B981;--green-l:#D1FAE5;
+  --blue:#3B82F6;--blue-l:#DBEAFE;
+  --accent:#F97316;
+  --shadow:0 4px 24px rgba(26,26,46,.08);
+  --shadow-lg:0 8px 40px rgba(26,26,46,.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow-x:hidden;}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  font-size:18px;
+  line-height:1.6;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer;border:none;-webkit-tap-highlight-color:transparent;}
+input,textarea,select{font-family:inherit;font-size:18px;}
+
+/* レイアウト */
+.app{max-width:780px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;}
+.header{
+  background:var(--ink);color:#fff;padding:16px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--shadow);
+}
+.header-title{font-size:15px;font-weight:700;line-height:1.4;}
+.parent-btn{
+  background:rgba(255,255,255,.15);color:#fff;
+  padding:6px 12px;border-radius:6px;font-size:11px;font-weight:500;
+}
+.content{flex:1;padding:24px 20px 40px;}
+
+/* カウントダウンカード */
+.countdown{
+  background:linear-gradient(135deg,var(--ink) 0%,var(--ink2) 100%);
+  color:#fff;padding:28px 24px;border-radius:18px;
+  box-shadow:var(--shadow-lg);margin-bottom:20px;
+}
+.cd-label{font-size:13px;opacity:.85;margin-bottom:8px;letter-spacing:.05em;}
+.cd-days{font-size:64px;font-weight:900;line-height:1;margin-bottom:6px;}
+.cd-days-unit{font-size:20px;font-weight:500;opacity:.9;margin-left:6px;}
+.cd-date{font-size:13px;opacity:.7;margin-bottom:20px;}
+.cd-phase{font-size:14px;font-weight:700;margin-bottom:10px;}
+.cd-phase em{font-style:normal;color:var(--amber);}
+.cd-progress{
+  background:rgba(255,255,255,.15);height:8px;border-radius:4px;overflow:hidden;
+  margin-bottom:8px;
+}
+.cd-progress-bar{
+  background:linear-gradient(90deg,var(--amber) 0%,#FFB94A 100%);
+  height:100%;transition:width .5s;
+}
+.cd-progress-info{font-size:12px;opacity:.75;display:flex;justify-content:space-between;}
+
+/* 今日のメニュー */
+.today-card{
+  background:var(--white);border-radius:18px;padding:28px 24px;
+  box-shadow:var(--shadow);margin-bottom:20px;text-align:center;
+}
+.today-label{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.1em;margin-bottom:10px;}
+.today-menu{font-size:28px;font-weight:900;color:var(--ink);margin-bottom:8px;}
+.today-menu em{font-style:normal;color:var(--accent);}
+.today-desc{font-size:14px;color:var(--muted);margin-bottom:24px;}
+.today-streak{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--amber-l);color:#B45309;
+  padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;
+  margin-bottom:20px;
+}
+.start-btn{
+  background:linear-gradient(135deg,var(--accent) 0%,#FB923C 100%);
+  color:#fff;padding:18px 40px;border-radius:14px;
+  font-size:18px;font-weight:700;width:100%;max-width:280px;
+  box-shadow:0 6px 20px rgba(249,115,22,.35);
+  transition:transform .15s,box-shadow .15s;
+}
+.start-btn:active{transform:translateY(2px);box-shadow:0 3px 10px rgba(249,115,22,.3);}
+
+/* セッション画面 */
+.session{display:none;}
+.session.on{display:block;}
+.ses-back{
+  background:transparent;color:var(--muted);font-size:13px;
+  margin-bottom:16px;padding:6px 0;
+}
+.ai-bubble{
+  background:var(--white);border-radius:16px 16px 16px 4px;
+  padding:18px 22px;margin-bottom:16px;
+  box-shadow:var(--shadow);
+  font-size:17px;line-height:1.7;
+  position:relative;
+}
+.ai-bubble::before{
+  content:'AI';position:absolute;top:-10px;left:14px;
+  background:var(--ink2);color:#fff;font-size:10px;font-weight:700;
+  padding:2px 8px;border-radius:4px;letter-spacing:.1em;
+}
+.user-bubble{
+  background:var(--ink);color:#fff;border-radius:16px 16px 4px 16px;
+  padding:14px 18px;margin-bottom:16px;margin-left:auto;max-width:85%;
+  font-size:16px;line-height:1.6;
+}
+.error-bubble{
+  background:var(--coral-l);color:#991B1B;border:1.5px solid var(--coral);
+  border-radius:12px;padding:14px 18px;margin-bottom:16px;font-size:14px;
+}
+.loading{
+  display:flex;align-items:center;gap:10px;
+  background:var(--white);border-radius:12px;padding:14px 18px;margin-bottom:16px;
+  font-size:14px;color:var(--muted);
+}
+.loading-dot{
+  width:8px;height:8px;background:var(--ink2);border-radius:50%;
+  animation:pulse 1.4s infinite;
+}
+.loading-dot:nth-child(2){animation-delay:.2s;}
+.loading-dot:nth-child(3){animation-delay:.4s;}
+@keyframes pulse{0%,80%,100%{opacity:.3;}40%{opacity:1;}}
+
+/* 入力エリア */
+.input-area{
+  position:sticky;bottom:0;background:var(--cream);
+  padding:16px 0 8px;border-top:1px solid var(--border);margin-top:20px;
+}
+.mic-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;}
+.mic-btn{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:28px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(249,115,22,.4);
+  flex-shrink:0;transition:all .15s;
+}
+.mic-btn.recording{background:var(--coral);animation:rec 1.2s infinite;}
+.mic-btn:disabled{opacity:.4;}
+@keyframes rec{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.5);}50%{box-shadow:0 0 0 12px rgba(239,68,68,0);}}
+.input-text{
+  flex:1;border:2px solid var(--border);background:var(--white);
+  border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.5;
+  resize:none;min-height:60px;max-height:120px;outline:none;
+  transition:border-color .15s;
+}
+.input-text:focus{border-color:var(--ink2);}
+.send-row{display:flex;gap:10px;}
+.send-btn{
+  flex:1;background:var(--ink2);color:#fff;
+  padding:14px;border-radius:12px;font-size:15px;font-weight:700;
+}
+.send-btn:disabled{opacity:.4;}
+.skip-btn{
+  background:transparent;color:var(--muted);
+  padding:14px 20px;border-radius:12px;font-size:13px;font-weight:500;
+  border:1.5px solid var(--border);
+}
+
+/* 写真撮影 */
+.photo-area{margin-bottom:16px;}
+.photo-btn{
+  display:block;width:100%;background:var(--white);
+  border:2px dashed var(--border);border-radius:14px;
+  padding:32px 16px;text-align:center;
+}
+.photo-btn-ico{font-size:36px;margin-bottom:8px;}
+.photo-btn-text{font-size:15px;font-weight:700;color:var(--ink);}
+.photo-btn-sub{font-size:12px;color:var(--muted);margin-top:4px;}
+.photo-preview{
+  position:relative;background:var(--white);border-radius:14px;
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.photo-preview img{width:100%;display:block;}
+.photo-redo{
+  position:absolute;top:10px;right:10px;
+  background:rgba(0,0,0,.7);color:#fff;font-size:12px;
+  padding:6px 12px;border-radius:6px;
+}
+input[type=file]{display:none;}
+
+/* 評価カード */
+.eval-card{
+  background:var(--white);border-radius:14px;padding:20px;
+  box-shadow:var(--shadow);margin-bottom:16px;
+}
+.eval-title{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:12px;letter-spacing:.05em;}
+.eval-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+.eval-row:last-child{border-bottom:none;}
+.eval-name{font-size:14px;font-weight:500;}
+.eval-score{font-size:18px;font-weight:900;color:var(--ink2);}
+.eval-score em{font-style:normal;font-size:11px;color:var(--muted);font-weight:500;}
+
+/* セッション完了 */
+.complete{text-align:center;padding:40px 20px;}
+.complete-emoji{font-size:64px;margin-bottom:16px;}
+.complete-title{font-size:24px;font-weight:900;margin-bottom:8px;}
+.complete-msg{font-size:15px;color:var(--muted);margin-bottom:24px;}
+.complete-btn{
+  background:var(--ink);color:#fff;padding:14px 32px;
+  border-radius:12px;font-size:15px;font-weight:700;
+}
+
+/* 保護者画面 */
+.parent{display:none;}
+.parent.on{display:block;}
+.parent-section{
+  background:var(--white);border-radius:14px;padding:20px;
+  box-shadow:var(--shadow);margin-bottom:16px;
+}
+.parent-sec-title{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--ink);}
+.parent-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.parent-row:last-child{border-bottom:none;}
+.parent-label{font-size:13px;color:var(--muted);}
+.parent-value{font-size:14px;font-weight:700;}
+.parent-input{
+  width:100%;padding:10px 12px;border:1.5px solid var(--border);
+  border-radius:8px;font-size:14px;margin-top:6px;outline:none;
+}
+.parent-input:focus{border-color:var(--ink2);}
+.parent-btn-set{
+  background:var(--ink2);color:#fff;padding:10px 18px;
+  border-radius:8px;font-size:13px;font-weight:700;margin-top:8px;
+}
+.history-row{
+  display:flex;justify-content:space-between;padding:10px 0;
+  border-bottom:1px solid var(--border);font-size:13px;
+}
+.history-row:last-child{border-bottom:none;}
+.history-date{color:var(--muted);}
+.history-menu{font-weight:500;}
+.history-score{font-weight:700;color:var(--ink2);}
+.severity-buttons{display:flex;gap:8px;margin-top:8px;}
+.sev-btn{
+  flex:1;padding:10px;border-radius:8px;font-size:12px;font-weight:700;
+  border:1.5px solid var(--border);background:var(--white);color:var(--ink);
+}
+.sev-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+/* モーダル */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+  z-index:100;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.on{display:flex;}
+.modal{
+  background:var(--white);border-radius:18px;padding:28px 24px;
+  max-width:400px;width:100%;box-shadow:var(--shadow-lg);
+}
+.modal-title{font-size:18px;font-weight:900;margin-bottom:10px;}
+.modal-msg{font-size:14px;color:var(--muted);margin-bottom:18px;line-height:1.6;}
+.modal-input{
+  width:100%;padding:12px;border:1.5px solid var(--border);
+  border-radius:10px;font-size:18px;margin-bottom:14px;outline:none;
+  text-align:center;letter-spacing:.3em;
+}
+.modal-input:focus{border-color:var(--ink2);}
+.modal-actions{display:flex;gap:10px;}
+.modal-cancel{
+  flex:1;background:var(--cream);color:var(--ink);
+  padding:12px;border-radius:10px;font-size:14px;font-weight:700;
+}
+.modal-ok{
+  flex:1;background:var(--ink);color:#fff;
+  padding:12px;border-radius:10px;font-size:14px;font-weight:700;
+}
+
+/* 録音再生 */
+.recording-list{margin-top:12px;}
+.recording-item{
+  display:flex;align-items:center;gap:10px;
+  background:var(--cream);padding:10px 14px;border-radius:10px;margin-bottom:8px;
+}
+.play-btn{
+  width:32px;height:32px;border-radius:50%;background:var(--ink2);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.recording-time{font-size:12px;color:var(--muted);}
+
+/* 模範解答 */
+.example-card{
+  background:var(--cream);border-radius:10px;padding:14px;margin-top:10px;
+  font-size:14px;line-height:1.6;
+}
+.example-good{border-left:3px solid var(--green);padding-left:12px;margin-bottom:10px;}
+.example-bad{border-left:3px solid var(--coral);padding-left:12px;}
+.example-label{font-size:11px;font-weight:700;margin-bottom:4px;}
+.example-label.good{color:var(--green);}
+.example-label.bad{color:var(--coral);}
+.example-toggle{
+  background:transparent;color:var(--ink2);font-size:13px;font-weight:700;
+  padding:8px 0;text-decoration:underline;
+}
+
+/* レスポンシブ */
+@media (max-width:768px){
+  .content{padding:16px 16px 30px;}
+  .cd-days{font-size:52px;}
+  .today-menu{font-size:24px;}
+  .header{padding:14px 16px;}
+}
+
+/* ユーティリティ */
+.hidden{display:none!important;}
+.fade-in{animation:fadeIn .3s;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ヘッダー -->
+<div class="header">
+  <div>
+    <div class="header-title">兵庫県立大学附属中学校<br>面接対策</div>
+  </div>
+  <button class="parent-btn" id="parentBtn" style="display:none;">保護者画面</button>
+</div>
+
+<div class="content">
+
+<!-- ホーム画面 -->
+<div id="home">
+
+<div class="countdown">
+  <div class="cd-label">本番まで</div>
+  <div><span class="cd-days" id="cdDays">--</span><span class="cd-days-unit">日</span></div>
+  <div class="cd-date" id="cdDate">--</div>
+  <div class="cd-phase">現在：<em id="cdPhase">--</em></div>
+  <div class="cd-progress"><div class="cd-progress-bar" id="cdBar" style="width:0%;"></div></div>
+  <div class="cd-progress-info">
+    <span id="cdPhaseDay">--</span>
+    <span id="cdNextPhase">--</span>
+  </div>
+</div>
+
+<div class="today-card">
+  <div class="today-label">TODAY'S MENU</div>
+  <div class="today-menu" id="todayMenu">--</div>
+  <div class="today-desc" id="todayDesc">--</div>
+  <div class="today-streak" id="todayStreak">🔥 0日目</div>
+  <br>
+  <button class="start-btn" id="startBtn">はじめる</button>
+</div>
+
+</div>
+
+<!-- セッション画面 -->
+<div class="session" id="session">
+  <button class="ses-back" id="backBtn">← ホームに戻る</button>
+  <div id="sesContent"></div>
+  <div id="sesInput"></div>
+</div>
+
+<!-- 保護者画面 -->
+<div class="parent" id="parent">
+  <button class="ses-back" id="parentBack">← 戻る</button>
+
+  <div class="parent-section">
+    <div class="parent-sec-title">📅 本番日設定</div>
+    <input type="date" class="parent-input" id="examDate">
+    <button class="parent-btn-set" id="examDateSet">保存</button>
+  </div>
+
+  <div class="parent-section">
+    <div class="parent-sec-title">🔑 Claude APIキー</div>
+    <input type="password" class="parent-input" id="apiKey" placeholder="sk-ant-...">
+    <button class="parent-btn-set" id="apiKeySet">保存</button>
+  </div>
+
+  <div class="parent-section">
+    <div class="parent-sec-title">🎯 AIの厳しさ</div>
+    <div class="severity-buttons">
+      <button class="sev-btn" data-sev="1">優しい</button>
+      <button class="sev-btn" data-sev="2">標準</button>
+      <button class="sev-btn" data-sev="3">厳しい</button>
+    </div>
+  </div>
+
+  <div class="parent-section">
+    <div class="parent-sec-title">📊 練習履歴（直近20回）</div>
+    <div id="historyList">まだ履歴がありません</div>
+  </div>
+
+  <div class="parent-section">
+    <div class="parent-sec-title">💾 データ管理</div>
+    <button class="parent-btn-set" id="exportBtn" style="margin-right:8px;">バックアップを書き出す</button>
+    <button class="parent-btn-set" id="resetBtn" style="background:var(--coral);">全データを消す</button>
+  </div>
+
+  <div class="parent-section">
+    <div class="parent-sec-title">📞 緊急連絡先</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">
+      面接当日の体調管理・本番直前の心構え等は、岡村ゼミナールの担当講師にご相談を。
+    </div>
+  </div>
+</div>
+
+</div><!--/content-->
+</div><!--/app-->
+
+<!-- パスコードモーダル -->
+<div class="modal-overlay" id="passcodeModal">
+  <div class="modal">
+    <div class="modal-title">保護者画面</div>
+    <div class="modal-msg">パスコード（4桁）を入力してください</div>
+    <input type="tel" maxlength="4" class="modal-input" id="passcodeInput" inputmode="numeric" pattern="[0-9]*">
+    <div class="modal-actions">
+      <button class="modal-cancel" id="passcodeCancel">キャンセル</button>
+      <button class="modal-ok" id="passcodeOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- 初回APIキー入力モーダル -->
+<div class="modal-overlay" id="firstModal">
+  <div class="modal">
+    <div class="modal-title">はじめての設定</div>
+    <div class="modal-msg">面接道場を使うには、Claude APIキーが必要です。お父さん・お母さんに聞いてください。</div>
+    <input type="password" class="modal-input" id="firstApiKey" placeholder="sk-ant-..." style="letter-spacing:0;text-align:left;">
+    <div class="modal-actions">
+      <button class="modal-ok" id="firstApiKeyOk" style="flex:1;">保存して始める</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="photoInput" accept="image/*" capture="environment">
+
+<script>
+'use strict';
+
+// ============================================================
+// データキー
+// ============================================================
+const KEY = 'kendai_mensetsu_v1';
+const K = {
+  apiKey: KEY+'_apikey',
+  examDate: KEY+'_examdate',
+  severity: KEY+'_severity',
+  history: KEY+'_history',
+  streak: KEY+'_streak',
+  lastDate: KEY+'_lastdate',
+  draft: KEY+'_draft'
+};
+
+// ============================================================
+// フェーズ定義
+// ============================================================
+const PHASES = [
+  {n:1,name:'素材集め期',start:'2026-05-23',end:'2026-06-21',desc:'自分のエピソードをたくさん集める時期'},
+  {n:2,name:'軸形成期',start:'2026-06-22',end:'2026-08-09',desc:'志望動機と自己PRの核を見つける時期'},
+  {n:3,name:'応答力期',start:'2026-08-10',end:'2026-09-27',desc:'5つの定番質問に自分の答えを作る時期'},
+  {n:4,name:'実戦期',start:'2026-09-28',end:'2026-11-15',desc:'本番形式に体を慣らす時期'},
+  {n:5,name:'仕上げ期',start:'2026-11-16',end:'2027-01-09',desc:'自信をつけて本番に向かう時期'}
+];
+
+// ============================================================
+// 曜日メニュー定義
+// ============================================================
+const MENU = {
+  // Phase 1
+  1:{0:{type:'review',name:'振り返り',desc:'今週を振り返ろう'},1:{type:'paper',name:'新聞の日',desc:'気になった記事を読もう'},2:{type:'paper',name:'新聞の日',desc:'気になった記事を読もう'},3:{type:'paper',name:'新聞の日',desc:'気になった記事を読もう'},4:{type:'paper',name:'新聞の日',desc:'気になった記事を読もう'},5:{type:'paper',name:'新聞の日',desc:'気になった記事を読もう'},6:{type:'paper',name:'新聞の日',desc:'気になった記事を読もう'}},
+  // Phase 2
+  2:{0:{type:'review',name:'振り返り',desc:'今週を振り返ろう'},1:{type:'interview',name:'面接の日',desc:'志望動機を深掘り',theme:'shibo'},2:{type:'interview',name:'面接の日',desc:'自己PRの素材掘り',theme:'pr'},3:{type:'paper',name:'新聞の日',desc:'気になった記事を読もう'},4:{type:'interview',name:'面接の日',desc:'入学後にやりたいこと',theme:'goal'},5:{type:'interview',name:'面接の日',desc:'英語の自己紹介',theme:'eng'},6:{type:'group_simple',name:'集団面接(簡易)',desc:'みんなで練習しよう'}},
+  // Phase 3
+  3:{0:{type:'review',name:'振り返り',desc:'今週を振り返ろう'},1:{type:'interview',name:'面接の日',desc:'なぜ本校を志望？',theme:'shibo'},2:{type:'interview',name:'面接の日',desc:'頑張ったこと',theme:'pr'},3:{type:'interview',name:'面接の日',desc:'入学後の目標',theme:'goal'},4:{type:'interview',name:'面接の日',desc:'気になるニュース',theme:'news'},5:{type:'interview',name:'面接の日',desc:'長所と短所＋英語',theme:'self'},6:{type:'group',name:'集団面接',desc:'5人で面接練習'}},
+  // Phase 4
+  4:{0:{type:'review',name:'振り返り',desc:'今週を振り返ろう'},1:{type:'interview',name:'面接の日',desc:'5問ローテーション',theme:'rotate'},2:{type:'interview',name:'面接の日',desc:'想定外の質問',theme:'surprise'},3:{type:'group',name:'集団面接',desc:'夜の集団面接'},4:{type:'interview',name:'面接の日',desc:'5問ローテーション',theme:'rotate'},5:{type:'interview',name:'面接の日',desc:'英語の質問対応',theme:'eng'},6:{type:'group_real',name:'集団面接(本番想定)',desc:'本番モード'}},
+  // Phase 5
+  5:{0:{type:'review',name:'振り返り',desc:'今週を振り返ろう'},1:{type:'light',name:'軽め復習',desc:'過去の良い回答を振り返ろう'},2:{type:'light',name:'軽め復習',desc:'過去の良い回答を振り返ろう'},3:{type:'group_light',name:'集団面接(軽め)',desc:'リラックス練習'},4:{type:'light',name:'軽め復習',desc:'過去の良い回答を振り返ろう'},5:{type:'light',name:'軽め復習',desc:'過去の良い回答を振り返ろう'},6:{type:'group_light',name:'集団面接(軽め)',desc:'リラックス練習'}}
+};
+
+// ============================================================
+// 状態
+// ============================================================
+let state = {
+  apiKey: localStorage.getItem(K.apiKey) || '',
+  examDate: localStorage.getItem(K.examDate) || '2027-01-09',
+  severity: parseInt(localStorage.getItem(K.severity) || '2'),
+  history: JSON.parse(localStorage.getItem(K.history) || '[]'),
+  streak: parseInt(localStorage.getItem(K.streak) || '0'),
+  lastDate: localStorage.getItem(K.lastDate) || '',
+  session: null
+};
+
+// ============================================================
+// ユーティリティ
+// ============================================================
+function save(key,val){
+  try{
+    localStorage.setItem(key,typeof val==='string'?val:JSON.stringify(val));
+  }catch(e){
+    console.error('保存失敗:',e);
+    alert('データの保存に失敗しました。容量が一杯の可能性があります。');
+  }
+}
+function todayStr(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function daysBetween(a,b){
+  const d1=new Date(a),d2=new Date(b);
+  return Math.round((d2-d1)/(1000*60*60*24));
+}
+function getCurrentPhase(){
+  const today=todayStr();
+  for(const p of PHASES){
+    if(today>=p.start && today<=p.end) return p;
+  }
+  if(today<PHASES[0].start) return PHASES[0];
+  return PHASES[PHASES.length-1];
+}
+function getTodayMenu(){
+  const phase=getCurrentPhase();
+  const dow=new Date().getDay();
+  return MENU[phase.n][dow]||{type:'paper',name:'新聞の日',desc:'今日も練習しよう'};
+}
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ============================================================
+// 初期化
+// ============================================================
+function init(){
+  // 初回起動チェック
+  if(!state.apiKey){
+    document.getElementById('firstModal').classList.add('on');
+  }
+  renderHome();
+  bindEvents();
+  unlockSpeech();
+  checkURLParams();
+}
+
+function unlockSpeech(){
+  // iPad Safariの音声合成unlock（最初のタップで実行）
+  function unlock(){
+    if(window.speechSynthesis){
+      try{
+        const u=new SpeechSynthesisUtterance('');
+        u.volume=0;
+        speechSynthesis.speak(u);
+      }catch(e){}
+    }
+    document.removeEventListener('touchstart',unlock);
+    document.removeEventListener('click',unlock);
+  }
+  document.addEventListener('touchstart',unlock,{once:true});
+  document.addEventListener('click',unlock,{once:true});
+}
+
+function checkURLParams(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('parent')==='1'){
+    document.getElementById('parentBtn').style.display='block';
+  }
+  if(params.get('reset_passcode')==='1'){
+    alert('パスコードはデフォルトに戻りました');
+  }
+}
+
+// ============================================================
+// ホーム画面描画
+// ============================================================
+function renderHome(){
+  const today=todayStr();
+  const days=daysBetween(today,state.examDate);
+  document.getElementById('cdDays').textContent=days>0?days:0;
+
+  const examD=new Date(state.examDate);
+  document.getElementById('cdDate').textContent=
+    examD.getFullYear()+'年'+(examD.getMonth()+1)+'月'+examD.getDate()+'日が本番';
+
+  const phase=getCurrentPhase();
+  document.getElementById('cdPhase').textContent='Phase '+phase.n+'：'+phase.name;
+
+  const phaseDays=daysBetween(phase.start,phase.end)+1;
+  const phaseDayNow=daysBetween(phase.start,today)+1;
+  const progress=Math.max(0,Math.min(100,(phaseDayNow/phaseDays)*100));
+  document.getElementById('cdBar').style.width=progress+'%';
+  document.getElementById('cdPhaseDay').textContent=phaseDayNow+'日目／'+phaseDays+'日';
+
+  // 次のフェーズ
+  const idx=PHASES.findIndex(p=>p.n===phase.n);
+  if(idx<PHASES.length-1){
+    const next=PHASES[idx+1];
+    const daysToNext=daysBetween(today,next.start);
+    document.getElementById('cdNextPhase').textContent='次：Phase '+next.n+' まで'+daysToNext+'日';
+  }else{
+    document.getElementById('cdNextPhase').textContent='本番期間です';
+  }
+
+  // 今日のメニュー
+  const menu=getTodayMenu();
+  document.getElementById('todayMenu').innerHTML='【<em>'+escapeHTML(menu.name)+'</em>】';
+  document.getElementById('todayDesc').textContent=menu.desc;
+
+  // ストリーク
+  document.getElementById('todayStreak').textContent='🔥 連続 '+state.streak+'日達成';
+}
+
+// ============================================================
+// イベントバインド
+// ============================================================
+function bindEvents(){
+  document.getElementById('startBtn').addEventListener('click',startSession);
+  document.getElementById('backBtn').addEventListener('click',backToHome);
+  document.getElementById('parentBtn').addEventListener('click',openPasscode);
+  document.getElementById('parentBack').addEventListener('click',backToHome);
+
+  // パスコード
+  document.getElementById('passcodeOk').addEventListener('click',checkPasscode);
+  document.getElementById('passcodeCancel').addEventListener('click',()=>{
+    document.getElementById('passcodeModal').classList.remove('on');
+  });
+
+  // 初回APIキー
+  document.getElementById('firstApiKeyOk').addEventListener('click',()=>{
+    const k=document.getElementById('firstApiKey').value.trim();
+    if(!k.startsWith('sk-ant-')){
+      alert('APIキーの形式が違うようです。「sk-ant-」で始まるキーを入れてください。');
+      return;
+    }
+    state.apiKey=k;
+    save(K.apiKey,k);
+    document.getElementById('firstModal').classList.remove('on');
+  });
+
+  // 保護者画面
+  document.getElementById('examDateSet').addEventListener('click',()=>{
+    const v=document.getElementById('examDate').value;
+    if(v){
+      state.examDate=v;
+      save(K.examDate,v);
+      alert('本番日を更新しました');
+      renderHome();
+    }
+  });
+  document.getElementById('apiKeySet').addEventListener('click',()=>{
+    const v=document.getElementById('apiKey').value.trim();
+    if(v){
+      state.apiKey=v;
+      save(K.apiKey,v);
+      alert('APIキーを更新しました');
+    }
+  });
+  document.querySelectorAll('.sev-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const sev=parseInt(b.dataset.sev);
+      state.severity=sev;
+      save(K.severity,sev);
+      document.querySelectorAll('.sev-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+    });
+  });
+  document.getElementById('exportBtn').addEventListener('click',exportData);
+  document.getElementById('resetBtn').addEventListener('click',resetData);
+}
+
+// ============================================================
+// パスコード
+// ============================================================
+function openPasscode(){
+  document.getElementById('passcodeModal').classList.add('on');
+  document.getElementById('passcodeInput').value='';
+  setTimeout(()=>document.getElementById('passcodeInput').focus(),100);
+}
+function checkPasscode(){
+  const v=document.getElementById('passcodeInput').value;
+  if(v==='0316'){
+    document.getElementById('passcodeModal').classList.remove('on');
+    openParent();
+  }else{
+    alert('パスコードが違います');
+    document.getElementById('passcodeInput').value='';
+  }
+}
+
+// ============================================================
+// 保護者画面
+// ============================================================
+function openParent(){
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('session').classList.remove('on');
+  document.getElementById('parent').classList.add('on');
+
+  document.getElementById('examDate').value=state.examDate;
+  document.getElementById('apiKey').value=state.apiKey;
+  document.querySelectorAll('.sev-btn').forEach(b=>{
+    b.classList.toggle('active',parseInt(b.dataset.sev)===state.severity);
+  });
+
+  // 履歴表示
+  const hist=state.history.slice(-20).reverse();
+  const el=document.getElementById('historyList');
+  if(hist.length===0){
+    el.innerHTML='<div style="font-size:13px;color:var(--muted);">まだ履歴がありません</div>';
+  }else{
+    el.innerHTML=hist.map(h=>
+      '<div class="history-row"><span class="history-date">'+escapeHTML(h.date)+'</span><span class="history-menu">'+escapeHTML(h.menu)+'</span><span class="history-score">'+(h.score||'-')+'</span></div>'
+    ).join('');
+  }
+}
+
+function backToHome(){
+  document.getElementById('home').classList.remove('hidden');
+  document.getElementById('session').classList.remove('on');
+  document.getElementById('parent').classList.remove('on');
+  stopRecording();
+  state.session=null;
+  renderHome();
+}
+
+// ============================================================
+// データ管理
+// ============================================================
+function exportData(){
+  const data={
+    apiKey:state.apiKey,
+    examDate:state.examDate,
+    severity:state.severity,
+    history:state.history,
+    streak:state.streak,
+    exportDate:new Date().toISOString()
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='kendai_backup_'+todayStr()+'.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetData(){
+  if(!confirm('本当に全データを消しますか？この操作は元に戻せません。')) return;
+  if(!confirm('もう一度確認します。本当に消しますか？')) return;
+  Object.values(K).forEach(k=>localStorage.removeItem(k));
+  location.reload();
+}
+
+// ============================================================
+// セッション開始
+// ============================================================
+function startSession(){
+  if(!state.apiKey){
+    alert('まずAPIキーを設定してください');
+    document.getElementById('firstModal').classList.add('on');
+    return;
+  }
+  const menu=getTodayMenu();
+  state.session={
+    menu:menu,
+    messages:[],
+    photo:null,
+    startTime:Date.now()
+  };
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('session').classList.add('on');
+  document.getElementById('sesContent').innerHTML='';
+
+  // メニュータイプ別に開始
+  if(menu.type==='paper'){
+    startPaperSession();
+  }else if(menu.type==='interview'){
+    startInterviewSession(menu);
+  }else if(menu.type==='group_simple' || menu.type==='group' || menu.type==='group_real' || menu.type==='group_light'){
+    startGroupSession(menu);
+  }else if(menu.type==='review'){
+    startReviewSession();
+  }else if(menu.type==='light'){
+    startLightSession();
+  }
+}
+
+// ============================================================
+// 新聞の日
+// ============================================================
+function startPaperSession(){
+  addAiBubble('今日の子供新聞、何の記事が一番気になった？気になった記事を写真に撮ってきてね。');
+  speak('今日の子供新聞、何の記事が一番気になった？');
+  showPhotoInput();
+}
+
+function showPhotoInput(){
+  const html=`
+    <div class="photo-area" id="photoArea">
+      <label for="photoInput" class="photo-btn">
+        <div class="photo-btn-ico">📷</div>
+        <div class="photo-btn-text">記事を写真に撮る</div>
+        <div class="photo-btn-sub">タップしてカメラを起動</div>
+      </label>
+    </div>
+  `;
+  document.getElementById('sesInput').innerHTML=html;
+
+  const photoInput=document.getElementById('photoInput');
+  photoInput.value='';
+  photoInput.onchange=async e=>{
+    const f=e.target.files[0];
+    if(!f) return;
+    try{
+      const dataUrl=await resizeImage(f,1024,0.8);
+      state.session.photo=dataUrl;
+      document.getElementById('photoArea').innerHTML=
+        '<div class="photo-preview"><img src="'+dataUrl+'"><button class="photo-redo" onclick="document.getElementById(\'photoInput\').click();">撮り直す</button></div>';
+
+      // 写真送ったらAIが感想を聞く
+      addAiBubble('いい記事を選んだね。その記事を読んで、内容と「なぜそれが気になったか」を話してくれる？');
+      speak('その記事を読んで、内容と、なぜそれが気になったかを話してくれる？');
+      showVoiceInput('paper_feedback');
+    }catch(err){
+      addErrorBubble('写真の読み込みに失敗しました：'+err.message);
+    }
+  };
+}
+
+async function resizeImage(file,maxSize,quality){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        if(w>maxSize||h>maxSize){
+          if(w>h){h=h*(maxSize/w);w=maxSize;}
+          else{w=w*(maxSize/h);h=maxSize;}
+        }
+        const canvas=document.createElement('canvas');
+        canvas.width=w;canvas.height=h;
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg',quality));
+      };
+      img.onerror=()=>reject(new Error('画像の読み込みに失敗'));
+      img.src=e.target.result;
+    };
+    reader.onerror=()=>reject(new Error('ファイルの読み込みに失敗'));
+    reader.readAsDataURL(file);
+  });
+}
+
+// ============================================================
+// 面接の日
+// ============================================================
+function startInterviewSession(menu){
+  const themeMap={
+    shibo:'兵庫県立大附属中を志望する理由を教えてください。',
+    pr:'小学校で頑張ったことを教えてください。',
+    goal:'入学したら、どんなことを頑張りたいですか？',
+    news:'最近、気になっているニュースは何ですか？',
+    self:'あなたの長所と短所を教えてください。あと、最後に英語で簡単な自己紹介をお願いします。',
+    eng:'Hello! Please introduce yourself in English. 簡単な自己紹介を英語でしてみてください。',
+    rotate:null, // ランダム
+    surprise:null // ランダム想定外
+  };
+  let question;
+  if(menu.theme==='rotate'){
+    const arr=[themeMap.shibo,themeMap.pr,themeMap.goal,themeMap.news,themeMap.self];
+    question=arr[Math.floor(Math.random()*arr.length)];
+  }else if(menu.theme==='surprise'){
+    const arr=[
+      'もし、あなたが校長先生だったら、この学校に何を変えますか？',
+      '無人島に3つだけ持っていけるとしたら、何を持っていきますか？理由も教えてください。',
+      '自分を動物に例えると何ですか？理由も教えてください。',
+      '友達と意見が合わなかったとき、どうしますか？',
+      '将来、どんな大人になりたいですか？'
+    ];
+    question=arr[Math.floor(Math.random()*arr.length)];
+  }else{
+    question=themeMap[menu.theme]||themeMap.shibo;
+  }
+
+  state.session.theme=menu.theme;
+  state.session.depthCount=0;
+  state.session.firstQuestion=question;
+
+  addAiBubble(question);
+  speak(question);
+  showVoiceInput('interview_answer');
+}
+
+// ============================================================
+// 集団面接の日
+// ============================================================
+function startGroupSession(menu){
+  state.session.groupMode=menu.type;
+  state.session.groupTurn=0;
+  state.session.groupQuestion=null;
+
+  const intro='今日は集団面接の練習です。AさんからDさんまで4人の仮想受験生がいます。あなたは5人目として参加してください。';
+  addAiBubble(intro);
+  speak(intro);
+
+  setTimeout(()=>{
+    runGroupSimulation();
+  },1500);
+}
+
+async function runGroupSimulation(){
+  showLoading();
+  try{
+    const phase=getCurrentPhase();
+    const sysPrompt=`あなたは兵庫県立大学附属中学校の集団面接シミュレーションを進行するAIです。
+仮想受験生4人（A：堂々型、B：内気型、C：論理型、D：感情型）と本物の受験生（5人目）の集団面接を進行します。
+今回は「${menu_name(state.session.groupMode)}」モードです。
+
+以下のJSONフォーマットで出力してください：
+{
+  "question": "面接官からの質問1問",
+  "answers": [
+    {"name":"Aさん", "type":"堂々型", "answer":"Aさんの回答（30-60字程度）"},
+    {"name":"Bさん", "type":"内気型", "answer":"Bさんの回答（短め、緊張気味）"},
+    {"name":"Cさん", "type":"論理型", "answer":"Cさんの回答（理由から入る）"},
+    {"name":"Dさん", "type":"感情型", "answer":"Dさんの回答（体験談から入る）"}
+  ]
+}
+
+質問は附属中で実際に聞かれそうなものを1問。志望動機・頑張ったこと・将来の夢・時事・自己PRから選んでください。`;
+
+    const res=await callClaude([{role:'user',content:'集団面接の質問と4人の回答を作ってください。'}],sysPrompt,1500);
+    hideLoading();
+
+    // JSON抽出
+    const json=parseJSON(res);
+    if(!json||!json.question||!json.answers){
+      addErrorBubble('AIの応答形式が不正でした。もう一度試してください。');
+      return;
+    }
+
+    state.session.groupQuestion=json.question;
+    state.session.groupAnswers=json.answers;
+
+    addAiBubble('面接官：「'+json.question+'」');
+    speak(json.question);
+
+    setTimeout(async()=>{
+      for(const a of json.answers){
+        addUserBubbleAI(a.name+'：「'+a.answer+'」');
+        await sleep(2500);
+        await speakAsync(a.name+'の答えです。'+a.answer);
+      }
+      setTimeout(()=>{
+        addAiBubble('では、'+(state.session.studentName||'あなた')+'さん、どうぞ。');
+        speak('では、あなたの番です。どうぞ。');
+        showVoiceInput('group_answer');
+      },500);
+    },1500);
+  }catch(e){
+    hideLoading();
+    addErrorBubble('集団面接の準備に失敗しました：'+e.message);
+  }
+}
+
+function menu_name(type){
+  return {group_simple:'簡易版',group:'標準',group_real:'本番想定',group_light:'軽め復習'}[type]||'標準';
+}
+
+// ============================================================
+// 振り返りの日
+// ============================================================
+function startReviewSession(){
+  const recent=state.history.slice(-7);
+  if(recent.length===0){
+    addAiBubble('今週はまだ練習履歴がないみたい。明日から始めてみよう！');
+    speak('今週はまだ練習履歴がないみたい。明日から始めてみよう。');
+    showCompleteButton();
+    return;
+  }
+  addAiBubble('今週の振り返りをしよう。今週の練習で「これ良かったな」と思うことを話してくれる？');
+  speak('今週の振り返りをしよう。今週、良かったことを話してくれる？');
+  showVoiceInput('review_answer');
+}
+
+// ============================================================
+// 軽め復習の日
+// ============================================================
+function startLightSession(){
+  const recent=state.history.filter(h=>h.score && h.score>=7).slice(-5);
+  if(recent.length===0){
+    addAiBubble('まだ高評価の回答がないので、今日は普通の面接練習をしよう。');
+    speak('今日は普通の面接練習をしよう。');
+    setTimeout(()=>startInterviewSession({theme:'shibo'}),1500);
+    return;
+  }
+  const pick=recent[Math.floor(Math.random()*recent.length)];
+  addAiBubble('前にこんな良い回答してたね：「'+(pick.summary||'過去の回答')+'」\n\nこの調子で、今日も1問だけ軽く練習しよう。');
+  speak('前に良い回答してたね。今日も1問だけ軽く練習しよう。');
+  setTimeout(()=>startInterviewSession({theme:'shibo'}),2000);
+}
+
+// ============================================================
+// 音声入力UI
+// ============================================================
+function showVoiceInput(mode){
+  state.session.inputMode=mode;
+  const html=`
+    <div class="input-area">
+      <div class="mic-row">
+        <button class="mic-btn" id="micBtn">🎤</button>
+        <textarea class="input-text" id="userInput" placeholder="マイクを押して話す、または直接入力" rows="2"></textarea>
+      </div>
+      <div class="send-row">
+        <button class="send-btn" id="sendBtn">送る</button>
+        <button class="skip-btn" id="finishBtn">終わる</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('sesInput').innerHTML=html;
+
+  document.getElementById('micBtn').addEventListener('click',toggleRecording);
+  document.getElementById('sendBtn').addEventListener('click',sendUserInput);
+  document.getElementById('finishBtn').addEventListener('click',finishSession);
+}
+
+// ============================================================
+// 音声認識
+// ============================================================
+let recognition=null;
+let isRecording=false;
+
+function toggleRecording(){
+  if(isRecording){
+    stopRecording();
+  }else{
+    startRecording();
+  }
+}
+
+function startRecording(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){
+    alert('お使いのブラウザは音声認識に対応していません。直接テキストで入力してください。');
+    return;
+  }
+  try{
+    recognition=new SR();
+    recognition.lang='ja-JP';
+    recognition.continuous=true;
+    recognition.interimResults=true;
+
+    let finalText='';
+    recognition.onresult=e=>{
+      let interim='';
+      for(let i=e.resultIndex;i<e.results.length;i++){
+        const t=e.results[i][0].transcript;
+        if(e.results[i].isFinal){finalText+=t;}
+        else{interim+=t;}
+      }
+      document.getElementById('userInput').value=finalText+interim;
+    };
+    recognition.onerror=e=>{
+      console.error('音声認識エラー:',e.error);
+      if(e.error==='not-allowed'){
+        alert('マイクが許可されていません。設定→Safari→マイクを許可してください。');
+      }
+      stopRecording();
+    };
+    recognition.onend=()=>{
+      // 自動再開はしない（意図しない録音継続を防ぐ）
+      if(isRecording){
+        try{recognition.start();}catch(e){stopRecording();}
+      }
+    };
+    recognition.start();
+    isRecording=true;
+    document.getElementById('micBtn').classList.add('recording');
+    document.getElementById('micBtn').textContent='⏹';
+  }catch(e){
+    console.error('音声認識起動失敗:',e);
+    alert('音声認識が起動できませんでした：'+e.message);
+  }
+}
+
+function stopRecording(){
+  if(recognition){
+    try{
+      isRecording=false;
+      recognition.onend=null;
+      recognition.stop();
+    }catch(e){}
+    recognition=null;
+  }
+  isRecording=false;
+  const btn=document.getElementById('micBtn');
+  if(btn){
+    btn.classList.remove('recording');
+    btn.textContent='🎤';
+  }
+}
+
+// ============================================================
+// 音声合成
+// ============================================================
+let synthesisQueue=[];
+let isSynthSpeaking=false;
+
+function speak(text){
+  if(!window.speechSynthesis) return;
+  try{
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='ja-JP';
+    u.rate=1.0;
+    u.pitch=1.0;
+    speechSynthesis.speak(u);
+  }catch(e){
+    console.error('音声合成エラー:',e);
+  }
+}
+
+function speakAsync(text){
+  return new Promise(resolve=>{
+    if(!window.speechSynthesis){resolve();return;}
+    try{
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang='ja-JP';
+      u.rate=1.0;
+      u.onend=()=>resolve();
+      u.onerror=()=>resolve();
+      speechSynthesis.speak(u);
+      // タイムアウト保険
+      setTimeout(()=>resolve(),text.length*200+2000);
+    }catch(e){resolve();}
+  });
+}
+
+// ============================================================
+// ユーザー入力送信
+// ============================================================
+async function sendUserInput(){
+  const text=document.getElementById('userInput').value.trim();
+  if(!text){alert('何か入力してね');return;}
+
+  stopRecording();
+  addUserBubble(text);
+  document.getElementById('userInput').value='';
+
+  const mode=state.session.inputMode;
+  if(mode==='paper_feedback'){
+    await handlePaperFeedback(text);
+  }else if(mode==='interview_answer'){
+    await handleInterviewAnswer(text);
+  }else if(mode==='group_answer'){
+    await handleGroupAnswer(text);
+  }else if(mode==='review_answer'){
+    await handleReviewAnswer(text);
+  }
+}
+
+// ============================================================
+// 新聞の評価
+// ============================================================
+async function handlePaperFeedback(text){
+  showLoading();
+  try{
+    const severityMap={1:'優しく褒める中心で',2:'バランスよく',3:'やや厳しめに具体的に'};
+    const sys=`あなたは小学6年生の新聞要約練習をフィードバックする先生です。${severityMap[state.severity]}評価してください。
+12歳の子供への声かけとして、以下を1回の返答で行ってください：
+
+1. 良かった点を1つ具体的に（必ず褒める）
+2. もっと良くなる点を1つ具体的に
+3. 1〜10点で評価（要約の正確さ・理由の具体性・自分の意見の3軸を総合）
+
+返答は150〜200字程度。優しい先生の口調で。最後に「点数：X点」と1行で書く。`;
+
+    const messages=[{
+      role:'user',
+      content:[
+        {type:'image',source:{type:'base64',media_type:'image/jpeg',data:state.session.photo.split(',')[1]}},
+        {type:'text',text:'この記事について、子供は次のように話しました：「'+text+'」\n\nフィードバックをお願いします。'}
+      ]
+    }];
+
+    const res=await callClaude(messages,sys,800);
+    hideLoading();
+    addAiBubble(res);
+    speak(res.replace(/点数：\d+点/,'').slice(0,200));
+
+    // スコア抽出
+    const m=res.match(/点数[:：]?\s*(\d+)/);
+    const score=m?parseInt(m[1]):null;
+    saveHistory({menu:'新聞の日',score:score,summary:text.slice(0,50)});
+
+    showCompleteButton();
+  }catch(e){
+    hideLoading();
+    addErrorBubble('評価に失敗しました：'+e.message);
+    showVoiceInput('paper_feedback');
+  }
+}
+
+// ============================================================
+// 面接の評価＋深掘り
+// ============================================================
+async function handleInterviewAnswer(text){
+  showLoading();
+  try{
+    state.session.depthCount=(state.session.depthCount||0)+1;
+    state.session.messages.push({role:'user',content:text});
+
+    const severityMap={1:'優しく',2:'適度に',3:'やや厳しめに'};
+    const phase=getCurrentPhase();
+    const sys=`あなたは兵庫県立大学附属中学校の面接官です。小学6年生に対し${severityMap[state.severity]}面接を行います。
+現在Phase ${phase.n}「${phase.name}」。
+
+ルール：
+- 1回の発言は1〜2文以内
+- 模範解答や暗記っぽい回答は「なぜ？」「具体的には？」で深掘り
+- 現在の深掘り回数：${state.session.depthCount}回目
+- 3回目までは深掘り、4回目で総評＋点数
+
+総評時は以下の形式（厳守）：
+【良かった点】〜
+【次の課題】〜
+【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10`;
+
+    const history=[
+      {role:'user',content:'最初の質問：'+state.session.firstQuestion+'\n\n子供の最初の回答：'+state.session.messages[0].content}
+    ];
+    for(let i=1;i<state.session.messages.length;i++){
+      history.push({role:'assistant',content:state.session.messages[i-1]?'(前の質問)':'続けて'});
+      history.push({role:'user',content:state.session.messages[i].content});
+    }
+
+    const res=await callClaude([{role:'user',content:'子供の回答：「'+text+'」\n深掘り回数：'+state.session.depthCount+'回目'}],sys,500);
+    hideLoading();
+    state.session.messages.push({role:'assistant',content:res});
+    addAiBubble(res);
+    speak(res.replace(/【.*?】/g,'').slice(0,150));
+
+    if(state.session.depthCount>=3 || res.includes('【点数】')){
+      // 総評で終了
+      const m=res.match(/(\d+)\/10/g);
+      const avgScore=m?Math.round(m.map(x=>parseInt(x)).reduce((a,b)=>a+b,0)/m.length):null;
+      saveHistory({menu:'面接の日',score:avgScore,summary:state.session.messages[0].content.slice(0,50)});
+      showCompleteButton();
+    }else{
+      showVoiceInput('interview_answer');
+    }
+  }catch(e){
+    hideLoading();
+    addErrorBubble('AIとの通信に失敗しました：'+e.message);
+    showVoiceInput('interview_answer');
+  }
+}
+
+// ============================================================
+// 集団面接の評価
+// ============================================================
+async function handleGroupAnswer(text){
+  showLoading();
+  try{
+    const sys=`あなたは集団面接の面接官です。小学6年生の回答を評価します。
+特に「他の4人の答えを聞いて自分の意見を述べられているか」を重視します。
+
+以下を1回の返答で：
+1. 良かった点1つ
+2. 改善点1つ
+3. 【点数】話す力:X/10 聞く力:X/10 考える力:X/10
+
+200字以内で。`;
+
+    const ctx='質問：'+state.session.groupQuestion+'\n\n4人の答え：\n'+
+      state.session.groupAnswers.map(a=>a.name+'：'+a.answer).join('\n')+
+      '\n\n子供（5人目）の答え：'+text;
+
+    const res=await callClaude([{role:'user',content:ctx}],sys,600);
+    hideLoading();
+    addAiBubble(res);
+    speak(res.replace(/【.*?】/g,'').slice(0,150));
+
+    const m=res.match(/(\d+)\/10/g);
+    const avgScore=m?Math.round(m.map(x=>parseInt(x)).reduce((a,b)=>a+b,0)/m.length):null;
+    saveHistory({menu:'集団面接',score:avgScore,summary:text.slice(0,50)});
+
+    showCompleteButton();
+  }catch(e){
+    hideLoading();
+    addErrorBubble('評価に失敗しました：'+e.message);
+    showVoiceInput('group_answer');
+  }
+}
+
+// ============================================================
+// 振り返りの応答
+// ============================================================
+async function handleReviewAnswer(text){
+  showLoading();
+  try{
+    const sys=`あなたは小学6年生の受験対策コーチです。週次振り返りを行います。
+子供の話を聞いて、以下を1回の返答で：
+1. 共感・肯定（必ず最初）
+2. 今週の強みを1つ指摘
+3. 来週の重点を1つ提案
+200字以内で、温かく前向きな言葉で。`;
+
+    const recent=state.history.slice(-7).map(h=>h.date+':'+h.menu+' '+(h.score||'-')+'点').join('\n');
+    const ctx='直近7回の練習履歴：\n'+recent+'\n\n子供の振り返り：「'+text+'」';
+
+    const res=await callClaude([{role:'user',content:ctx}],sys,500);
+    hideLoading();
+    addAiBubble(res);
+    speak(res.slice(0,200));
+
+    saveHistory({menu:'振り返り',score:null,summary:text.slice(0,50)});
+    showCompleteButton();
+  }catch(e){
+    hideLoading();
+    addErrorBubble('応答に失敗しました：'+e.message);
+    showVoiceInput('review_answer');
+  }
+}
+
+// ============================================================
+// セッション終了
+// ============================================================
+function finishSession(){
+  if(!confirm('今日の練習を終了しますか？')) return;
+  if(state.session && state.session.messages && state.session.messages.length>0){
+    saveHistory({menu:state.session.menu.name,score:null,summary:'途中終了'});
+  }
+  updateStreak();
+  backToHome();
+}
+
+function showCompleteButton(){
+  updateStreak();
+  document.getElementById('sesInput').innerHTML=`
+    <div class="complete">
+      <div class="complete-emoji">🎉</div>
+      <div class="complete-title">今日もよく頑張ったね！</div>
+      <div class="complete-msg">続けることが一番大事。<br>明日も会おう。</div>
+      <button class="complete-btn" onclick="backToHome()">ホームに戻る</button>
+    </div>
+  `;
+}
+
+// ============================================================
+// 履歴とストリーク
+// ============================================================
+function saveHistory(item){
+  const entry={
+    date:todayStr(),
+    time:new Date().toTimeString().slice(0,5),
+    menu:item.menu,
+    score:item.score,
+    summary:item.summary||''
+  };
+  state.history.push(entry);
+  // 200件以上は古いものを削除
+  if(state.history.length>200){
+    state.history=state.history.slice(-200);
+  }
+  save(K.history,state.history);
+}
+
+function updateStreak(){
+  const today=todayStr();
+  if(state.lastDate===today) return; // 同日複数回はカウントしない
+
+  const yesterday=new Date();
+  yesterday.setDate(yesterday.getDate()-1);
+  const yStr=yesterday.getFullYear()+'-'+String(yesterday.getMonth()+1).padStart(2,'0')+'-'+String(yesterday.getDate()).padStart(2,'0');
+
+  if(state.lastDate===yStr || state.lastDate===''){
+    state.streak++;
+  }else{
+    state.streak=1; // リセット
+  }
+  state.lastDate=today;
+  save(K.streak,state.streak);
+  save(K.lastDate,today);
+}
+
+// ============================================================
+// チャット表示
+// ============================================================
+function addAiBubble(text){
+  const div=document.createElement('div');
+  div.className='ai-bubble fade-in';
+  div.innerHTML=escapeHTML(text).replace(/\n/g,'<br>');
+  document.getElementById('sesContent').appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function addUserBubble(text){
+  const div=document.createElement('div');
+  div.className='user-bubble fade-in';
+  div.innerHTML=escapeHTML(text).replace(/\n/g,'<br>');
+  document.getElementById('sesContent').appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function addUserBubbleAI(text){
+  // 仮想受験生の発言
+  const div=document.createElement('div');
+  div.className='ai-bubble fade-in';
+  div.style.background='var(--blue-l)';
+  div.innerHTML=escapeHTML(text).replace(/\n/g,'<br>');
+  document.getElementById('sesContent').appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function addErrorBubble(text){
+  const div=document.createElement('div');
+  div.className='error-bubble fade-in';
+  div.textContent=text;
+  document.getElementById('sesContent').appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function showLoading(){
+  hideLoading();
+  const div=document.createElement('div');
+  div.className='loading fade-in';
+  div.id='loadingBubble';
+  div.innerHTML='<div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div><span>AIが考えています...</span>';
+  document.getElementById('sesContent').appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function hideLoading(){
+  const el=document.getElementById('loadingBubble');
+  if(el) el.remove();
+}
+
+// ============================================================
+// Claude API呼び出し
+// ============================================================
+async function callClaude(messages,system,maxTokens){
+  if(!state.apiKey) throw new Error('APIキーが未設定です');
+
+  const body={
+    model:'claude-sonnet-4-5-20250929',
+    max_tokens:maxTokens||1000,
+    system:system,
+    messages:messages
+  };
+
+  let lastError=null;
+  for(let attempt=0;attempt<3;attempt++){
+    try{
+      const res=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key':state.apiKey,
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body:JSON.stringify(body)
+      });
+
+      if(res.status===401) throw new Error('APIキーが正しくありません。保護者画面で再設定してください。');
+      if(res.status===429){
+        lastError=new Error('混雑しています。少し待ってください。');
+        await sleep(2000*(attempt+1));
+        continue;
+      }
+      if(res.status>=500){
+        lastError=new Error('サーバーエラーです。再試行します。');
+        await sleep(1000*(attempt+1));
+        continue;
+      }
+      if(!res.ok){
+        const errTxt=await res.text();
+        throw new Error('APIエラー：'+res.status+' '+errTxt.slice(0,100));
+      }
+      const data=await res.json();
+      if(!data.content||!data.content[0]||!data.content[0].text){
+        throw new Error('AIの応答が空でした');
+      }
+      return data.content[0].text;
+    }catch(e){
+      lastError=e;
+      if(e.message.includes('APIキー')) throw e;
+      if(attempt<2) await sleep(1500);
+    }
+  }
+  throw lastError||new Error('通信に失敗しました');
+}
+
+function parseJSON(text){
+  try{return JSON.parse(text);}catch(e){}
+  // ```json ... ``` を剥がす
+  const m=text.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if(m){
+    try{return JSON.parse(m[1]);}catch(e){}
+  }
+  // { ... } 部分を抽出
+  const m2=text.match(/\{[\s\S]*\}/);
+  if(m2){
+    try{return JSON.parse(m2[0]);}catch(e){}
+  }
+  return null;
+}
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+// ============================================================
+// グローバル公開（HTML内 onclick 用）
+// ============================================================
+window.backToHome=backToHome;
+
+// ============================================================
+// 起動
+// ============================================================
+document.addEventListener('DOMContentLoaded',init);
+if(document.readyState!=='loading') init();
+
+// ページ離脱時にも録音停止
+window.addEventListener('beforeunload',()=>{
+  stopRecording();
+});
+
+</script>
+</body>
+</html>
