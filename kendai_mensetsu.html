@@ -120,6 +120,90 @@ input,textarea,select{font-family:inherit;font-size:18px;}
   border:2px solid var(--border);box-shadow:none;
 }
 
+.history-btn{
+  background:transparent;color:var(--ink2);
+  padding:14px 24px;border-radius:12px;font-size:14px;font-weight:700;
+  border:1.5px solid var(--border);
+  margin-top:12px;width:100%;max-width:280px;
+}
+.history-btn:active{background:var(--cream);}
+
+.history-page{display:none;}
+.history-page.on{display:block;}
+.history-filter{
+  display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;
+}
+.filter-btn{
+  background:var(--white);color:var(--ink);
+  padding:8px 16px;border-radius:20px;font-size:12px;font-weight:700;
+  border:1.5px solid var(--border);white-space:nowrap;
+  flex-shrink:0;
+}
+.filter-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.hist-page-card{
+  background:var(--white);border-radius:12px;
+  box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;
+}
+.hist-page-header{
+  padding:14px 16px;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.hist-page-header:active{background:var(--cream);}
+.hist-page-left{display:flex;flex-direction:column;gap:2px;}
+.hist-page-date{font-size:11px;color:var(--muted);font-weight:500;}
+.hist-page-menu{font-size:15px;font-weight:700;}
+.hist-page-right{display:flex;align-items:center;gap:10px;}
+.hist-page-score{
+  font-size:18px;font-weight:900;color:var(--ink2);
+  background:var(--cream);padding:4px 12px;border-radius:8px;min-width:48px;text-align:center;
+}
+.hist-page-score.empty{color:var(--muted);font-size:14px;}
+.hist-page-arrow{color:var(--muted);font-size:12px;transition:transform .2s;}
+.hist-page-arrow.open{transform:rotate(180deg);}
+.hist-page-detail{display:none;padding:0 16px 16px;border-top:1px solid var(--border);}
+.hist-page-detail.open{display:block;}
+
+/* 成長グラフ */
+.growth-card{
+  background:var(--white);border-radius:14px;padding:18px 16px;
+  box-shadow:var(--shadow);margin-bottom:16px;
+}
+.growth-title{
+  font-size:13px;font-weight:700;color:var(--ink);margin-bottom:14px;
+}
+.growth-chart{
+  width:100%;height:160px;
+}
+.growth-chart svg{width:100%;height:100%;display:block;}
+.growth-legend{
+  display:flex;gap:14px;margin-top:10px;justify-content:center;font-size:12px;color:var(--muted);
+}
+.legend-item{display:inline-flex;align-items:center;gap:5px;}
+.legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+.growth-empty{
+  text-align:center;padding:30px 10px;color:var(--muted);font-size:13px;
+}
+
+/* 今週ハイライト */
+.highlight-card{
+  background:linear-gradient(135deg,#FEF3C7 0%,#FDFAF5 100%);
+  border-radius:14px;padding:18px 20px;margin-bottom:16px;
+  border:1.5px solid var(--amber);
+}
+.highlight-title{
+  font-size:14px;font-weight:900;color:var(--ink);margin-bottom:12px;
+}
+.highlight-section{margin-bottom:14px;}
+.highlight-section:last-child{margin-bottom:0;}
+.highlight-label{
+  font-size:11px;font-weight:700;color:#B45309;margin-bottom:4px;
+}
+.highlight-text{
+  font-size:13px;color:var(--ink);line-height:1.6;
+  background:var(--white);padding:10px 12px;border-radius:8px;
+}
+
 .session{display:none;}
 .session.on{display:block;}
 .ses-back{
@@ -243,9 +327,32 @@ input[type=file]{display:none;}
   border-bottom:1px solid var(--border);font-size:13px;
 }
 .history-row:last-child{border-bottom:none;}
+.history-clickable:active{background:var(--cream);}
 .history-date{color:var(--muted);}
-.history-menu{font-weight:500;}
+.history-menu{font-weight:500;flex:1;text-align:center;}
 .history-score{font-weight:700;color:var(--ink2);}
+
+.history-detail-inner{
+  background:var(--cream);padding:14px;border-radius:10px;margin:8px 0;
+  font-size:13px;line-height:1.6;
+}
+.hd-section{margin-bottom:14px;}
+.hd-section:last-child{margin-bottom:0;}
+.hd-label{
+  font-size:11px;font-weight:700;color:var(--muted);
+  margin-bottom:4px;letter-spacing:.05em;
+}
+.hd-text{
+  background:var(--white);padding:10px 12px;border-radius:8px;
+  color:var(--ink);
+}
+.hd-msg{
+  background:var(--white);padding:8px 12px;border-radius:8px;
+  margin-bottom:6px;font-size:13px;
+}
+.hd-msg-user{border-left:3px solid var(--ink2);}
+.hd-msg-ai{border-left:3px solid var(--amber);}
+.hd-msg-other{border-left:3px solid var(--blue);}
 .severity-buttons{display:flex;gap:8px;margin-top:8px;}
 .sev-btn{
   flex:1;padding:10px;border-radius:8px;font-size:12px;font-weight:700;
@@ -358,6 +465,7 @@ input[type=file]{display:none;}
   <div class="today-streak" id="todayStreak">🔥 0日</div>
   <br>
   <button class="start-btn" id="startBtn">はじめる</button>
+  <button class="history-btn" id="historyBtn">📖 これまでの練習を見る</button>
 </div>
 
 </div>
@@ -366,6 +474,31 @@ input[type=file]{display:none;}
   <button class="ses-back" id="backBtn">← ホームに戻る</button>
   <div id="sesContent"></div>
   <div id="sesInput"></div>
+</div>
+
+<div class="history-page" id="historyPage">
+  <button class="ses-back" id="historyBack">← ホームに戻る</button>
+  <h2 style="font-size:22px;font-weight:900;margin-bottom:8px;">これまでの練習</h2>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">日付をタップすると、その日の練習内容が見られるよ。</p>
+
+  <div class="growth-card">
+    <div class="growth-title">📈 成長グラフ（直近30日）</div>
+    <div id="growthChart"></div>
+    <div class="growth-legend">
+      <span class="legend-item"><span class="legend-dot" style="background:var(--accent);"></span>新聞</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--ink2);"></span>面接</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--blue);"></span>集団</span>
+    </div>
+  </div>
+
+  <div class="history-filter">
+    <button class="filter-btn active" data-filter="all">すべて</button>
+    <button class="filter-btn" data-filter="新聞の日">新聞</button>
+    <button class="filter-btn" data-filter="面接の日">面接</button>
+    <button class="filter-btn" data-filter="集団面接">集団</button>
+    <button class="filter-btn" data-filter="振り返り">振返</button>
+  </div>
+  <div id="historyPageList"></div>
 </div>
 
 <div class="parent" id="parent">
@@ -384,11 +517,19 @@ input[type=file]{display:none;}
   </div>
 
   <div class="parent-section">
-    <div class="parent-sec-title">🎯 AIの厳しさ</div>
+    <div class="parent-sec-title">🎭 面接官タイプ</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
+      AIが演じる面接官のタイプを選びます。厳しさが内包されています。
+    </div>
     <div class="severity-buttons">
-      <button class="sev-btn" data-sev="1">優しい</button>
-      <button class="sev-btn" data-sev="2">標準</button>
-      <button class="sev-btn" data-sev="3">厳しい</button>
+      <button class="sev-btn" data-sev="1">優しい先生</button>
+      <button class="sev-btn" data-sev="2">標準の教頭</button>
+      <button class="sev-btn" data-sev="3">厳しい校長</button>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5;">
+      ・優しい先生：緊張をほぐす口調、評価は甘め<br>
+      ・標準の教頭：バランス型<br>
+      ・厳しい校長：圧迫気味、評価は辛め
     </div>
   </div>
 
@@ -730,6 +871,15 @@ function bindEvents(){
   document.getElementById('backBtn').addEventListener('click',backToHome);
   document.getElementById('parentBtn').addEventListener('click',openPasscode);
   document.getElementById('parentBack').addEventListener('click',backToHome);
+  document.getElementById('historyBtn').addEventListener('click',openHistoryPage);
+  document.getElementById('historyBack').addEventListener('click',backToHome);
+  document.querySelectorAll('.filter-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      renderHistoryPage(b.dataset.filter);
+    });
+  });
 
   document.getElementById('passcodeOk').addEventListener('click',checkPasscode);
   document.getElementById('passcodeCancel').addEventListener('click',()=>{
@@ -849,9 +999,16 @@ function deleteTodayData(){
 }
 
 function openPasscode(){
+  const input=document.getElementById('passcodeInput');
+  input.value='';
   document.getElementById('passcodeModal').classList.add('on');
-  document.getElementById('passcodeInput').value='';
-  setTimeout(()=>document.getElementById('passcodeInput').focus(),100);
+  // iPad Safariのキーボード問題対策：
+  // ユーザータップと同じ実行スタック内でfocus()しないとキーボード出ない
+  input.focus();
+  // 念のため少し遅らせても呼ぶ
+  setTimeout(()=>{
+    try{input.focus();input.click();}catch(e){}
+  },200);
 }
 function checkPasscode(){
   const v=document.getElementById('passcodeInput').value;
@@ -882,22 +1039,226 @@ function openParent(){
   if(hist.length===0){
     el.innerHTML='<div style="font-size:13px;color:var(--muted);">まだ履歴がありません</div>';
   }else{
-    el.innerHTML=hist.map(h=>
-      '<div class="history-row"><span class="history-date">'+escapeHTML(h.date)+'</span><span class="history-menu">'+escapeHTML(h.menu)+'</span><span class="history-score">'+(h.score?h.score+'点':'-')+'</span></div>'
-    ).join('');
+    el.innerHTML=hist.map((h,idx)=>{
+      const hasDetail=h.detail?true:false;
+      const arrow=hasDetail?'<span style="color:var(--muted);font-size:12px;margin-left:8px;">▼</span>':'';
+      return '<div class="history-row history-clickable" data-idx="'+idx+'" style="'+(hasDetail?'cursor:pointer;':'')+'"><span class="history-date">'+escapeHTML(h.date)+' '+escapeHTML(h.time||'')+'</span><span class="history-menu">'+escapeHTML(h.menu)+arrow+'</span><span class="history-score">'+(h.score?h.score+'点':'-')+'</span></div><div class="history-detail" id="histDetail'+idx+'" style="display:none;"></div>';
+    }).join('');
+    // 展開イベント登録
+    el.querySelectorAll('.history-clickable').forEach(row=>{
+      row.addEventListener('click',()=>{
+        const idx=parseInt(row.dataset.idx);
+        const h=hist[idx];
+        if(!h.detail)return;
+        const detailEl=document.getElementById('histDetail'+idx);
+        if(detailEl.style.display==='none'){
+          detailEl.innerHTML=renderHistoryDetail(h);
+          detailEl.style.display='block';
+        }else{
+          detailEl.style.display='none';
+        }
+      });
+    });
   }
+}
+
+function renderHistoryDetail(h){
+  const d=h.detail;
+  let html='<div class="history-detail-inner">';
+  if(h.menu==='新聞の日'){
+    html+='<div class="hd-section"><div class="hd-label">📰 写真</div><div class="hd-text">記事の写真を撮影しました</div></div>';
+    html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの話</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
+    html+='<div class="hd-section"><div class="hd-label">🤖 AIフィードバック</div><div class="hd-text">'+escapeHTML(d.aiFeedback||'').replace(/\n/g,'<br>')+'</div></div>';
+  }else if(h.menu==='面接の日'){
+    html+='<div class="hd-section"><div class="hd-label">❓ 最初の質問</div><div class="hd-text">'+escapeHTML(d.firstQuestion||'')+'</div></div>';
+    if(d.conversation){
+      html+='<div class="hd-section"><div class="hd-label">💬 やりとり</div>';
+      d.conversation.forEach((m,i)=>{
+        if(m.role==='user'){
+          html+='<div class="hd-msg hd-msg-user"><strong>竣貴くん：</strong>'+escapeHTML(m.content)+'</div>';
+        }else{
+          html+='<div class="hd-msg hd-msg-ai"><strong>AI：</strong>'+escapeHTML(m.content).replace(/\n/g,'<br>')+'</div>';
+        }
+      });
+      html+='</div>';
+    }
+  }else if(h.menu==='集団面接'){
+    html+='<div class="hd-section"><div class="hd-label">❓ 質問</div><div class="hd-text">'+escapeHTML(d.question||'')+'</div></div>';
+    if(d.otherAnswers){
+      html+='<div class="hd-section"><div class="hd-label">👥 他の4人の発言</div>';
+      d.otherAnswers.forEach(a=>{
+        html+='<div class="hd-msg hd-msg-other"><strong>'+escapeHTML(a.name||'')+'：</strong>'+escapeHTML(a.answer||'')+'</div>';
+      });
+      html+='</div>';
+    }
+    html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの答え</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
+    html+='<div class="hd-section"><div class="hd-label">🤖 AI評価</div><div class="hd-text">'+escapeHTML(d.aiFeedback||'').replace(/\n/g,'<br>')+'</div></div>';
+  }else if(h.menu==='振り返り'){
+    html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの話</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
+    html+='<div class="hd-section"><div class="hd-label">🤖 AIコメント</div><div class="hd-text">'+escapeHTML(d.aiFeedback||'').replace(/\n/g,'<br>')+'</div></div>';
+    if(d.highlight){
+      const hl=d.highlight;
+      if(hl.bestAnswer){
+        html+='<div class="hd-section"><div class="hd-label">🏆 今週のベストアンサー</div><div class="hd-text"><strong>'+escapeHTML(hl.bestAnswer.date||'')+' '+escapeHTML(hl.bestAnswer.menu||'')+'</strong><br>「'+escapeHTML(hl.bestAnswer.content||'')+'」<br><span style="color:var(--muted);font-size:11px;">'+escapeHTML(hl.bestAnswer.comment||'')+'</span></div></div>';
+      }
+      if(hl.growth){
+        html+='<div class="hd-section"><div class="hd-label">💪 一番伸びた点</div><div class="hd-text">'+escapeHTML(hl.growth)+'</div></div>';
+      }
+      if(hl.parentAction){
+        html+='<div class="hd-section"><div class="hd-label">👨‍👩‍👦 親へのおすすめ</div><div class="hd-text">'+escapeHTML(hl.parentAction)+'</div></div>';
+      }
+    }
+  }
+  html+='</div>';
+  return html;
 }
 
 function backToHome(){
   document.getElementById('home').classList.remove('hidden');
   document.getElementById('session').classList.remove('on');
   document.getElementById('parent').classList.remove('on');
+  document.getElementById('historyPage').classList.remove('on');
   stopRecording();
   cancelSpeech();
   releaseWakeLock();
   state.session=null;
   state.isSending=false;
   renderHome();
+}
+
+function openHistoryPage(){
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('historyPage').classList.add('on');
+  renderGrowthChart();
+  renderHistoryPage('all');
+}
+
+function renderGrowthChart(){
+  const el=document.getElementById('growthChart');
+  // 直近30日の点数付き履歴
+  const cutoff=new Date();
+  cutoff.setDate(cutoff.getDate()-30);
+  const cutoffStr=dateStr(cutoff);
+  const data=state.history.filter(h=>h.date>=cutoffStr && h.score && h.score>0);
+
+  if(data.length<2){
+    el.innerHTML='<div class="growth-empty">練習が2回以上たまると、ここに成長グラフが出るよ</div>';
+    return;
+  }
+
+  // メニュー別に色分け
+  const colorMap={
+    '新聞の日':'#F97316',
+    '面接の日':'#2D3561',
+    '集団面接':'#3B82F6',
+    '振り返り':'#6B7280'
+  };
+
+  // 日付範囲（最古〜今日）
+  const today=todayStr();
+  const oldest=data[0].date;
+  const totalDays=Math.max(1,daysBetween(oldest,today));
+
+  // SVG描画
+  const w=600, h=160, padL=30, padR=10, padT=10, padB=24;
+  const innerW=w-padL-padR, innerH=h-padT-padB;
+
+  let svg='<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">';
+
+  // Y軸目盛り（0,5,10）
+  for(let i=0;i<=10;i+=2){
+    const y=padT+innerH-(i/10)*innerH;
+    svg+='<line x1="'+padL+'" y1="'+y+'" x2="'+(w-padR)+'" y2="'+y+'" stroke="#E5E0D8" stroke-width="0.5"/>';
+    svg+='<text x="'+(padL-4)+'" y="'+(y+3)+'" text-anchor="end" font-size="9" fill="#6B7280">'+i+'</text>';
+  }
+
+  // 各データポイントのX座標計算
+  const points=data.map(h=>{
+    const x=padL+(daysBetween(oldest,h.date)/totalDays)*innerW;
+    const y=padT+innerH-(h.score/10)*innerH;
+    return{x,y,score:h.score,date:h.date,menu:h.menu};
+  });
+
+  // メニュー別に折れ線を描く
+  const menuGroups={};
+  points.forEach(p=>{
+    if(!menuGroups[p.menu])menuGroups[p.menu]=[];
+    menuGroups[p.menu].push(p);
+  });
+
+  Object.entries(menuGroups).forEach(([menu,pts])=>{
+    const color=colorMap[menu]||'#6B7280';
+    if(pts.length>1){
+      const path=pts.map((p,i)=>(i===0?'M':'L')+p.x+' '+p.y).join(' ');
+      svg+='<path d="'+path+'" stroke="'+color+'" stroke-width="2" fill="none"/>';
+    }
+    pts.forEach(p=>{
+      svg+='<circle cx="'+p.x+'" cy="'+p.y+'" r="3.5" fill="'+color+'"/>';
+    });
+  });
+
+  // X軸の日付ラベル（最古・中間・今日）
+  const labels=[
+    {x:padL,date:oldest},
+    {x:padL+innerW,date:today}
+  ];
+  labels.forEach(l=>{
+    const d=new Date(l.date+'T00:00:00');
+    const label=(d.getMonth()+1)+'/'+d.getDate();
+    svg+='<text x="'+l.x+'" y="'+(h-6)+'" text-anchor="middle" font-size="10" fill="#6B7280">'+label+'</text>';
+  });
+
+  svg+='</svg>';
+  el.innerHTML='<div class="growth-chart">'+svg+'</div>';
+}
+
+function renderHistoryPage(filter){
+  const el=document.getElementById('historyPageList');
+  let list=state.history.slice().reverse();
+  if(filter && filter!=='all'){
+    list=list.filter(h=>h.menu===filter);
+  }
+  if(list.length===0){
+    el.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;">まだ練習履歴がありません</div>';
+    return;
+  }
+  el.innerHTML=list.map((h,idx)=>{
+    const hasDetail=h.detail?true:false;
+    const scoreDisp=h.score?h.score+'点':'-';
+    const scoreClass=h.score?'':'empty';
+    const dateLabel=formatHistoryDate(h.date)+(h.time?' '+h.time:'');
+    return '<div class="hist-page-card"><div class="hist-page-header" data-idx="'+idx+'"><div class="hist-page-left"><span class="hist-page-date">'+escapeHTML(dateLabel)+'</span><span class="hist-page-menu">'+escapeHTML(h.menu)+'</span></div><div class="hist-page-right"><span class="hist-page-score '+scoreClass+'">'+scoreDisp+'</span>'+(hasDetail?'<span class="hist-page-arrow" id="histArrow'+idx+'">▼</span>':'')+'</div></div><div class="hist-page-detail" id="histPageDetail'+idx+'"></div></div>';
+  }).join('');
+
+  el.querySelectorAll('.hist-page-header').forEach(header=>{
+    header.addEventListener('click',()=>{
+      const idx=parseInt(header.dataset.idx);
+      const h=list[idx];
+      if(!h.detail)return;
+      const detailEl=document.getElementById('histPageDetail'+idx);
+      const arrowEl=document.getElementById('histArrow'+idx);
+      if(detailEl.classList.contains('open')){
+        detailEl.classList.remove('open');
+        if(arrowEl)arrowEl.classList.remove('open');
+      }else{
+        detailEl.innerHTML=renderHistoryDetail(h);
+        detailEl.classList.add('open');
+        if(arrowEl)arrowEl.classList.add('open');
+      }
+    });
+  });
+}
+
+function formatHistoryDate(dateStr){
+  // 2026-05-23 → 5/23(土)
+  try{
+    const d=new Date(dateStr+'T00:00:00');
+    const m=d.getMonth()+1;
+    const day=d.getDate();
+    const dows=['日','月','火','水','木','金','土'];
+    const dow=dows[d.getDay()];
+    return m+'/'+day+'('+dow+')';
+  }catch(e){return dateStr;}
 }
 
 function exportData(){
@@ -1466,8 +1827,8 @@ async function handlePaperFeedback(text){
   }
   showLoading();
   try{
-    const severityMap={1:'優しく褒める中心で',2:'バランスよく',3:'やや厳しめに具体的に'};
-    const sys='あなたは小学6年生の新聞要約練習をフィードバックする先生です。'+severityMap[state.severity]+'評価してください。\n12歳の子供への声かけとして、以下を1回の返答で行ってください：\n\n1. 良かった点を1つ具体的に（必ず褒める）\n2. もっと良くなる点を1つ具体的に\n3. 1〜10点で評価（要約の正確さ・理由の具体性・自分の意見の3軸を総合）\n\n返答は150〜200字程度。優しい先生の口調で。最後に「点数：X点」と1行で書く。';
+    const style=getInterviewerStyle();
+    const sys='あなたは小学6年生の新聞要約練習をフィードバックする「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n12歳の子供への声かけとして、以下を1回の返答で行ってください：\n\n1. 良かった点を1つ具体的に（必ず褒める）\n2. もっと良くなる点を1つ具体的に\n3. 1〜10点で評価（要約の正確さ・理由の具体性・自分の意見の3軸を総合）\n\n返答は150〜200字程度。最後に「点数：X点」と1行で書く。';
 
     // base64データの安全な抽出
     const photoData=state.session.photo;
@@ -1490,7 +1851,14 @@ async function handlePaperFeedback(text){
     speak(res.replace(/点数[:：]\s*\d+点?/g,'').slice(0,200));
 
     const score=extractScore(res);
-    saveHistoryIfNotRetry({menu:'新聞の日',score:score,summary:text.slice(0,50)});
+    saveHistoryIfNotRetry({
+      menu:'新聞の日',score:score,summary:text.slice(0,50),
+      detail:{
+        userAnswer:text,
+        aiFeedback:res,
+        hasPhoto:true
+      }
+    });
     showCompleteButton();
   }catch(e){
     hideLoading();
@@ -1506,9 +1874,9 @@ async function handleInterviewAnswer(text){
     state.session.depthCount=(state.session.depthCount||0)+1;
     state.session.messages.push({role:'user',content:text});
 
-    const severityMap={1:'優しく',2:'適度に',3:'やや厳しめに'};
+    const style=getInterviewerStyle();
     const phase=getCurrentPhase();
-    const sys='あなたは兵庫県立大学附属中学校の面接官です。小学6年生に対し'+severityMap[state.severity]+'面接を行います。\n現在Phase '+phase.n+'「'+phase.name+'」。\n\nルール：\n- 1回の発言は1〜2文以内\n- 模範解答や暗記っぽい回答は「なぜ？」「具体的には？」で深掘り\n- 現在の深掘り回数：'+state.session.depthCount+'回目\n- 3回目までは深掘り、4回目で総評＋点数\n\n総評時は以下の形式（厳守）：\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
+    const sys='あなたは兵庫県立大学附属中学校の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n小学6年生に面接を行います。現在Phase '+phase.n+'「'+phase.name+'」。\n\nルール：\n- 1回の発言は1〜2文以内\n- 模範解答や暗記っぽい回答は「なぜ？」「具体的には？」で深掘り\n- 現在の深掘り回数：'+state.session.depthCount+'回目\n- 3回目までは深掘り、4回目で総評＋点数\n\n総評時は以下の形式（厳守）：\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
 
     const userMsg='最初の質問：'+state.session.firstQuestion+'\n\n子供の回答履歴：\n'+
       state.session.messages.map((m,i)=>(i+1)+'回目：'+m.content).join('\n')+
@@ -1523,7 +1891,14 @@ async function handleInterviewAnswer(text){
 
     if(state.session.depthCount>=3||res.includes('【点数】')||res.includes('点数')){
       const score=extractScore(res);
-      saveHistoryIfNotRetry({menu:'面接の日',score:score,summary:state.session.messages[0].content.slice(0,50)});
+      saveHistoryIfNotRetry({
+        menu:'面接の日',score:score,summary:state.session.messages[0].content.slice(0,50),
+        detail:{
+          firstQuestion:state.session.firstQuestion,
+          conversation:state.session.messages.slice(),
+          finalFeedback:res
+        }
+      });
       showCompleteButton();
     }else{
       showVoiceInput('interview_answer');
@@ -1552,7 +1927,15 @@ async function handleGroupAnswer(text){
     speak(res.replace(/【.*?】/g,'').slice(0,150));
 
     const score=extractScore(res);
-    saveHistoryIfNotRetry({menu:'集団面接',score:score,summary:text.slice(0,50)});
+    saveHistoryIfNotRetry({
+      menu:'集団面接',score:score,summary:text.slice(0,50),
+      detail:{
+        question:state.session.groupQuestion,
+        otherAnswers:state.session.groupAnswers,
+        userAnswer:text,
+        aiFeedback:res
+      }
+    });
     showCompleteButton();
   }catch(e){
     hideLoading();
@@ -1565,18 +1948,70 @@ async function handleReviewAnswer(text){
   if(!state.session)return;
   showLoading();
   try{
-    const sys='あなたは小学6年生の受験対策コーチです。週次振り返りを行います。\n子供の話を聞いて、以下を1回の返答で：\n1. 共感・肯定（必ず最初）\n2. 今週の強みを1つ指摘\n3. 来週の重点を1つ提案\n200字以内で、温かく前向きな言葉で。';
+    // 直近7日分の練習履歴を集める（詳細含む）
+    const cutoff=new Date();
+    cutoff.setDate(cutoff.getDate()-7);
+    const cutoffStr=dateStr(cutoff);
+    const weekData=state.history.filter(h=>h.date>=cutoffStr && h.summary!=='途中終了' && h.menu!=='振り返り');
 
-    const recent=state.history.slice(-7).map(h=>h.date+':'+h.menu+' '+(h.score?h.score+'点':'-')).join('\n');
-    const ctx='直近7回の練習履歴：\n'+recent+'\n\n子供の振り返り：「'+text+'」';
+    const sys='あなたは小学6年生の受験対策コーチです。週次振り返りを行います。\n子供の話と直近1週間の練習履歴を踏まえ、以下を必ずJSON形式で出力してください。前置きや説明文は不要です。\n\n{\n  "message":"子供への共感・肯定＋来週の励まし（150字以内、温かく前向きに）",\n  "bestAnswer":{"date":"日付","menu":"メニュー","content":"今週のベストアンサーの内容（具体的に何が良かったか）","comment":"なぜ良かったかのコメント（30-50字）"},\n  "growth":"今週特に伸びた点（30-50字、できれば数字や具体的な変化を含める）",\n  "parentAction":"親へのおすすめアクション（家でこんな会話してあげると良い、など具体的に60-100字）"\n}';
 
-    const res=await callClaude([{role:'user',content:ctx}],sys,500);
+    const histInfo=weekData.map(h=>{
+      let s=h.date+' '+h.menu+(h.score?' '+h.score+'点':'');
+      if(h.detail){
+        if(h.detail.userAnswer)s+=' 回答:'+h.detail.userAnswer.slice(0,80);
+        if(h.detail.firstQuestion)s+=' 質問:'+h.detail.firstQuestion;
+      }
+      return s;
+    }).join('\n');
+
+    const ctx='今週1週間の練習履歴：\n'+(histInfo||'（履歴なし）')+'\n\n子供の振り返り：「'+text+'」\n\n上記を踏まえてJSON形式で今週のハイライトを作成してください。';
+
+    const res=await callClaude([{role:'user',content:ctx}],sys,1200);
     hideLoading();
     if(!state.session)return;
-    addAiBubble(res);
-    speak(res.slice(0,200));
 
-    saveHistoryIfNotRetry({menu:'振り返り',score:null,summary:text.slice(0,50)});
+    // JSONパース試行
+    const json=parseJSON(res);
+    let displayMessage='';
+    let highlightData=null;
+    if(json && json.message){
+      displayMessage=json.message;
+      highlightData=json;
+      // ハイライトカード表示
+      let cardHtml='<div class="highlight-card"><div class="highlight-title">🌟 今週のハイライト</div>';
+      if(json.bestAnswer){
+        cardHtml+='<div class="highlight-section"><div class="highlight-label">🏆 今週のベストアンサー</div><div class="highlight-text"><strong>'+escapeHTML(json.bestAnswer.date||'')+' '+escapeHTML(json.bestAnswer.menu||'')+'</strong><br>「'+escapeHTML(json.bestAnswer.content||'')+'」<br><span style="color:var(--muted);font-size:11px;">'+escapeHTML(json.bestAnswer.comment||'')+'</span></div></div>';
+      }
+      if(json.growth){
+        cardHtml+='<div class="highlight-section"><div class="highlight-label">💪 一番伸びた点</div><div class="highlight-text">'+escapeHTML(json.growth)+'</div></div>';
+      }
+      if(json.parentAction){
+        cardHtml+='<div class="highlight-section"><div class="highlight-label">👨‍👩‍👦 親へのおすすめアクション</div><div class="highlight-text">'+escapeHTML(json.parentAction)+'</div></div>';
+      }
+      cardHtml+='</div>';
+      const div=document.createElement('div');
+      div.className='fade-in';
+      div.innerHTML=cardHtml;
+      document.getElementById('sesContent').appendChild(div);
+      div.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+      addAiBubble(displayMessage);
+      speak(displayMessage.slice(0,200));
+    }else{
+      // JSON失敗時はテキストそのまま表示
+      addAiBubble(res);
+      speak(res.slice(0,200));
+    }
+
+    saveHistoryIfNotRetry({
+      menu:'振り返り',score:null,summary:text.slice(0,50),
+      detail:{
+        userAnswer:text,
+        aiFeedback:displayMessage||res,
+        highlight:highlightData
+      }
+    });
     showCompleteButton();
   }catch(e){
     hideLoading();
@@ -1586,6 +2021,29 @@ async function handleReviewAnswer(text){
 }
 
 // 点数抽出（複数パターン対応）
+// 面接官キャラ情報を返す
+function getInterviewerStyle(){
+  const s=state.severity;
+  if(s===1){
+    return{
+      name:'優しい先生',
+      personality:'緊張をほぐすような優しい口調で、「ゆっくり考えていいよ」「うんうん、そうなんだね」のような共感的な相づちを使います。評価はやや甘めで、必ず良い点を強調します。',
+      scoreModifier:'評価は甘めに（実際の評価より1点ほどプラス）。'
+    };
+  }else if(s===3){
+    return{
+      name:'厳しい校長',
+      personality:'威厳のあるベテラン校長の口調で、「もう少し具体的に」「それで本当に伝わると思う？」と圧迫気味に深掘りします。曖昧な回答は許しません。',
+      scoreModifier:'評価は辛めに（実際の評価より1点ほどマイナス）。'
+    };
+  }
+  return{
+    name:'標準の教頭',
+    personality:'バランスの取れた教頭先生の口調で、優しさと厳しさを使い分けます。',
+    scoreModifier:''
+  };
+}
+
 function extractScore(text){
   // パターン1: 「点数：8点」「点数:8」
   let m=text.match(/点数[:：]?\s*(\d+)/);
@@ -1633,10 +2091,12 @@ function saveHistory(item){
     time:new Date().toTimeString().slice(0,5),
     menu:item.menu,
     score:item.score,
-    summary:item.summary||''
+    summary:item.summary||'',
+    detail:item.detail||null
   };
   state.history.push(entry);
-  if(state.history.length>200){state.history=state.history.slice(-200);}
+  // 全件詳細保存。容量限界（save関数内で自動圧縮）まで保持
+  if(state.history.length>500){state.history=state.history.slice(-500);}
   save(K.history,state.history);
 }
 
@@ -1703,8 +2163,7 @@ function hideLoading(){
   if(el)el.remove();
 }
 
-async function callClaude(messages,system,maxTokens){
-  if(!state.apiKey)throw new Error('APIキーが未設定です');
+async function callClaude(messages,system,maxTokens){  if(!state.apiKey)throw new Error('APIキーが未設定です');
 
   const body={
     model:'claude-sonnet-4-6',
