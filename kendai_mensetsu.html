@@ -332,6 +332,7 @@ input[type=file]{display:none;}
 .history-menu{font-weight:500;flex:1;text-align:center;}
 .history-score{font-weight:700;color:var(--ink2);}
 
+.history-detail{margin-top:8px;}
 .history-detail-inner{
   background:var(--cream);padding:14px;border-radius:10px;margin:8px 0;
   font-size:13px;line-height:1.6;
@@ -731,7 +732,10 @@ function isCompletedToday(){
   return state.history.some(h=>h.date===t && h.summary!=='途中終了');
 }
 
+let _initDone=false;
 function init(){
+  if(_initDone)return; // 二重実行防止
+  _initDone=true;
   // テストモードバッジ表示
   updateTestBadge();
 
@@ -1419,6 +1423,7 @@ function showPhotoInput(){
       }
       addAiBubble('写真を確認中...');
       const dataUrl=await resizeImage(f,1024,0.8);
+      if(!state.session)return; // 中断検知
       state.session.photo=dataUrl;
       document.getElementById('photoArea').innerHTML=
         '<div class="photo-preview"><img src="'+escapeHTML(dataUrl)+'"><button class="photo-redo" id="photoRedo">撮り直す</button></div>';
