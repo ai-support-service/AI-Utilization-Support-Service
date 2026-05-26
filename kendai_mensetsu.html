@@ -1067,13 +1067,13 @@ function renderHistoryDetail(h){
   let html='<div class="history-detail-inner">';
   if(h.menu==='新聞の日'){
     html+='<div class="hd-section"><div class="hd-label">📰 写真</div><div class="hd-text">記事の写真を撮影しました</div></div>';
-    html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの話</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
-    html+='<div class="hd-section"><div class="hd-label">🤖 AIフィードバック</div><div class="hd-text">'+escapeHTML(d.aiFeedback||'').replace(/\n/g,'<br>')+'</div></div>';
-  }else if(h.menu==='面接の日'){
-    html+='<div class="hd-section"><div class="hd-label">❓ 最初の質問</div><div class="hd-text">'+escapeHTML(d.firstQuestion||'')+'</div></div>';
-    if(d.conversation){
-      html+='<div class="hd-section"><div class="hd-label">💬 やりとり</div>';
-      d.conversation.forEach((m,i)=>{
+    html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの最初の感想</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
+    if(d.summaryFeedback){
+      html+='<div class="hd-section"><div class="hd-label">📝 要約評価</div><div class="hd-text">'+escapeHTML(d.summaryFeedback).replace(/\n/g,'<br>')+(d.summaryScore?'<br><strong>'+d.summaryScore+'点</strong>':'')+'</div></div>';
+    }
+    if(d.deepConversation && d.deepConversation.length>0){
+      html+='<div class="hd-section"><div class="hd-label">🔍 5回の深掘り</div>';
+      d.deepConversation.forEach(m=>{
         if(m.role==='user'){
           html+='<div class="hd-msg hd-msg-user"><strong>竣貴くん：</strong>'+escapeHTML(m.content)+'</div>';
         }else{
@@ -1081,6 +1081,29 @@ function renderHistoryDetail(h){
         }
       });
       html+='</div>';
+    }
+    if(d.finalFeedback){
+      html+='<div class="hd-section"><div class="hd-label">🎯 総評</div><div class="hd-text">'+escapeHTML(d.finalFeedback).replace(/\n/g,'<br>')+'</div></div>';
+    }
+    if(d.aiFeedback && !d.deepConversation){
+      // 旧形式のデータ
+      html+='<div class="hd-section"><div class="hd-label">🤖 AIフィードバック</div><div class="hd-text">'+escapeHTML(d.aiFeedback).replace(/\n/g,'<br>')+'</div></div>';
+    }
+  }else if(h.menu==='面接の日'){
+    html+='<div class="hd-section"><div class="hd-label">❓ 最初の質問</div><div class="hd-text">'+escapeHTML(d.firstQuestion||'')+'</div></div>';
+    if(d.conversation){
+      html+='<div class="hd-section"><div class="hd-label">🔍 やりとり（5回深掘り）</div>';
+      d.conversation.forEach(m=>{
+        if(m.role==='user'){
+          html+='<div class="hd-msg hd-msg-user"><strong>竣貴くん：</strong>'+escapeHTML(m.content)+'</div>';
+        }else{
+          html+='<div class="hd-msg hd-msg-ai"><strong>AI：</strong>'+escapeHTML(m.content).replace(/\n/g,'<br>')+'</div>';
+        }
+      });
+      html+='</div>';
+    }
+    if(d.finalFeedback){
+      html+='<div class="hd-section"><div class="hd-label">🎯 総評</div><div class="hd-text">'+escapeHTML(d.finalFeedback).replace(/\n/g,'<br>')+'</div></div>';
     }
   }else if(h.menu==='集団面接'){
     html+='<div class="hd-section"><div class="hd-label">❓ 質問</div><div class="hd-text">'+escapeHTML(d.question||'')+'</div></div>';
@@ -1091,8 +1114,26 @@ function renderHistoryDetail(h){
       });
       html+='</div>';
     }
-    html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの答え</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
-    html+='<div class="hd-section"><div class="hd-label">🤖 AI評価</div><div class="hd-text">'+escapeHTML(d.aiFeedback||'').replace(/\n/g,'<br>')+'</div></div>';
+    html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの最初の答え</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
+    if(d.deepConversation && d.deepConversation.length>0){
+      html+='<div class="hd-section"><div class="hd-label">🔍 5回の深掘り</div>';
+      d.deepConversation.forEach((m,i)=>{
+        if(i===0)return; // 最初の答えは既に表示済み
+        if(m.role==='user'){
+          html+='<div class="hd-msg hd-msg-user"><strong>竣貴くん：</strong>'+escapeHTML(m.content)+'</div>';
+        }else{
+          html+='<div class="hd-msg hd-msg-ai"><strong>AI：</strong>'+escapeHTML(m.content).replace(/\n/g,'<br>')+'</div>';
+        }
+      });
+      html+='</div>';
+    }
+    if(d.finalFeedback){
+      html+='<div class="hd-section"><div class="hd-label">🎯 総評</div><div class="hd-text">'+escapeHTML(d.finalFeedback).replace(/\n/g,'<br>')+'</div></div>';
+    }
+    if(d.aiFeedback && !d.deepConversation){
+      // 旧形式
+      html+='<div class="hd-section"><div class="hd-label">🤖 AI評価</div><div class="hd-text">'+escapeHTML(d.aiFeedback).replace(/\n/g,'<br>')+'</div></div>';
+    }
   }else if(h.menu==='振り返り'){
     html+='<div class="hd-section"><div class="hd-label">🗣️ 竣貴くんの話</div><div class="hd-text">'+escapeHTML(d.userAnswer||'')+'</div></div>';
     html+='<div class="hd-section"><div class="hd-label">🤖 AIコメント</div><div class="hd-text">'+escapeHTML(d.aiFeedback||'').replace(/\n/g,'<br>')+'</div></div>';
@@ -1810,6 +1851,7 @@ async function sendUserInput(){
 
     const mode=state.session.inputMode;
     if(mode==='paper_feedback'){await handlePaperFeedback(text);}
+    else if(mode==='paper_deep'){await handlePaperDeep(text);}
     else if(mode==='interview_answer'){await handleInterviewAnswer(text);}
     else if(mode==='group_answer'){await handleGroupAnswer(text);}
     else if(mode==='review_answer'){await handleReviewAnswer(text);}
@@ -1828,7 +1870,7 @@ async function handlePaperFeedback(text){
   showLoading();
   try{
     const style=getInterviewerStyle();
-    const sys='あなたは小学6年生の新聞要約練習をフィードバックする「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n12歳の子供への声かけとして、以下を1回の返答で行ってください：\n\n1. 良かった点を1つ具体的に（必ず褒める）\n2. もっと良くなる点を1つ具体的に\n3. 1〜10点で評価（要約の正確さ・理由の具体性・自分の意見の3軸を総合）\n\n返答は150〜200字程度。最後に「点数：X点」と1行で書く。';
+    const sys='あなたは小学6年生の新聞要約練習をフィードバックする「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n12歳の子供への声かけとして、以下を1回の返答で行ってください：\n\n1. 良かった点を1つ具体的に（必ず褒める）\n2. もっと良くなる点を1つ具体的に\n3. 1〜10点で評価（要約の正確さ・理由の具体性・自分の意見の3軸を総合）\n\n返答は120〜180字程度。最後に「要約点数：X点」と1行で書く。\n（この後で記事への考えを深掘りするので、まずは要約だけ評価する）';
 
     // base64データの安全な抽出
     const photoData=state.session.photo;
@@ -1840,31 +1882,150 @@ async function handlePaperFeedback(text){
       role:'user',
       content:[
         {type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},
-        {type:'text',text:'この記事について、子供は次のように話しました：「'+text+'」\n\nフィードバックをお願いします。'}
+        {type:'text',text:'この記事について、子供は次のように話しました：「'+text+'」\n\n要約のフィードバックをお願いします。'}
       ]
     }];
 
-    const res=await callClaude(messages,sys,800);
+    const res=await callClaude(messages,sys,600);
     hideLoading();
     if(!state.session)return;
     addAiBubble(res);
-    speak(res.replace(/点数[:：]\s*\d+点?/g,'').slice(0,200));
+    speak(res.replace(/要約点数[:：]\s*\d+点?/g,'').slice(0,180));
 
-    const score=extractScore(res);
-    saveHistoryIfNotRetry({
-      menu:'新聞の日',score:score,summary:text.slice(0,50),
-      detail:{
-        userAnswer:text,
-        aiFeedback:res,
-        hasPhoto:true
+    // 要約評価のスコアを保持
+    state.session.paperSummaryScore=extractScore(res);
+    state.session.paperSummaryFeedback=res;
+    state.session.paperUserAnswer=text;
+
+    // 5回深掘りモードに移行
+    setTimeout(async()=>{
+      if(!state.session)return;
+      // 最初の深掘り質問を出す
+      showLoading();
+      try{
+        const style2=getInterviewerStyle();
+        const firstDeepSys='あなたは「'+style2.name+'」です。\n'+style2.personality+'\n\n子供が新聞記事を読んで感想を話してくれました。これからこの記事について5回深掘りして、子供に本当の意味で記事を理解させます。\n\n【今すぐやること】\n子供の話を受けて、最初の深掘り質問を1つだけ投げかけてください。1〜2文以内。「なぜそれが気になった？」「具体的にどこが？」など、表面を一段掘る質問。';
+        const firstDeepCtx='記事の写真と子供の最初の話：「'+text+'」\n\n最初の深掘り質問を投げかけてください。';
+        const deepRes=await callClaude([{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},
+          {type:'text',text:firstDeepCtx}
+        ]}],firstDeepSys,300);
+        hideLoading();
+        if(!state.session)return;
+        addAiBubble(deepRes);
+        speak(deepRes);
+
+        // 深掘りモード初期化
+        state.session.paperDepthCount=0;
+        state.session.paperDeepMessages=[
+          {role:'user',content:text},
+          {role:'assistant',content:deepRes}
+        ];
+        state.session.firstDeepQuestion=deepRes;
+        showVoiceInput('paper_deep');
+      }catch(e){
+        hideLoading();
+        addErrorBubble('深掘りの開始に失敗しました：'+e.message);
+        showVoiceInput('paper_deep');
       }
-    });
-    showCompleteButton();
+    },1200);
   }catch(e){
     hideLoading();
     addErrorBubble('評価に失敗しました：'+e.message);
     showVoiceInput('paper_feedback');
   }
+}
+
+// 新聞の日の深掘り処理（5回方式）
+async function handlePaperDeep(text){
+  if(!state.session)return;
+  showLoading();
+  try{
+    state.session.paperDepthCount=(state.session.paperDepthCount||0)+1;
+    state.session.paperDeepMessages.push({role:'user',content:text});
+
+    const style=getInterviewerStyle();
+    const depth=state.session.paperDepthCount;
+    const stageGuide=getDepthStageGuide(depth);
+    const isDontKnow=detectDontKnow(text);
+    const hintInstruction=isDontKnow?'\n\n【重要】子供は「わからない」と言っています。質問を変えるのではなく、考えるヒントを優しく出してから、もう一度同じ角度で質問してください。「いつ・どこで？」「身近な例だと？」「家族はなんて言ってる？」など。':'';
+
+    const sys='あなたは「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n小学6年生に新聞記事について深掘り質問をしています。記事への理解を深めさせるのが目的です。\n\n【深掘り5段階方式】\n現在'+depth+'回目です。\n\n'+stageGuide+hintInstruction+'\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる\n\n【5回目を超えた総評の形式（厳守）】\n5回目の本人の回答後、次のあなたの発言で総評します。\n総評は以下の形式で出力：\n\n【最初と最後の変化】〜（最初の感想と最後の理解がどう変わったか）\n【良かった点】〜\n【次の課題】〜\n【深掘り点数】考える力:X/10 自分の言葉:X/10 興味の深さ:X/10';
+
+    const photoData=state.session.photo;
+    const base64=photoData.substring(photoData.indexOf(',')+1);
+
+    const convText='最初の感想：'+state.session.paperUserAnswer+'\n\nこれまでのやり取り：\n'+
+      state.session.paperDeepMessages.map((m,i)=>{
+        return (m.role==='user'?'子供：':'AI：')+m.content;
+      }).join('\n')+
+      '\n\n現在'+depth+'回目の子供の発言後です。';
+
+    const res=await callClaude([{role:'user',content:[
+      {type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},
+      {type:'text',text:convText}
+    ]}],sys,600);
+
+    hideLoading();
+    if(!state.session)return;
+    state.session.paperDeepMessages.push({role:'assistant',content:res});
+    addAiBubble(res);
+    speak(res.replace(/【.*?】/g,'').slice(0,150));
+
+    if(depth>=5 || res.includes('【深掘り点数】')||res.includes('【点数】')){
+      if(res.includes('【深掘り点数】')||res.includes('【最初と最後の変化】')){
+        finalizePaperSession(res);
+        return;
+      }
+      // 5回完了、強制総評
+      if(depth>=5){
+        showLoading();
+        const totalSys=sys+'\n\n【今すぐ総評してください】5回の深掘りが完了しました。';
+        const totalRes=await callClaude([{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},
+          {type:'text',text:convText+'\n\n5回の深掘りが完了したので、今すぐ総評を出してください。'}
+        ]}],totalSys,700);
+        hideLoading();
+        if(!state.session)return;
+        state.session.paperDeepMessages.push({role:'assistant',content:totalRes});
+        addAiBubble(totalRes);
+        speak(totalRes.replace(/【.*?】/g,'').slice(0,200));
+        finalizePaperSession(totalRes);
+        return;
+      }
+    }
+    showVoiceInput('paper_deep');
+  }catch(e){
+    hideLoading();
+    addErrorBubble('深掘りに失敗しました：'+e.message);
+    showVoiceInput('paper_deep');
+  }
+}
+
+function finalizePaperSession(finalRes){
+  const deepScore=extractScore(finalRes);
+  const summaryScore=state.session.paperSummaryScore||0;
+  // 要約評価と深掘り評価の平均をメインスコアに
+  let finalScore=null;
+  if(deepScore && summaryScore){
+    finalScore=Math.round((deepScore+summaryScore)/2);
+  }else if(deepScore){
+    finalScore=deepScore;
+  }else if(summaryScore){
+    finalScore=summaryScore;
+  }
+  saveHistoryIfNotRetry({
+    menu:'新聞の日',score:finalScore,summary:(state.session.paperUserAnswer||'').slice(0,50),
+    detail:{
+      userAnswer:state.session.paperUserAnswer,
+      summaryFeedback:state.session.paperSummaryFeedback,
+      summaryScore:summaryScore,
+      deepConversation:state.session.paperDeepMessages.slice(),
+      finalFeedback:finalRes,
+      hasPhoto:true
+    }
+  });
+  showCompleteButton();
 }
 
 async function handleInterviewAnswer(text){
@@ -1876,33 +2037,69 @@ async function handleInterviewAnswer(text){
 
     const style=getInterviewerStyle();
     const phase=getCurrentPhase();
-    const sys='あなたは兵庫県立大学附属中学校の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n小学6年生に面接を行います。現在Phase '+phase.n+'「'+phase.name+'」。\n\nルール：\n- 1回の発言は1〜2文以内\n- 模範解答や暗記っぽい回答は「なぜ？」「具体的には？」で深掘り\n- 現在の深掘り回数：'+state.session.depthCount+'回目\n- 3回目までは深掘り、4回目で総評＋点数\n\n総評時は以下の形式（厳守）：\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
+    const depth=state.session.depthCount;
+
+    // 5段階の深掘り設計
+    const stageGuide=getDepthStageGuide(depth);
+
+    // 「わからない」検出（短文・否定的回答）
+    const isDontKnow=detectDontKnow(text);
+    const hintInstruction=isDontKnow?'\n\n【重要】子供は「わからない」「思いつかない」と言っています。質問を変えるのではなく、考えるヒントを優しく出してから、もう一度同じ角度で質問してください。例：「いつ・どこで・誰と？」「お父さんやお母さんは何て言ってる？」「学校の先生は？」「具体的な場面を思い出してみて」などの切り口を提示。':'';
+
+    const sys='あなたは兵庫県立大学附属中学校の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n小学6年生に面接を行います。現在Phase '+phase.n+'「'+phase.name+'」。\n\n【深掘り5段階方式】\nこの面接は最初の質問に対し、本人に深く理解させるために5回掘り下げます。\n現在は'+depth+'回目です。\n\n'+stageGuide+hintInstruction+'\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる（5回目を除く）\n- 「うんうん」「なるほど」など共感の相づちを入れていい\n\n【5回目を超えた総評の形式（厳守）】\n5回目の本人の回答後、6回目のあなたの発言で総評します。\n総評は以下の形式で出力：\n\n【最初と最後の変化】〜（最初の答えと最後の答えがどう変わったか、具体的に。本人に成長を実感させる）\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
 
     const userMsg='最初の質問：'+state.session.firstQuestion+'\n\n子供の回答履歴：\n'+
       state.session.messages.map((m,i)=>(i+1)+'回目：'+m.content).join('\n')+
-      '\n\n深掘り回数：'+state.session.depthCount+'回目';
+      '\n\n現在'+depth+'回目の発言後です。';
 
-    const res=await callClaude([{role:'user',content:userMsg}],sys,500);
+    const res=await callClaude([{role:'user',content:userMsg}],sys,600);
     hideLoading();
     if(!state.session)return;
     state.session.messages.push({role:'assistant',content:res});
     addAiBubble(res);
     speak(res.replace(/【.*?】/g,'').slice(0,150));
 
-    if(state.session.depthCount>=3||res.includes('【点数】')||res.includes('点数')){
-      const score=extractScore(res);
-      saveHistoryIfNotRetry({
-        menu:'面接の日',score:score,summary:state.session.messages[0].content.slice(0,50),
-        detail:{
-          firstQuestion:state.session.firstQuestion,
-          conversation:state.session.messages.slice(),
-          finalFeedback:res
-        }
-      });
-      showCompleteButton();
-    }else{
-      showVoiceInput('interview_answer');
+    // 5回深掘り完了＝6回目（総評）はAIが自動で出す
+    // depthCountは「本人が答えた回数」なので、5回答えた次のAI発言で総評
+    if(depth>=5 || res.includes('【点数】')){
+      // 既に総評が出ているか、5回完了なので次のAI返答で総評
+      if(res.includes('【点数】')||res.includes('【最初と最後の変化】')){
+        const score=extractScore(res);
+        saveHistoryIfNotRetry({
+          menu:'面接の日',score:score,summary:state.session.messages[0].content.slice(0,50),
+          detail:{
+            firstQuestion:state.session.firstQuestion,
+            conversation:state.session.messages.slice(),
+            finalFeedback:res
+          }
+        });
+        showCompleteButton();
+        return;
+      }
+      // 5回目の本人回答が終わったので、もう一度AIに総評させる
+      if(depth>=5){
+        showLoading();
+        const totalSys=sys+'\n\n【今すぐ総評してください】5回の深掘りが完了しました。次の発言で必ず総評を出してください。';
+        const totalRes=await callClaude([{role:'user',content:userMsg+'\n\n5回の深掘りが完了したので、今すぐ総評を出してください。'}],totalSys,700);
+        hideLoading();
+        if(!state.session)return;
+        state.session.messages.push({role:'assistant',content:totalRes});
+        addAiBubble(totalRes);
+        speak(totalRes.replace(/【.*?】/g,'').slice(0,200));
+        const score=extractScore(totalRes);
+        saveHistoryIfNotRetry({
+          menu:'面接の日',score:score,summary:state.session.messages[0].content.slice(0,50),
+          detail:{
+            firstQuestion:state.session.firstQuestion,
+            conversation:state.session.messages.slice(),
+            finalFeedback:totalRes
+          }
+        });
+        showCompleteButton();
+        return;
+      }
     }
+    showVoiceInput('interview_answer');
   }catch(e){
     hideLoading();
     addErrorBubble('AIとの通信に失敗しました：'+e.message);
@@ -1910,38 +2107,96 @@ async function handleInterviewAnswer(text){
   }
 }
 
+// 深掘り段階別のAI指示
+function getDepthStageGuide(depth){
+  const stages={
+    1:'【1回目の役割】表面の理由を掘る。「なぜそう思う？」「具体的には？」など、本人の回答を一段深く聞く質問をする。',
+    2:'【2回目の役割】さらに具体化する。1回目の回答を受けて、「もう少し詳しく」「いつ・どこで？」など、エピソードや場面を引き出す。',
+    3:'【3回目の役割】他との比較で本質を引き出す。「他の学校でもそれはあるよ。なぜこの学校なの？」「他の理由じゃなくて、それを選んだのは？」など、本質を問う。',
+    4:'【4回目の役割】自分の体験・感情に根ざした理由を引き出す。「その気持ちはどこから来てる？」「いつからそう思うようになった？」「家族や友達は関係ある？」など、原体験を聞く。',
+    5:'【5回目の役割（最重要）】これまでの会話を踏まえ、本人に「自分の言葉でまとめさせる」。例：「最初は『〜』って答えてくれたけど、今までの話を全部つなげて、もう一回志望理由を自分の言葉で言ってみて」。再構築させることが目的。'
+  };
+  return stages[depth]||'';
+}
+
+// 「わからない」検出
+function detectDontKnow(text){
+  if(!text||text.length>30)return false;
+  const patterns=['わからない','わかんない','分からない','知らない','思いつかない','うーん','ない','特にない','ありません','うん…','んー'];
+  return patterns.some(p=>text.includes(p));
+}
+
 async function handleGroupAnswer(text){
   if(!state.session)return;
   showLoading();
   try{
-    const sys='あなたは集団面接の面接官です。小学6年生の回答を評価します。\n特に「他の4人の答えを聞いて自分の意見を述べられているか」を重視します。\n\n以下を1回の返答で：\n1. 良かった点1つ\n2. 改善点1つ\n3. 【点数】話す力:X/10 聞く力:X/10 考える力:X/10\n\n200字以内で。';
+    // 集団面接の本人発言後、最初に深掘りを開始
+    state.session.groupDepthCount=(state.session.groupDepthCount||0)+1;
+    if(!state.session.groupDeepMessages){
+      state.session.groupDeepMessages=[];
+      state.session.groupFirstAnswer=text;
+    }
+    state.session.groupDeepMessages.push({role:'user',content:text});
 
-    const ctx='質問：'+state.session.groupQuestion+'\n\n4人の答え：\n'+
+    const style=getInterviewerStyle();
+    const depth=state.session.groupDepthCount;
+    const stageGuide=getDepthStageGuide(depth);
+    const isDontKnow=detectDontKnow(text);
+    const hintInstruction=isDontKnow?'\n\n【重要】子供は「わからない」と言っています。ヒントを出してください。「他の人の答えを思い出してみて」「具体的な場面で言うと？」など。':'';
+
+    const sys='あなたは集団面接の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n本人（5人目）の回答について深掘りします。「他の4人の答えを聞いて自分の意見を述べられているか」も重視。\n\n【深掘り5段階方式】\n現在'+depth+'回目です。\n\n'+stageGuide+hintInstruction+'\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる\n\n【5回目を超えた総評の形式】\n5回目の本人回答の次のあなたの発言で総評を出します。\n\n【最初と最後の変化】〜\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 聞く力:X/10 考える力:X/10';
+
+    const ctx='【元の質問】'+state.session.groupQuestion+'\n\n【4人の答え】\n'+
       state.session.groupAnswers.map(a=>(a.name||'受験生')+'：'+(a.answer||'')).join('\n')+
-      '\n\n子供（5人目）の答え：'+text;
+      '\n\n【子供（5人目）のやり取り】\n'+
+      state.session.groupDeepMessages.map((m,i)=>(m.role==='user'?'子供：':'AI：')+m.content).join('\n')+
+      '\n\n現在'+depth+'回目の子供の発言後です。';
 
     const res=await callClaude([{role:'user',content:ctx}],sys,600);
     hideLoading();
     if(!state.session)return;
+    state.session.groupDeepMessages.push({role:'assistant',content:res});
     addAiBubble(res);
     speak(res.replace(/【.*?】/g,'').slice(0,150));
 
-    const score=extractScore(res);
-    saveHistoryIfNotRetry({
-      menu:'集団面接',score:score,summary:text.slice(0,50),
-      detail:{
-        question:state.session.groupQuestion,
-        otherAnswers:state.session.groupAnswers,
-        userAnswer:text,
-        aiFeedback:res
+    if(depth>=5 || res.includes('【点数】')){
+      if(res.includes('【点数】')||res.includes('【最初と最後の変化】')){
+        finalizeGroupSession(res);
+        return;
       }
-    });
-    showCompleteButton();
+      if(depth>=5){
+        showLoading();
+        const totalRes=await callClaude([{role:'user',content:ctx+'\n\n5回の深掘りが完了したので、今すぐ総評を出してください。'}],sys+'\n\n【今すぐ総評してください】',700);
+        hideLoading();
+        if(!state.session)return;
+        state.session.groupDeepMessages.push({role:'assistant',content:totalRes});
+        addAiBubble(totalRes);
+        speak(totalRes.replace(/【.*?】/g,'').slice(0,200));
+        finalizeGroupSession(totalRes);
+        return;
+      }
+    }
+    showVoiceInput('group_answer');
   }catch(e){
     hideLoading();
     addErrorBubble('評価に失敗しました：'+e.message);
     showVoiceInput('group_answer');
   }
+}
+
+function finalizeGroupSession(finalRes){
+  const score=extractScore(finalRes);
+  saveHistoryIfNotRetry({
+    menu:'集団面接',score:score,summary:(state.session.groupFirstAnswer||'').slice(0,50),
+    detail:{
+      question:state.session.groupQuestion,
+      otherAnswers:state.session.groupAnswers,
+      userAnswer:state.session.groupFirstAnswer,
+      deepConversation:state.session.groupDeepMessages.slice(),
+      finalFeedback:finalRes
+    }
+  });
+  showCompleteButton();
 }
 
 async function handleReviewAnswer(text){
