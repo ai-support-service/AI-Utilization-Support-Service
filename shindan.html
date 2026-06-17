@@ -160,11 +160,11 @@ body{font-family:'M PLUS Rounded 1c',sans-serif;background:var(--cream);color:va
       <div class="card-head">
         <div class="head-tag">✦ 無料 AI活用診断</div>
         <div class="head-title">60秒でわかる、<br>あなたの会社のAI活用度</div>
-        <div class="head-sub">5つの質問に答えるだけ。月何時間削減できるか・どのプランが合うかがわかります。</div>
+        <div class="head-sub">6つの質問に答えるだけ。月何時間削減できるか・どのプランが合うかがわかります。</div>
       </div>
       <div class="progress-wrap">
-        <div class="prog-top"><span class="prog-lbl" id="prog-label">質問 1 / 5</span><span class="prog-cnt" id="prog-count">20%</span></div>
-        <div class="prog-bg"><div class="prog-fill" id="prog-bar" style="width:20%"></div></div>
+        <div class="prog-top"><span class="prog-lbl" id="prog-label">質問 1 / 6</span><span class="prog-cnt" id="prog-count">17%</span></div>
+        <div class="prog-bg"><div class="prog-fill" id="prog-bar" style="width:17%"></div></div>
       </div>
       <div class="q-area">
         <div class="q-num" id="q-num">QUESTION 01</div>
@@ -209,38 +209,51 @@ body{font-family:'M PLUS Rounded 1c',sans-serif;background:var(--cream);color:va
 const questions=[
   {num:'01',text:'今、一番時間がかかっている作業は何ですか？',sub:'当てはまるものを1つ選んでください。',
    choices:[
-    {ico:'📄',title:'書類・帳票作成',desc:'見積書・請求書・報告書の作成',score:{type:0}},
-    {ico:'💬',title:'メール・連絡対応',desc:'問い合わせ・発注・フォローのメール',score:{type:1}},
-    {ico:'📊',title:'データ入力・集計',desc:'Excelへの入力・転記・集計作業',score:{type:2}},
-    {ico:'📋',title:'報告書・議事録',desc:'現場報告・会議メモの整理',score:{type:3}},
+    {ico:'📄',title:'見積書・請求書・帳票の作成',desc:'定型の書類づくり',score:{auto:0.55,label:'見積・請求・帳票の作成'}},
+    {ico:'📊',title:'データ入力・集計・転記',desc:'Excelへの入力・まとめ作業',score:{auto:0.55,label:'データ入力・集計'}},
+    {ico:'📱',title:'予約・問い合わせの受付対応',desc:'電話・LINE・メールでの受付',score:{auto:0.45,label:'予約・問い合わせ対応'}},
+    {ico:'📦',title:'在庫・受発注・仕入れ管理',desc:'発注書・在庫表の管理',score:{auto:0.45,label:'在庫・受発注の管理'}},
+    {ico:'📋',title:'報告書・日報・議事録の作成',desc:'現場報告・会議メモの整理',score:{auto:0.40,label:'報告書・日報の作成'}},
+    {ico:'🤝',title:'顧客管理・追客・フォロー連絡',desc:'顧客リスト・フォローの連絡',score:{auto:0.40,label:'顧客管理・フォロー連絡'}},
+    {ico:'📣',title:'SNS投稿・販促・チラシ作成',desc:'集客用の文章・画像づくり',score:{auto:0.50,label:'SNS投稿・販促物の作成'}},
+    {ico:'🗓️',title:'シフト・スケジュール調整',desc:'人員の割り当て・日程調整',score:{auto:0.35,label:'シフト・日程の調整'}},
   ]},
-  {num:'02',text:'月に繰り返している作業に、どのくらい時間をかけていますか？',sub:'概算で構いません。',
+  {num:'02',text:'その作業に、月どのくらい時間をかけていますか？',sub:'おおよそで構いません。',
    choices:[
-    {ico:'🟢',title:'5〜10時間くらい',desc:'週1〜2時間程度',score:{hours:8,level:1}},
-    {ico:'🟡',title:'10〜20時間くらい',desc:'週2〜5時間程度',score:{hours:15,level:2}},
-    {ico:'🟠',title:'20〜40時間くらい',desc:'週5〜10時間程度',score:{hours:30,level:3}},
-    {ico:'🔴',title:'40時間以上',desc:'ほぼ毎日2時間以上',score:{hours:50,level:4}},
+    {ico:'⏱️',title:'月5時間未満',desc:'週1時間以下',score:{hours:4}},
+    {ico:'🟢',title:'月5〜10時間',desc:'週1〜2時間',score:{hours:8}},
+    {ico:'🟡',title:'月10〜20時間',desc:'週2〜5時間',score:{hours:15}},
+    {ico:'🟠',title:'月20〜40時間',desc:'週5〜10時間',score:{hours:30}},
+    {ico:'🔴',title:'月40〜80時間',desc:'ほぼ毎日2〜3時間',score:{hours:60}},
+    {ico:'⛔',title:'月80時間以上',desc:'専任が必要なレベル',score:{hours:100}},
   ]},
-  {num:'03',text:'現在、主にどのツールを使っていますか？',sub:'最もよく使うものを選んでください。',
+  {num:'03',text:'その業務は、何人で回していますか？',sub:'関わっているおおよその人数を選んでください。',
    choices:[
-    {ico:'📗',title:'Excel・スプレッドシート',desc:'データ管理・集計に使用',score:{tool:'excel'}},
-    {ico:'📝',title:'紙・手書き',desc:'伝票・帳票・メモは紙が中心',score:{tool:'paper'}},
-    {ico:'💻',title:'業界専用システム',desc:'受発注・在庫管理などの専用ソフト',score:{tool:'system'}},
-    {ico:'📱',title:'スマホ・LINE・メール',desc:'連絡・共有はスマホが中心',score:{tool:'mobile'}},
+    {ico:'🧍',title:'自分1人',desc:'ほぼ自分が担当',score:{scale:1.0,people:'1人'}},
+    {ico:'👥',title:'2〜5人',desc:'少人数のチーム',score:{scale:1.5,people:'2〜5人'}},
+    {ico:'👨‍👩‍👧',title:'6〜15人',desc:'部署・店舗単位',score:{scale:2.2,people:'6〜15人'}},
+    {ico:'🏢',title:'16人以上',desc:'全社・複数拠点',score:{scale:3.0,people:'16人以上'}},
   ]},
-  {num:'04',text:'AIやデジタル化への印象を教えてください。',sub:'正直なところを選んでください。',
+  {num:'04',text:'現在、主にどのツールを使っていますか？',sub:'最もよく使うものを選んでください。',
+   choices:[
+    {ico:'📗',title:'Excel・スプレッドシート',desc:'データ管理・集計に使用',score:{tool:1.0,toolName:'Excel・スプレッドシート'}},
+    {ico:'💻',title:'業界専用システム',desc:'受発注・在庫などの専用ソフト',score:{tool:0.9,toolName:'専用システム'}},
+    {ico:'📱',title:'スマホ・LINE・メール中心',desc:'連絡・共有はスマホが中心',score:{tool:0.85,toolName:'スマホ・LINE'}},
+    {ico:'📝',title:'紙・手書き中心',desc:'伝票・帳票・メモは紙が中心',score:{tool:0.65,toolName:'紙・手書き'}},
+  ]},
+  {num:'05',text:'AIやデジタル化への印象を教えてください。',sub:'正直なところを選んでください。',
    choices:[
     {ico:'🔥',title:'すぐ始めたい',desc:'興味あり・導入意欲が高い',score:{ai:4}},
     {ico:'🤔',title:'興味はあるが半信半疑',desc:'効果があるのか少し疑っている',score:{ai:3}},
     {ico:'😅',title:'苦手意識があるが試したい',desc:'ITは得意ではないが前向き',score:{ai:2}},
     {ico:'🧐',title:'もう少し様子を見たい',desc:'慎重に検討したい',score:{ai:1}},
   ]},
-  {num:'05',text:'時間を取り戻せたら、何に使いたいですか？',sub:'一番やりたいことを選んでください。',
+  {num:'06',text:'時間を取り戻せたら、何に使いたいですか？',sub:'一番やりたいことを選んでください。',
    choices:[
-    {ico:'📣',title:'営業・新規顧客開拓',desc:'もっとお客さんと話す時間を増やしたい',score:{goal:'sales'}},
-    {ico:'🔧',title:'現場・本業に集中',desc:'本来の仕事に専念したい',score:{goal:'core'}},
-    {ico:'📈',title:'経営・戦略を考える時間',desc:'会社の将来を考える余裕が欲しい',score:{goal:'mgmt'}},
-    {ico:'🏠',title:'プライベートの時間',desc:'家族や自分の時間を取り戻したい',score:{goal:'life'}},
+    {ico:'📣',title:'営業・新規顧客開拓',desc:'もっとお客さんと話したい',score:{goal:'もっと営業・集客に時間を使えます'}},
+    {ico:'🔧',title:'現場・本業に集中',desc:'本来の仕事に専念したい',score:{goal:'本業や現場の質を高められます'}},
+    {ico:'📈',title:'経営・戦略を考える時間',desc:'会社の将来を考える余裕が欲しい',score:{goal:'経営や将来の戦略に向き合えます'}},
+    {ico:'🏠',title:'プライベートの時間',desc:'家族や自分の時間を取り戻したい',score:{goal:'家族や自分の時間を取り戻せます'}},
   ]},
 ];
 
@@ -295,57 +308,85 @@ function restart(){
 
 function showResult(){
   const a=answers;
-  const hoursChoice=questions[1].choices[a[1]].score;
-  const monthlyHours=hoursChoice.hours;
-  const level=hoursChoice.level;
-  const aiScore=questions[3].choices[a[3]].score.ai;
-  const tool=questions[2].choices[a[2]].score.tool;
-  const reductionRate=level===4?0.60:level===3?0.55:level===2?0.50:0.40;
+  // 各回答スコアを取得
+  const s1=questions[0].choices[a[0]].score;   // 作業の種類（自動化係数）
+  const s2=questions[1].choices[a[1]].score;   // 月間時間
+  const s3=questions[2].choices[a[2]].score;   // 人数規模
+  const s4=questions[3].choices[a[3]].score;   // ツール
+  const s5=questions[4].choices[a[4]].score;   // AI温度感
+  const s6=questions[5].choices[a[5]].score;   // ゴール
+
+  const monthlyHours=s2.hours;
+  const autoRate=s1.auto;        // 0.35〜0.55
+  const toolRate=s4.tool;        // 0.65〜1.0
+  const aiScore=s5.ai;           // 1〜4
+  const scale=s3.scale;          // 1.0〜3.0
+
+  // 削減時間 = 月間作業時間 × 自動化係数 × ツール係数
+  const reductionRate=autoRate*toolRate;                 // 0.23〜0.55
   const savedHours=Math.round(monthlyHours*reductionRate);
   const hourlyRate=2500;
-  const annualSaving=Math.round(savedHours*hourlyRate*12/10000);
+  // 年間削減コスト（規模を反映：複数人で同じ作業をしているほど全社効果が大きい）
+  const annualSaving=Math.round(savedHours*hourlyRate*12*Math.sqrt(scale)/10000);
 
   document.getElementById('saving-val').innerHTML=`${savedHours} <span>時間/月</span>`;
   document.getElementById('saving-money').textContent=`年間約${annualSaving}万円`;
-  document.getElementById('saving-sub').textContent=`月${monthlyHours}時間の繰り返し作業を約${Math.round(reductionRate*100)}%削減。人件費換算で年間${annualSaving}万円相当。`;
+  document.getElementById('saving-sub').innerHTML=`${s3.people}で月${monthlyHours}時間を「${s1.label}」に使用。<br>${s4.toolName}を活かせば約${Math.round(reductionRate*100)}%・月${savedHours}時間を自動化でき、人件費換算で年間約${annualSaving}万円相当。`;
 
-  const issueMap=[
-    {text:'書類・帳票作成の自動化（見積書・請求書）',type:'ai'},
-    {text:'メール・連絡対応の自動送信',type:'ai'},
-    {text:'データ入力・集計の自動化',type:'ai'},
-    {text:'報告書・議事録の音声入力→自動整形',type:'ai'},
+  // AIで解決できる課題（選んだ作業に応じて出し分け）
+  const aiTask=`${s1.label}の自動化`;
+  const issues=[
+    {text:aiTask,type:'ai'},
+    {text:'入力・転記・集計のAI自動処理',type:'ai'},
+    {text:'今あるツール（'+s4.toolName+'）を起点に仕組み化',type:'ai'},
     {text:'ツールの選定と初期設定（人が伴走）',type:'human'},
     {text:'社員・スタッフへのレクチャー（人が伴走）',type:'human'},
   ];
-  const t=questions[0].choices[a[0]].score.type;
-  const issues=[issueMap[t],issueMap[(t+1)%4],issueMap[4],issueMap[5]];
   document.getElementById('issues-list').innerHTML=issues.map(iss=>`<div class="issue-item"><span class="issue-tag ${iss.type}">${iss.type==='ai'?'AI対応':'人が伴走'}</span>${iss.text}</div>`).join('');
 
-  let planName,planPrice,planUnit,planReason,planPoints;
-  if(annualSaving<15){
-    planName='まずは無料相談から';planPrice='¥0';planUnit='無料';
-    planReason=`現在の繰り返し作業量（月${monthlyHours}時間）では、いきなりプランを導入するより「どの業務から手をつけるか」を一緒に整理することが先決です。無料で現状をお聞きして、費用対効果が出る進め方をご提案します。`;
-    planPoints=['現状ヒアリング（無料・30分）','AI化に向いている業務の見極め','最適なスタート方法をご提案'];
-  } else if(annualSaving<50||aiScore<=2||tool==='paper'){
-    planName='業務お片付け診断';planPrice='¥3〜5万';planUnit='スポット（1回）';
-    if(aiScore<=2)planReason='AIへの苦手意識がある状態でいきなり月額契約は不安になりやすいです。まず診断（3〜5万円）で「自社でどれだけ効果が出るか」を数字で確認してから判断するのが最も安心です。';
-    else if(tool==='paper')planReason='紙・手書きが中心の場合、まず現在の業務を整理してどこからデジタル化するかを設計する必要があります。診断から入ることで無駄のない順序で進められます。';
-    else planReason=`年間約${annualSaving}万円のコスト削減が見込めます。診断（3〜5万円）でどの業務から始めるかを整理すれば、投資回収は数ヶ月で実現できます。`;
-    planPoints=['業務整理マップ（今の業務を可視化）','AI活用ポイントリスト（自動化できる業務一覧）','月削減時間・コスト削減の試算レポート'];
-  } else if(annualSaving<80){
-    planName='おまかせプラン';planPrice='¥3万';planUnit='/月〜';
-    planReason=`年間約${annualSaving}万円のコスト削減に対して、月3万円（年36万円）の投資。差し引き年間約${annualSaving-36}万円のプラスになる計算です。今使っているスプレッドシートをそのまま使いながら、その先の作業を自動化する仕組みを作って渡します。`;
-    planPoints=['会社専用ツール・仕組みの作成','スプレッドシート起点の自動化','チャットサポート＋月1回MTG'];
+  // ===== プラン判定（LPの4プランに完全一致・年間削減額/規模/温度感の3軸） =====
+  let planName,planPrice,planUnit,planReason,planPoints,planBadge='★ あなたにぴったり';
+  const people=s3.people, goal=s6.goal;
+
+  if(annualSaving<5){
+    // 効果が小さい → 無料相談
+    planName='まずは無料相談から';planPrice='¥0';planUnit='無料';planBadge='まずはここから';
+    planReason=`現在の作業量（月${monthlyHours}時間）では、いきなりプランを導入するより「どの業務から手をつけるか」を一緒に整理するのが先決です。無料で現状をお聞きし、費用対効果が出る進め方をご提案します。`;
+    planPoints=['現状ヒアリング（無料・30分）','AI化に向いている業務の見極め','最適なスタート方法のご提案'];
+  } else if(aiScore<=1 || toolRate===0.65){
+    // 様子見 or 紙中心 → スポット診断
+    planName='業務お片付け診断';planPrice='¥1〜5万';planUnit='スポット（1回のみ）';planBadge='まず効果を数字で確認';
+    if(toolRate===0.65) planReason=`紙・手書きが中心のため、まず現在の業務を整理し、どこからデジタル化するかを設計する必要があります。診断（1〜5万円）から入ることで、無駄のない順序で進められ、年間約${annualSaving}万円の削減に向けた地図が手に入ります。`;
+    else planReason=`いきなり月額契約は不安に感じやすい段階です。まず診断（1〜5万円）で「自社でどれだけ効果が出るか」を数字で確認してから判断するのが最も安心です。年間約${annualSaving}万円の削減見込みがどこから実現できるかを可視化します。`;
+    planPoints=['業務整理マップ（今の業務を可視化）','AI活用ポイントリスト（自動化できる業務一覧）','優先順位レポート＋費用対効果の試算'];
+  } else if(annualSaving<30){
+    // 5〜30万 → おまかせ
+    planName='おまかせプラン';planPrice='¥1〜3万';planUnit='/ 月';
+    const annualCostLow=12;
+    const diff=annualSaving-annualCostLow;
+    if(diff>=0) planReason=`年間約${annualSaving}万円の削減見込みに対し、月1〜3万円（年12〜36万円）の投資。今お使いの${s4.toolName}をそのまま活かしながら、その先の作業を自動化する仕組みを作って渡します。小さく始めて効果を確かめられます。`;
+    else planReason=`年間約${annualSaving}万円の削減見込み。月1万円（年12万円）から小さく始められます。初年度は投資が先行しても、仕組みは一度作れば翌年以降ずっと効き続けます。今の${s4.toolName}を活かして無理なくスタートできます。`;
+    planPoints=['会社専用ツール・仕組みの作成','スプレッドシート起点の自動化を構築','チャットサポート＋月1回MTG'];
+  } else if(annualSaving>=70 || scale>=3.0){
+    // 70万超 or 16人以上 → フルサポート
+    planName='フルサポートプラン';planPrice='¥5万〜';planUnit='/ 月';
+    planReason=`年間約${annualSaving}万円の削減見込み。${people}規模で複数業務を一気にDX化するフェーズです。月5万円〜の投資でも費用対効果が明確に出るボリュームで、複数部門の自動化を優先対応で進めます。`;
+    planPoints=['まるごとプランの全内容を含む','複数部門・複数業務の同時自動化','優先対応・柔軟なスポット相談','規模・範囲に応じてお見積り'];
   } else {
-    planName='おまかせプラン（拡張）';planPrice='¥5〜10万';planUnit='/月';
-    planReason=`年間約${annualSaving}万円のコスト削減に対して、月5〜10万円（年60〜120万円）の投資。費用対効果が明確に出るボリュームです。複数業務を同時に自動化し、月次MTGで継続改善します。`;
-    planPoints=['複数業務の同時自動化','スプレッドシート起点の仕組み構築','月次MTG＋週次チャットサポート'];
+    // 30〜70万 or 6〜15人 → まるごと
+    planName='まるごとプラン';planPrice='¥3〜5万';planUnit='/ 月';
+    planReason=`年間約${annualSaving}万円の削減見込みに対し、月3〜5万円（年36〜60万円）の投資で、差し引きプラスが見込めます。${people}で回す業務だからこそ、担当者として入り、使いこなせるまで伴走。複数の業務を継続的に改善していきます。`;
+    planPoints=['おまかせプランの全内容を含む','月2回MTG＋スタッフ向けレクチャー','新業務への継続展開・改善提案','専任担当制・いつでも相談できる窓口'];
   }
 
   document.getElementById('plan-name').textContent=planName;
+  document.getElementById('plan-badge').textContent=planBadge;
   document.getElementById('plan-price').innerHTML=`${planPrice} <span>${planUnit}</span>`;
   document.getElementById('plan-reason').textContent=planReason;
   document.getElementById('plan-points').innerHTML=planPoints.map(p=>`<div class="rpp"><div class="rpp-dot">✓</div>${p}</div>`).join('');
+
+  // ゴールに応じた締めの一言
+  document.getElementById('result-sub').textContent=`時間を取り戻せば、${goal}。`;
 
   document.getElementById('quiz-area').style.display='none';
   const ra=document.getElementById('result-area');
