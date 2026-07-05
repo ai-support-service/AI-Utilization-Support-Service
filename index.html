@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+  function trackLineClick() {
+    gtag('event', 'click_line_consultation', {
+      'event_category': 'Engagement',
+      'event_label': 'HP_to_LINE_Official'
+    });
+  }
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="XTeimjyaNVRJjcSQSrsXGo2k9NY-DLx_4gNnUEruTBE" />
@@ -345,7 +362,6 @@ footer{background:var(--white);border-top:2px solid var(--border);padding:28px 4
   /* ヒーロー */
   .hero{grid-template-columns:1fr;min-height:auto;}
   .hero-left{padding:36px 20px 28px;}
-  .hero-left::before{display:none;}
   .hero-catch{font-size:32px;line-height:1.4;}
   .hero-right{border-left:none;border-top:1px solid var(--border);padding:24px 20px;}
   .hero-btns{flex-direction:column;}
@@ -403,7 +419,7 @@ footer{background:var(--white);border-top:2px solid var(--border);padding:28px 4
 </div>
 <div class="hdr-actions">
   <div class="hdr-note">公式LINEでAI活用情報を無料配信中<br>お問い合わせもこちらから</div>
-  <a href="https://line.me/R/ti/p/@974udygc" class="btn-line-hdr">📱 LINE相談</a>
+  <a href="https://line.me/R/ti/p/@974udygc" class="btn-line-hdr" onclick="trackLineClick();">📱 LINE相談</a>
   <a href="shindan.html" class="btn-shindan-hdr">✦ 60秒で無料診断</a>
 </div>
 
@@ -696,7 +712,7 @@ footer{background:var(--white);border-top:2px solid var(--border);padding:28px 4
 
 <div class="foot-line">
   <div class="foot-line-txt"><strong>公式LINEで、AI活用情報を無料配信中</strong><br>成功事例・補助金・使えるツールを月・水・金 朝8時にお届け。お問い合わせも公式LINEから。</div>
-  <a href="https://line.me/R/ti/p/@974udygc" class="foot-line-btn">📱 公式LINEを追加</a>
+  <a href="https://line.me/R/ti/p/@974udygc" class="foot-line-btn" onclick="trackLineClick();">📱 公式LINEを追加</a>
 </div>
 <footer>
   <div class="foot-brand"><div class="foot-logo">🤖</div><div class="foot-ttl">AI活用支援サービス</div></div>
