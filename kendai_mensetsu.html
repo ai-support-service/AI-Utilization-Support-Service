@@ -410,6 +410,23 @@ input[type=file]{display:none;}
 }
 .char-count.warn{color:var(--amber);}
 .char-count.over{color:var(--coral);}
+/* 入力メタ行（タイマー＋文字数） */
+.input-meta-row{
+  display:flex;justify-content:space-between;align-items:center;margin-top:4px;
+}
+/* 回答タイマー（本番は30秒〜1分が目安） */
+.answer-timer{
+  font-size:11px;color:var(--muted);font-weight:700;
+}
+.answer-timer.warn{color:var(--amber);}
+.answer-timer.over{color:var(--coral);}
+/* 音声認識言語切替ボタン */
+.lang-btn{
+  width:44px;height:44px;border-radius:12px;font-size:20px;
+  background:var(--white);border:1.5px solid var(--border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+}
+.lang-btn:active{background:var(--cream);}
 /* 初回ガイダンス */
 .guide-modal{
   background:var(--white);border-radius:18px;padding:28px 24px;
@@ -498,6 +515,7 @@ input[type=file]{display:none;}
     <button class="filter-btn" data-filter="面接の日">面接</button>
     <button class="filter-btn" data-filter="集団面接">集団</button>
     <button class="filter-btn" data-filter="振り返り">振返</button>
+    <button class="filter-btn" data-filter="myanswers">⭐回答集</button>
   </div>
   <div id="historyPageList"></div>
 </div>
@@ -507,8 +525,21 @@ input[type=file]{display:none;}
 
   <div class="parent-section">
     <div class="parent-sec-title">📅 本番日設定</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5;">
+      暫定2027/2/1（令和8年度選考が2/2実施だったため2月上旬と推定）。<br>秋の募集要項発表後に正式日程へ更新してください。
+    </div>
     <input type="date" class="parent-input" id="examDate">
     <button class="parent-btn-set" id="examDateSet">保存</button>
+  </div>
+
+  <div class="parent-section">
+    <div class="parent-sec-title">📋 面接調査票（事前提出書類）</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
+      本番の面接では<strong>調査票に書いた内容から質問されます</strong>。下書きができたらここに登録すると、AIが調査票ベースの質問もしてくれます（面接の日の5問ローテーションに混ざります）。
+    </div>
+    <textarea class="parent-input" id="chosahyoInput" rows="6" placeholder="例：&#10;【志望理由】探究科学の授業で自分の興味がある生き物の研究をしたいから…&#10;【小学校で頑張ったこと】運営委員会で…&#10;【入学後の抱負】生物科学部に入って…" style="resize:vertical;font-size:13px;line-height:1.6;"></textarea>
+    <button class="parent-btn-set" id="chosahyoSet">保存</button>
+    <div id="chosahyoStatus" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
   </div>
 
   <div class="parent-section">
@@ -637,7 +668,7 @@ const KEY='kendai_mensetsu_v1';
 const K={
   apiKey:KEY+'_apikey',examDate:KEY+'_examdate',severity:KEY+'_severity',
   history:KEY+'_history',streak:KEY+'_streak',lastDate:KEY+'_lastdate',
-  testMode:KEY+'_testmode',guideDone:KEY+'_guidedone'
+  testMode:KEY+'_testmode',guideDone:KEY+'_guidedone',chosahyo:KEY+'_chosahyo'
 };
 
 const PHASES=[
@@ -645,7 +676,7 @@ const PHASES=[
   {n:2,name:'軸形成期',start:'2026-06-22',end:'2026-08-09',desc:'志望動機と自己PRの核を見つける時期'},
   {n:3,name:'応答力期',start:'2026-08-10',end:'2026-09-27',desc:'5つの定番質問に自分の答えを作る時期'},
   {n:4,name:'実戦期',start:'2026-09-28',end:'2026-11-15',desc:'本番形式に体を慣らす時期'},
-  {n:5,name:'仕上げ期',start:'2026-11-16',end:'2027-01-09',desc:'自信をつけて本番に向かう時期'}
+  {n:5,name:'仕上げ期',start:'2026-11-16',end:'2027-02-01',desc:'自信をつけて本番に向かう時期'}
 ];
 
 const MENU={
@@ -658,8 +689,9 @@ const MENU={
 
 let state={
   apiKey:localStorage.getItem(K.apiKey)||'',
-  examDate:localStorage.getItem(K.examDate)||'2027-01-09',
-  severity:parseInt(localStorage.getItem(K.severity)||'2'),
+  examDate:localStorage.getItem(K.examDate)||'2027-02-01',
+  severity:parseInt(localStorage.getItem(K.severity)||'3'),
+  recogLang:'ja-JP',
   history:[],
   streak:parseInt(localStorage.getItem(K.streak)||'0'),
   lastDate:localStorage.getItem(K.lastDate)||'',
@@ -674,6 +706,21 @@ try{
   state.history=JSON.parse(localStorage.getItem(K.history)||'[]');
   if(!Array.isArray(state.history))state.history=[];
 }catch(e){state.history=[];}
+
+// 本番日マイグレーション：旧デフォルト1/9→公式リサーチに基づく暫定2/1
+// （令和8年度選考が2026/2/2実施だったため、令和9年度も2月上旬と推定）
+if(state.examDate==='2027-01-09'){
+  state.examDate='2027-02-01';
+  try{localStorage.setItem(K.examDate,state.examDate);}catch(e){}
+}
+// 面接官デフォルト厳しめマイグレーション（一度だけ実行、その後の手動変更は尊重）
+if(!localStorage.getItem(KEY+'_sev_migrated')){
+  state.severity=3;
+  try{
+    localStorage.setItem(K.severity,'3');
+    localStorage.setItem(KEY+'_sev_migrated','1');
+  }catch(e){}
+}
 
 function save(key,val){
   try{
@@ -921,6 +968,13 @@ function bindEvents(){
       alert('APIキーを更新しました');
     }
   });
+  document.getElementById('chosahyoSet').addEventListener('click',()=>{
+    const v=document.getElementById('chosahyoInput').value.trim();
+    save(K.chosahyo,v);
+    const st=document.getElementById('chosahyoStatus');
+    if(st)st.textContent=v?'✓ 保存しました（面接の日の質問に反映されます）':'（未登録）調査票の下書きができたら登録してください';
+    alert(v?'調査票を保存しました':'調査票を空にしました');
+  });
   document.querySelectorAll('.sev-btn').forEach(b=>{
     b.addEventListener('click',()=>{
       const sev=parseInt(b.dataset.sev);
@@ -1032,6 +1086,10 @@ function openParent(){
 
   document.getElementById('examDate').value=state.examDate;
   document.getElementById('apiKey').value=state.apiKey;
+  const chosaVal=(localStorage.getItem(K.chosahyo)||'');
+  document.getElementById('chosahyoInput').value=chosaVal;
+  const chosaSt=document.getElementById('chosahyoStatus');
+  if(chosaSt)chosaSt.textContent=chosaVal.trim()?'✓ 登録済み（面接の日の質問に反映中）':'（未登録）調査票の下書きができたら登録してください';
   document.querySelectorAll('.sev-btn').forEach(b=>{
     if(b.dataset.sev)b.classList.toggle('active',parseInt(b.dataset.sev)===state.severity);
   });
@@ -1088,6 +1146,12 @@ function renderHistoryDetail(h){
     }
     if(d.finalFeedback){
       html+='<div class="hd-section"><div class="hd-label">🎯 総評</div><div class="hd-text">'+escapeHTML(d.finalFeedback).replace(/\n/g,'<br>')+'</div></div>';
+    }
+    if(d.sakubun){
+      html+='<div class="hd-section"><div class="hd-label">✍️ 200字作文（'+d.sakubun.length+'字）</div><div class="hd-text">'+escapeHTML(d.sakubun)+'</div></div>';
+      if(d.sakubunFeedback){
+        html+='<div class="hd-section"><div class="hd-label">📝 作文の添削</div><div class="hd-text">'+escapeHTML(d.sakubunFeedback).replace(/\n/g,'<br>')+'</div></div>';
+      }
     }
     if(d.aiFeedback && !d.deepConversation){
       // 旧形式のデータ
@@ -1164,10 +1228,12 @@ function backToHome(){
   document.getElementById('parent').classList.remove('on');
   document.getElementById('historyPage').classList.remove('on');
   stopRecording();
+  stopAnswerTimer();
   cancelSpeech();
   releaseWakeLock();
   state.session=null;
   state.isSending=false;
+  state.recogLang='ja-JP'; // 音声認識を日本語に戻す
   renderHome();
 }
 
@@ -1259,6 +1325,10 @@ function renderGrowthChart(){
 
 function renderHistoryPage(filter){
   const el=document.getElementById('historyPageList');
+  if(filter==='myanswers'){
+    renderMyAnswers(el);
+    return;
+  }
   let list=state.history.slice().reverse();
   if(filter && filter!=='all'){
     list=list.filter(h=>h.menu===filter);
@@ -1292,6 +1362,50 @@ function renderHistoryPage(filter){
       }
     });
   });
+}
+
+// マイ回答集：5回深掘りの最終回答（自分の言葉で再構築した回答）＝本番で使える「型」
+function renderMyAnswers(el){
+  const themeNames={shibo:'志望動機',pr:'頑張ったこと',goal:'入学後にやりたいこと',news:'ニュース・時事',self:'長所と短所',commute:'通学・生活',eng:'英語',rotate:'総合練習',surprise:'想定外の質問'};
+  const groups={};
+  state.history.forEach(h=>{
+    if(h.menu!=='面接の日'||!h.detail||!h.detail.conversation)return;
+    // 最後のuser発言＝5回目の再構築回答
+    const userMsgs=h.detail.conversation.filter(m=>m.role==='user');
+    if(userMsgs.length===0)return;
+    const lastAnswer=userMsgs[userMsgs.length-1].content;
+    if(!lastAnswer||lastAnswer.length<15)return; // 短すぎるものは型にならない
+    const theme=h.detail.theme||'rotate';
+    if(!groups[theme])groups[theme]=[];
+    groups[theme].push({
+      date:h.date,score:h.score,
+      question:h.detail.firstQuestion||'',
+      answer:lastAnswer
+    });
+  });
+
+  const themes=Object.keys(groups);
+  if(themes.length===0){
+    el.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;line-height:1.8;">まだマイ回答がありません。<br>面接の日の練習で5回深掘りをやりきると、<br>最後の「自分の言葉でまとめた回答」がここにたまっていくよ。<br>本番前はここを読み返そう！</div>';
+    return;
+  }
+
+  let html='<div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6;">5回深掘りの最後にまとめた「自分の言葉」の回答集。これが本番で使える型になる。テーマごとに一番新しいものを読み返そう。</div>';
+  const order=['shibo','pr','goal','self','news','commute','eng','rotate','surprise'];
+  order.forEach(theme=>{
+    if(!groups[theme])return;
+    const items=groups[theme].slice().reverse(); // 新しい順
+    html+='<div class="hist-page-card" style="padding:14px 16px;">';
+    html+='<div style="font-size:14px;font-weight:900;margin-bottom:10px;">📌 '+escapeHTML(themeNames[theme]||theme)+'（'+items.length+'件）</div>';
+    items.slice(0,3).forEach((it,i)=>{ // 最新3件まで表示
+      html+='<div style="margin-bottom:12px;'+(i>0?'opacity:0.7;':'')+'">';
+      html+='<div style="font-size:11px;color:var(--muted);margin-bottom:3px;">'+escapeHTML(formatHistoryDate(it.date))+(it.score?'・'+it.score+'点':'')+'　Q: '+escapeHTML(it.question.slice(0,40))+'</div>';
+      html+='<div style="font-size:13px;line-height:1.7;background:var(--cream);padding:10px 12px;border-radius:8px;border-left:3px solid var(--amber);">'+escapeHTML(it.answer)+'</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+  el.innerHTML=html;
 }
 
 function formatHistoryDate(dateStr){
@@ -1469,39 +1583,135 @@ async function resizeImage(file,maxSize,quality){
   });
 }
 
+// 過去問リサーチ（公式発表・受験ナビ・知恵袋・体験記）に基づく質問データベース
+// 附属中の面接3軸: 志望動機 / 小学校で頑張ったこと / 入学後に頑張りたいこと ＋ 調査票深掘り ＋ 英語
+const QUESTION_BANK={
+  shibo:[
+    '兵庫県立大学附属中学校を志望する理由を教えてください。',
+    'この学校のどこに一番魅力を感じましたか？',
+    'たくさん学校がある中で、なぜ家から遠いこの学校を選んだのですか？',
+    'この学校に入って、どんな自分になりたいですか？',
+    'オープンスクールや説明会には来ましたか？印象に残っていることはありますか？'
+  ],
+  pr:[
+    '小学校生活で一番頑張ったことを教えてください。',
+    '小学校で一番思い出に残っていることは何ですか？',
+    '委員会活動やクラブ活動で頑張ったことはありますか？',
+    '友達と協力して何かをやり遂げた経験を教えてください。',
+    '小学校の勉強で一番好きだった教科と、その理由を教えてください。'
+  ],
+  goal:[
+    '入学したら、どんなことを頑張りたいですか？',
+    '中学校でチャレンジしてみたいことは何ですか？',
+    '将来の夢はありますか？そのために中学で何をしたいですか？',
+    'この学校の探究科学では、どんなことを調べてみたいですか？',
+    '理科の実験や観察で、印象に残っているものはありますか？'
+  ],
+  news:[
+    '最近、気になっているニュースは何ですか？',
+    '最近読んだ新聞記事で、印象に残っているものを教えてください。',
+    '最近「不思議だな」「なぜだろう」と思ったことはありますか？'
+  ],
+  self:[
+    'あなたの長所と短所を教えてください。',
+    '自分のどんなところが好きですか？',
+    'お家の人からは、どんな子だと言われますか？'
+  ],
+  commute:[
+    '家から学校まで遠いですが、通学はどうする予定ですか？毎日通えますか？',
+    '朝早く起きて長い時間通学することになりますが、大丈夫ですか？',
+    '知っている友達がいない環境になるかもしれませんが、どうやって友達を作りますか？'
+  ],
+  eng:'Hello! Please introduce yourself in English. 英語で自己紹介をしてみてください。'
+};
+
+// 英語の追加質問（説明会で「英語の質問あり」と公式言及・基礎レベル）
+const ENG_QUESTIONS=[
+  'Hello! Please introduce yourself in English. 英語で自己紹介をしてみてください。',
+  "What subject do you like? 好きな教科を英語で答えてみてください。",
+  "What do you like to do in your free time? ひまな時間に何をするのが好きか、英語で答えてみてください。",
+  "What is your dream? あなたの夢を英語で言ってみてください。"
+];
+
+function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)];}
+
 function startInterviewSession(menu){
-  const themeMap={
-    shibo:'兵庫県立大学附属中学校を志望する理由を教えてください。',
-    pr:'小学校生活で頑張ったことを教えてください。',
-    goal:'入学したら、どんなことを頑張りたいですか？',
-    news:'最近、気になっているニュースは何ですか？',
-    self:'あなたの長所と短所を教えてください。あと、最後に英語で簡単な自己紹介をお願いします。',
-    eng:'Hello! Please introduce yourself in English. 簡単な自己紹介を英語でしてみてください。'
-  };
   let question;
+  const chosahyo=(localStorage.getItem(K.chosahyo)||'').trim();
+
   if(menu.theme==='rotate'){
-    const arr=[themeMap.shibo,themeMap.pr,themeMap.goal,themeMap.news,themeMap.self];
-    question=arr[Math.floor(Math.random()*arr.length)];
+    // 本番同様の全方位ローテーション（調査票登録済みなら調査票ベースも混ぜる）
+    const pools=['shibo','pr','goal','news','self','commute'];
+    if(chosahyo)pools.push('chosa');
+    const pool=pickRandom(pools);
+    if(pool==='chosa'){
+      question='__CHOSA__'; // AIに調査票から質問を生成させる
+    }else{
+      question=pickRandom(QUESTION_BANK[pool]);
+    }
   }else if(menu.theme==='surprise'){
     const arr=[
       'もし、あなたが校長先生だったら、この学校に何を変えますか？',
       '無人島に3つだけ持っていけるとしたら、何を持っていきますか？理由も教えてください。',
       '自分を動物に例えると何ですか？理由も教えてください。',
       '友達と意見が合わなかったとき、どうしますか？',
-      '将来、どんな大人になりたいですか？'
+      '将来、どんな大人になりたいですか？',
+      '20年後、世の中はどう変わっていると思いますか？',
+      'AIと人間の違いは何だと思いますか？'
     ];
-    question=arr[Math.floor(Math.random()*arr.length)];
+    question=pickRandom(arr);
+  }else if(menu.theme==='eng'){
+    question=pickRandom(ENG_QUESTIONS);
+  }else if(QUESTION_BANK[menu.theme]){
+    question=pickRandom(QUESTION_BANK[menu.theme]);
   }else{
-    question=themeMap[menu.theme]||themeMap.shibo;
+    question=pickRandom(QUESTION_BANK.shibo);
   }
 
   state.session.theme=menu.theme;
   state.session.depthCount=0;
-  state.session.firstQuestion=question;
 
+  // 英語テーマなら音声認識を英語に自動切替
+  if(menu.theme==='eng'){
+    state.recogLang='en-US';
+  }else{
+    state.recogLang='ja-JP';
+  }
+
+  if(question==='__CHOSA__'){
+    // 調査票ベースの質問をAIに生成させる
+    startChosaQuestion(chosahyo);
+    return;
+  }
+
+  state.session.firstQuestion=question;
   addAiBubble(question);
   speak(question);
   showVoiceInput('interview_answer');
+}
+
+// 調査票ベースの質問生成
+async function startChosaQuestion(chosahyo){
+  showLoading();
+  try{
+    const sys='あなたは兵庫県立大学附属中学校の面接官です。受験生が事前提出した面接調査票の内容から、深掘り質問を1つだけ作ってください。\n\n実際の面接では「調査票に◯◯と書いていますが、詳しく教えてください」という形式で聞かれます。\n\n質問文のみを出力。1〜2文以内。前置き不要。';
+    const res=await callClaude([{role:'user',content:'面接調査票の内容：\n'+chosahyo+'\n\nこの内容から深掘り質問を1つ作ってください。'}],sys,200);
+    hideLoading();
+    if(!state.session)return;
+    state.session.firstQuestion=res;
+    addAiBubble(res);
+    speak(res);
+    showVoiceInput('interview_answer');
+  }catch(e){
+    hideLoading();
+    if(!state.session)return;
+    // 失敗時は通常質問にフォールバック
+    const q=pickRandom(QUESTION_BANK.shibo);
+    state.session.firstQuestion=q;
+    addAiBubble(q);
+    speak(q);
+    showVoiceInput('interview_answer');
+  }
 }
 
 function startGroupSession(menu){
@@ -1522,7 +1732,7 @@ async function runGroupSimulation(){
   showLoading();
   try{
     const modeName=({group_simple:'簡易版',group:'標準',group_real:'本番想定',group_light:'軽め復習'})[state.session.groupMode]||'標準';
-    const sysPrompt='あなたは兵庫県立大学附属中学校の集団面接シミュレーションを進行するAIです。\n仮想受験生4人（A：堂々型、B：内気型、C：論理型、D：感情型）と本物の受験生（5人目）の集団面接を進行します。\n今回は「'+modeName+'」モードです。\n\n以下のJSONフォーマットのみで出力してください。説明文や前置きは一切不要です：\n{\n  "question": "面接官からの質問1問",\n  "answers": [\n    {"name":"Aさん", "answer":"Aさんの回答（30-60字程度）"},\n    {"name":"Bさん", "answer":"Bさんの回答（短め、緊張気味）"},\n    {"name":"Cさん", "answer":"Cさんの回答（理由から入る）"},\n    {"name":"Dさん", "answer":"Dさんの回答（体験談から入る）"}\n  ]\n}\n\n質問は附属中で実際に聞かれそうなものを1問。志望動機・頑張ったこと・将来の夢・時事・自己PRから選んでください。';
+    const sysPrompt='あなたは兵庫県立大学附属中学校の集団面接シミュレーションを進行するAIです。\n仮想受験生4人（A：堂々型、B：内気型、C：論理型、D：感情型）と本物の受験生（5人目）の集団面接を進行します。\n今回は「'+modeName+'」モードです。\n\n以下のJSONフォーマットのみで出力してください。説明文や前置きは一切不要です：\n{\n  "question": "面接官からの質問1問",\n  "answers": [\n    {"name":"Aさん", "answer":"Aさんの回答（30-60字程度）"},\n    {"name":"Bさん", "answer":"Bさんの回答（短め、緊張気味）"},\n    {"name":"Cさん", "answer":"Cさんの回答（理由から入る）"},\n    {"name":"Dさん", "answer":"Dさんの回答（体験談から入る）"}\n  ]\n}\n\n質問は兵庫県立大学附属中学校で実際に聞かれる形式のものを1問。過去問リサーチに基づく頻出3軸（志望動機・小学校で頑張ったこと・入学後に頑張りたいこと）を最優先し、他に探究科学で調べたいこと・理科の実験・友達と協力した経験・気になるニュース・長所短所・遠距離通学への覚悟から選んでください。';
 
     const res=await callClaude([{role:'user',content:'集団面接の質問と4人の回答をJSON形式で作ってください。'}],sysPrompt,1500);
     hideLoading();
@@ -1603,13 +1813,18 @@ function startLightSession(){
 function showVoiceInput(mode){
   if(!state.session)return;
   state.session.inputMode=mode;
+  const isEng=state.recogLang==='en-US';
   document.getElementById('sesInput').innerHTML=`
     <div class="input-area">
       <div class="mic-row">
         <button class="mic-btn" id="micBtn">🎤</button>
-        <textarea class="input-text" id="userInput" placeholder="マイクを押して話す、または直接入力" rows="2"></textarea>
+        <button class="lang-btn" id="langBtn" title="音声認識の言語切替">${isEng?'🇺🇸':'🇯🇵'}</button>
+        <textarea class="input-text" id="userInput" placeholder="${isEng?'英語で話してみよう（🇺🇸モード）':'マイクを押して話す、または直接入力'}" rows="2"></textarea>
       </div>
-      <div class="char-count" id="charCount">0文字</div>
+      <div class="input-meta-row">
+        <span class="answer-timer" id="answerTimer"></span>
+        <span class="char-count" id="charCount">0文字</span>
+      </div>
       <div class="send-row">
         <button class="send-btn" id="sendBtn">送る</button>
         <button class="skip-btn" id="finishBtn">終わる</button>
@@ -1619,6 +1834,16 @@ function showVoiceInput(mode){
   document.getElementById('micBtn').addEventListener('click',toggleRecording);
   document.getElementById('sendBtn').addEventListener('click',sendUserInput);
   document.getElementById('finishBtn').addEventListener('click',finishSession);
+
+  // 言語切替ボタン（🇯🇵⇔🇺🇸）
+  document.getElementById('langBtn').addEventListener('click',()=>{
+    stopRecording();
+    state.recogLang=(state.recogLang==='en-US')?'ja-JP':'en-US';
+    const btn=document.getElementById('langBtn');
+    const inp=document.getElementById('userInput');
+    if(btn)btn.textContent=(state.recogLang==='en-US')?'🇺🇸':'🇯🇵';
+    if(inp)inp.placeholder=(state.recogLang==='en-US')?'英語で話してみよう（🇺🇸モード）':'マイクを押して話す、または直接入力';
+  });
 
   // 文字数カウント
   const input=document.getElementById('userInput');
@@ -1637,6 +1862,36 @@ function showVoiceInput(mode){
 // ============================================================
 let recognition=null;
 let isRecording=false;
+// 回答時間計測（本番の集団面接は1人30秒〜1分が目安）
+let answerStartTime=null;
+let answerTimerInterval=null;
+
+function startAnswerTimer(){
+  if(answerStartTime)return; // 既に計測中なら継続
+  answerStartTime=Date.now();
+  const el=document.getElementById('answerTimer');
+  if(answerTimerInterval)clearInterval(answerTimerInterval);
+  answerTimerInterval=setInterval(()=>{
+    const t=document.getElementById('answerTimer');
+    if(!t){clearInterval(answerTimerInterval);answerTimerInterval=null;return;}
+    const sec=Math.floor((Date.now()-answerStartTime)/1000);
+    t.textContent='⏱ '+sec+'秒';
+    t.className='answer-timer';
+    if(sec>60)t.className='answer-timer over';
+    else if(sec>45)t.className='answer-timer warn';
+  },1000);
+  if(el)el.textContent='⏱ 0秒';
+}
+
+function stopAnswerTimer(){
+  if(answerTimerInterval){clearInterval(answerTimerInterval);answerTimerInterval=null;}
+  let elapsed=null;
+  if(answerStartTime){
+    elapsed=Math.floor((Date.now()-answerStartTime)/1000);
+    answerStartTime=null;
+  }
+  return elapsed;
+}
 let recogInitFailCount=0;
 let finalTranscript='';
 
@@ -1644,6 +1899,7 @@ function toggleRecording(){
   if(isRecording){
     stopRecording();
   }else{
+    startAnswerTimer(); // 話し始め＝回答開始として計測
     startRecording();
   }
 }
@@ -1668,7 +1924,7 @@ function startRecording(){
   setTimeout(()=>{
     try{
       recognition=new SR();
-      recognition.lang='ja-JP';
+      recognition.lang=state.recogLang||'ja-JP';
       recognition.continuous=true;
       recognition.interimResults=true;
 
@@ -1848,6 +2104,8 @@ async function sendUserInput(){
   try{
     stopRecording();
     cancelSpeech();
+    // 回答時間を記録（タイマー未使用＝手入力のみの場合はnull）
+    state.lastAnswerSec=stopAnswerTimer();
     addUserBubble(text);
     document.getElementById('userInput').value='';
     const cc=document.getElementById('charCount');
@@ -1857,6 +2115,7 @@ async function sendUserInput(){
     const mode=state.session.inputMode;
     if(mode==='paper_feedback'){await handlePaperFeedback(text);}
     else if(mode==='paper_deep'){await handlePaperDeep(text);}
+    else if(mode==='paper_sakubun'){await handlePaperSakubun(text);}
     else if(mode==='interview_answer'){await handleInterviewAnswer(text);}
     else if(mode==='group_answer'){await handleGroupAnswer(text);}
     else if(mode==='review_answer'){await handleReviewAnswer(text);}
@@ -2008,9 +2267,73 @@ async function handlePaperDeep(text){
 }
 
 function finalizePaperSession(finalRes){
+  // 総評後、200字作文チャレンジへ（県大の適性検査は新聞記事読解＋200字作文が定番）
+  state.session.paperFinalFeedback=finalRes;
+  const msg='さいごに、200字作文チャレンジ！\n今日話したことを、200字くらいの文章にまとめて書いてみよう。本番の適性検査でも「200字で書きなさい」という問題が出るよ。\n（今日は疲れてたらスキップしてもOK）';
+  addAiBubble(msg);
+  speak('さいごに、200字作文チャレンジ！今日話したことを、200字くらいの文章にまとめて書いてみよう。');
+
+  // 入力＋スキップボタン
+  document.getElementById('sesInput').innerHTML=`
+    <div class="input-area">
+      <textarea class="input-text" id="userInput" placeholder="今日の記事について、思ったことを200字くらいで書いてみよう" rows="6" style="width:100%;"></textarea>
+      <div class="input-meta-row">
+        <span></span>
+        <span class="char-count" id="charCount">0文字</span>
+      </div>
+      <div class="send-row">
+        <button class="send-btn" id="sendBtn">できた！</button>
+        <button class="skip-btn" id="sakubunSkip">今日はスキップ</button>
+      </div>
+    </div>
+  `;
+  state.session.inputMode='paper_sakubun';
+  document.getElementById('sendBtn').addEventListener('click',sendUserInput);
+  document.getElementById('sakubunSkip').addEventListener('click',()=>{
+    savePaperHistory(null,null);
+    showCompleteButton();
+  });
+  const input=document.getElementById('userInput');
+  const count=document.getElementById('charCount');
+  input.addEventListener('input',()=>{
+    const len=input.value.length;
+    count.textContent=len+'文字';
+    count.className='char-count';
+    if(len>=160&&len<=240)count.className='char-count'; // 適正範囲
+    else if(len>240)count.className='char-count over';
+    else if(len>0&&len<160)count.className='char-count warn';
+  });
+}
+
+// 200字作文の添削
+async function handlePaperSakubun(text){
+  if(!state.session)return;
+  showLoading();
+  try{
+    const style=getInterviewerStyle();
+    const sys='あなたは「'+style.name+'」です。小学6年生が新聞記事について書いた200字作文を添削します。\n兵庫県立大学附属中学校の適性検査では「新聞記事読解＋200字作文」が定番です。\n\n以下を1回の返答で（250字以内）：\n1. 良い点を1つ（構成・具体性・自分の意見のどれか）\n2. 本番で点が伸びる改善点を1つ（例：理由→具体例→まとめ の型、文字数調整、主語述語のねじれ）\n3. 「作文点数：X点」（10点満点）を最後に1行で';
+    const ctx='子供が話した内容の要点：'+(state.session.paperUserAnswer||'').slice(0,200)+'\n\n子供が書いた200字作文（'+text.length+'字）：\n'+text;
+    const res=await callClaude([{role:'user',content:ctx}],sys,500);
+    hideLoading();
+    if(!state.session)return;
+    addAiBubble(res);
+    speak(res.replace(/作文点数[:：]\s*\d+点?/g,'').slice(0,180));
+    savePaperHistory(text,res);
+    showCompleteButton();
+  }catch(e){
+    hideLoading();
+    addErrorBubble('添削に失敗しました：'+e.message);
+    // 失敗しても記録は残して完了させる
+    savePaperHistory(text,null);
+    showCompleteButton();
+  }
+}
+
+// 新聞の日の履歴保存（作文込み）
+function savePaperHistory(sakubunText,sakubunFeedback){
+  const finalRes=state.session.paperFinalFeedback||'';
   const deepScore=extractScore(finalRes);
   const summaryScore=state.session.paperSummaryScore||0;
-  // 要約評価と深掘り評価の平均をメインスコアに
   let finalScore=null;
   if(deepScore && summaryScore){
     finalScore=Math.round((deepScore+summaryScore)/2);
@@ -2025,12 +2348,13 @@ function finalizePaperSession(finalRes){
       userAnswer:state.session.paperUserAnswer,
       summaryFeedback:state.session.paperSummaryFeedback,
       summaryScore:summaryScore,
-      deepConversation:state.session.paperDeepMessages.slice(),
+      deepConversation:(state.session.paperDeepMessages||[]).slice(),
       finalFeedback:finalRes,
+      sakubun:sakubunText||null,
+      sakubunFeedback:sakubunFeedback||null,
       hasPhoto:true
     }
   });
-  showCompleteButton();
 }
 
 async function handleInterviewAnswer(text){
@@ -2051,10 +2375,25 @@ async function handleInterviewAnswer(text){
     const isDontKnow=detectDontKnow(text);
     const hintInstruction=isDontKnow?'\n\n【重要】子供は「わからない」「思いつかない」と言っています。質問を変えるのではなく、考えるヒントを優しく出してから、もう一度同じ角度で質問してください。例：「いつ・どこで・誰と？」「お父さんやお母さんは何て言ってる？」「学校の先生は？」「具体的な場面を思い出してみて」などの切り口を提示。':'';
 
-    const sys='あなたは兵庫県立大学附属中学校の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n小学6年生に面接を行います。現在Phase '+phase.n+'「'+phase.name+'」。\n\n【深掘り5段階方式】\nこの面接は最初の質問に対し、本人に深く理解させるために5回掘り下げます。\n現在は'+depth+'回目です。\n\n'+stageGuide+hintInstruction+'\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる（5回目を除く）\n- 「うんうん」「なるほど」など共感の相づちを入れていい\n\n【5回目を超えた総評の形式（厳守）】\n5回目の本人の回答後、6回目のあなたの発言で総評します。\n総評は以下の形式で出力：\n\n【最初と最後の変化】〜（最初の答えと最後の答えがどう変わったか、具体的に。本人に成長を実感させる）\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
+    // 英語テーマかどうか
+    const isEng=state.session.theme==='eng';
+    const engInstruction=isEng?'\n\n【英語モード】\n最初の質問は英語です。子供の回答も英語（または音声認識による英文）の可能性があります。\n- 深掘り1回目は簡単な英語（例: "Why do you like it?" "Tell me more."）＋日本語補足で質問\n- 2回目以降の深掘りは日本語でOK（内容を深めることを優先）\n- 総評では英語回答について「文法・語彙・質問への的確さ・自信」の観点で必ず1つ良い点と1つ改善点を指摘\n- 音声認識のせいでスペルや単語が崩れている可能性を考慮し、意図を汲んで評価する':'';
+
+    // 厳しめモード（厳しい校長）の場合は圧迫系の深掘りを混ぜる
+    const pressureInstruction=(state.severity===3&&depth>=2&&depth<=4)?'\n\n【圧迫深掘り】あなたは厳しい面接官です。今回の深掘りでは、次のような角度も選択肢に入れてください：「それは他の学校でもできますよね？」「本当にそう思っていますか？」「それはあなたが本当にやったことですか？」等、本気度を試す質問。ただし人格否定はしない。':'';
+
+    // 回答時間の評価素材（本番は1人30秒〜1分が目安）
+    const timeSec=state.lastAnswerSec;
+    const timeInfo=(timeSec!==null&&timeSec!==undefined)?'\n\n【今回の回答時間】約'+timeSec+'秒（本番のグループ面接は1人30秒〜1分が目安。総評時に長すぎ・短すぎがあれば指摘してください）':'';
+
+    // 調査票（登録済みなら参照して矛盾を突く）
+    const chosahyo=(localStorage.getItem(K.chosahyo)||'').trim();
+    const chosaInfo=chosahyo?'\n\n【面接調査票（事前提出書類・本人が書いた内容）】\n'+chosahyo.slice(0,600)+'\n※実際の面接では調査票の内容から質問されます。回答が調査票と矛盾していたら深掘りで指摘してください。':'';
+
+    const sys='あなたは兵庫県立大学附属中学校の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n小学6年生に面接を行います。現在Phase '+phase.n+'「'+phase.name+'」。\n本校の面接は5人程度のグループ面接で、志望動機・小学校で頑張ったこと・入学後に頑張りたいことが3大頻出テーマ。探究科学・コミュニケーションという独自教科があり、探究心と他者と関わる力を重視します。\n\n【深掘り5段階方式】\nこの面接は最初の質問に対し、本人に深く理解させるために5回掘り下げます。\n現在は'+depth+'回目です。\n\n'+stageGuide+hintInstruction+engInstruction+pressureInstruction+'\n\n【言葉遣いチェック】\n「えっと」「〜みたいな」「〜っていうか」「〜じゃん」等の口癖や敬語の誤りが回答にあれば、総評の【次の課題】で必ず1つ指摘してください（深掘り中は指摘せず内容に集中）。\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる（5回目を除く）\n- 「うんうん」「なるほど」など共感の相づちを入れていい\n\n【5回目を超えた総評の形式（厳守）】\n5回目の本人の回答後、6回目のあなたの発言で総評します。\n総評は以下の形式で出力：\n\n【最初と最後の変化】〜（最初の答えと最後の答えがどう変わったか、具体的に。本人に成長を実感させる）\n【良かった点】〜\n【次の課題】〜（口癖・言葉遣い・回答時間の問題があればここで指摘）\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
 
     const userMsg='最初の質問：'+state.session.firstQuestion+'\n\n子供の回答履歴：\n'+
-      state.session.messages.map((m,i)=>(i+1)+'回目：'+m.content).join('\n')+
+      state.session.messages.map((m,i)=>(i+1)+'回目：'+m.content).join('\n')+timeInfo+chosaInfo+
       '\n\n現在'+depth+'回目の発言後です。';
 
     const res=await callClaude([{role:'user',content:userMsg}],sys,600);
@@ -2074,6 +2413,7 @@ async function handleInterviewAnswer(text){
           menu:'面接の日',score:score,summary:state.session.messages[0].content.slice(0,50),
           detail:{
             firstQuestion:state.session.firstQuestion,
+            theme:state.session.theme||null,
             conversation:state.session.messages.slice(),
             finalFeedback:res
           }
@@ -2096,6 +2436,7 @@ async function handleInterviewAnswer(text){
           menu:'面接の日',score:score,summary:state.session.messages[0].content.slice(0,50),
           detail:{
             firstQuestion:state.session.firstQuestion,
+            theme:state.session.theme||null,
             conversation:state.session.messages.slice(),
             finalFeedback:totalRes
           }
@@ -2151,10 +2492,12 @@ async function handleGroupAnswer(text){
 
     const sys='あなたは集団面接の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n本人（5人目）の回答について深掘りします。「他の4人の答えを聞いて自分の意見を述べられているか」も重視。\n\n【深掘り5段階方式】\n現在'+depth+'回目です。\n\n'+stageGuide+hintInstruction+'\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる\n\n【5回目を超えた総評の形式】\n5回目の本人回答の次のあなたの発言で総評を出します。\n\n【最初と最後の変化】〜\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 聞く力:X/10 考える力:X/10';
 
+    const gTimeSec=state.lastAnswerSec;
+    const gTimeInfo=(gTimeSec!==null&&gTimeSec!==undefined)?'\n\n【今回の回答時間】約'+gTimeSec+'秒（集団面接は1人30秒〜1分が目安。総評時に長すぎ・短すぎがあれば指摘）':'';
     const ctx='【元の質問】'+state.session.groupQuestion+'\n\n【4人の答え】\n'+
       state.session.groupAnswers.map(a=>(a.name||'受験生')+'：'+(a.answer||'')).join('\n')+
       '\n\n【子供（5人目）のやり取り】\n'+
-      state.session.groupDeepMessages.map((m,i)=>(m.role==='user'?'子供：':'AI：')+m.content).join('\n')+
+      state.session.groupDeepMessages.map((m,i)=>(m.role==='user'?'子供：':'AI：')+m.content).join('\n')+gTimeInfo+
       '\n\n現在'+depth+'回目の子供の発言後です。';
 
     const res=await callClaude([{role:'user',content:ctx}],sys,600);
