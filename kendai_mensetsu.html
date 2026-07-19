@@ -533,13 +533,16 @@ input[type=file]{display:none;}
   </div>
 
   <div class="parent-section">
-    <div class="parent-sec-title">📋 面接調査票（事前提出書類）</div>
+    <div class="parent-sec-title">📋 志願理由書（360〜400字・事前提出）</div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
-      本番の面接では<strong>調査票に書いた内容から質問されます</strong>。下書きができたらここに登録すると、AIが調査票ベースの質問もしてくれます（面接の日の5問ローテーションに混ざります）。
+      本番の面接では<strong>毎年必ず「志願理由書に書いた内容を詳しく説明してください」と質問されます</strong>（2021〜2026年度で6年連続出題）。下書きができたらここに登録すると、AIが志願理由書ベースの深掘り質問をしてくれます。<br>
+      💡書き方のコツ：校訓「創進」・合言葉「目指せ世界のパイオニア」を意識し、きっかけ→体験→この学校でやりたいこと、の流れで。
     </div>
     <textarea class="parent-input" id="chosahyoInput" rows="6" placeholder="例：&#10;【志望理由】探究科学の授業で自分の興味がある生き物の研究をしたいから…&#10;【小学校で頑張ったこと】運営委員会で…&#10;【入学後の抱負】生物科学部に入って…" style="resize:vertical;font-size:13px;line-height:1.6;"></textarea>
     <button class="parent-btn-set" id="chosahyoSet">保存</button>
+    <button class="parent-btn-set" id="chosahyoReview" style="background:var(--amber);color:var(--ink);margin-left:8px;">AIに添削してもらう</button>
     <div id="chosahyoStatus" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
+    <div id="chosahyoReviewResult" style="display:none;margin-top:10px;font-size:13px;line-height:1.7;background:var(--cream);padding:12px 14px;border-radius:10px;border-left:3px solid var(--amber);"></div>
   </div>
 
   <div class="parent-section">
@@ -676,7 +679,7 @@ const PHASES=[
   {n:2,name:'軸形成期',start:'2026-06-22',end:'2026-08-09',desc:'志望動機と自己PRの核を見つける時期'},
   {n:3,name:'応答力期',start:'2026-08-10',end:'2026-09-27',desc:'5つの定番質問に自分の答えを作る時期'},
   {n:4,name:'実戦期',start:'2026-09-28',end:'2026-11-15',desc:'本番形式に体を慣らす時期'},
-  {n:5,name:'仕上げ期',start:'2026-11-16',end:'2027-02-01',desc:'自信をつけて本番に向かう時期'}
+  {n:5,name:'仕上げ期',start:'2026-11-16',end:'2027-01-30',desc:'自信をつけて本番に向かう時期'}
 ];
 
 const MENU={
@@ -689,7 +692,7 @@ const MENU={
 
 let state={
   apiKey:localStorage.getItem(K.apiKey)||'',
-  examDate:localStorage.getItem(K.examDate)||'2027-02-01',
+  examDate:localStorage.getItem(K.examDate)||'2027-01-30',
   severity:parseInt(localStorage.getItem(K.severity)||'3'),
   recogLang:'ja-JP',
   history:[],
@@ -707,10 +710,10 @@ try{
   if(!Array.isArray(state.history))state.history=[];
 }catch(e){state.history=[];}
 
-// 本番日マイグレーション：旧デフォルト1/9→公式リサーチに基づく暫定2/1
-// （令和8年度選考が2026/2/2実施だったため、令和9年度も2月上旬と推定）
-if(state.examDate==='2027-01-09'){
-  state.examDate='2027-02-01';
+// 本番日マイグレーション：塾資料（岡村ゼミナール2027年度受験用）で「入試は例年1月の最終土曜日」と確認
+// → 2027年1月30日(土)。旧デフォルト1/9と前回暫定2/1の両方を自動更新
+if(state.examDate==='2027-01-09'||state.examDate==='2027-02-01'){
+  state.examDate='2027-01-30';
   try{localStorage.setItem(K.examDate,state.examDate);}catch(e){}
 }
 // 面接官デフォルト厳しめマイグレーション（一度だけ実行、その後の手動変更は尊重）
@@ -972,9 +975,10 @@ function bindEvents(){
     const v=document.getElementById('chosahyoInput').value.trim();
     save(K.chosahyo,v);
     const st=document.getElementById('chosahyoStatus');
-    if(st)st.textContent=v?'✓ 保存しました（面接の日の質問に反映されます）':'（未登録）調査票の下書きができたら登録してください';
-    alert(v?'調査票を保存しました':'調査票を空にしました');
+    if(st)st.textContent=v?'✓ 保存しました（面接の日の質問に反映されます）':'（未登録）志願理由書の下書きができたら登録してください';
+    alert(v?'志願理由書を保存しました':'志願理由書を空にしました');
   });
+  document.getElementById('chosahyoReview').addEventListener('click',reviewChosahyo);
   document.querySelectorAll('.sev-btn').forEach(b=>{
     b.addEventListener('click',()=>{
       const sev=parseInt(b.dataset.sev);
@@ -1089,7 +1093,7 @@ function openParent(){
   const chosaVal=(localStorage.getItem(K.chosahyo)||'');
   document.getElementById('chosahyoInput').value=chosaVal;
   const chosaSt=document.getElementById('chosahyoStatus');
-  if(chosaSt)chosaSt.textContent=chosaVal.trim()?'✓ 登録済み（面接の日の質問に反映中）':'（未登録）調査票の下書きができたら登録してください';
+  if(chosaSt)chosaSt.textContent=chosaVal.trim()?'✓ 登録済み（面接の日の質問に反映中）':'（未登録）志願理由書の下書きができたら登録してください';
   document.querySelectorAll('.sev-btn').forEach(b=>{
     if(b.dataset.sev)b.classList.toggle('active',parseInt(b.dataset.sev)===state.severity);
   });
@@ -1148,7 +1152,7 @@ function renderHistoryDetail(h){
       html+='<div class="hd-section"><div class="hd-label">🎯 総評</div><div class="hd-text">'+escapeHTML(d.finalFeedback).replace(/\n/g,'<br>')+'</div></div>';
     }
     if(d.sakubun){
-      html+='<div class="hd-section"><div class="hd-label">✍️ 200字作文（'+d.sakubun.length+'字）</div><div class="hd-text">'+escapeHTML(d.sakubun)+'</div></div>';
+      html+='<div class="hd-section"><div class="hd-label">✍️ 300字作文（'+d.sakubun.length+'字）</div><div class="hd-text">'+escapeHTML(d.sakubun)+'</div></div>';
       if(d.sakubunFeedback){
         html+='<div class="hd-section"><div class="hd-label">📝 作文の添削</div><div class="hd-text">'+escapeHTML(d.sakubunFeedback).replace(/\n/g,'<br>')+'</div></div>';
       }
@@ -1229,6 +1233,7 @@ function backToHome(){
   document.getElementById('historyPage').classList.remove('on');
   stopRecording();
   stopAnswerTimer();
+  stopThinkingTimer();
   cancelSpeech();
   releaseWakeLock();
   state.session=null;
@@ -1583,54 +1588,109 @@ async function resizeImage(file,maxSize,quality){
   });
 }
 
-// 過去問リサーチ（公式発表・受験ナビ・知恵袋・体験記）に基づく質問データベース
-// 附属中の面接3軸: 志望動機 / 小学校で頑張ったこと / 入学後に頑張りたいこと ＋ 調査票深掘り ＋ 英語
+// 岡村ゼミナール「入試攻略説明会」資料（2027年度受験用）に基づく実過去問データベース
+// 面接の実態: 面接官2名×生徒4〜6人グループ・約15分・受験番号順
+// 毎年の流れ: ①受験番号と名前(＋出身小学校名) ②志願理由書の内容を個々に質問 ③共通質問1問 ④英語の質問1問
 const QUESTION_BANK={
+  // 実際に出た共通質問（2021〜2026年度）
+  past_common:[
+    '初対面の人と話すときに気を付けていることは何ですか。',// 2026
+    '学校生活をより良くするためにあなたがしたことは何ですか。',// 2025
+    '小学校生活を漢字一文字で言うと何ですか。その理由も説明してください。',// 2024
+    '今まで自分が言われてうれしかったことは何ですか。',// 2023
+    '小学校生活を通して協力して学んだことを言ってください。',// 2022
+    '小学校生活で自分が一番頑張ったと思うことを言ってください。'// 2021
+  ],
+  // 過去に実際に質問されたその他の内容（塾資料の完全リスト）
+  past_others:[
+    '小学校でのクラブ活動や委員会活動で印象に残っていることは何ですか。その理由も。',
+    '海外の方に紹介したい日本の文化は何ですか。その理由も。',
+    'あなたが今がんばっていることは何ですか。',
+    'あなたが住んでいる町の魅力について教えてください。',
+    '好きな漢字は何ですか。その理由も。',
+    '自分の良いところをアピールしなさい。',
+    '友達と仲良くするにはどんなことに気をつければよいですか。',
+    '入学して（英語以外で）あなたがやりたいことは何ですか。',
+    'あなたの小学校の誇れるところは何ですか。',
+    '好きな教科ときらいな教科は何ですか。その理由も。',
+    'この学校に入学した場合の交通手段を教えてください。',
+    '最近のニュースで興味関心をもったことを教えてください。その理由も。',
+    '附属中学校についてあなたが知っていることを教えてください。',
+    '好きな言葉は何ですか。その理由も。',
+    '自分の長所と短所を教えてください。',
+    'これまでに感動したことを教えてください。',
+    '入学はあなたにどんな影響を与えてくれますか。またどんなことができますか。'
+  ],
+  // 詩の完成（過去に実際に出題された特殊形式）
+  poem:[
+    '次の詩を完成させて発表してください。「学校っていいな。だって（　　）だから。」',
+    '次の詩を完成させて発表してください。「学校っていやだな。だって（　　）だから。」',
+    '次の詩を完成させて発表してください。「私にとって学校は（　　）だ。」'
+  ],
+  // テーマ別（曜日テーマ練習用・過去問の傾向に沿った類題）
   shibo:[
     '兵庫県立大学附属中学校を志望する理由を教えてください。',
-    'この学校のどこに一番魅力を感じましたか？',
-    'たくさん学校がある中で、なぜ家から遠いこの学校を選んだのですか？',
-    'この学校に入って、どんな自分になりたいですか？',
-    'オープンスクールや説明会には来ましたか？印象に残っていることはありますか？'
+    '志願理由書に書いた内容を詳しく説明してください。',
+    'この学校のどこに一番魅力を感じましたか。',
+    'たくさん学校がある中で、なぜ家から遠いこの学校を選んだのですか。',
+    '附属中学校についてあなたが知っていることを教えてください。'
   ],
   pr:[
-    '小学校生活で一番頑張ったことを教えてください。',
-    '小学校で一番思い出に残っていることは何ですか？',
-    '委員会活動やクラブ活動で頑張ったことはありますか？',
-    '友達と協力して何かをやり遂げた経験を教えてください。',
-    '小学校の勉強で一番好きだった教科と、その理由を教えてください。'
+    '小学校生活で自分が一番頑張ったと思うことを言ってください。',
+    '小学校でのクラブ活動や委員会活動で印象に残っていることは何ですか。その理由も。',
+    '小学校生活を通して協力して学んだことを言ってください。',
+    '自分の良いところをアピールしなさい。',
+    'あなたが今がんばっていることは何ですか。'
   ],
   goal:[
-    '入学したら、どんなことを頑張りたいですか？',
-    '中学校でチャレンジしてみたいことは何ですか？',
-    '将来の夢はありますか？そのために中学で何をしたいですか？',
-    'この学校の探究科学では、どんなことを調べてみたいですか？',
-    '理科の実験や観察で、印象に残っているものはありますか？'
+    '入学して（英語以外で）あなたがやりたいことは何ですか。',
+    '入学はあなたにどんな影響を与えてくれますか。またどんなことができますか。',
+    '探究科学ではどんなことを調べてみたいですか。',
+    '将来の夢はありますか。そのために中学で何をしたいですか。'
   ],
   news:[
-    '最近、気になっているニュースは何ですか？',
+    '最近のニュースで興味関心をもったことを教えてください。その理由も。',
     '最近読んだ新聞記事で、印象に残っているものを教えてください。',
-    '最近「不思議だな」「なぜだろう」と思ったことはありますか？'
+    '最近「不思議だな」「なぜだろう」と思ったことはありますか。'
   ],
   self:[
-    'あなたの長所と短所を教えてください。',
-    '自分のどんなところが好きですか？',
-    'お家の人からは、どんな子だと言われますか？'
+    '自分の長所と短所を教えてください。',
+    '小学校生活を漢字一文字で言うと何ですか。その理由も説明してください。',
+    '今まで自分が言われてうれしかったことは何ですか。',
+    '好きな言葉は何ですか。その理由も。',
+    '好きな漢字は何ですか。その理由も。'
   ],
   commute:[
-    '家から学校まで遠いですが、通学はどうする予定ですか？毎日通えますか？',
-    '朝早く起きて長い時間通学することになりますが、大丈夫ですか？',
-    '知っている友達がいない環境になるかもしれませんが、どうやって友達を作りますか？'
-  ],
-  eng:'Hello! Please introduce yourself in English. 英語で自己紹介をしてみてください。'
+    'この学校に入学した場合の交通手段を教えてください。',
+    '家から学校まで遠いですが、毎日通えますか。',
+    'あなたが住んでいる町の魅力について教えてください。'
+  ]
 };
 
-// 英語の追加質問（説明会で「英語の質問あり」と公式言及・基礎レベル）
+// 英語の質問（毎年必ず1問出題・実過去問6年分）
+// 岡ゼミアドバイス: 完璧な文法より「知っている単語で伝えようとする積極的な姿勢」が評価される
+// 学校知識データベース（塾資料P1-2・在校生の声より）
+// 「附属中について知っていること」質問への深掘りと、志望動機の具体化に使う
+const SCHOOL_KNOWLEDGE='【兵庫県立大学附属中学校の基礎知識（AIが深掘りに使う）】\n'+
+'- 所在地：上郡町光都（播磨科学公園都市）。県大附属高校との中高一貫教育、高校内容の一部を中学で先取り、6年間一体のカリキュラム\n'+
+'- 独自教科「探究科学」「コミュニケーション」。中2から本格的なプロジェクト学習（自分の興味ある分野の研究）\n'+
+'- 大学の先生から教わる機会がある。数学・理科は授業速度が速い（先取り）。理科は実験が多い\n'+
+'- 数学・英語は3展開（3グループに分かれる少人数授業）\n'+
+'- English Speech Festival（大勢の前で英語スピーチを発表する行事）\n'+
+'- ガイダンスキャンプで西はりま天文台・人と自然の博物館・SPring-8の施設見学\n'+
+'- 文化祭や体育大会は高校生と一緒に活動。高校受験がない\n'+
+'- 高校進学時にCSコース/FSコースに分かれ、兵庫県立大学への特別推薦制度が全学部にある\n'+
+'- 黎明寮あり（中学生も入寮可・上級生と2人部屋・週末は必ず帰宅するルール）\n'+
+'- 校訓「創進」（創造と進歩）、合言葉「目指せ世界のパイオニア」\n'+
+'※本人がこれらに触れたら具体的に深掘りし、事実と違うことを言ったら優しく訂正する。';
+
 const ENG_QUESTIONS=[
-  'Hello! Please introduce yourself in English. 英語で自己紹介をしてみてください。',
-  "What subject do you like? 好きな教科を英語で答えてみてください。",
-  "What do you like to do in your free time? ひまな時間に何をするのが好きか、英語で答えてみてください。",
-  "What is your dream? あなたの夢を英語で言ってみてください。"
+  'Who is your hero? And why? あなたにとってのヒーローは誰ですか。その理由も英語で言ってみよう。',// 2026
+  'When is your birthday? What do you want for your birthday? 誕生日はいつ？何が欲しい？英語で答えてみよう。',// 2025
+  'What is your favorite season? And why? 好きな季節はいつ？その理由も英語で言ってみよう。',// 2024
+  'Which country do you want to visit? And why? どの国に行ってみたい？その理由も英語で言ってみよう。',// 2023
+  'Please introduce yourself in about 30 seconds. 30秒くらいで英語で自己紹介をしてみよう。',// 2022・2021
+  'What subject do you like? And why? 好きな教科は何？その理由も英語で言ってみよう。'// 傾向類題
 ];
 
 function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)];}
@@ -1640,22 +1700,22 @@ function startInterviewSession(menu){
   const chosahyo=(localStorage.getItem(K.chosahyo)||'').trim();
 
   if(menu.theme==='rotate'){
-    // 本番同様の全方位ローテーション（調査票登録済みなら調査票ベースも混ぜる）
-    const pools=['shibo','pr','goal','news','self','commute'];
-    if(chosahyo)pools.push('chosa');
+    // 本番同様: 実過去問を最優先ローテーション（志願理由書登録済みならそれも高頻度で）
+    const pools=['past_common','past_common','past_others','past_others','poem'];
+    if(chosahyo){pools.push('chosa','chosa');} // 本番は志願理由書質問が毎年固定なので重み高め
     const pool=pickRandom(pools);
     if(pool==='chosa'){
-      question='__CHOSA__'; // AIに調査票から質問を生成させる
+      question='__CHOSA__';
     }else{
       question=pickRandom(QUESTION_BANK[pool]);
     }
   }else if(menu.theme==='surprise'){
     const arr=[
+      ...QUESTION_BANK.poem,
+      '海外の方に紹介したい日本の文化は何ですか。その理由も。',
       'もし、あなたが校長先生だったら、この学校に何を変えますか？',
-      '無人島に3つだけ持っていけるとしたら、何を持っていきますか？理由も教えてください。',
       '自分を動物に例えると何ですか？理由も教えてください。',
-      '友達と意見が合わなかったとき、どうしますか？',
-      '将来、どんな大人になりたいですか？',
+      '友達と仲良くするにはどんなことに気をつければよいですか。',
       '20年後、世の中はどう変わっていると思いますか？',
       'AIと人間の違いは何だと思いますか？'
     ];
@@ -1663,39 +1723,113 @@ function startInterviewSession(menu){
   }else if(menu.theme==='eng'){
     question=pickRandom(ENG_QUESTIONS);
   }else if(QUESTION_BANK[menu.theme]){
-    question=pickRandom(QUESTION_BANK[menu.theme]);
+    let pool=QUESTION_BANK[menu.theme];
+    // 志願理由書が未登録なら「志願理由書に書いた内容を〜」は出さない（まだ書いてないので答えられない）
+    if(!chosahyo){
+      pool=pool.filter(function(q2){return q2.indexOf('志願理由書')<0;});
+    }
+    question=pickRandom(pool);
   }else{
     question=pickRandom(QUESTION_BANK.shibo);
   }
 
   state.session.theme=menu.theme;
   state.session.depthCount=0;
+  state.session.pendingQuestion=question;
 
-  // 英語テーマなら音声認識を英語に自動切替
-  if(menu.theme==='eng'){
-    state.recogLang='en-US';
-  }else{
-    state.recogLang='ja-JP';
-  }
-
-  if(question==='__CHOSA__'){
-    // 調査票ベースの質問をAIに生成させる
-    startChosaQuestion(chosahyo);
-    return;
-  }
-
-  state.session.firstQuestion=question;
-  addAiBubble(question);
-  speak(question);
-  showVoiceInput('interview_answer');
+  // 本番と同じ冒頭フロー（毎年固定: 受験番号と名前＋出身小学校名）
+  // 冒頭は必ず日本語認識
+  state.recogLang='ja-JP';
+  const intro='面接練習を始めます。本番と同じように、まず「受験番号と名前と出身小学校名」を言ってください。（受験番号は練習用に好きな番号でOK。ハキハキと、大きな声で！）';
+  addAiBubble(intro);
+  speak('面接練習を始めます。本番と同じように、まず、受験番号と名前と、出身小学校名を言ってください。ハキハキと大きな声で。');
+  showVoiceInput('interview_intro');
 }
 
-// 調査票ベースの質問生成
+// 冒頭の受験番号・名前ステップ（本番の型を体に入れる。AI呼び出し不要）
+function handleInterviewIntro(text){
+  if(!state.session)return;
+  // 二重送信防止：入力欄を即座に消し、質問を消費（1400ms待機中の再送信を物理的に不可能に）
+  const q=state.session.pendingQuestion;
+  if(!q)return; // 既に消費済みなら何もしない
+  state.session.pendingQuestion=null;
+  document.getElementById('sesInput').innerHTML='';
+  const ack='ありがとうございます。それでは質問します。';
+  addAiBubble(ack);
+  speak(ack);
+  // 英語テーマならここから英語認識に切替
+  if(state.session.theme==='eng'){state.recogLang='en-US';}
+  setTimeout(()=>{
+    if(!state.session)return;
+    if(q==='__CHOSA__'){
+      startChosaQuestion((localStorage.getItem(K.chosahyo)||'').trim());
+    }else{
+      state.session.firstQuestion=q;
+      addAiBubble(q);
+      speak(q);
+      showVoiceInput('interview_answer');
+      startThinkingTimer(); // Phase 4以降：本番同様の「考える時間30秒」
+    }
+  },1400);
+}
+
+// 本番の「考える時間（30秒程度）」再現（Phase 4実戦期以降のみ）
+// 結論→理由→体験の順で頭の中で組み立てる訓練。待たずに話し始めてもOK
+let thinkingTimerInterval=null;
+function startThinkingTimer(){
+  if(getCurrentPhase().n<4)return; // Phase 1〜3は焦らせない
+  if(thinkingTimerInterval){clearInterval(thinkingTimerInterval);thinkingTimerInterval=null;}
+  const div=document.createElement('div');
+  div.className='ai-bubble fade-in';
+  div.id='thinkingTimerBubble';
+  let sec=30;
+  div.innerHTML='🤔 本番と同じく、考える時間をあげます。<br><strong>頭の中で「結論→理由→体験」の順に組み立てよう。</strong><br>準備できたら30秒待たずに話し始めてOK！<br><span id="thinkingCount" style="font-size:22px;font-weight:900;">残り '+sec+' 秒</span>';
+  document.getElementById('sesContent').appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'nearest'});
+  thinkingTimerInterval=setInterval(()=>{
+    sec--;
+    const c=document.getElementById('thinkingCount');
+    if(!c||!state.session){clearInterval(thinkingTimerInterval);thinkingTimerInterval=null;return;}
+    if(sec<=0){
+      clearInterval(thinkingTimerInterval);thinkingTimerInterval=null;
+      c.textContent='⏰ 時間です。どうぞ、答えてください！';
+      speak('どうぞ、答えてください。');
+    }else{
+      c.textContent='残り '+sec+' 秒';
+    }
+  },1000);
+}
+function stopThinkingTimer(){
+  if(thinkingTimerInterval){clearInterval(thinkingTimerInterval);thinkingTimerInterval=null;}
+}
+
+// 志願理由書のAI添削（合格者例の型ベース・保護者画面から実行）
+async function reviewChosahyo(){
+  const text=document.getElementById('chosahyoInput').value.trim();
+  const resultEl=document.getElementById('chosahyoReviewResult');
+  if(!text){alert('先に志願理由書の下書きを入力してください');return;}
+  if(!state.apiKey){alert('APIキーが未設定です');return;}
+  const btn=document.getElementById('chosahyoReview');
+  btn.disabled=true;btn.textContent='添削中...';
+  resultEl.style.display='block';
+  resultEl.textContent='AIが添削しています…（20秒ほどかかります）';
+  try{
+    const sys='あなたは兵庫県立大学附属中学校の受験指導のプロです。小学6年生が書いた志願理由書（提出規定：360〜400字程度・鉛筆またはボールペン）を添削します。\n\n'+SCHOOL_KNOWLEDGE+'\n\n【合格者の志願理由書の型（塾の合格実例2本の共通構造）】\n①きっかけとなった具体的な体験（固有名詞・数字入り。例：エコクラブで発電所見学、鉄道博物館で新幹線の運行間隔）\n②そこから深めた学び・気づき\n③この学校の特色（探究科学・プロジェクト学習・自然科学部など）と自分のやりたいことの接続\n④入学後の展望\n※校訓「創進」や「目指せ世界のパイオニア」と方向性が合っているとなお良い\n\n【添削の観点（全てチェック）】\n1. 文字数：現在'+text.length+'字。360〜400字に収まるよう指摘\n2. 型①〜④が揃っているか。欠けている要素を明示\n3. 体験が具体的か（固有名詞・数字があるか）。抽象的なら「ここを具体的に」と指摘\n4. 面接で深掘りされた時に本人が自分の言葉で説明できる内容か（大人が書いた感・借り物の言葉がないか）\n5. 学校の特色との接続が自然か\n\n出力形式（350字以内・保護者向け）：\n【良い点】1〜2個\n【直すべき点】優先度順に2〜3個（具体的な直し方まで）\n【総合】A〜Cの3段階（A=このまま提出レベル/B=あと一歩/C=構成から見直し）';
+    const res=await callClaude([{role:'user',content:'小6が書いた志願理由書の下書き（'+text.length+'字）：\n\n'+text}],sys,800);
+    resultEl.innerHTML=escapeHTML(res).replace(/\n/g,'<br>');
+  }catch(e){
+    resultEl.textContent='添削に失敗しました：'+e.message;
+  }finally{
+    btn.disabled=false;btn.textContent='AIに添削してもらう';
+  }
+}
+
+// 志願理由書ベースの質問生成
 async function startChosaQuestion(chosahyo){
   showLoading();
   try{
-    const sys='あなたは兵庫県立大学附属中学校の面接官です。受験生が事前提出した面接調査票の内容から、深掘り質問を1つだけ作ってください。\n\n実際の面接では「調査票に◯◯と書いていますが、詳しく教えてください」という形式で聞かれます。\n\n質問文のみを出力。1〜2文以内。前置き不要。';
-    const res=await callClaude([{role:'user',content:'面接調査票の内容：\n'+chosahyo+'\n\nこの内容から深掘り質問を1つ作ってください。'}],sys,200);
+    const sys='あなたは兵庫県立大学附属中学校の面接官です。\n'+SCHOOL_KNOWLEDGE+'\n\n受験生が事前提出した志願理由書（360〜400字）の内容から、深掘り質問を1つだけ作ってください。\n\n実際の面接では「志願理由書に◯◯と書いていますが、詳しく教えてください」という形式で聞かれます。\n\n質問文のみを出力。1〜2文以内。前置き不要。';
+    const res=await callClaude([{role:'user',content:'志願理由書の内容：\n'+chosahyo+'\n\nこの内容から深掘り質問を1つ作ってください。'}],sys,200);
     hideLoading();
     if(!state.session)return;
     state.session.firstQuestion=res;
@@ -1732,7 +1866,7 @@ async function runGroupSimulation(){
   showLoading();
   try{
     const modeName=({group_simple:'簡易版',group:'標準',group_real:'本番想定',group_light:'軽め復習'})[state.session.groupMode]||'標準';
-    const sysPrompt='あなたは兵庫県立大学附属中学校の集団面接シミュレーションを進行するAIです。\n仮想受験生4人（A：堂々型、B：内気型、C：論理型、D：感情型）と本物の受験生（5人目）の集団面接を進行します。\n今回は「'+modeName+'」モードです。\n\n以下のJSONフォーマットのみで出力してください。説明文や前置きは一切不要です：\n{\n  "question": "面接官からの質問1問",\n  "answers": [\n    {"name":"Aさん", "answer":"Aさんの回答（30-60字程度）"},\n    {"name":"Bさん", "answer":"Bさんの回答（短め、緊張気味）"},\n    {"name":"Cさん", "answer":"Cさんの回答（理由から入る）"},\n    {"name":"Dさん", "answer":"Dさんの回答（体験談から入る）"}\n  ]\n}\n\n質問は兵庫県立大学附属中学校で実際に聞かれる形式のものを1問。過去問リサーチに基づく頻出3軸（志望動機・小学校で頑張ったこと・入学後に頑張りたいこと）を最優先し、他に探究科学で調べたいこと・理科の実験・友達と協力した経験・気になるニュース・長所短所・遠距離通学への覚悟から選んでください。';
+    const sysPrompt='あなたは兵庫県立大学附属中学校の集団面接シミュレーションを進行するAIです。\n仮想受験生4人（A：堂々型、B：内気型、C：論理型、D：感情型）と本物の受験生（5人目）の集団面接を進行します。\n今回は「'+modeName+'」モードです。\n\n以下のJSONフォーマットのみで出力してください。説明文や前置きは一切不要です：\n{\n  "question": "面接官からの質問1問",\n  "answers": [\n    {"name":"Aさん", "answer":"Aさんの回答（30-60字程度）"},\n    {"name":"Bさん", "answer":"Bさんの回答（短め、緊張気味）"},\n    {"name":"Cさん", "answer":"Cさんの回答（理由から入る）"},\n    {"name":"Dさん", "answer":"Dさんの回答（体験談から入る）"}\n  ]\n}\n\n質問は兵庫県立大学附属中学校の実際の過去問から1問選んでください（塾の入試攻略資料で確認済みの実出題）：\n・初対面の人と話すときに気を付けていることは何ですか（2026年度）\n・学校生活をより良くするためにあなたがしたことは何ですか（2025年度）\n・小学校生活を漢字一文字で言うと何ですか。その理由も（2024年度）\n・今まで自分が言われてうれしかったことは何ですか（2023年度）\n・小学校生活を通して協力して学んだことを言ってください（2022年度）\n・小学校生活で自分が一番頑張ったと思うことを言ってください（2021年度）\n・友達と仲良くするにはどんなことに気をつければよいですか\n・あなたが住んでいる町の魅力について教えてください\n・自分の良いところをアピールしてください\n・最近のニュースで興味関心をもったことを教えてください\n・これまでに感動したことを教えてください\nまたは志望動機・入学後にやりたいこと系でも可。';
 
     const res=await callClaude([{role:'user',content:'集団面接の質問と4人の回答をJSON形式で作ってください。'}],sysPrompt,1500);
     hideLoading();
@@ -2104,6 +2238,7 @@ async function sendUserInput(){
   try{
     stopRecording();
     cancelSpeech();
+    stopThinkingTimer(); // 考える時間を待たずに答えた場合はタイマー終了
     // 回答時間を記録（タイマー未使用＝手入力のみの場合はnull）
     state.lastAnswerSec=stopAnswerTimer();
     addUserBubble(text);
@@ -2116,6 +2251,7 @@ async function sendUserInput(){
     if(mode==='paper_feedback'){await handlePaperFeedback(text);}
     else if(mode==='paper_deep'){await handlePaperDeep(text);}
     else if(mode==='paper_sakubun'){await handlePaperSakubun(text);}
+    else if(mode==='interview_intro'){handleInterviewIntro(text);}
     else if(mode==='interview_answer'){await handleInterviewAnswer(text);}
     else if(mode==='group_answer'){await handleGroupAnswer(text);}
     else if(mode==='review_answer'){await handleReviewAnswer(text);}
@@ -2267,16 +2403,16 @@ async function handlePaperDeep(text){
 }
 
 function finalizePaperSession(finalRes){
-  // 総評後、200字作文チャレンジへ（県大の適性検査は新聞記事読解＋200字作文が定番）
+  // 総評後、300字作文チャレンジへ（県大の適性検査は新聞記事読解＋300字作文が定番）
   state.session.paperFinalFeedback=finalRes;
-  const msg='さいごに、200字作文チャレンジ！\n今日話したことを、200字くらいの文章にまとめて書いてみよう。本番の適性検査でも「200字で書きなさい」という問題が出るよ。\n（今日は疲れてたらスキップしてもOK）';
+  const msg='さいごに、300字作文チャレンジ！\n今日話したことを、300字くらいの文章にまとめて書いてみよう。本番の適性検査でも「300字程度で書きなさい」という問題が出るよ。\n（今日は疲れてたらスキップしてもOK）';
   addAiBubble(msg);
-  speak('さいごに、200字作文チャレンジ！今日話したことを、200字くらいの文章にまとめて書いてみよう。');
+  speak('さいごに、300字作文チャレンジ！今日話したことを、300字くらいの文章にまとめて書いてみよう。');
 
   // 入力＋スキップボタン
   document.getElementById('sesInput').innerHTML=`
     <div class="input-area">
-      <textarea class="input-text" id="userInput" placeholder="今日の記事について、思ったことを200字くらいで書いてみよう" rows="6" style="width:100%;"></textarea>
+      <textarea class="input-text" id="userInput" placeholder="今日の記事について、思ったことを300字くらいで書いてみよう" rows="6" style="width:100%;"></textarea>
       <div class="input-meta-row">
         <span></span>
         <span class="char-count" id="charCount">0文字</span>
@@ -2299,20 +2435,20 @@ function finalizePaperSession(finalRes){
     const len=input.value.length;
     count.textContent=len+'文字';
     count.className='char-count';
-    if(len>=160&&len<=240)count.className='char-count'; // 適正範囲
-    else if(len>240)count.className='char-count over';
-    else if(len>0&&len<160)count.className='char-count warn';
+    if(len>=240&&len<=360)count.className='char-count'; // 適正範囲（本番は300字程度）
+    else if(len>360)count.className='char-count over';
+    else if(len>0&&len<240)count.className='char-count warn';
   });
 }
 
-// 200字作文の添削
+// 300字作文の添削
 async function handlePaperSakubun(text){
   if(!state.session)return;
   showLoading();
   try{
     const style=getInterviewerStyle();
-    const sys='あなたは「'+style.name+'」です。小学6年生が新聞記事について書いた200字作文を添削します。\n兵庫県立大学附属中学校の適性検査では「新聞記事読解＋200字作文」が定番です。\n\n以下を1回の返答で（250字以内）：\n1. 良い点を1つ（構成・具体性・自分の意見のどれか）\n2. 本番で点が伸びる改善点を1つ（例：理由→具体例→まとめ の型、文字数調整、主語述語のねじれ）\n3. 「作文点数：X点」（10点満点）を最後に1行で';
-    const ctx='子供が話した内容の要点：'+(state.session.paperUserAnswer||'').slice(0,200)+'\n\n子供が書いた200字作文（'+text.length+'字）：\n'+text;
+    const sys='あなたは「'+style.name+'」です。小学6年生が新聞記事について書いた300字作文を添削します。\n兵庫県立大学附属中学校の適性検査では「新聞記事読解＋300字作文」が定番です。\n\n以下を1回の返答で（250字以内）：\n1. 良い点を1つ（構成・具体性・自分の意見のどれか）\n2. 本番で点が伸びる改善点を1つ（例：理由→具体例→まとめ の型、文字数調整、主語述語のねじれ）\n3. 「作文点数：X点」（10点満点）を最後に1行で';
+    const ctx='子供が話した内容の要点：'+(state.session.paperUserAnswer||'').slice(0,200)+'\n\n子供が書いた300字作文（'+text.length+'字）：\n'+text;
     const res=await callClaude([{role:'user',content:ctx}],sys,500);
     hideLoading();
     if(!state.session)return;
@@ -2377,7 +2513,7 @@ async function handleInterviewAnswer(text){
 
     // 英語テーマかどうか
     const isEng=state.session.theme==='eng';
-    const engInstruction=isEng?'\n\n【英語モード】\n最初の質問は英語です。子供の回答も英語（または音声認識による英文）の可能性があります。\n- 深掘り1回目は簡単な英語（例: "Why do you like it?" "Tell me more."）＋日本語補足で質問\n- 2回目以降の深掘りは日本語でOK（内容を深めることを優先）\n- 総評では英語回答について「文法・語彙・質問への的確さ・自信」の観点で必ず1つ良い点と1つ改善点を指摘\n- 音声認識のせいでスペルや単語が崩れている可能性を考慮し、意図を汲んで評価する':'';
+    const engInstruction=isEng?'\n\n【英語モード】\n最初の質問は英語です。子供の回答も英語（または音声認識による英文）の可能性があります。\n- 深掘り1回目は簡単な英語（例: "Why do you like it?" "Tell me more."）＋日本語補足で質問\n- 2回目以降の深掘りは日本語でOK（内容を深めることを優先）\n- 【重要・塾の分析より】本番では完璧な文法で答えることよりも、知っている単語を使って「伝えようとする積極的な姿勢」が評価される。文法ミスを細かく減点せず、伝わったか・積極的に話せたかを最優先で評価する\n- 総評では英語回答について「伝える姿勢・語彙・質問への的確さ・自信」の観点で必ず1つ良い点と1つ改善点を指摘\n- 音声認識のせいでスペルや単語が崩れている可能性を考慮し、意図を汲んで評価する':'';
 
     // 厳しめモード（厳しい校長）の場合は圧迫系の深掘りを混ぜる
     const pressureInstruction=(state.severity===3&&depth>=2&&depth<=4)?'\n\n【圧迫深掘り】あなたは厳しい面接官です。今回の深掘りでは、次のような角度も選択肢に入れてください：「それは他の学校でもできますよね？」「本当にそう思っていますか？」「それはあなたが本当にやったことですか？」等、本気度を試す質問。ただし人格否定はしない。':'';
@@ -2386,11 +2522,11 @@ async function handleInterviewAnswer(text){
     const timeSec=state.lastAnswerSec;
     const timeInfo=(timeSec!==null&&timeSec!==undefined)?'\n\n【今回の回答時間】約'+timeSec+'秒（本番のグループ面接は1人30秒〜1分が目安。総評時に長すぎ・短すぎがあれば指摘してください）':'';
 
-    // 調査票（登録済みなら参照して矛盾を突く）
+    // 志願理由書（登録済みなら参照して矛盾を突く）
     const chosahyo=(localStorage.getItem(K.chosahyo)||'').trim();
-    const chosaInfo=chosahyo?'\n\n【面接調査票（事前提出書類・本人が書いた内容）】\n'+chosahyo.slice(0,600)+'\n※実際の面接では調査票の内容から質問されます。回答が調査票と矛盾していたら深掘りで指摘してください。':'';
+    const chosaInfo=chosahyo?'\n\n【志願理由書（事前提出・本人が書いた内容）】\n'+chosahyo.slice(0,600)+'\n※実際の面接では毎年必ず志願理由書の内容から質問されます。回答が志願理由書と矛盾していたら深掘りで指摘してください。':'';
 
-    const sys='あなたは兵庫県立大学附属中学校の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n小学6年生に面接を行います。現在Phase '+phase.n+'「'+phase.name+'」。\n本校の面接は5人程度のグループ面接で、志望動機・小学校で頑張ったこと・入学後に頑張りたいことが3大頻出テーマ。探究科学・コミュニケーションという独自教科があり、探究心と他者と関わる力を重視します。\n\n【深掘り5段階方式】\nこの面接は最初の質問に対し、本人に深く理解させるために5回掘り下げます。\n現在は'+depth+'回目です。\n\n'+stageGuide+hintInstruction+engInstruction+pressureInstruction+'\n\n【言葉遣いチェック】\n「えっと」「〜みたいな」「〜っていうか」「〜じゃん」等の口癖や敬語の誤りが回答にあれば、総評の【次の課題】で必ず1つ指摘してください（深掘り中は指摘せず内容に集中）。\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる（5回目を除く）\n- 「うんうん」「なるほど」など共感の相づちを入れていい\n\n【5回目を超えた総評の形式（厳守）】\n5回目の本人の回答後、6回目のあなたの発言で総評します。\n総評は以下の形式で出力：\n\n【最初と最後の変化】〜（最初の答えと最後の答えがどう変わったか、具体的に。本人に成長を実感させる）\n【良かった点】〜\n【次の課題】〜（口癖・言葉遣い・回答時間の問題があればここで指摘）\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
+    const sys='あなたは兵庫県立大学附属中学校の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n小学6年生に面接を行います。現在Phase '+phase.n+'「'+phase.name+'」。\n\n【本番の面接形式（塾の入試攻略資料で確認済みの実態）】\n- 面接官2名×生徒4〜6人のグループ面接、1グループ約15分\n- 毎年の流れ：①受験番号と名前（＋出身小学校名）②志願理由書の内容を個々に質問 ③共通質問 ④英語での質問\n- 受験番号順に答える場合と挙手制の場合がある。答える前に考える時間（30秒程度）が与えられる場合もある\n- 評価されるのは「完璧さ」より「声の大きさ」「伝えようとする積極的な姿勢」「他の受験生の話を聞く態度」（塾のアドバイスより）\n- 本人が沈黙した時は「30秒考えてからでいいよ」と本番同様の猶予を与えてよい\n\n本校には探究科学・コミュニケーションという独自教科があり、探究心と他者と関わる力を重視します。校訓は「創進」、合言葉は「目指せ世界のパイオニア」。\n\n'+SCHOOL_KNOWLEDGE+'\n\n【深掘り5段階方式】\nこの面接は最初の質問に対し、本人に深く理解させるために5回掘り下げます。\n現在は'+depth+'回目です。\n\n'+stageGuide+hintInstruction+engInstruction+pressureInstruction+'\n\n【言葉遣いチェック】\n「えっと」「〜みたいな」「〜っていうか」「〜じゃん」等の口癖や敬語の誤りが回答にあれば、総評の【次の課題】で必ず1つ指摘してください（深掘り中は指摘せず内容に集中）。\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる（5回目を除く）\n- 「うんうん」「なるほど」など共感の相づちを入れていい\n\n【5回目を超えた総評の形式（厳守）】\n5回目の本人の回答後、6回目のあなたの発言で総評します。\n総評は以下の形式で出力：\n\n【最初と最後の変化】〜（最初の答えと最後の答えがどう変わったか、具体的に。本人に成長を実感させる）\n【良かった点】〜（声の大きさ・積極的に伝える姿勢が良ければここで褒める）\n【次の課題】〜（口癖・言葉遣い・回答時間の問題があればここで指摘）\n【点数】話す力:X/10 考える力:X/10 自分の言葉:X/10';
 
     const userMsg='最初の質問：'+state.session.firstQuestion+'\n\n子供の回答履歴：\n'+
       state.session.messages.map((m,i)=>(i+1)+'回目：'+m.content).join('\n')+timeInfo+chosaInfo+
@@ -2490,7 +2626,7 @@ async function handleGroupAnswer(text){
     const isDontKnow=detectDontKnow(text);
     const hintInstruction=isDontKnow?'\n\n【重要】子供は「わからない」と言っています。ヒントを出してください。「他の人の答えを思い出してみて」「具体的な場面で言うと？」など。':'';
 
-    const sys='あなたは集団面接の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n本人（5人目）の回答について深掘りします。「他の4人の答えを聞いて自分の意見を述べられているか」も重視。\n\n【深掘り5段階方式】\n現在'+depth+'回目です。\n\n'+stageGuide+hintInstruction+'\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる\n\n【5回目を超えた総評の形式】\n5回目の本人回答の次のあなたの発言で総評を出します。\n\n【最初と最後の変化】〜\n【良かった点】〜\n【次の課題】〜\n【点数】話す力:X/10 聞く力:X/10 考える力:X/10';
+    const sys='あなたは兵庫県立大学附属中学校の集団面接の面接官「'+style.name+'」です。\n'+style.personality+'\n'+style.scoreModifier+'\n\n【本番の形式】面接官2名×生徒4〜6人・約15分。受験番号順または挙手制。答える前に考える時間（30秒程度）が与えられる場合もある。評価は「声の大きさ」「伝えようとする積極的な姿勢」「他の受験生の話を聞く態度」が重視される（塾の入試分析より）。\n\n本人（5人目）の回答について深掘りします。「他の4人の答えを聞いて自分の意見を述べられているか」も重視。\n\n'+SCHOOL_KNOWLEDGE+'\n\n【深掘り5段階方式】\n現在'+depth+'回目です。\n\n'+stageGuide+hintInstruction+'\n\n【発言ルール】\n- 1回の発言は1〜2文以内\n- 必ず質問または指示で終わる\n- 本人が沈黙したら「30秒考えてからでいいよ」と本番同様の猶予を与えてよい\n\n【5回目を超えた総評の形式】\n5回目の本人回答の次のあなたの発言で総評を出します。\n\n【最初と最後の変化】〜\n【良かった点】〜（他の受験生の話を踏まえて話せていたら必ず褒める）\n【次の課題】〜\n【点数】話す力:X/10 聞く力:X/10 考える力:X/10';
 
     const gTimeSec=state.lastAnswerSec;
     const gTimeInfo=(gTimeSec!==null&&gTimeSec!==undefined)?'\n\n【今回の回答時間】約'+gTimeSec+'秒（集団面接は1人30秒〜1分が目安。総評時に長すぎ・短すぎがあれば指摘）':'';
