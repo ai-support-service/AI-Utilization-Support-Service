@@ -526,7 +526,7 @@ input[type=file]{display:none;}
   <div class="parent-section">
     <div class="parent-sec-title">📅 本番日設定</div>
     <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.5;">
-      暫定2027/2/1（令和8年度選考が2/2実施だったため2月上旬と推定）。<br>秋の募集要項発表後に正式日程へ更新してください。
+      暫定2027/1/30（土）。塾資料に「入試は例年1月の最終土曜日」と明記あり。<br>秋の募集要項（10月末の入試説明会）で正式日程を確認して更新してください。
     </div>
     <input type="date" class="parent-input" id="examDate">
     <button class="parent-btn-set" id="examDateSet">保存</button>
@@ -587,7 +587,13 @@ input[type=file]{display:none;}
 
   <div class="parent-section">
     <div class="parent-sec-title">💾 データ管理</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
+      「バックアップを書き出す」で練習記録をJSONファイルに保存できます。iPadを買い替えた時や、万一データが消えた時は「バックアップから復元」で読み込めます。<br>
+      💡週に1回、書き出してメールやiCloudに保存しておくと安心です。
+    </div>
     <button class="parent-btn-set" id="exportBtn" style="margin-right:8px;margin-bottom:8px;">バックアップを書き出す</button>
+    <button class="parent-btn-set" id="importBtn" style="background:var(--green);margin-right:8px;margin-bottom:8px;">バックアップから復元</button>
+    <input type="file" id="importFile" accept="application/json,.json" style="display:none;">
     <button class="parent-btn-set" id="deleteTodayBtn" style="background:var(--amber);color:var(--ink);margin-right:8px;margin-bottom:8px;">今日のデータだけ消す</button>
     <button class="parent-btn-set" id="resetBtn" style="background:var(--coral);margin-bottom:8px;">全データを消す</button>
   </div>
@@ -991,6 +997,14 @@ function bindEvents(){
   document.getElementById('exportBtn').addEventListener('click',exportData);
   document.getElementById('resetBtn').addEventListener('click',resetData);
   document.getElementById('deleteTodayBtn').addEventListener('click',deleteTodayData);
+  document.getElementById('importBtn').addEventListener('click',()=>{
+    document.getElementById('importFile').click();
+  });
+  document.getElementById('importFile').addEventListener('change',(e)=>{
+    const file=e.target.files&&e.target.files[0];
+    if(file)importData(file);
+    e.target.value=''; // 同じファイルを再選択できるようリセット
+  });
 
   // テストモード切替
   document.getElementById('testModeOff').addEventListener('click',()=>{
@@ -1431,7 +1445,10 @@ function exportData(){
     severity:state.severity,
     history:state.history,
     streak:state.streak,
-    exportDate:new Date().toISOString()
+    lastDate:state.lastDate,
+    chosahyo:localStorage.getItem(K.chosahyo)||'',
+    exportDate:new Date().toISOString(),
+    appVersion:'kendai_mensetsu_v1'
   };
   // APIキーは含めない（セキュリティ）
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -1445,6 +1462,54 @@ function exportData(){
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   },100);
+}
+
+// バックアップJSONの読み込み（完全上書き復元）
+function importData(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    let data;
+    try{
+      data=JSON.parse(e.target.result);
+    }catch(err){
+      alert('ファイルの読み込みに失敗しました。正しいバックアップファイル（.json）を選んでください。');
+      return;
+    }
+    // バックアップファイルの妥当性チェック
+    if(!data||typeof data!=='object'||!('history' in data)){
+      alert('これは面接対策アプリのバックアップファイルではないようです。書き出したkendai_backup_〇〇.jsonを選んでください。');
+      return;
+    }
+    if(!Array.isArray(data.history)){
+      alert('バックアップの履歴データが壊れています。復元を中止しました。');
+      return;
+    }
+    // 復元内容のプレビュー
+    const cnt=data.history.length;
+    const exp=data.exportDate?new Date(data.exportDate).toLocaleString('ja-JP'):'不明';
+    if(!confirm('バックアップを復元します。\n\n・書き出した日時：'+exp+'\n・練習記録：'+cnt+'件\n\n【重要】今このiPadにあるデータは全て消えて、上のバックアップの内容に置き換わります。\n本当に復元しますか？')) return;
+
+    // 完全上書き復元
+    try{
+      if('examDate' in data)save(K.examDate,data.examDate);
+      if('severity' in data)save(K.severity,data.severity);
+      if('streak' in data)save(K.streak,data.streak);
+      if('lastDate' in data)save(K.lastDate,data.lastDate||'');
+      if('chosahyo' in data)save(K.chosahyo,data.chosahyo||'');
+      // 履歴は最後に保存（容量超過時に他が消えないよう）
+      save(K.history,data.history);
+    }catch(err){
+      alert('復元中にエラーが発生しました：'+err.message);
+      return;
+    }
+    alert('復元が完了しました！\n練習記録'+cnt+'件を読み込みました。\nアプリを再読み込みします。');
+    location.reload();
+  };
+  reader.onerror=function(){
+    alert('ファイルの読み込みに失敗しました。もう一度お試しください。');
+  };
+  reader.readAsText(file);
 }
 
 function resetData(){
