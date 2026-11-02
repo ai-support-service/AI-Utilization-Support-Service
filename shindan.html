@@ -16,14 +16,14 @@
   function trackLineClick() {
     gtag('event', 'click_line_consultation', {
       'event_category': 'Engagement',
-      'event_label': 'Shindan_to_LINE_Official'
+      'event_label': 'Shindan_Header_LINE'
     });
   }
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>60秒AI活用診断｜小さなお店・会社の手間がどれだけ減るか無料でわかる（兵庫）</title>
-<meta name="description" content="6つの質問に答えるだけで、AIとLINEの仕組みで月何時間減らせるか、合うキットと費用（1万円〜・買い切り）、何ヶ月で元が取れるかが無料でわかります。兵庫県の小さなお店・会社向け。">
+<title>30秒診断｜あなたのお店に合うLINEの仕組みと費用が無料でわかる（兵庫）</title>
+<meta name="description" content="業種と手間を選ぶ4タップで、あなたのお店に合うLINEの仕組み（予約・受付・台帳・記帳・配信）、減らせる時間、費用（1万円〜・買い切り）と何ヶ月で元が取れるかが無料でわかります。兵庫県の小さなお店・会社向け。">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://ai-support-service.github.io/AI-Utilization-Support-Service/shindan.html">
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
@@ -31,8 +31,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:image" content="https://ai-support-service.github.io/AI-Utilization-Support-Service/og.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="60秒AI活用診断｜小さなお店・会社の手間がどれだけ減るか無料でわかる">
-<meta property="og:description" content="6つの質問で、月何時間減らせるか・合うキットと費用・何ヶ月で元が取れるかがわかります。兵庫県の小さなお店・会社向け。">
+<meta property="og:title" content="30秒診断｜あなたのお店に合うLINEの仕組みと費用がわかる">
+<meta property="og:description" content="業種と手間を選ぶだけ。合うキット・減らせる時間・何ヶ月で元が取れるかがわかります。兵庫県の小さなお店・会社向け。">
 <meta property="og:url" content="https://ai-support-service.github.io/AI-Utilization-Support-Service/shindan.html">
 <meta property="og:locale" content="ja_JP">
 <noscript></noscript>
@@ -90,7 +90,7 @@ body{font-family:'M PLUS Rounded 1c',sans-serif;background:var(--cream);color:va
 .q-sub{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:24px;}
 .choices{display:flex;flex-direction:column;gap:10px;flex:1;}
 .choice{padding:14px 18px;background:var(--cream);border:2px solid var(--border);border-radius:12px;font-size:13px;font-weight:500;color:var(--ink);cursor:pointer;transition:all 0.18s;text-align:left;display:flex;align-items:center;gap:12px;}
-.choice:hover{border-color:var(--ink2);background:var(--blue-l);transform:translateX(4px);}
+@media (hover:hover){.choice:hover{border-color:var(--ink2);background:var(--blue-l);transform:translateX(4px);}}
 .choice.selected{border-color:var(--ink2);background:var(--blue-l);}
 .ch-ico{font-size:20px;flex-shrink:0;}
 .ch-ttl{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
@@ -174,12 +174,50 @@ body{font-family:'M PLUS Rounded 1c',sans-serif;background:var(--cream);color:va
   .saving-val{font-size:32px;}
   .saving-right{text-align:left;}
 }
+
+/* v2 追加 */
+[hidden]{display:none!important;}
+.result-area{display:flex;}
+.q-text{font-size:19px;}
+.choice{display:flex;align-items:center;gap:12px;width:100%;font-family:inherit;}
+.choice:focus-visible,.btn-back:focus-visible,.retry-lnk:focus-visible,.cta-line:focus-visible,.cta-main:focus-visible,.case-card:focus-visible{outline:3px solid var(--amber);outline-offset:2px;}
+.ch-ttl,.ch-dsc{display:block;}
+.ch-ttl{font-size:14.5px;}
+.ch-dsc{font-size:11.5px;}
+.nav-btns{margin-top:18px;}
+.btn-back{width:auto;}
+.res-head{text-align:left;padding:22px 30px 20px;}
+.res-eyebrow{font-size:12px!important;color:rgba(255,255,255,.75)!important;margin-bottom:6px;}
+.res-head h2{font-size:24px;line-height:1.35;}
+.res-price{font-size:15px!important;color:#FFD15C!important;font-weight:700;margin-top:4px;}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.tile{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:14px 14px 12px;}
+.tile-lbl{font-size:11px;color:var(--muted);font-weight:700;}
+.tile-val{font-size:15px;font-weight:700;color:var(--ink);margin-top:2px;}
+.tile-val b{font-size:30px;font-weight:800;color:#C2410C;margin:0 2px;font-variant-numeric:tabular-nums;}
+.tile-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.r-reason{font-size:13.5px;line-height:1.85;color:var(--ink);margin-bottom:10px;}
+#r-points{margin-bottom:14px;}
+.rpp{font-size:13px;color:var(--ink);}
+.r-easy{background:var(--amber-l);border-radius:10px;padding:10px 14px;font-size:13px;line-height:1.7;margin-bottom:14px;color:var(--ink);}
+.case-card{display:grid;gap:3px;text-decoration:none;color:var(--ink);background:var(--white);border:1.5px solid var(--border);border-left:4px solid var(--amber);border-radius:12px;padding:14px 16px;margin-bottom:18px;}
+.case-tag{font-size:11px;font-weight:700;color:#C2410C;}
+.case-ttl{font-size:14.5px;font-weight:800;}
+.case-txt{font-size:12.5px;color:var(--muted);line-height:1.7;}
+.case-more{font-size:12px;font-weight:700;color:var(--ink2);}
+.cta-line{display:block;text-align:center;text-decoration:none;font-size:16px;}
+.cta-line-note{font-weight:500;color:var(--muted);font-size:12px;}
+.cta-main{display:block;text-align:center;text-decoration:none;background:var(--white);color:var(--ink2);border:1.5px solid var(--ink2);}
+.cta-main:hover{color:#fff;}
+.retry-lnk{background:none;border:0;font-family:inherit;}
+.r-note{font-size:11px;color:var(--muted);margin-top:14px;text-align:center;}
+@media(max-width:768px){.res-head{padding:18px 18px 16px;}.res-head h2{font-size:20px;}.tile-val b{font-size:26px;}}
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <div class="nav-brand"><img class="logo-img" src="logo.svg" width="160" height="52" alt="AI活用支援サービス" style="height:44px;width:auto;display:block"></div>
+  <div class="nav-brand"><img class="logo-img" src="logo.svg" width="160" height="52" alt="AI活用支援サービス" style="height:40px;width:auto;display:block"></div>
   <a href="./" class="nav-back">← サービス紹介に戻る</a>
 </nav>
 
@@ -189,49 +227,46 @@ body{font-family:'M PLUS Rounded 1c',sans-serif;background:var(--cream);color:va
     <!-- 質問画面 -->
     <div id="quiz-area">
       <div class="card-head">
-        <div class="head-tag">✦ 無料 AI活用診断</div>
-        <h1 class="head-title">60秒でわかる、<br>あなたの会社のAI活用度</h1>
-        <div class="head-sub">6つの質問に答えるだけ。月何時間減らせるか・どのキットが合うか・何ヶ月で元が取れるかがわかります。</div>
+        <div class="head-tag">無料診断・4タップ</div>
+        <h1 class="head-title">30秒で、あなたのお店に合う<br>仕組みと費用がわかる</h1>
+        <div class="head-sub">業種と手間を選ぶだけ。合うキット・減らせる時間・何ヶ月で元が取れるかを出します。連絡先の入力はいりません。</div>
       </div>
       <div class="progress-wrap">
-        <div class="prog-top"><span class="prog-lbl" id="prog-label">質問 1 / 6</span><span class="prog-cnt" id="prog-count">17%</span></div>
-        <div class="prog-bg"><div class="prog-fill" id="prog-bar" style="width:17%"></div></div>
+        <div class="prog-top"><span class="prog-lbl" id="prog-label">質問 1 / 4</span><span class="prog-cnt" id="prog-count">あと4タップ</span></div>
+        <div class="prog-bg"><div class="prog-fill" id="prog-bar" style="width:25%"></div></div>
       </div>
       <div class="q-area">
         <div class="q-num" id="q-num">QUESTION 01</div>
-        <div class="q-text" id="q-text"></div>
+        <h2 class="q-text" id="q-text"></h2>
         <div class="q-sub" id="q-sub"></div>
         <div class="choices" id="choices"></div>
-        <div class="nav-btns">
-          <button class="btn-back" id="btn-back" onclick="prevQ()" style="display:none">← 戻る</button>
-          <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>次の質問 →</button>
-        </div>
+        <div class="nav-btns"><button class="btn-back" id="btn-back" type="button" hidden>← ひとつ前に戻る</button></div>
       </div>
     </div>
 
     <!-- 結果画面 -->
-    <div class="result-area" id="result-area">
-      <div class="res-head"><h2>診断結果</h2><p id="result-sub">あなたに合うキットはこちらです</p></div>
+    <div class="result-area" id="result-area" hidden>
+      <div class="res-head">
+        <p class="res-eyebrow">診断結果｜<span id="r-ind"></span></p>
+        <h2 id="r-kit"></h2>
+        <p class="res-price" id="r-price"></p>
+      </div>
       <div class="res-body">
-        <div class="saving-box">
-          <div><div class="saving-lbl">月間削減できる時間（推定）</div><div class="saving-val" id="saving-val">-- <span>時間/月</span></div><div class="saving-sub" id="saving-sub"></div></div>
-          <div class="saving-right"><div class="saving-money" id="saving-money">--万円</div><div class="saving-mlbl">年間換算コスト削減</div></div>
+        <div class="tiles">
+          <div class="tile"><div class="tile-lbl">減らせる時間（目安）</div><div class="tile-val">月<b id="r-hours"></b>時間</div><div class="tile-sub" id="r-yen"></div></div>
+          <div class="tile"><div class="tile-lbl">元が取れるまで（目安）</div><div class="tile-val" id="r-payback"></div><div class="tile-sub">買い切り・月額0円</div></div>
         </div>
-        <div class="issues-box"><div class="issues-title">AIで解決できる課題</div><div id="issues-list"></div></div>
-        <div class="rec-plan">
-          <div class="rec-plan-head"><h3 id="plan-name">おすすめのキット</h3><span id="plan-badge">★ あなたにぴったり</span></div>
-          <div class="rec-plan-body">
-            <div class="rec-plan-price" id="plan-price"></div>
-            <div class="rec-plan-reason" id="plan-reason"></div>
-            <div id="plan-points"></div>
-          </div>
-        </div>
+        <p class="r-reason" id="r-reason"></p>
+        <div id="r-points"></div>
+        <p class="r-easy" id="r-easy" hidden>パソコンが苦手でも大丈夫です。設定はこちらで行い、使うのは普段のLINEとスマホの操作だけです。</p>
+        <a class="case-card" id="r-case" href="#"><span class="case-tag" id="r-case-tag"></span><span class="case-ttl" id="r-case-ttl"></span><span class="case-txt" id="r-case-txt"></span><span class="case-more">くわしく見る →</span></a>
         <div class="res-cta">
-          <div class="cta-line-note">この結果をもとに、15分の無料相談で具体的にお見せします<br>LINEで一言送ると、似た実例と費用の目安がすぐ届きます</div>
-          <a href="https://line.me/R/ti/p/@974udygc" class="cta-line" onclick="trackLineClick();">💬 LINEで一言相談する（無料）</a>
-          <a href="./#kits" class="cta-main">✦ キットと料金を見る</a>
-          <div class="retry-lnk" onclick="restart()">もう一度診断する</div>
+          <a id="r-line" href="https://line.me/R/ti/p/@974udygc" class="cta-line">💬 この結果をLINEで送る（無料）</a>
+          <div class="cta-line-note">入力済みの文を送るだけ。似た事例と費用の目安がすぐ自動で届きます。<br>売り込みの連絡はしません。送らずに閉じても大丈夫です。</div>
+          <a id="r-kitlink" href="./#kits" class="cta-main">キットの詳細を見る</a>
+          <button type="button" class="retry-lnk" id="btn-retry">最初からやり直す</button>
         </div>
+        <p class="r-note">※時間と金額は、選んだ回答から出した目安です（時給2,000円で換算）。</p>
       </div>
     </div>
 
@@ -239,184 +274,90 @@ body{font-family:'M PLUS Rounded 1c',sans-serif;background:var(--cream);color:va
 </div>
 
 <script>
-const questions=[
-  {num:'01',text:'今、一番時間がかかっている作業は何ですか？',sub:'当てはまるものを1つ選んでください。',
-   choices:[
-    {ico:'📄',title:'見積書・請求書・帳票の作成',desc:'定型の書類づくり',score:{auto:0.55,label:'見積・請求・帳票の作成'}},
-    {ico:'📊',title:'データ入力・集計・転記',desc:'Excelへの入力・まとめ作業',score:{auto:0.55,label:'データ入力・集計'}},
-    {ico:'📱',title:'予約・問い合わせの受付対応',desc:'電話・LINE・メールでの受付',score:{auto:0.45,label:'予約・問い合わせ対応'}},
-    {ico:'📦',title:'在庫・受発注・仕入れ管理',desc:'発注書・在庫表の管理',score:{auto:0.45,label:'在庫・受発注の管理'}},
-    {ico:'📋',title:'報告書・日報・議事録の作成',desc:'現場報告・会議メモの整理',score:{auto:0.40,label:'報告書・日報の作成'}},
-    {ico:'🤝',title:'顧客管理・追客・フォロー連絡',desc:'顧客リスト・フォローの連絡',score:{auto:0.40,label:'顧客管理・フォロー連絡'}},
-    {ico:'📣',title:'SNS投稿・販促・チラシ作成',desc:'集客用の文章・画像づくり',score:{auto:0.50,label:'SNS投稿・販促物の作成'}},
-    {ico:'🗓️',title:'シフト・スケジュール調整',desc:'人員の割り当て・日程調整',score:{auto:0.35,label:'シフト・日程の調整'}},
-  ]},
-  {num:'02',text:'その作業に、月どのくらい時間をかけていますか？',sub:'おおよそで構いません。',
-   choices:[
-    {ico:'⏱️',title:'月5時間未満',desc:'週1時間以下',score:{hours:4}},
-    {ico:'🟢',title:'月5〜10時間',desc:'週1〜2時間',score:{hours:8}},
-    {ico:'🟡',title:'月10〜20時間',desc:'週2〜5時間',score:{hours:15}},
-    {ico:'🟠',title:'月20〜40時間',desc:'週5〜10時間',score:{hours:30}},
-    {ico:'🔴',title:'月40〜80時間',desc:'ほぼ毎日2〜3時間',score:{hours:60}},
-    {ico:'⛔',title:'月80時間以上',desc:'専任が必要なレベル',score:{hours:100}},
-  ]},
-  {num:'03',text:'その業務は、何人で回していますか？',sub:'関わっているおおよその人数を選んでください。',
-   choices:[
-    {ico:'🧍',title:'自分1人',desc:'ほぼ自分が担当',score:{scale:1.0,people:'1人'}},
-    {ico:'👥',title:'2〜5人',desc:'少人数のチーム',score:{scale:1.5,people:'2〜5人'}},
-    {ico:'👨‍👩‍👧',title:'6〜15人',desc:'部署・店舗単位',score:{scale:2.2,people:'6〜15人'}},
-    {ico:'🏢',title:'16人以上',desc:'全社・複数拠点',score:{scale:3.0,people:'16人以上'}},
-  ]},
-  {num:'04',text:'現在、主にどのツールを使っていますか？',sub:'最もよく使うものを選んでください。',
-   choices:[
-    {ico:'📗',title:'Excel・スプレッドシート',desc:'データ管理・集計に使用',score:{tool:1.0,toolName:'Excel・スプレッドシート'}},
-    {ico:'💻',title:'業界専用システム',desc:'受発注・在庫などの専用ソフト',score:{tool:0.9,toolName:'専用システム'}},
-    {ico:'📱',title:'スマホ・LINE・メール中心',desc:'連絡・共有はスマホが中心',score:{tool:0.85,toolName:'スマホ・LINE'}},
-    {ico:'📝',title:'紙・手書き中心',desc:'伝票・帳票・メモは紙が中心',score:{tool:0.65,toolName:'紙・手書き'}},
-  ]},
-  {num:'05',text:'AIやデジタル化への印象を教えてください。',sub:'正直なところを選んでください。',
-   choices:[
-    {ico:'🔥',title:'すぐ始めたい',desc:'興味あり・導入意欲が高い',score:{ai:4}},
-    {ico:'🤔',title:'興味はあるが半信半疑',desc:'効果があるのか少し疑っている',score:{ai:3}},
-    {ico:'😅',title:'苦手意識があるが試したい',desc:'ITは得意ではないが前向き',score:{ai:2}},
-    {ico:'🧐',title:'もう少し様子を見たい',desc:'慎重に検討したい',score:{ai:1}},
-  ]},
-  {num:'06',text:'時間を取り戻せたら、何に使いたいですか？',sub:'一番やりたいことを選んでください。',
-   choices:[
-    {ico:'📣',title:'営業・新規顧客開拓',desc:'もっとお客さんと話したい',score:{goal:'もっと営業・集客に時間を使えます'}},
-    {ico:'🔧',title:'現場・本業に集中',desc:'本来の仕事に専念したい',score:{goal:'本業や現場の質を高められます'}},
-    {ico:'📈',title:'経営・戦略を考える時間',desc:'会社の将来を考える余裕が欲しい',score:{goal:'経営や将来の戦略に向き合えます'}},
-    {ico:'🏠',title:'プライベートの時間',desc:'家族や自分の時間を取り戻したい',score:{goal:'家族や自分の時間を取り戻せます'}},
-  ]},
+const LINE_ID='@974udygc';
+const KITS={
+ yoyaku:{name:'予約キット',price:'2.5〜3万円',min:25000,rate:.5,url:'kit/line-yoyaku/',pts:['LINEから24時間予約を受付','予約は管理画面とカレンダーに自動で入る','電話予約もこれまで通り受けられる']},
+ uketsuke:{name:'LINE受付キット',price:'2.5〜3万円',min:25000,rate:.45,url:'kit/line-uketsuke/',pts:['問い合わせをLINEで24時間受付','よくある質問には自動で返事','手が空いた時にまとめて返せる']},
+ daicho:{name:'台帳キット',price:'1.5〜2万円',min:15000,rate:.4,url:'kit/daicho/',pts:['来店・案件の履歴をスマホで確認','しばらく来ていないお客さんが一覧で分かる','今の表計算をそのまま活かせる']},
+ kicho:{name:'記帳キット',price:'1万円',min:10000,rate:.6,url:'kit/kicho/',pts:['レシートの写真をLINEで送るだけ','日付・金額・科目をAIが読み取って表に記入','月ごとの合計も自動で集計']},
+ haishin:{name:'配信キット',price:'1万円',min:10000,rate:.5,url:'./#kits',pts:['お知らせをLINEで決まった日に自動配信','配信文の下書きはAIが用意','内容を確認して送るだけ']},
+ order:{name:'あなた専用の仕組み',price:'作るなら1万円〜（作る前に金額を確定）',min:10000,rate:.4,url:'price/',pts:['15分の無料相談で今のやり方をお聞きします','了承なしの請求はしません','あなたのGoogleとLINEに組み込んでお渡し']}
+};
+const CASES={
+ yugyosen:{tag:'実例｜遊漁船',ttl:'遊漁船の予約をLINEで受付',txt:'電話とメモで受けていた予約をLINEにして、空き状況も自動で見られるように。',url:'case/yugyosen/'},
+ nail:{tag:'実例｜個人ネイルサロン',ttl:'予約・顧客・売上を月額0円で管理',txt:'予約の受付から来店履歴・売上の集計まで、スマホ1台で回せる形に。',url:'case/nail/'},
+ kicho:{tag:'自社で利用中',ttl:'レシートをLINEで送るだけの記帳',txt:'運営者自身が毎月使っている仕組みです。写真を送ると表に入ります。',url:'kit/kicho/'},
+ haishin:{tag:'自社で配信中',ttl:'毎週水曜のLINE配信を自動化',txt:'公式LINE「中小企業AI通信」の配信は、ネタ探しから下書きまで自動です。',url:'./#works'},
+ soudan:{tag:'15分の無料相談',ttl:'やり方が店ごとに違う作業は、聞いてから決めます',txt:'今のやり方をお聞きして、作るか・作らないかも含めて正直にお伝えします。',url:'price/'}
+};
+const OTHER_TASKS=[
+ {t:'予約・問い合わせの受付',k:'yoyaku'},{t:'レシート・記帳',k:'kicho'},{t:'お客さんの管理・来店のフォロー',k:'daicho'},{t:'お知らせ・販促の配信',k:'haishin'},{t:'その他の作業（書類・在庫など）',k:'order'}];
+const IND=[
+ {t:'ネイル・美容・整体',ico:'💅',case:'nail',tasks:[{t:'予約のやり取り',k:'yoyaku'},{t:'お客さんの来店管理',k:'daicho'},{t:'レシートの記帳',k:'kicho'},{t:'お知らせ・空き枠の配信',k:'haishin'}]},
+ {t:'飲食',ico:'🍽️',tasks:[{t:'予約・電話の受付',k:'yoyaku'},{t:'常連さんの管理',k:'daicho'},{t:'仕入れレシートの記帳',k:'kicho'},{t:'お知らせ・メニューの配信',k:'haishin'}]},
+ {t:'工務店・職人',ico:'🔨',tasks:[{t:'問い合わせ・電話の受付',k:'uketsuke'},{t:'見積・書類づくり',k:'order'},{t:'現場写真の整理',k:'order'},{t:'お客さん・案件の管理',k:'daicho'},{t:'レシート・経費の記帳',k:'kicho'}]},
+ {t:'釣り船・レジャー',ico:'🚤',case:'yugyosen',tasks:[{t:'予約の受付',k:'yoyaku'},{t:'出船・空き状況のお知らせ',k:'haishin'},{t:'お客さんの管理',k:'daicho'},{t:'レシートの記帳',k:'kicho'}]},
+ {t:'運送・配送',ico:'🚚',tasks:[{t:'配車・シフトの調整',k:'order'},{t:'問い合わせ・電話の受付',k:'uketsuke'},{t:'日報・報告のまとめ',k:'order'},{t:'レシート・経費の記帳',k:'kicho'}]},
+ {t:'1人で仕事（デザイン・士業など）',ico:'💻',tasks:[{t:'レシート・経費の記帳',k:'kicho'},{t:'問い合わせの受付',k:'uketsuke'},{t:'お客さん・案件の管理',k:'daicho'},{t:'お知らせ・発信',k:'haishin'}]},
+ {t:'その他',ico:'🏪',tasks:OTHER_TASKS}
 ];
-
-let current=0,answers=[],selected=null;
-
-function renderQ(){
-  const q=questions[current];
-  document.getElementById('q-num').textContent='QUESTION 0'+(current+1);
-  document.getElementById('q-text').textContent=q.text;
-  document.getElementById('q-sub').textContent=q.sub;
-  const pct=Math.round((current+1)/questions.length*100);
-  document.getElementById('prog-label').textContent=`質問 ${current+1} / ${questions.length}`;
-  document.getElementById('prog-count').textContent=pct+'%';
-  document.getElementById('prog-bar').style.width=pct+'%';
-  const choicesEl=document.getElementById('choices');
-  choicesEl.innerHTML='';
-  q.choices.forEach((c,i)=>{
-    const btn=document.createElement('button');
-    btn.className='choice'+(selected===i?' selected':'');
-    btn.innerHTML=`<div class="ch-ico">${c.ico}</div><div><div class="ch-ttl">${c.title}</div><div class="ch-dsc">${c.desc}</div></div>`;
-    btn.onclick=()=>selectChoice(i);
-    choicesEl.appendChild(btn);
-  });
-  document.getElementById('btn-next').disabled=selected===null;
-  document.getElementById('btn-back').style.display=current>0?'block':'none';
-  document.getElementById('btn-next').textContent=current===questions.length-1?'診断結果を見る →':'次の質問 →';
+const HOURS=[{t:'月5時間未満',d:'週1時間ほど',h:4},{t:'月5〜10時間',d:'週2時間ほど',h:8},{t:'月10〜20時間',d:'週3〜5時間',h:15},{t:'月20時間以上',d:'ほぼ毎日1時間以上',h:30}];
+const SKILL=[{t:'得意',d:'設定も自分でやれる',s:3},{t:'ふつう',d:'LINEとスマホは使える',s:2},{t:'苦手',d:'できれば任せたい',s:1}];
+let step=0,ans={};
+const $=id=>document.getElementById(id);
+function qs(){
+ const ind=IND[ans.ind];
+ return [
+  {text:'業種を選んでください',sub:'いちばん近いものでOKです。',ch:IND.map((x,i)=>({t:x.t,ico:x.ico,v:i})),key:'ind'},
+  {text:'いちばん減らしたい手間は？',sub:ind?ind.t+'でよくある手間です。':'',ch:(ind?ind.tasks:[]).map((x,i)=>({t:x.t,v:i})),key:'task'},
+  {text:'その手間に、月どのくらい時間を使っていますか？',sub:'だいたいで大丈夫です。',ch:HOURS.map((x,i)=>({t:x.t,d:x.d,v:i})),key:'hours'},
+  {text:'パソコンやスマホの設定は得意ですか？',sub:'結果の出し方が少し変わります。',ch:SKILL.map((x,i)=>({t:x.t,d:x.d,v:i})),key:'skill'}
+ ];
 }
-
-function selectChoice(i){
-  selected=i;
-  document.querySelectorAll('.choice').forEach((el,idx)=>el.classList.toggle('selected',idx===i));
-  document.getElementById('btn-next').disabled=false;
+function render(){
+ const q=qs()[step];
+ $('q-num').textContent='QUESTION 0'+(step+1);
+ $('q-text').textContent=q.text;$('q-sub').textContent=q.sub;
+ $('prog-label').textContent=`質問 ${step+1} / 4`;$('prog-count').textContent=`あと${4-step}タップ`;
+ $('prog-bar').style.width=((step+1)*25)+'%';
+ const el=$('choices');el.innerHTML='';
+ q.ch.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='choice'+(ans[q.key]===c.v?' selected':'');
+  b.innerHTML=(c.ico?`<span class="ch-ico" aria-hidden="true">${c.ico}</span>`:'')+`<span><span class="ch-ttl">${c.t}</span>${c.d?`<span class="ch-dsc">${c.d}</span>`:''}</span>`;
+  b.onclick=()=>pick(q.key,c.v,b);el.appendChild(b);});
+ $('btn-back').hidden=step===0;
 }
-
-function nextQ(){
-  if(selected===null)return;
-  answers[current]=selected;
-  if(current<questions.length-1){current++;selected=answers[current]!==undefined?answers[current]:null;renderQ();}
-  else showResult();
+function pick(key,v,b){
+ if(key==='ind'&&ans.ind!==v)delete ans.task;
+ ans[key]=v;document.querySelectorAll('.choice').forEach(x=>x.classList.toggle('selected',x===b));
+ setTimeout(()=>{if(step<3){step++;render();window.scrollTo({top:0,behavior:'smooth'});}else show();},180);
 }
-
-function prevQ(){
-  if(current>0){current--;selected=answers[current]!==undefined?answers[current]:null;renderQ();}
+$('btn-back').onclick=()=>{if(step>0){step--;render();}};
+$('btn-retry').onclick=()=>{step=0;ans={};$('result-area').hidden=true;$('quiz-area').hidden=false;render();window.scrollTo(0,0);};
+function show(){
+ const ind=IND[ans.ind],task=ind.tasks[ans.task],k=KITS[task.k],H=HOURS[ans.hours],sk=SKILL[ans.skill];
+ const saved=Math.max(1,Math.round(H.h*k.rate)),yen=saved*2000,pay=Math.max(1,Math.ceil(k.min/yen));
+ $('r-ind').textContent=ind.t+'｜'+task.t;
+ $('r-kit').textContent=task.k==='order'?'まずは15分の無料相談がおすすめです':k.name+'が合います';
+ $('r-price').textContent=k.price+(task.k==='order'?'':'・買い切り');
+ $('r-hours').textContent=saved;
+ $('r-yen').textContent=`時給2,000円で月${(yen/10000).toFixed(1).replace('.0','')}万円分`;
+ $('r-payback').innerHTML=`約<b>${pay}</b>ヶ月`;
+ $('r-reason').textContent=task.k==='order'
+  ?`「${task.t}」はお店ごとにやり方が違うので、今のやり方を15分お聞きしてから、作るかどうかも含めて決めます。月${H.h}時間かかっているなら、${k.min/10000}万円で作っても約${pay}ヶ月で元が取れる計算です。`
+  :`${ind.t}で「${task.t}」に月${H.h}時間ほど。${k.name}なら今のやり方は変えずに、月${saved}時間ほど減らせる見込みです。`;
+ $('r-points').innerHTML=k.pts.map(p=>`<div class="rpp"><span class="rpp-dot" aria-hidden="true">✓</span>${p}</div>`).join('');
+ $('r-easy').hidden=sk.s>1;
+ const ck=ind.case||({yoyaku:'yugyosen',uketsuke:'yugyosen',daicho:'nail',kicho:'kicho',haishin:'haishin',order:'soudan'})[task.k];
+ const c=CASES[ck];$('r-case').href=c.url;$('r-case-tag').textContent=c.tag;$('r-case-ttl').textContent=c.ttl;$('r-case-txt').textContent=c.txt;
+ const label=task.k==='order'?'個別の仕組み':k.name;
+ const msg=`【診断結果】${ind.t}／${task.t}／${H.t}／${label}`;
+ $('r-line').href='https://line.me/R/oaMessage/'+encodeURIComponent(LINE_ID)+'/?'+encodeURIComponent(msg);
+ $('r-line').onclick=()=>{if(window.gtag)gtag('event','click_line_consultation',{event_category:'Engagement',event_label:'Shindan_Result_Send',kit:task.k});};
+ $('r-kitlink').href=k.url;$('r-kitlink').textContent=task.k==='order'?'料金の考え方を見る':k.name+'の詳細を見る';
+ $('quiz-area').hidden=true;$('result-area').hidden=false;window.scrollTo(0,0);
+ if(window.gtag)gtag('event','complete_ai_diagnosis',{event_category:'Lead',event_label:'Shindan_v2_Complete',kit:task.k,industry:ind.t});
 }
-
-function restart(){
-  current=0;answers=[];selected=null;
-  document.getElementById('result-area').style.display='none';
-  document.getElementById('quiz-area').style.display='block';
-  renderQ();
-}
-
-function showResult(){
-  const a=answers;
-  // 各回答スコアを取得
-  const s1=questions[0].choices[a[0]].score;   // 作業の種類（自動化係数）
-  const s2=questions[1].choices[a[1]].score;   // 月間時間
-  const s3=questions[2].choices[a[2]].score;   // 人数規模
-  const s4=questions[3].choices[a[3]].score;   // ツール
-  const s5=questions[4].choices[a[4]].score;   // AI温度感
-  const s6=questions[5].choices[a[5]].score;   // ゴール
-
-  const monthlyHours=s2.hours;
-  const autoRate=s1.auto;        // 0.35〜0.55
-  const toolRate=s4.tool;        // 0.65〜1.0
-  const aiScore=s5.ai;           // 1〜4
-  const scale=s3.scale;          // 1.0〜3.0
-
-  // 削減時間 = 月間作業時間 × 自動化係数 × ツール係数
-  const reductionRate=autoRate*toolRate;                 // 0.23〜0.55
-  const savedHours=Math.round(monthlyHours*reductionRate);
-  const hourlyRate=2500;
-  // 年間削減コスト（規模を反映：複数人で同じ作業をしているほど全社効果が大きい）
-  const annualSaving=Math.round(savedHours*hourlyRate*12*Math.sqrt(scale)/10000);
-
-  document.getElementById('saving-val').innerHTML=`${savedHours} <span>時間/月</span>`;
-  document.getElementById('saving-money').textContent=`年間約${annualSaving}万円`;
-  document.getElementById('saving-sub').innerHTML=`${s3.people}で月${monthlyHours}時間を「${s1.label}」に使用。<br>${s4.toolName}を活かせば約${Math.round(reductionRate*100)}%・月${savedHours}時間を自動化でき、人件費換算で年間約${annualSaving}万円相当。`;
-
-  // AIで解決できる課題（選んだ作業に応じて出し分け）
-  const aiTask=`${s1.label}の自動化`;
-  const issues=[
-    {text:aiTask,type:'ai'},
-    {text:'入力・転記・集計のAI自動処理',type:'ai'},
-    {text:'今あるツール（'+s4.toolName+'）を起点に仕組み化',type:'ai'},
-    {text:'あなたのGoogleとLINEへの組み込み（人が対応）',type:'human'},
-    {text:'お渡し時の使い方の確認（人が対応）',type:'human'},
-  ];
-  document.getElementById('issues-list').innerHTML=issues.map(iss=>`<div class="issue-item"><span class="issue-tag ${iss.type}">${iss.type==='ai'?'AI対応':'人が対応'}</span>${iss.text}</div>`).join('');
-
-  // ===== キット判定（LPの「キットと料金」に完全一致：作業の種類で選び、元が取れる月数を出す） =====
-  let planName,planPrice,planUnit,planReason,planPoints,planBadge='★ あなたに合うキット';
-  const people=s3.people, goal=s6.goal;
-  const KITS={
-    yoyaku:{name:'予約キット／LINE受付キット',price:'¥2.5〜3万',min:25000,points:['LINEから予約・問い合わせを24時間受付','予約は管理画面に自動で入る','電話予約もこれまで通り受けられる']},
-    daicho:{name:'台帳キット',price:'¥1.5〜2万',min:15000,points:['来店履歴と売上をスマホで確認','しばらく来ていないお客さんが一覧で分かる','今使っている表計算をそのまま活かせる']},
-    kicho:{name:'記帳キット',price:'¥1万',min:10000,points:['レシートの写真をLINEで送るだけ','日付・金額・科目をAIが読み取って表に記入','月ごとの合計も自動で集計']},
-    haishin:{name:'配信キット',price:'¥1万',min:10000,points:['お知らせをLINEで決まった日に自動配信','配信文の下書きはAIが用意','内容を確認して送るだけ']},
-    order:{name:'オーダーの仕組みづくり',price:'¥1万〜',min:10000,points:['15分の無料相談で今のやり方をお聞きします','作る前に金額を確定（了承なしの請求なし）','あなたのGoogleとLINEに組み込んで納品']}
-  };
-  const kitOf={'予約・問い合わせ対応':'yoyaku','顧客管理・フォロー連絡':'daicho','データ入力・集計':'kicho','SNS投稿・販促物の作成':'haishin'};
-  const k=KITS[kitOf[s1.label]||'order'];
-  const monthlyYen=savedHours*hourlyRate;
-  const payback=monthlyYen>0?Math.max(1,Math.ceil(k.min/monthlyYen)):null;
-  planName=k.name;planPrice=k.price;planUnit=k===KITS.order?'内容に合わせてお見積り（買い切り）':'買い切り・月額0円';planPoints=k.points;
-  const pb=payback?`月${savedHours}時間（約${Math.round(monthlyYen/1000)/10}万円分）の手間が減るので、約${payback}ヶ月で元が取れる計算です（時給2,500円で換算した目安）。`:'';
-  if(k===KITS.order){
-    planReason=`「${s1.label}」は、お店ごとにやり方が違うため、今のやり方をお聞きしてから仕組みを決めます。${pb}`;
-  }else{
-    planReason=`「${s1.label}」に合うキットです。今の${s4.toolName}のやり方は変えずに、手間だけを減らします。${pb}`;
-  }
-  if(annualSaving<5){planBadge='まずは15分の無料相談から';planReason+='今の作業量なら、まず無料相談で「どこから減らすと効くか」を一緒に確認するのがおすすめです。';}
-  else if(aiScore<=2){planReason+='パソコンやAIに詳しくなくても、普段のLINEとスマホの操作だけで使えるように作ります。';}
-
-  document.getElementById('plan-name').textContent=planName;
-  document.getElementById('plan-badge').textContent=planBadge;
-  document.getElementById('plan-price').innerHTML=`${planPrice} <span>${planUnit}</span>`;
-  document.getElementById('plan-reason').textContent=planReason;
-  document.getElementById('plan-points').innerHTML=planPoints.map(p=>`<div class="rpp"><div class="rpp-dot">✓</div>${p}</div>`).join('');
-
-  // ゴールに応じた締めの一言
-  document.getElementById('result-sub').textContent=`時間を取り戻せば、${goal}。`;
-
-  document.getElementById('quiz-area').style.display='none';
-  const ra=document.getElementById('result-area');
-  ra.style.display='flex';
-  gtag('event', 'complete_ai_diagnosis', {'event_category': 'Lead', 'event_label': '60sec_AI_Diagnosis_Complete'});
-}
-
-renderQ();
+render();
 </script>
 </body>
 </html>
