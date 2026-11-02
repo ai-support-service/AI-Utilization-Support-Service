@@ -129,6 +129,7 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:12px;width:3
 footer{background:var(--white);border-top:1px solid var(--border);padding:22px 24px 26px;text-align:center;font-size:12px;color:var(--muted);}
 footer a{color:var(--muted);margin:0 8px;}
 .sticky-line{display:none;}
+@media (prefers-reduced-motion:reduce){.sticky-line{transition:none!important;}}
 @media(max-width:768px){
   .hdr{padding:9px 14px;}
   .crumb{padding:12px 16px 0;}
@@ -139,7 +140,10 @@ footer a{color:var(--muted);margin:0 8px;}
   .ba,.related{grid-template-columns:1fr;}
   .btn-line.lg{width:100%;}
   .cta-box{align-items:stretch;}
-  footer{padding-bottom:96px;}
+  footer{padding-bottom:calc(26px + env(safe-area-inset-bottom,0px));}
+  .hdr .btn-line{display:none;}
+  .sticky-line{transition:transform .25s ease;}
+  .sticky-line.pre{transform:translateY(110%);}
   .sticky-line{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:200;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);border-top:1px solid var(--border);}
   .sticky-line .btn-line{width:100%;padding:14px;font-size:15px;}
 }
@@ -209,6 +213,12 @@ footer a{color:var(--muted);margin:0 8px;}
 </article>
 </main>
 <footer><a href="../../">トップ</a><a href="../../price/">料金</a><a href="../../about/">運営者情報</a><a href="../../shindan.html">60秒診断</a><a href="../../tokushoho.html">特定商取引法に基づく表記</a><br>© 2026 AI活用支援サービス（兵庫県）</footer>
-<div class="sticky-line"><a href="https://line.me/R/ti/p/@974udygc" class="btn-line" onclick="trackLineClick();">💬 LINEで一言相談（無料）</a></div>
+<div class="sticky-line pre"><a href="https://line.me/R/ti/p/@974udygc" class="btn-line" onclick="trackLineClick();">💬 LINEで一言相談（無料）</a></div>
+<script>
+(function(){var s=document.querySelector('.sticky-line');if(!s)return;if(!('IntersectionObserver' in window)){s.classList.remove('pre');return;}
+var t=[document.querySelector('.btn-line.lg, .cta-box .btn-line'),document.querySelector('.cta-sec, .end-cta'),document.querySelector('footer')].filter(Boolean),v=new Set(),first=true;
+var io=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?v.add(e.target):v.delete(e.target);});s.classList.toggle('pre',v.size>0);});
+t.forEach(function(x){io.observe(x);});})();
+</script>
 </body>
 </html>
