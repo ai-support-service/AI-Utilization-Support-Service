@@ -33,7 +33,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#1A1A2E">
+<meta name="theme-color" content="#22305A">
 
 <!-- OGP -->
 <meta property="og:type" content="website">
@@ -91,14 +91,14 @@
 @font-face{font-family:'M PLUS Rounded 1c';font-style:normal;font-weight:600 900;font-display:swap;src:url(/AI-Utilization-Support-Service/fonts/mpr-800.woff2) format('woff2');}
 
 :root{
-  --cream:#FDFAF5; --white:#FFFFFF;
-  --ink:#1A1A2E; --ink2:#2D3561; --muted:#565E6B;
-  --border:#E5E0D8; --amber:#F59E0B; --amber-l:#FEF3C7; --amber-d:#B45309;
+  --cream:#FFF8F0; --white:#FFFFFF;
+  --ink:#22305A; --ink2:#33457A; --muted:#565E6B;
+  --border:#E5E0D8; --amber:#F28C28; --amber-l:#FFECD6; --amber-d:#B45309;
   --green:#10B981; --green-l:#D1FAE5;
   --line:#06C755; --line-d:#05A847;
   --accent:#F97316; --accent-l:#FFEDD5;
-  --shadow:0 4px 24px rgba(26,26,46,0.08);
-  --shadow-lg:0 8px 40px rgba(26,26,46,0.13);
+  --shadow:0 4px 24px rgba(34,48,90,0.08);
+  --shadow-lg:0 8px 40px rgba(34,48,90,0.13);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -271,7 +271,7 @@ a{color:inherit;}
 .cta-sec p{font-size:15px;color:rgba(255,255,255,.75);margin-bottom:30px;}
 .cta-sec .cta-main{align-items:center;}
 .cta-sec .cta-note{color:rgba(255,255,255,.7);}
-.cta-sec .cta-note a{color:var(--amber);}
+.cta-sec .cta-note a{color:#FFD15C;}
 
 /* フッター */
 .foot-line{background:var(--white);border-top:1px solid var(--border);padding:22px 40px;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;text-align:center;}
@@ -328,7 +328,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:22px 4
   .cta-sec h2{font-size:24px;}
   .foot-line,footer{padding:18px 18px;}
   footer{flex-direction:column;align-items:center;text-align:center;padding-bottom:96px;}
-  .sticky-line{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:200;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);border-top:1px solid var(--border);box-shadow:0 -4px 16px rgba(26,26,46,.08);}
+  .sticky-line{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:200;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.96);border-top:1px solid var(--border);box-shadow:0 -4px 16px rgba(34,48,90,.08);}
   .sticky-line .btn-line{width:100%;padding:14px;font-size:15.5px;}
 }
 </style>
@@ -337,7 +337,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:22px 4
 <script>document.documentElement.classList.add('js');</script>
 
 <header class="hdr">
-  <a class="hdr-brand" href="./"><svg class="logo-svg" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1A1A2E"/><circle cx="24" cy="24" r="7" fill="#FDFAF5"/><path d="M11 48a13 13 0 0 1 26 0z" fill="#FDFAF5"/><circle cx="43" cy="27" r="6" fill="#F59E0B"/><path d="M32 48a11 11 0 0 1 22 0z" fill="#F59E0B"/><circle cx="50" cy="14" r="7" fill="#FDFAF5"/><path d="M50 10v8M46 14h8" stroke="#1A1A2E" stroke-width="2.6" stroke-linecap="round"/></svg><div class="hdr-title">AI活用支援サービス</div></a>
+  <a class="hdr-brand" href="./"><img class="logo-img" src="logo.svg" width="160" height="52" alt="AI活用支援サービス" style="height:44px;width:auto;display:block"></a>
   <nav class="hdr-nav">
     <a class="nav-txt" href="price/">料金</a>
     <a class="nav-txt" href="#works">制作例</a>
@@ -461,7 +461,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:22px 4
             <div class="mk-tabs"><div class="mk-tab" style="background:#EC4899;color:#fff;">予約</div><div class="mk-tab" style="background:#fff;color:#9CA3AF;">顧客</div><div class="mk-tab" style="background:#fff;color:#9CA3AF;">売上</div></div>
             <div class="mk-item"><div class="mk-row" style="margin-bottom:1px;"><span style="font-weight:700;">10:00 田中様</span><span class="mk-bdg" style="margin-left:auto;background:#FCE7F3;color:#BE185D;">90分</span></div><div style="color:#9CA3AF;">ジェル / オフ込・¥6,500</div></div>
             <div class="mk-item"><div class="mk-row" style="margin-bottom:1px;"><span style="font-weight:700;">13:30 佐藤様</span><span class="mk-bdg" style="margin-left:auto;background:#FCE7F3;color:#BE185D;">120分</span></div><div style="color:#9CA3AF;">フット / アート・¥8,000</div></div>
-            <div class="mk-item" style="margin-bottom:6px;"><div class="mk-row" style="margin-bottom:1px;"><span style="font-weight:700;">16:00 鈴木様</span><span class="mk-bdg" style="margin-left:auto;background:#FEF3C7;color:#92400E;">新規</span></div><div style="color:#9CA3AF;">ハンド / ワンカラー・¥4,000</div></div>
+            <div class="mk-item" style="margin-bottom:6px;"><div class="mk-row" style="margin-bottom:1px;"><span style="font-weight:700;">16:00 鈴木様</span><span class="mk-bdg" style="margin-left:auto;background:#FFECD6;color:#92400E;">新規</span></div><div style="color:#9CA3AF;">ハンド / ワンカラー・¥4,000</div></div>
             <div class="mk-row" style="margin-bottom:0;gap:5px;"><div class="mk-stat"><div style="color:#9CA3AF;">本日売上</div><div style="font-weight:800;color:#EC4899;font-size:9px;">¥18,500</div></div><div class="mk-stat"><div style="color:#9CA3AF;">来店</div><div style="font-weight:800;color:#EC4899;font-size:9px;">3件</div></div></div>
           </div>
         </div>
@@ -492,11 +492,11 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:22px 4
         <div class="mock">
           <div class="mock-bar"><span class="mock-dot" style="background:#FF5F57"></span><span class="mock-dot" style="background:#FEBC2E"></span><span class="mock-dot" style="background:#28C840"></span></div>
           <div class="mock-screen" style="background:#FFFBEB;">
-            <div class="mk-row"><span class="mk-chip" style="background:#F59E0B;color:#fff;">🚚 配車管理</span><span style="margin-left:auto;color:#6B7280;font-weight:700;">6/15(月)</span></div>
+            <div class="mk-row"><span class="mk-chip" style="background:#F28C28;color:#fff;">🚚 配車管理</span><span style="margin-left:auto;color:#6B7280;font-weight:700;">6/15(月)</span></div>
             <div class="mk-item" style="padding:4px 6px;"><div class="mk-row" style="margin-bottom:1px;"><span style="width:5px;height:5px;border-radius:50%;background:#22C55E;flex-shrink:0;"></span><span style="font-weight:700;">1号車 山田</span><span class="mk-bdg" style="margin-left:auto;background:#DCFCE7;color:#166534;">運行中</span></div><div style="color:#9CA3AF;padding-left:10px;">Aエリア→Bエリア / 9:00発・3件</div></div>
             <div class="mk-item" style="padding:4px 6px;"><div class="mk-row" style="margin-bottom:1px;"><span style="width:5px;height:5px;border-radius:50%;background:#22C55E;flex-shrink:0;"></span><span style="font-weight:700;">2号車 鈴木</span><span class="mk-bdg" style="margin-left:auto;background:#DCFCE7;color:#166534;">運行中</span></div><div style="color:#9CA3AF;padding-left:10px;">Cエリア→Dエリア / 8:30発・2件</div></div>
-            <div class="mk-item" style="padding:4px 6px;"><div class="mk-row" style="margin-bottom:1px;"><span style="width:5px;height:5px;border-radius:50%;background:#FBBF24;flex-shrink:0;"></span><span style="font-weight:700;">3号車 佐々木</span><span class="mk-bdg" style="margin-left:auto;background:#FEF3C7;color:#92400E;">待機</span></div><div style="color:#9CA3AF;padding-left:10px;">次便 13:00 / Eエリア</div></div>
-            <div class="mk-row" style="margin-bottom:0;gap:5px;"><div class="mk-stat"><div style="color:#9CA3AF;">稼働</div><div style="font-weight:800;color:#F59E0B;font-size:9px;">2/3台</div></div><div class="mk-stat"><div style="color:#9CA3AF;">本日配送</div><div style="font-weight:800;color:#F59E0B;font-size:9px;">7件</div></div></div>
+            <div class="mk-item" style="padding:4px 6px;"><div class="mk-row" style="margin-bottom:1px;"><span style="width:5px;height:5px;border-radius:50%;background:#FBBF24;flex-shrink:0;"></span><span style="font-weight:700;">3号車 佐々木</span><span class="mk-bdg" style="margin-left:auto;background:#FFECD6;color:#92400E;">待機</span></div><div style="color:#9CA3AF;padding-left:10px;">次便 13:00 / Eエリア</div></div>
+            <div class="mk-row" style="margin-bottom:0;gap:5px;"><div class="mk-stat"><div style="color:#9CA3AF;">稼働</div><div style="font-weight:800;color:#F28C28;font-size:9px;">2/3台</div></div><div class="mk-stat"><div style="color:#9CA3AF;">本日配送</div><div style="font-weight:800;color:#F28C28;font-size:9px;">7件</div></div></div>
           </div>
         </div>
         <div class="work-body">
@@ -511,7 +511,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:22px 4
           <div class="mock-screen" style="background:#F0FDF4;">
             <div class="mk-row"><span class="mk-chip" style="background:#22C55E;color:#fff;">👥 案件マッチング</span><span style="margin-left:auto;color:#6B7280;font-weight:700;">今週</span></div>
             <div class="mk-item" style="padding:5px 7px;"><div class="mk-row" style="margin-bottom:2px;"><span style="font-weight:700;">倉庫軽作業</span><span class="mk-bdg" style="margin-left:auto;background:#DCFCE7;color:#166534;">3/3名 充足</span></div><div style="color:#9CA3AF;">6/15 / 3名 確定</div></div>
-            <div class="mk-item" style="padding:5px 7px;"><div class="mk-row" style="margin-bottom:2px;"><span style="font-weight:700;">イベント設営</span><span class="mk-bdg" style="margin-left:auto;background:#FEF3C7;color:#92400E;">1/2名 募集</span></div><div style="color:#9CA3AF;">6/18 / あと1名</div></div>
+            <div class="mk-item" style="padding:5px 7px;"><div class="mk-row" style="margin-bottom:2px;"><span style="font-weight:700;">イベント設営</span><span class="mk-bdg" style="margin-left:auto;background:#FFECD6;color:#92400E;">1/2名 募集</span></div><div style="color:#9CA3AF;">6/18 / あと1名</div></div>
             <div class="mk-item" style="padding:5px 7px;margin-bottom:5px;"><div class="mk-row" style="margin-bottom:2px;"><span style="font-weight:700;">仕分け作業</span><span class="mk-bdg" style="margin-left:auto;background:#DBEAFE;color:#1E40AF;">調整中</span></div><div style="color:#9CA3AF;">6/20 / 5名手配中</div></div>
             <div class="mk-row" style="margin-bottom:0;gap:5px;"><div class="mk-stat"><div style="color:#9CA3AF;">稼働スタッフ</div><div style="font-weight:800;color:#22C55E;font-size:9px;">24名</div></div><div class="mk-stat"><div style="color:#9CA3AF;">今週案件</div><div style="font-weight:800;color:#22C55E;font-size:9px;">8件</div></div></div>
           </div>
@@ -595,7 +595,7 @@ footer{background:var(--white);border-top:1px solid var(--border);padding:22px 4
   <a href="https://line.me/R/ti/p/@974udygc" class="btn-line sm" onclick="trackLineClick();">友だち追加</a>
 </div>
 <footer>
-  <div class="hdr-brand"><svg class="logo-svg" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1A1A2E"/><circle cx="24" cy="24" r="7" fill="#FDFAF5"/><path d="M11 48a13 13 0 0 1 26 0z" fill="#FDFAF5"/><circle cx="43" cy="27" r="6" fill="#F59E0B"/><path d="M32 48a11 11 0 0 1 22 0z" fill="#F59E0B"/><circle cx="50" cy="14" r="7" fill="#FDFAF5"/><path d="M50 10v8M46 14h8" stroke="#1A1A2E" stroke-width="2.6" stroke-linecap="round"/></svg><div class="hdr-title">AI活用支援サービス</div></div>
+  <div class="hdr-brand"><img class="logo-img" src="logo.svg" width="160" height="52" alt="AI活用支援サービス" style="height:44px;width:auto;display:block"></div>
   <div class="foot-links"><a href="price/">料金</a><a href="about/">運営者情報</a><a href="kit/line-yoyaku/">予約キット</a><a href="kit/line-uketsuke/">LINE受付キット</a><a href="kit/daicho/">台帳キット</a><a href="kit/kicho/">記帳キット</a><a href="case/yugyosen/">遊漁船の事例</a><a href="case/nail/">ネイルの事例</a><a href="himeji/">姫路・播磨</a><a href="shindan.html">60秒診断</a><a href="tokushoho.html">特定商取引法に基づく表記</a></div>
   <div class="foot-note">© 2026 AI活用支援サービス（兵庫県）</div>
 </footer>
