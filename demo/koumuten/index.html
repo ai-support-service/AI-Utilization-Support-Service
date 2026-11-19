@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>つばめ坂工務店（デモ）追加・変更の説明と、施主の返事の記録</title>
+<style>
+:root{--main:#6B4F35;--main-d:#4a3523;--accent:#3E7B4F;--bg:#F7F3EC;--ink:#2b2118;--sub:#6a5d50;--line:#ddd3c4;--card:#ffffff;--chat:#e9dfd1;--me:#a6e89b;--warn:#b4441a;--soft:#efe6d8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#fff;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--soft);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.go{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.third{flex:1 1 calc(33% - 8px);padding:8px 6px}
+.btn.full{flex:1 1 100%;width:100%}
+.btn.on{background:var(--main);color:#fff}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.next-link{display:block;text-align:center;margin:12px 0 0;padding:11px 0;font-size:14px;font-weight:700;color:var(--main-d)}
+/* make */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.house{font-size:14px;font-weight:700;color:var(--main-d);background:var(--soft);border-radius:8px;padding:6px 10px}
+.lbl{margin:14px 0 6px;font-size:13px;font-weight:700;color:var(--main-d)}
+.hint{font-size:12px;color:var(--sub);margin:4px 0 0}
+.photo svg{display:block;width:100%;max-width:260px;height:auto;border-radius:8px;border:1px solid var(--line)}
+.blankbox{border:1px dashed var(--main);border-radius:8px;padding:10px 12px;font-size:16px;background:#fff}
+.preview{background:var(--chat);border-radius:12px;padding:10px 12px;font-size:14px;white-space:pre-line}
+.sent{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--accent);border-radius:6px;padding:2px 10px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#3a2a1c;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+#chat{padding:12px 10px 4px;min-height:120px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:84%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.bubble svg{display:block;width:200px;max-width:100%;height:auto;border-radius:8px;margin-bottom:8px}
+.day{text-align:center;font-size:12px;color:var(--sub);margin:6px 0}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;margin:0}
+/* record */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 2px}
+.chip{font-size:13px;font-weight:700;border-radius:999px;padding:3px 12px;background:#fff;border:1px solid var(--line);color:var(--sub)}
+.chip.wait{border-color:var(--warn);color:var(--warn)}
+.chip.ok{border-color:var(--accent);color:var(--accent)}
+.callbox{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px}
+.callbox b{display:block;font-size:15px;margin-bottom:8px}
+.tl{margin-top:10px;border-left:3px solid var(--line);padding-left:12px}
+.tl-item{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.tl-item.owner{border-left:5px solid var(--accent)}
+.tl-item.call{border-left:5px solid var(--main)}
+.tl-item.new{background:#f3f8ee}
+.tl-top{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--sub)}
+.tl-who{font-weight:700;color:var(--main-d)}
+.tl-item.owner .tl-who{color:var(--accent)}
+.tl-item h3{margin:4px 0 2px;font-size:15px}
+.tl-item p{margin:2px 0;font-size:14px;white-space:pre-line}
+.tl-item .photo svg{max-width:150px;margin-top:6px}
+/* examples */
+.ex{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.ex svg{flex:none;width:44px;height:44px}
+.ex b{display:block;font-size:15px}
+.ex p{margin:2px 0 0;font-size:13px;color:var(--sub)}
+.ex-tag{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--accent);border-radius:4px;padding:0 6px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:90%}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「つばめ坂工務店」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <h1>つばめ坂工務店</h1>
+  <p>工事の途中で出た追加・変更を、写真つきで施主に伝えます。LINEの返事も、電話で話した内容も、日時と一緒にその家の記録に並びます。</p>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>工事の途中。追加が見つかった</h2></div>
+  <p class="sec-lead">洗面所の壁を開けたら、追加の工事が要る所が見つかりました。写真を撮り、ボタンで選んで、施主に送ります。</p>
+  <span class="who">見ている人：社長（現場のスマホ）</span>
+  <div id="make"></div>
+  <a class="next-link" href="#s2">▼ 施主のスマホを見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>施主のスマホ。写真と説明が届く</h2></div>
+  <p class="sec-lead">写真と説明がLINEに届きます。施主はボタンで返事をします。電話で相談したいときも、少し考えたいときも、ボタンで伝えられます。LINEを使わない施主には、①の下のボタンから、電話で伝えて記録だけ残せます。</p>
+  <span class="who">見ている人：施主の山田さま</span>
+  <div class="phone">
+    <div class="phone-head"><b>つばめ坂工務店</b><span class="clock" id="clock"></span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <a class="next-link" href="#s3">▼ その家の記録を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>その家の記録。返事と電話が並ぶ</h2></div>
+  <p class="sec-lead">送った説明・写真・施主の返事が、日時つきで新しい順に並びます。電話で話した内容と、書面を渡した日も、ボタンで残せます。ふだんのLINEや電話で伝えたことを、家ごとに1か所に並べる所です。</p>
+  <span class="who">見ている人：社長と、事務をしているご家族</span>
+  <div class="house">🏠 山田さま邸（○○町）｜洗面所の改修</div>
+  <div class="chips" id="chips"></div>
+  <div id="callbox"></div>
+  <div class="tl" id="tl"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">ここから下は動かない見本です。</p>
+  <div class="ex">
+    <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="書類の絵"><rect width="44" height="44" rx="8" fill="#efe6d8"/><rect x="12" y="8" width="20" height="28" rx="2" fill="#fff" stroke="#6B4F35" stroke-width="2.5"/><path d="M16 17 l3 3 l6 -6" fill="none" stroke="#3E7B4F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="16" y="25" width="12" height="2.5" fill="#6B4F35"/><rect x="16" y="30" width="8" height="2.5" fill="#6B4F35"/></svg>
+    <div><b><span class="ex-tag">例</span>補助金に要る書類と写真を集める</b><p>要る物の一覧を施主のLINEに送ります。届いた物に印がつき、足りない物だけをもう一度知らせます。</p></div>
+  </div>
+  <div class="ex">
+    <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="家の絵"><rect width="44" height="44" rx="8" fill="#efe6d8"/><path d="M8 22 L22 10 L36 22" fill="none" stroke="#6B4F35" stroke-width="3" stroke-linejoin="round"/><rect x="12" y="22" width="20" height="13" fill="#6B4F35"/><rect x="19" y="26" width="6" height="9" fill="#efe6d8"/></svg>
+    <div><b><span class="ex-tag">例</span>工事した家ごとの記録</b><p>いつ・どこを・何で直したかを、家ごとに残します。次に相談が来たとき、名前で探せます。</p></div>
+  </div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店の名前・お客さまの名前・工事の内容は架空です。写真は絵に置きかえています。費用は、デモでは入れていません。押した内容は、この端末の中だけに残ります。<br>
+  現場や電話での説明は、今のままです。写真と文は、ふだんのLINEでも送れます。これは、伝える中身をそろえ、返事と電話の内容を家ごとに残すために足すものです。追加ぶんの見積書や書面は、今までどおり紙で用意します。ボタンの返事が書面の代わりになるかは、このデモでは決めていません。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='koumuten_tsuika_demo';
+  var DAY='11/19（木）';
+  var TIMES=['13:20','13:42','17:10','17:25','18:05','18:20','18:50','19:05','19:30','19:45'];
+  var BLANK='〈　　　〉円';
+  var KINDS=[
+    {label:'柱の根元',found:'洗面所の壁を開けたところ、柱の根元の木が水でいたんでいました。',todo:'いたんだ部分を切り取り、新しい木を継ぎます。まわりの下地も張り直します。',mx:62,my:92},
+    {label:'古い配管',found:'洗面台の裏の壁を開けたところ、給水の管が古く、さびが出ていました。',todo:'壁の中の給水の管を、この機会に新しい管に取り替えます。',mx:128,my:58},
+    {label:'床の下地',found:'洗面台を外したところ、床の下地の板がやわらかくなっていました。',todo:'下地の板を張り替えてから、新しい床を仕上げます。',mx:104,my:112}
+  ];
+  var DELAYS=[
+    {label:'変わらない',text:'完了の予定は 11/26（木）のままです。'},
+    {label:'1日のびる',text:'完了の予定が 11/26（木）から 11/27（金）になります。'},
+    {label:'2日のびる',text:'完了の予定が 11/26（木）から 11/28（土）になります。'}
+  ];
+  var CALLS={
+    go:{label:'説明して、送った内容のまま進める',nl:'説明して、この内容で進める',tel:'「進めてください」とのお返事でした。',text:'見つかったことと、することをお電話でご説明しました。お送りした内容のまま進めます。'},
+    change:{label:'直す範囲をしぼって進める',nl:'直す範囲をしぼって進める',tel:'直す範囲を必要な所だけにしぼって進めることになりました。費用は'+BLANK+'に変わります。',text:'お電話でご相談し、直す範囲を必要な所だけにしぼって進めることになりました。費用は'+BLANK+'に変わります。'},
+    skip:{label:'今回は見送る',nl:'今回は見送る',tel:'この追加の工事は、今回は見送ることになりました。もとの工事だけを進めます。',text:'お電話でご相談し、この追加の工事は今回は見送ることになりました。もとの工事だけを進めます。'}
+  };
+  var WHO={shop:'店から',owner:'施主の返事',call:'電話'};
+
+  function photo(kind){
+    var k=KINDS[kind]||KINDS[0];
+    return '<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="壁を開けた所の絵（デモ用）">'
+      +'<rect width="200" height="140" fill="#e8e1d5"/>'
+      +'<rect x="24" y="14" width="152" height="100" fill="#4b3d30"/>'
+      +'<rect x="52" y="14" width="18" height="100" fill="#c9a36b"/><rect x="138" y="14" width="18" height="100" fill="#c9a36b"/>'
+      +'<rect x="24" y="100" width="152" height="14" fill="#b98f58"/>'
+      +'<rect x="100" y="14" width="6" height="52" fill="#9aa3a8"/><rect x="100" y="60" width="34" height="6" fill="#9aa3a8"/><rect x="128" y="60" width="6" height="40" fill="#9aa3a8"/>'
+      +'<path d="M52 78 q9 -8 18 2 v20 h-18 z" fill="#5a4630"/>'
+      +'<rect x="0" y="114" width="200" height="26" fill="#cdbfa9"/><rect x="84" y="114" width="44" height="6" fill="#a8997f"/>'
+      +'<circle cx="'+k.mx+'" cy="'+k.my+'" r="19" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="6 4"/>'
+      +'</svg>';
+  }
+  var BEFORE='<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="工事を始める前の洗面所の絵（デモ用）"><rect width="200" height="140" fill="#e8e1d5"/><rect x="0" y="112" width="200" height="28" fill="#cdbfa9"/><rect x="62" y="20" width="76" height="46" rx="4" fill="#bcd3dc"/><rect x="56" y="74" width="88" height="12" rx="3" fill="#ffffff"/><rect x="62" y="86" width="76" height="28" fill="#f4efe6"/><rect x="97" y="62" width="6" height="12" fill="#9aa3a8"/></svg>';
+
+  function seed(){
+    return {
+      step:'draft',
+      draft:{kind:0,delay:2},
+      tick:0,
+      clock:'13:20',
+      result:'',
+      call:'',
+      log:[],
+      rec:[
+        {t:'11/10（火）',who:'shop',title:'見積もりを送った',body:'洗面所の改修（洗面台の取り替え、壁と床の張り替え）',photo:''},
+        {t:'11/12（木）10:05',who:'owner',title:'「この内容でお願いします」',body:'見積もりへの返事',photo:''},
+        {t:'11/16（月）',who:'shop',title:'工事を始めた',body:'始める前の写真を残した',photo:'before'}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||!S.rec||!S.draft||!S.log||!S.step){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function nextTime(){
+    var t=TIMES[Math.min(S.tick,TIMES.length-1)];
+    S.tick++;S.clock=t;
+    return DAY+t;
+  }
+  function clearNew(){for(var i=0;i<S.rec.length;i++){S.rec[i].isNew=false;}}
+  function addRec(t,who,title,body,ph){clearNew();S.rec.push({t:t,who:who,title:title,body:body,photo:(ph===undefined)?'':ph,isNew:true});}
+  function say(who,text,opt){S.log.push({who:who,text:text,photo:(opt&&opt.photo!==undefined)?opt.photo:'',auto:!!(opt&&opt.auto)});}
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+
+  function bodyText(){
+    var k=KINDS[S.draft.kind],d=DELAYS[S.draft.delay];
+    return '■ 見つかったこと\n'+k.found+'\n\n■ すること\n'+k.todo+'\n\n■ 費用\n'+BLANK+'\n\n■ 工事の日程\n'+d.text;
+  }
+  function msgText(){
+    return '山田さま、つばめ坂工務店です。\n工事の途中で、追加の工事が要る所が見つかりました。写真をお送りします。\n\n'+bodyText()+'\n\n進めてよいか、下のボタンでお返事ください。お電話でのご相談もできます。';
+  }
+
+  /* ---------- 1. 社長が作って送る ---------- */
+  function renderMake(){
+    var h='<div class="card"><div class="house">🏠 山田さま邸（○○町）｜洗面所の改修｜工事中</div>',i;
+    if(S.step==='draft'){
+      h+='<p class="lbl">📷 写真</p><div class="photo">'+photo(S.draft.kind)+'</div><p class="hint">デモでは、用意した絵を写真の代わりに使います。</p>';
+      h+='<p class="lbl">見つかったこと（選ぶ）</p><p class="hint" style="margin:0 0 6px">デモでは3つの例から選びます。実物では、社長が話すか、短く打った言葉を、下の4つの形にそろえます。</p><div class="row">';
+      for(i=0;i<KINDS.length;i++){h+=btn(KINDS[i].label,'kind:'+i,'third'+(S.draft.kind===i?' on':''));}
+      h+='</div><p class="lbl">工事の日程（選ぶ）</p><div class="row">';
+      for(i=0;i<DELAYS.length;i++){h+=btn(DELAYS[i].label,'delay:'+i,'third'+(S.draft.delay===i?' on':''));}
+      h+='</div><p class="lbl">費用</p><div class="blankbox">'+BLANK+'</div><p class="hint">デモでは空けています。実物では、社長がここに入れます。費用がまだ出せないときは、見つかったことだけを先に送れます。</p>';
+      h+='<p class="lbl">送る文（確かめてから送ります）</p><div class="preview" id="preview">'+esc(msgText())+'</div>';
+      h+='<div class="row" style="margin-top:12px">'+btn('施主の山田さまに送る','send','full go')+'</div>';
+      h+='<p class="lbl">施主がLINEを使わないとき</p><div class="row">'+btn('📞 電話で伝えて、記録だけ残す','phone','full')+'</div>';
+    }else if(S.noline){
+      h+='<p class="lbl"><span class="sent">電話で伝える</span> LINEには送りません</p><div class="photo">'+photo(S.draft.kind)+'</div>';
+      h+='<div class="preview" id="preview" style="margin-top:10px">'+esc(bodyText())+'</div>';
+      h+='<p class="hint">'+(S.step==='done'?'話した内容と写真は、その家の記録に残っています。':'この内容を電話で伝えます。話した結果は、③のボタンで残します。')+'</p>';
+    }else{
+      h+='<p class="lbl"><span class="sent">送りました</span> '+esc(S.sentAt||'')+'</p><div class="photo">'+photo(S.draft.kind)+'</div>';
+      h+='<div class="preview" id="preview" style="margin-top:10px">'+esc(bodyText())+'</div>';
+      h+='<p class="hint">送った文と写真は、その家の記録に残っています。</p>';
+    }
+    h+='</div>';
+    $('make').innerHTML=h;
+  }
+
+  /* ---------- 2. 施主のLINE ---------- */
+  function renderChat(){
+    var h='<div class="day">11/16（月）</div><div class="msg bot"><div class="bubble">山田さま、つばめ坂工務店です。\n本日から、洗面所の工事を始めます。完了の予定は 11/26（木）です。</div></div>';
+    if(S.log.length){h+='<div class="day">'+DAY+'</div>';}
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">';
+      if(m.photo!==''){h+=photo(m.photo);}
+      h+=esc(m.text);
+      if(m.auto){h+='<span class="auto">※ この返事は自動です。押した日時は、その家の記録に残ります</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+    $('clock').innerHTML=esc(S.clock);
+  }
+  function renderChoices(){
+    var st=S.step,h='';
+    if(S.noline&&st==='talk'){
+      h='<p class="hint">この流れでは、施主のLINEには何も届きません。LINEを使わない施主には、①と③だけで進みます。</p>'+btn('▼ ③で、電話の内容を残す','goto:s3','full fill');
+    }else if(S.noline){
+      h='<p class="hint">この流れでは、施主のLINEには何も届いていません。記録は③に残っています。</p>'+btn('▼ その家の記録を見る','goto:s3','full fill')+btn('もう一度、最初からやってみる','again','full ghost');
+    }else if(st==='draft'){
+      h='<p class="hint">追加の説明は、まだ届いていません。</p>'+btn('▲ ①で、社長が送る','goto:s1','full');
+    }else if(st==='sent'){
+      if(S.held){
+        h='<p class="hint">考えたあとで、施主が押すボタンです。</p>'+btn('進めてください','reply:ok','full')+btn('📞 相談したい','reply:talk','full');
+      }else{
+        h='<p class="hint">施主が押すボタンです。どれかを押してみてください。</p>'+btn('進めてください','reply:ok','full')+btn('📞 相談したい','reply:talk','full')+btn('少し考えます（家族と話します）','reply:hold','full');
+      }
+    }else if(st==='talk'){
+      h='<p class="hint">このあと、社長が電話をします。話した内容は③で残します。</p>'+btn('▼ ③で、電話の内容を残す','goto:s3','full fill');
+    }else if(st==='called'){
+      h='<p class="hint">電話で話した内容が届きました。施主が押すボタンです。</p>'+btn('はい、この内容でお願いします','conf:yes','full go')+btn('📞 もう一度、相談したい','conf:talk','full');
+    }else if(st==='done'){
+      h=btn('▼ その家の記録を見る','goto:s3','full fill')+btn('もう一度、最初からやってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+
+  /* ---------- 3. その家の記録 ---------- */
+  function renderRec(){
+    var st=S.step,c='',h='',i;
+    if(st==='draft'){c='<span class="chip">追加の説明：まだ送っていません</span>';}
+    else if(st==='sent'){c=S.held?'<span class="chip wait">追加の説明：施主が考え中（返事まち）</span>':'<span class="chip wait">追加の説明：施主の返事まち</span>';}
+    else if(st==='talk'){c=S.noline?'<span class="chip wait">追加の説明：電話で伝える（LINEなし）</span>':'<span class="chip wait">追加の説明：相談したい（電話をする）</span>';}
+    else if(st==='called'){c='<span class="chip wait">追加の説明：確認の返事まち</span>';}
+    else if(S.result==='skip'){c='<span class="chip ok">追加の説明：今回は見送り（返事あり）</span>';}
+    else{c='<span class="chip ok">追加の説明：進める（返事あり）</span>';}
+    if(st==='done'&&S.result==='go'){
+      c+=S.paper?'<span class="chip ok">追加ぶんの書面：渡した</span>':'<span class="chip wait">追加ぶんの書面：まだ</span>';
+    }
+    $('chips').innerHTML=c;
+    if(st==='talk'){
+      h='<div class="callbox"><b>📞 電話で話した内容を残す（選ぶ）</b><div class="row">'
+        +btn(S.noline?CALLS.go.nl:CALLS.go.label,'call:go','full')+btn(CALLS.change.label,'call:change','full')+btn(CALLS.skip.label,'call:skip','full')
+        +'</div><p class="hint">'+(S.noline?'押すと、伝えた内容・写真・電話での返事が、記録に残ります。施主のLINEには届きません。':'押すと、話した内容が記録に残り、同じ文が施主のLINEにも届きます。')+'</p></div>';
+    }
+    if(st==='done'&&S.result==='go'&&!S.paper){
+      h='<div class="callbox"><b>📄 追加ぶんの書面（見積書や、変更の内容を書いた紙）</b><div class="row">'
+        +btn('書面を渡した日を残す','paper','full')
+        +'</div><p class="hint">渡した日が、記録に残ります。書面そのものは、今までどおり紙で用意します。</p></div>';
+    }
+    $('callbox').innerHTML=h;
+    h='';
+    for(i=S.rec.length-1;i>=0;i--){
+      var r=S.rec[i];
+      h+='<div class="tl-item '+r.who+(r.isNew?' new':'')+'"><div class="tl-top"><span class="tl-who">'+WHO[r.who]+'</span><span>'+esc(r.t)+'</span></div>';
+      h+='<h3>'+esc(r.title)+'</h3><p>'+esc(r.body)+'</p>';
+      if(r.photo==='before'){h+='<div class="photo">'+BEFORE+'</div>';}
+      else if(r.photo!==''){h+='<div class="photo">'+photo(r.photo)+'</div>';}
+      h+='</div>';
+    }
+    $('tl').innerHTML=h;
+  }
+
+  function renderAll(){renderMake();renderChat();renderChoices();renderRec();}
+  function go(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+
+  function onAct(act){
+    var p=act.split(':'),k=p[0],v=p.slice(1).join(':'),t,n;
+    if(k==='goto'){go(v);return;}
+    if(k==='kind'&&S.step==='draft'){
+      n=parseInt(v,10);if(KINDS[n]){S.draft.kind=n;}
+    }else if(k==='delay'&&S.step==='draft'){
+      n=parseInt(v,10);if(DELAYS[n]){S.draft.delay=n;}
+    }else if(k==='send'&&S.step==='draft'){
+      t=nextTime();S.sentAt=t;
+      say('bot',msgText(),{photo:S.draft.kind});
+      addRec(t,'shop','追加の説明を送った（'+KINDS[S.draft.kind].label+'）',bodyText(),S.draft.kind);
+      S.step='sent';
+      save();renderAll();go('s2');return;
+    }else if(k==='reply'&&S.step==='sent'){
+      t=nextTime();
+      if(v==='ok'){
+        say('me','進めてください');
+        say('bot','ありがとうございます。\n「進めてください」のお返事を、'+t+' に受け取りました。\nお送りした内容で進めます。追加ぶんの書面は、あらためてお渡しします。',{auto:true});
+        addRec(t,'owner','「進めてください」','追加の説明への返事');
+        S.result='go';S.step='done';
+      }else if(v==='hold'){
+        say('me','少し考えます');
+        say('bot','承知しました。\n「少し考えます」のお返事を、'+t+' に受け取りました。\nお返事は、決まってからで大丈夫です。お返事をいただくまで、この追加の工事には手をつけません。',{auto:true});
+        addRec(t,'owner','「少し考えます」','追加の説明への返事。返事を待つ');
+        S.held=true;
+      }else{
+        say('me','相談したい');
+        say('bot','承知しました。\n「相談したい」のお返事を、'+t+' に受け取りました。\n社長から、今日かあすのうちにお電話します。お話しするまで、この追加の工事には手をつけません。',{auto:true});
+        addRec(t,'owner','「相談したい」','追加の説明への返事。社長から電話をする');
+        S.step='talk';
+      }
+    }else if(k==='phone'&&S.step==='draft'){
+      S.noline=true;S.sentAt=nextTime();S.step='talk';
+      save();renderAll();go('s3');return;
+    }else if(k==='call'&&S.step==='talk'&&CALLS[v]&&S.noline){
+      t=nextTime();S.call=v;
+      addRec(t,'call','電話で伝えた（'+KINDS[S.draft.kind].label+'）：'+CALLS[v].nl,bodyText()+'\n\n■ 電話での返事\n'+CALLS[v].tel,S.draft.kind);
+      S.result=(v==='skip')?'skip':'go';S.step='done';
+    }else if(k==='call'&&S.step==='talk'&&CALLS[v]){
+      t=nextTime();S.call=v;
+      addRec(t,'call','電話で話した：'+CALLS[v].label,CALLS[v].text);
+      say('bot','お電話ありがとうございました。お話しした内容です。\n\n'+CALLS[v].text+'\n\nこの内容でよろしければ、下のボタンでお返事ください。');
+      S.step='called';
+      save();renderAll();go('s2');return;
+    }else if(k==='conf'&&S.step==='called'){
+      t=nextTime();
+      if(v==='yes'){
+        say('me','はい、この内容でお願いします');
+        say('bot','ありがとうございます。\n「はい、この内容でお願いします」のお返事を、'+t+' に受け取りました。'+(S.call==='skip'?'':'\n追加ぶんの書面は、あらためてお渡しします。'),{auto:true});
+        addRec(t,'owner','「はい、この内容でお願いします」','電話で話した内容への返事');
+        S.result=(S.call==='skip')?'skip':'go';S.step='done';
+      }else{
+        say('me','もう一度、相談したい');
+        say('bot','承知しました。\n「もう一度、相談したい」のお返事を、'+t+' に受け取りました。\n社長から、あらためてお電話します。',{auto:true});
+        addRec(t,'owner','「もう一度、相談したい」','電話で話した内容への返事。社長からもう一度電話をする');
+        S.step='talk';
+      }
+    }else if(k==='paper'&&S.step==='done'&&S.result==='go'&&!S.paper){
+      t=nextTime();
+      addRec(t,'shop','追加ぶんの書面を渡した','見積書や、変更の内容を書いた紙を渡した日の控え');
+      S.paper=true;
+    }else if(k==='again'){
+      S=seed();
+      save();renderAll();go('s1');return;
+    }else{
+      return;
+    }
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnReset').addEventListener('click',function(){S=seed();save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  renderAll();
+})();
+</script>
+</body>
+</html>

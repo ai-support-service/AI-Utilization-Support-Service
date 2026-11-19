@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>便利屋 やまもも舎（デモ）頼んだ人が現場にいない依頼の、見積もり・追加・報告</title>
+<style>
+:root{--main:#2A7F86;--main-d:#1b565b;--accent:#F2994A;--accent-d:#7a3f08;--bg:#F3F8F8;--ink:#1d2f31;--sub:#56696b;--line:#d3e0e1;--card:#ffffff;--chat:#dde9ea;--me:#a6e89b;--warn:#b4430c;--ok:#2a6e3f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#3a1d00;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main-d);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:14px;align-items:center}
+header.top svg{flex:none;width:58px;height:58px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main-d);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:#dcecee;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#27383a;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+#chat{padding:12px 10px 4px;min-height:150px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:84%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:11px;color:var(--sub)}
+.bubble .pics{display:flex;gap:6px;margin-top:8px;white-space:normal}
+.bubble svg{display:block;width:118px;height:auto;border-radius:8px}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:13px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main-d);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main-d);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.mini-form{display:grid;gap:6px}
+.mini-form label{font-size:12px;color:var(--sub)}
+input[type=text],select{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.next-link{display:block;text-align:center;margin:12px 0 0;font-size:14px;font-weight:700;color:var(--main-d);padding:11px 0;min-height:44px}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--accent)}
+.card.done{background:#f7fafa}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.route{font-weight:700;border-radius:6px;padding:1px 8px;font-size:12px;color:#fff}
+.route.line{background:#1d7a3e}.route.tel{background:#5f6b76}
+.card h3{margin:6px 0 2px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.hist{font-size:12px;background:#fdf0e2;border:1px solid #f0cfa8;color:var(--accent-d);border-radius:6px;padding:4px 8px;margin-top:6px}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;margin-top:8px;background:#e9f0f0;color:var(--sub)}
+.status.todo{background:#fde8dc;color:var(--warn)}
+.status.done{background:#dff1e6;color:var(--ok)}
+.card-act{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.tip2{margin:8px 0 0;font-size:12px;color:var(--sub)}
+.draft{margin-top:8px;border:1px dashed var(--main-d);border-radius:10px;padding:10px;font-size:14px;background:#f6fbfb}
+.draft dl{margin:0 0 8px;display:grid;grid-template-columns:104px 1fr;gap:4px 8px}
+.draft dt{font-weight:700;color:var(--main-d);font-size:13px}
+.draft dd{margin:0}
+.draft .tip{margin:0 0 8px;font-size:12px;color:var(--sub)}
+.rec{margin:8px 0 0;padding:6px 8px;font-size:12px;background:#eef5f5;border-radius:6px;color:var(--sub)}
+.rec b{color:var(--ink)}
+.rec div{margin:1px 0}
+.add-box{background:#fff;border:1px dashed var(--main-d);border-radius:12px;padding:12px;margin-top:10px;display:none}
+.add-box.open{display:block}
+.jump{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:var(--main-d);padding:10px 0;min-height:44px}
+/* history */
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px;margin-top:8px}
+th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#e4eeef;font-size:12px;color:var(--sub)}
+tr.new td{background:#fdf0e2}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+/* examples */
+.eg{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;font-size:14px}
+.eg .tag{display:inline-block;font-size:11px;font-weight:700;background:#fdf0e2;color:var(--accent-d);border-radius:6px;padding:1px 7px;margin-right:6px}
+.eg b{font-size:15px}
+.eg p{margin:4px 0 0;color:var(--sub);font-size:13px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:88%}
+  .draft dl{grid-template-columns:100px 1fr}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「便利屋 やまもも舎」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="家と道具の絵"><circle cx="30" cy="30" r="29" fill="#F3F8F8"/><path d="M12 31 30 15l18 16" fill="none" stroke="#1b565b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="17" y="30" width="26" height="17" rx="2" fill="#2A7F86"/><rect x="26" y="36" width="8" height="11" fill="#F3F8F8"/><circle cx="43" cy="19" r="5" fill="#F2994A"/><circle cx="47" cy="24" r="4" fill="#F2994A"/><circle cx="39" cy="24" r="4" fill="#F2994A"/></svg>
+  <div>
+    <h1>便利屋 やまもも舎</h1>
+    <p>はなれた家の用事を頼まれたとき、見積もり・当日の追加・終わったあとの写真を、頼んだ人とLINEでやりとりして残します。電話の依頼も、同じ一覧に入ります。</p>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>頼んだ人に、見積もりと報告が届く</h2></div>
+  <p class="sec-lead">前に1度たのんだことのある山田さまが、はなれて暮らすご実家の用事をLINEで頼みます。このあとの返事と報告も、ここに届きます。</p>
+  <span class="who">見ている人：お客さん（山田さま）</span>
+  <div class="phone">
+    <div class="phone-head"><b>便利屋 やまもも舎</b><span class="clock">11/19 14:05</span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <a class="next-link" href="#s2">▼ 店の一覧を見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>見積もり・追加・終わりを、ここで押す</h2></div>
+  <p class="sec-lead">来た依頼に、見積もり（やること・やらないこと・料金）を返します。当日の追加と、作業の終わりも、ここで押します。電話で受けた依頼も足せます。</p>
+  <span class="who">見ている人：店主</span>
+  <div class="chips" id="chips"></div>
+  <button class="btn full" id="btnAdd" type="button">＋ 電話で受けた依頼を足す</button>
+  <div class="add-box" id="addBox">
+    <div class="mini-form">
+      <label for="aWho">頼んだ人</label>
+      <select id="aWho"></select>
+      <div id="aNew" class="mini-form"><label for="aName">お名前</label><input type="text" id="aName" value="田中さま"></div>
+      <label for="aJob">用件</label>
+      <select id="aJob"><option value="0">庭の草刈り</option><option value="1">物置・部屋の片付け</option><option value="2">家具の移動</option><option value="3">電球の取りかえ</option></select>
+      <label for="aDay">作業の日</label>
+      <select id="aDay"><option>11/21（土）午前</option><option>11/22（日）午後</option></select>
+      <button class="btn fill" id="btnAddOk" type="button">一覧に足す</button>
+    </div>
+  </div>
+  <div id="list"></div>
+  <a class="next-link" href="#s3">▼ 家ごとの記録を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>家ごとに残る、やったことと返事</h2></div>
+  <p class="sec-lead">終わった作業は、見積もりと追加の返事といっしょに、ここに残ります。LINEのトークをさかのぼらなくても、家ごとに並びます。「前にお願いした者です」と言われたら、名前で探せます。</p>
+  <span class="who">見ている人：店主</span>
+  <input type="text" id="q" placeholder="お名前で探す（例：山田）" aria-label="お名前で探す">
+  <div id="ledger"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の3つは動かない見本です。</p>
+  <div class="eg"><span class="tag">例</span><b>毎回の「今日やった所」の報告</b><p>家事代行向け。終わった所にしるしを付けると、そのままお客さんに届きます。</p></div>
+  <div class="eg"><span class="tag">例</span><b>決まった時期の用事の、前の週の知らせ</b><p>毎年の草刈りや雪囲いなど。前に頼んだ人にだけ「今年はどうしますか」が届きます。</p></div>
+  <div class="eg"><span class="tag">例</span><b>レシートを送ると、経費の一覧にたまる</b><p>ガソリン・道具・袋などのレシートをLINEに送ると、日付と中身が表に並びます。</p></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店の名前とお客さまの名前は架空です。押した内容は、この端末の中だけに残ります。日付と時刻はデモ用で、本物ではありません。写真は絵で置きかえています。料金の欄は、デモでは空欄にしています。<br>
+  電話は今のまま使えます。これは、じかに来た依頼（前のお客さん・紹介・チラシ・電話）のための見本です。仲介のサイトで受けた依頼には使いません。見積書や請求書は、今のやり方のまま使えます。この仕組みは、金額の書類を作りません。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='benriya_demo_state';
+  var ME='山田さま';
+  var JOBS=[
+    {name:'庭の草刈り',doo:['家の南側の庭と、通路の草を刈る','刈った草を袋につめて、庭のすみに置く'],dont:['木の枝を切ること','刈った草の持ち帰り'],found:'木の枝が、雨どいにかかっています',todo:'かかっている枝だけを切る'},
+    {name:'物置・部屋の片付け',doo:['物置の中の物を外に出して、残す物と出す物に分ける','残す物を棚にもどす'],dont:['「残す」と言われた物を動かすこと','出す物の持ち帰り'],found:'奥から、古い書類の箱が3つ出てきました',todo:'箱は開けずに、母屋の玄関まで運ぶ'},
+    {name:'家具の移動',doo:['タンス1つを、2階から1階の和室へ動かす'],dont:['家具の処分','壁や床の直し'],found:'そのままでは、階段の角を通りません',todo:'引き出しと扉を外して運び、あとで付け直す'},
+    {name:'電球の取りかえ',doo:['玄関と廊下の電球を取りかえる'],dont:['配線にさわる作業','照明の器具そのものの交換'],found:'廊下の照明のカバーが割れていました',todo:'カバーを外して、そのままにしておく'}
+  ];
+  var HOUSE=['ご自宅','ご実家（○○町）'];
+  var WITH=['山田さまが立ち会う','家にいるご家族が立ち会う','立ち会いなし'];
+  var HOPE=['今週の土日','来週の平日','相談して決めたい'];
+  var DAYS=['11/21（土）午前','11/22（日）午後'];
+  var ST={'new':'見積もりを返す','wait':'お客さんの返事待ち','talk':'電話をかける','ok':'作業の日を待つ','xwait':'追加の返事待ち','done':'作業済み','cancel':'取りやめ'};
+
+  function ph(label,tone){
+    return '<svg viewBox="0 0 118 84" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+label+'の写真の代わりの絵"><rect width="118" height="84" fill="'+tone+'"/><rect x="42" y="26" width="34" height="24" rx="4" fill="#fff" opacity=".85"/><circle cx="59" cy="38" r="7" fill="'+tone+'"/><rect x="50" y="22" width="12" height="5" rx="2" fill="#fff" opacity=".85"/><rect x="0" y="62" width="118" height="22" fill="#1b565b"/><text x="59" y="77" font-size="11" text-anchor="middle" fill="#fff" font-family="sans-serif">'+label+'（絵）</text></svg>';
+  }
+  var PICS={
+    ask:ph('今のようす','#8fb7ba'),
+    found:ph('見つかった所','#d9a66b'),
+    before:ph('作業の前','#8fb7ba'),
+    after:ph('作業の後','#7dbf95')
+  };
+
+  function seed(){
+    return {
+      v:2,seq:3,c1:0,c2:0,my:0,
+      flow:{step:'start',house:1,job:0,photo:false,wit:1,hope:0},
+      log:[],
+      reqs:[
+        {id:1,route:'tel',time:'11/18 電話',name:'鈴木さま',house:'ご自宅',job:2,wit:'鈴木さまが立ち会う',photo:false,day:'11/21（土）午前',st:'ok',extra:'',editing:false,asking:false,rec:['見積もりの確認：電話で、その場で（11/18）']},
+        {id:2,route:'line',time:'11/17 20:31',name:'佐藤さま',house:'ご自宅',job:1,wit:'佐藤さまが立ち会う',photo:true,day:'11/22（日）午後',st:'wait',extra:'',editing:false,asking:false,rec:['見積もりを送った（11/18 8:10）']}
+      ],
+      hist:[
+        {date:'2025/06/14',name:'山田さま',house:'ご実家（○○町）',job:'庭の草刈り',note:'見積もりの確認：電話',isNew:false,mine:false},
+        {date:'2026/04/05',name:'井上さま',house:'ご自宅',job:'家具の移動',note:'見積もりの確認：LINEで「お願いします」',isNew:false,mine:false},
+        {date:'2026/09/27',name:'鈴木さま',house:'ご自宅',job:'電球の取りかえ',note:'見積もりの確認：電話',isNew:false,mine:false}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==2||!S.reqs||!S.flow||!S.hist){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function hm(base,add){var m=base+add,h=Math.floor(m/60),mm=m%60;return h+':'+(mm<10?'0':'')+mm;}
+  function stamp(){S.c1+=6;return '11/19 '+hm(14*60+5,S.c1);}
+  function stampDay(r){S.c2+=25;return r.day.split('（')[0]+' '+hm(9*60,S.c2);}
+  function findReq(id){for(var i=0;i<S.reqs.length;i++){if(S.reqs[i].id===id){return S.reqs[i];}}return null;}
+  function mine(){return S.my?findReq(S.my):null;}
+  function listLines(arr){var t='';for(var i=0;i<arr.length;i++){t+='\n・'+arr[i];}return t;}
+  function goTo(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+
+  /* ---------- 1. 頼む人のLINE ---------- */
+  function say(who,text,opt){
+    S.log.push({who:who,text:text,pics:(opt&&opt.pics)||'',auto:(opt&&opt.auto)||''});
+  }
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.pics){
+        var ps=m.pics.split(',');
+        h+='<span class="pics">';
+        for(var j=0;j<ps.length;j++){h+=PICS[ps[j]]||'';}
+        h+='</span>';
+      }
+      if(m.auto){h+='<span class="auto">'+esc(m.auto)+'</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function renderChoices(){
+    var st=S.flow.step,h='',i,r=mine();
+    if(st==='start'){
+      h=btn('自分の家','house:0','half')+btn('家族の家<br>（実家など）','house:1','half fill');
+    }else if(st==='job'){
+      for(i=0;i<JOBS.length;i++){h+=btn(JOBS[i].name,'job:'+i,'half');}
+    }else if(st==='photo'){
+      h='<p class="hint">デモでは、用意した絵を写真の代わりに送ります。</p>'+btn('写真を送る','photo:yes','half fill')+btn('写真なしで送る','photo:no','half');
+    }else if(st==='wit'){
+      for(i=0;i<WITH.length;i++){h+=btn(WITH[i],'wit:'+i,'full');}
+    }else if(st==='hope'){
+      for(i=0;i<HOPE.length;i++){h+=btn(HOPE[i],'hope:'+i,'full');}
+    }else if(st==='sent'&&r){
+      if(r.st==='new'){
+        h='<p class="hint">店の返事を待っています。次は、店の一覧で「見積もりを作って返す」を押します。</p>'+btn('▼ 店の一覧を見る','goto:s2','full fill');
+      }else if(r.st==='wait'){
+        h=btn('お願いします','yes','half fill')+btn('相談したい','talk','half')+btn('今回はやめておく','stop','full ghost');
+      }else if(r.st==='talk'){
+        h='<p class="hint">店からの電話を待っています。次は、店の一覧で「電話で話して決めた」を押します。</p>'+btn('▼ 店の一覧を見る','goto:s2','full fill');
+      }else if(r.st==='ok'){
+        h='<p class="hint">ここからは作業の日です。店の一覧で「追加が見つかった」か「作業が終わった」を押します。</p>'+btn('▼ 店の一覧を見る','goto:s2','full fill');
+      }else if(r.st==='xwait'){
+        h=btn('お願いします','xyes','half fill')+btn('今回は見送る','xno','half');
+      }else if(r.st==='cancel'){
+        h='<p class="hint">ご依頼は、取りやめになりました。店の一覧にも「取りやめ」と残ります。</p>';
+      }else if(r.st==='done'){
+        h=btn('▼ 家ごとの記録を見る','goto:s3','full fill');
+      }
+      h+=btn('もう一度、最初からやってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function dropMine(){
+    var out=[],i;
+    if(S.my){
+      for(i=0;i<S.reqs.length;i++){if(S.reqs[i].id!==S.my){out.push(S.reqs[i]);}}
+      S.reqs=out;S.my=0;
+    }
+    out=[];
+    for(i=0;i<S.hist.length;i++){if(!S.hist[i].mine){out.push(S.hist[i]);}}
+    S.hist=out;
+  }
+  function startFlow(){
+    dropMine();
+    S.c2=0;
+    S.flow={step:'start',house:1,job:0,photo:false,wit:1,hope:0};
+    S.log=[];
+    say('bot','便利屋 やまもも舎です。\nご依頼の中身を、ボタンで順にうかがいます。\nボタンに無いご用や、話して決めたいときは、お電話でどうぞ。\n\nどちらの家のご用ですか？');
+  }
+  function onChoice(act){
+    var p=act.split(':'),k=p[0],v=p.slice(1).join(':'),f=S.flow,r=mine(),j;
+    if(k==='house'){
+      f.house=parseInt(v,10);say('me',f.house?'家族の家（実家など）':'自分の家');
+      say('bot','どんなご用ですか？');f.step='job';
+    }else if(k==='job'){
+      f.job=parseInt(v,10);say('me',JOBS[f.job].name);
+      say('bot','今のようすが分かる写真を送ってください。\n無くてもかまいません。');f.step='photo';
+    }else if(k==='photo'){
+      f.photo=(v==='yes');
+      if(f.photo){say('me','',{pics:'ask'});}else{say('me','写真なしで送る');}
+      say('bot','作業の日は、どなたが立ち会いますか？');f.step='wit';
+    }else if(k==='wit'){
+      f.wit=parseInt(v,10);say('me',WITH[f.wit]);
+      say('bot','ご希望の日は、いつごろですか？');f.step='hope';
+    }else if(k==='hope'){
+      f.hope=parseInt(v,10);say('me',HOPE[f.hope]);
+      var o={id:S.seq++,route:'line',time:stamp(),name:ME,house:HOUSE[f.house],job:f.job,wit:WITH[f.wit],photo:f.photo,hope:HOPE[f.hope],day:DAYS[0],st:'new',extra:'',editing:false,asking:false,rec:[]};
+      S.reqs.push(o);S.my=o.id;
+      say('bot','山田さま、受け取りました。\n【うかがった中身】\n・家：'+o.house+'\n・ご用：'+JOBS[o.job].name+'\n・写真：'+(o.photo?'あり':'なし')+'\n・立ち会い：'+o.wit+'\n・ご希望：'+o.hope+'\n\nこのあと、店の者が中身を見て、お見積もり（やること・やらないこと・料金）をお返しします。ご依頼は、そこで決まります。\n作業に出ている日は、お返事が夜になることがあります。',{auto:'※ ここまで自動で返ります'});
+      f.step='sent';
+    }else if(k==='yes'&&r&&r.st==='wait'){
+      say('me','お願いします');
+      r.st='ok';r.rec.push('見積もりへの返事：LINEで「お願いします」（'+stamp()+'）');
+      say('bot','ありがとうございます。ご依頼が決まりました。\n'+r.day+'に、うかがいます。');
+    }else if(k==='talk'&&r&&r.st==='wait'){
+      say('me','相談したい');
+      r.st='talk';r.rec.push('「相談したい」の返事（'+stamp()+'）');
+      say('bot','承知しました。店からお電話します。\nそれまで、ご依頼は決まりません。');
+    }else if(k==='stop'&&r&&r.st==='wait'){
+      say('me','今回はやめておく');
+      r.st='cancel';r.rec.push('「今回はやめておく」の返事（'+stamp()+'）');
+      say('bot','承知しました。今回のご依頼は、取りやめにしました。\nまた何かあれば、どうぞ。');
+    }else if(k==='xyes'&&r&&r.st==='xwait'){
+      say('me','お願いします');
+      r.st='ok';r.extra='yes';r.rec.push('追加への返事：LINEで「お願いします」（'+stampDay(r)+'）');
+      say('bot','ありがとうございます。追加の分も進めます。');
+    }else if(k==='xno'&&r&&r.st==='xwait'){
+      say('me','今回は見送る');
+      r.st='ok';r.extra='no';r.rec.push('追加への返事：LINEで「今回は見送る」（'+stampDay(r)+'）');
+      say('bot','承知しました。追加の分は、今回は手をつけません。\n最初に決めた中身だけ進めます。');
+    }else if(k==='goto'){
+      goTo(v);return;
+    }else if(k==='again'){
+      startFlow();
+    }else{
+      return;
+    }
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  /* ---------- 2. 店の一覧 ---------- */
+  var ORDER={'new':0,'talk':1,'ok':2,'xwait':3,'wait':4,'done':5,'cancel':6};
+  function lastHist(name){
+    var out=null;
+    for(var i=0;i<S.hist.length;i++){if(S.hist[i].name===name&&!S.hist[i].isNew){out=S.hist[i];}}
+    return out;
+  }
+  function renderList(){
+    var cnt={'new':0,'wait':0,'talk':0,'ok':0,'xwait':0,'done':0,'cancel':0},i,j;
+    for(i=0;i<S.reqs.length;i++){cnt[S.reqs[i].st]++;}
+    $('chips').innerHTML='<span class="chip'+((cnt['new']+cnt.talk)?' todo':'')+'">こちらの番 <b>'+(cnt['new']+cnt.talk)+'</b></span><span class="chip">返事待ち <b>'+(cnt.wait+cnt.xwait)+'</b></span><span class="chip">作業の日を待つ <b>'+cnt.ok+'</b></span><span class="chip">作業済み <b>'+cnt.done+'</b></span>';
+    var arr=S.reqs.slice().sort(function(a,b){return (ORDER[a.st]-ORDER[b.st])||(b.id-a.id);});
+    var h='';
+    for(i=0;i<arr.length;i++){
+      var r=arr[i],jb=JOBS[r.job],todo=(r.st==='new'||r.st==='talk');
+      h+='<div class="card'+(todo?' todo':'')+((r.st==='done'||r.st==='cancel')?' done':'')+'">';
+      h+='<div class="card-top"><span class="route '+r.route+'">'+(r.route==='line'?'LINE':'電話')+'</span><span>'+esc(r.time)+'</span></div>';
+      h+='<h3>'+esc(r.name)+'　'+esc(jb.name)+'</h3>';
+      h+='<p>家：'+esc(r.house)+'</p>';
+      h+='<p>立ち会い：'+esc(r.wit)+'</p>';
+      h+='<p>写真：'+(r.photo?'あり':'なし')+(r.hope?('　／　ご希望：'+esc(r.hope)):'')+'</p>';
+      if(r.st!=='new'){h+='<p>作業の日：'+esc(r.day)+'</p>';}
+      var lh=lastHist(r.name);
+      if(lh){h+='<div class="hist">前にもご依頼があります。'+esc(lh.date.slice(0,7))+'　'+esc(lh.job)+'（'+esc(lh.house)+'）</div>';}
+      h+='<div><span class="status'+(todo?' todo':(r.st==='done'?' done':''))+'">'+ST[r.st]+'</span></div>';
+      if(r.st==='new'&&r.editing){
+        h+='<div class="draft"><p class="tip">用件ごとのひな形から出ます。直してから送れます。</p><dl><dt>やること</dt><dd>'+esc(jb.doo.join('／'))+'</dd><dt>やらないこと</dt><dd>'+esc(jb.dont.join('／'))+'</dd><dt>料金</dt><dd>〈 〉円（デモでは空欄）</dd><dt>作業の日</dt><dd><select id="d'+r.id+'" aria-label="作業の日">';
+        for(j=0;j<DAYS.length;j++){h+='<option>'+DAYS[j]+'</option>';}
+        h+='</select></dd></dl><button type="button" class="btn fill full" data-do="send:'+r.id+'">この中身をお客さんに送る</button></div>';
+      }else if(r.st==='new'){
+        h+='<div class="card-act"><button type="button" class="btn fill" data-do="edit:'+r.id+'">見積もりを作って返す</button></div>';
+      }else if(r.st==='talk'){
+        h+='<div class="card-act"><button type="button" class="btn fill" data-do="called:'+r.id+'">電話で話して決めた</button></div>';
+      }else if(r.st==='ok'&&r.asking){
+        h+='<div class="draft"><p class="tip">現場では、写真を1枚撮って、ひとこと足すだけです（デモでは、文を用意しています）。</p><dl><dt>見つかったこと</dt><dd>'+esc(jb.found)+'</dd><dt>追加でやること</dt><dd>'+esc(jb.todo)+'</dd><dt>追加の料金</dt><dd>〈 〉円（デモでは空欄）</dd></dl>';
+        h+='<button type="button" class="btn fill full" data-do="xsend:'+r.id+'">'+(r.route==='line'?'写真つきでお客さんに送る':'その場で確認した、と記録する')+'</button></div>';
+      }else if(r.st==='xwait'){
+        h+='<p class="tip2">返事が来ないときは、電話で聞いて、ここで押せます。</p><div class="card-act"><button type="button" class="btn" data-do="xcall:'+r.id+':yes">電話で「お願いします」と聞いた</button><button type="button" class="btn" data-do="xcall:'+r.id+':no">電話で「見送る」と聞いた</button></div>';
+      }else if(r.st==='ok'){
+        h+='<div class="card-act">';
+        if(!r.extra){h+='<button type="button" class="btn" data-do="extra:'+r.id+'">追加が見つかった</button>';}
+        h+='<button type="button" class="btn fill" data-do="done:'+r.id+'">作業が終わった</button></div>';
+      }
+      if(r.rec.length){
+        h+='<div class="rec"><b>残っている記録</b>';
+        for(j=0;j<r.rec.length;j++){h+='<div>'+esc(r.rec[j])+'</div>';}
+        h+='</div>';
+      }
+      if(r.id===S.my&&(r.st==='wait'||r.st==='xwait')){h+='<a class="jump" href="#s1">▲ お客さんのLINEで返事を押す</a>';}
+      if(r.id===S.my&&r.st==='done'){h+='<a class="jump" href="#s1">▲ お客さんのLINEに届いた報告を見る</a>';}
+      h+='</div>';
+    }
+    $('list').innerHTML=h;
+  }
+  function draftText(r){
+    var jb=JOBS[r.job];
+    return '【やること】'+listLines(jb.doo)+'\n【やらないこと】'+listLines(jb.dont)+'\n【料金】〈 〉円（デモでは空欄）\n【作業の日】'+r.day+'\n【立ち会い】'+r.wit+(r.wit===WITH[1]?'\n【当日】家にいるご家族には、始める前に、この中身を口でお伝えします。':'');
+  }
+  function onDo(v){
+    var p=v.split(':'),k=p[0],r=findReq(parseInt(p[1],10)),jb,isMine;
+    if(!r){return;}
+    jb=JOBS[r.job];isMine=(r.id===S.my);
+    if(k==='edit'&&r.st==='new'){
+      r.editing=true;
+    }else if(k==='send'&&r.st==='new'){
+      var sel=$('d'+r.id);if(sel&&sel.value){r.day=sel.value;}
+      r.editing=false;r.st='wait';r.rec.push('見積もりを送った（'+stamp()+'）');
+      if(isMine){say('bot','山田さま、お待たせしました。お見積もりです。\nこの中身でお受けできます。\n'+draftText(r)+'\n\nよろしければ「お願いします」を押してください。\n変えたい所があれば「相談したい」を押してください。');}
+    }else if(k==='called'&&r.st==='talk'){
+      r.st='ok';r.rec.push('見積もりの確認：電話で話した（'+stamp()+'）');
+      if(isMine){say('bot','お電話ありがとうございました。\nお話しした中身で、ご依頼が決まりました。\n'+r.day+'に、うかがいます。');}
+    }else if(k==='extra'&&r.st==='ok'&&!r.extra){
+      r.asking=true;
+    }else if(k==='xsend'&&r.st==='ok'&&r.asking){
+      r.asking=false;
+      if(r.route==='line'){
+        r.st='xwait';r.rec.push('追加を知らせた：'+jb.found+'（'+stampDay(r)+'）');
+        if(isMine){say('bot','作業の途中で、お知らせです。\n【見つかったこと】\n'+jb.found+'\n【追加でやること】\n'+jb.todo+'\n【追加の料金】〈 〉円（デモでは空欄）\n\n進めてよいですか？\nお返事があるまで、この分には手をつけません。\nお返事が無いときは、お電話でうかがいます。',{pics:'found'});}
+      }else{
+        r.extra='yes';r.rec.push('追加の確認：その場で、口で。'+jb.todo+'（'+stampDay(r)+'）');
+      }
+    }else if(k==='xcall'&&r.st==='xwait'){
+      var yes=(p[2]==='yes');
+      r.st='ok';r.extra=yes?'yes':'no';
+      r.rec.push('追加の確認：電話で「'+(yes?'お願いします':'今回は見送る')+'」（'+stampDay(r)+'）');
+      if(isMine){say('bot',yes?'お電話ありがとうございました。\n追加の分も進めます。':'お電話ありがとうございました。\n追加の分は、今回は手をつけません。\n最初に決めた中身だけ進めます。');}
+    }else if(k==='done'&&r.st==='ok'){
+      r.st='done';r.asking=false;
+      var ex=r.extra==='yes'?('やった。'+jb.todo):(r.extra==='no'?'見送り':'なし');
+      var when=stampDay(r);
+      r.rec.push('作業が終わった（'+when+'）'+(r.route==='line'?'。写真つきの報告を送った':''));
+      if(isMine){say('bot','山田さま、今日の作業が終わりました。\n【やった所】'+listLines(jb.doo)+'\n【追加】'+ex+'\n【料金】〈 〉円（デモでは空欄）\n\n前と後の写真です。\n気になる所があれば、このLINEか、お電話でお知らせください。',{pics:'before,after',auto:'※ 店が「作業が終わった」を押すと届きます'});}
+      for(var i=0;i<S.hist.length;i++){S.hist[i].isNew=false;}
+      var note='見積もりの確認：'+(r.route==='line'?'LINE':'電話')+'／追加：'+ex+(r.route==='line'?'／報告：写真つきで送った':'');
+      S.hist.push({date:'2026/'+r.day.split('（')[0],name:r.name,house:r.house,job:jb.name,note:note,isNew:true,mine:isMine});
+    }else{
+      return;
+    }
+    save();renderAll();
+  }
+  function renderAddBox(){
+    var sel=$('aWho'),cur=sel.value,h='',seen=[],i,ok=false;
+    for(i=S.hist.length-1;i>=0;i--){
+      var nm=S.hist[i].name;
+      if(nm===ME||seen.indexOf(nm)>=0){continue;}
+      seen.push(nm);
+      h+='<option value="'+esc(nm)+'">'+esc(nm)+'（前にご依頼あり）</option>';
+      if(nm===cur){ok=true;}
+    }
+    h+='<option value="new">はじめての人</option>';
+    sel.innerHTML=h;
+    if(ok||cur==='new'){sel.value=cur;}
+    $('aNew').style.display=(sel.value==='new')?'':'none';
+  }
+  function onAdd(){
+    var who=$('aWho').value,n=(who==='new')?($('aName').value||'お名前なし'):who,j=parseInt($('aJob').value,10)||0,d=$('aDay').value;
+    if(!/さま$/.test(n)){n+='さま';}
+    var w=stamp();
+    S.reqs.push({id:S.seq++,route:'tel',time:w+' 電話',name:n,house:'ご自宅',job:j,wit:n+'が立ち会う',photo:false,hope:'',day:d,st:'ok',extra:'',editing:false,asking:false,rec:['見積もりの確認：電話で、その場で（'+w+'）']});
+    $('addBox').className='add-box';
+    save();renderAll();
+  }
+
+  /* ---------- 3. 家ごとの記録 ---------- */
+  function renderLedger(){
+    var q=($('q').value||'').replace(/\s/g,''),rows='';
+    var arr=S.hist.slice().reverse();
+    for(var i=0;i<arr.length;i++){
+      var e=arr[i];
+      if(q&&e.name.indexOf(q)<0){continue;}
+      rows+='<tr'+(e.isNew?' class="new"':'')+'><td>'+esc(e.date)+'</td><td>'+esc(e.name)+'<br>'+esc(e.house)+'</td><td><b>'+esc(e.job)+'</b><br>'+esc(e.note)+'</td></tr>';
+    }
+    $('ledger').innerHTML=rows?'<table><thead><tr><th>日付</th><th>お客さま</th><th>やったことと、確認の記録</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div class="empty">当てはまる記録はありません。</div>';
+  }
+
+  function renderAll(){renderChat();renderChoices();renderList();renderAddBox();renderLedger();}
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&(t.getAttribute('data-act')||t.getAttribute('data-do')))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    if(t.getAttribute('data-act')){onChoice(t.getAttribute('data-act'));}
+    else if(t.getAttribute('data-do')){onDo(t.getAttribute('data-do'));}
+  });
+  $('btnAdd').addEventListener('click',function(){var b=$('addBox');b.className=(b.className.indexOf('open')>=0)?'add-box':'add-box open';});
+  $('btnAddOk').addEventListener('click',onAdd);
+  $('aWho').addEventListener('change',renderAddBox);
+  $('q').addEventListener('input',renderLedger);
+  $('btnReset').addEventListener('click',function(){S=seed();startFlow();$('q').value='';save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  if(!S.log||!S.log.length){startFlow();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

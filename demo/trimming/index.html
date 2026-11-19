@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>トリミングルーム しろつめ（デモ）来店前の控えと犬ごとの記録</title>
+<style>
+:root{--main:#8A5A3B;--ink:#4E3222;--accent:#7CC6B0;--bg:#FFF9F2;--sub:#75604f;--line:#e4d6c6;--card:#ffffff;--chat:#e3f1ec;--me:#a6e89b;--tint:#f3e7d8;--mint-l:#dff1ea;--new:#fdf3d7}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Maru Gothic ProN","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:var(--ink);font-weight:700;font-size:13px;text-align:center;padding:6px 10px;word-break:keep-all;overflow-wrap:anywhere;text-wrap:balance}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:28px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--ink);background:var(--mint-l);border:1px solid var(--accent);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+.who.gap{margin-top:16px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:var(--ink);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+.chat{padding:12px 10px 4px;min-height:120px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:82%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.wait{font-size:13px;color:var(--sub);text-align:center;padding:18px 10px}
+.choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--ink);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.on{background:var(--accent);border-color:var(--ink);color:var(--ink)}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.third{flex:1 1 calc(33% - 8px);padding:8px 4px;font-size:14px}
+.btn.full{flex:1 1 100%;width:100%}
+.btn .sub{display:block;font-size:12px;font-weight:400;color:var(--sub)}
+.next-link{display:flex;align-items:center;justify-content:center;min-height:44px;margin:8px 0 0;font-size:14px;font-weight:700;color:var(--ink)}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.none{border-left:5px solid var(--line)}
+.card.has{border-left:5px solid var(--accent)}
+.card.new{background:var(--new)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.dog{display:flex;align-items:center;gap:10px;margin-top:8px}
+.dog svg{flex:none;width:48px;height:48px}
+.dog h3{margin:0;font-size:17px}
+.dog p{margin:0;font-size:13px;color:var(--sub)}
+.card h4{margin:12px 0 4px;font-size:14px}
+.card p{margin:2px 0;font-size:14px}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:var(--tint);color:var(--sub)}
+.status.has{background:var(--mint-l);color:var(--ink)}
+.status.ok{background:var(--main);color:#fff}
+.flag{font-size:13px;font-weight:700;background:var(--new);border:1px solid #e8d08a;border-radius:6px;padding:4px 8px;margin-top:8px}
+.card-act{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.rec{margin-top:12px;border-top:1px dashed var(--line);padding-top:4px}
+.kv{display:grid;grid-template-columns:6.5em 1fr;gap:2px 8px;font-size:14px;margin:0}
+.kv dt{color:var(--sub)}
+.kv dd{margin:0}
+.kv.cmp{margin-top:8px;grid-template-columns:5.6em 1fr}
+.lock{background:var(--tint);border-radius:8px;padding:8px 10px;font-size:14px}
+.small{font-size:12px;color:var(--sub)}
+/* after */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.grp{margin-bottom:12px}
+.grp-t{font-size:13px;font-weight:700;margin:0 0 6px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opts .btn{text-align:left;font-weight:400}
+.opts .btn.on{font-weight:700}
+.preview{background:var(--chat);border-radius:12px;padding:10px;margin:4px 0 10px}
+.preview .bubble{background:#fff;max-width:100%}
+.preview-t{font-size:12px;color:var(--sub);margin:0 0 6px}
+/* record */
+.tabs{display:flex;gap:6px;margin-bottom:4px}
+.tabs .btn{flex:1 1 0;padding:8px 2px;font-size:14px}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+/* examples */
+.ex{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:14px}
+.ex b{display:block;font-size:15px}
+.ex-tag{display:inline-block;font-size:12px;font-weight:700;background:var(--accent);color:var(--ink);border-radius:6px;padding:1px 8px;margin-right:6px}
+.ex p{margin:4px 0 0;color:var(--sub)}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:28px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:88%}
+  .kv{grid-template-columns:6.3em 1fr}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「トリミングルーム しろつめ」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <h1>トリミングルーム しろつめ</h1>
+  <p>紙のカルテはそのまま。朝に聞いた「今日の様子」と「カットのご希望」が、日付つきで犬ごとに残ります。</p>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>来店の前：飼い主さんがボタンで答える</h2></div>
+  <p class="sec-lead">朝8時すぎ。今日は10時に、こむぎちゃんの予約が入っています（予約は、今までどおり電話で受けたものです）。来店の前に、お店からLINEが届きます。答えはボタンを押すだけです。</p>
+  <span class="who">見ている人：飼い主さん</span>
+  <div class="phone">
+    <div class="phone-head"><b>トリミングルーム しろつめ</b><span class="clock">8:12</span></div>
+    <div class="chat" id="chat"></div>
+    <div class="choices" id="choices"></div>
+  </div>
+  <a class="next-link" href="#s2">▼ お店の画面を見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>受付：今日と前回をならべて見る</h2></div>
+  <p class="sec-lead">朝9時半、お店の画面。今日来る犬の控えが、予約の時間の順に並びます。カットのご希望は、今日と前回がならんで見えます。「記録を開く」を押すと、前回の控えとメモが開きます。</p>
+  <span class="who">見ている人：お店のトリマーさん</span>
+  <div class="chips" id="chips"></div>
+  <div id="list"></div>
+  <a class="next-link" href="#s3">▼ お迎えのあとの1通を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>お迎えのあと：見たことを1通で伝える</h2></div>
+  <p class="sec-lead">夕方。もうLINEでひとこと送っているお店は、そのままで大丈夫です。ここで足されるのは2つ。打たずにボタンで文になることと、送った文が犬ごとに残ることです。</p>
+  <span class="who">見ている人：お店のトリマーさん</span>
+  <div id="after"></div>
+  <span class="who gap">見ている人：飼い主さん</span>
+  <div class="phone">
+    <div class="phone-head"><b>トリミングルーム しろつめ</b><span class="clock">17:10</span></div>
+    <div class="chat" id="chat2"></div>
+    <div class="choices" id="choices2"></div>
+  </div>
+  <a class="next-link" href="#s4">▼ 犬ごとの記録を見る</a>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>あとから：犬ごとに見返す</h2></div>
+  <p class="sec-lead">来店の前の控えと、お迎えのあとの1通は、犬ごとに日付の順で残ります。名前を押すと切り替わります。</p>
+  <span class="who">見ている人：お店のトリマーさん</span>
+  <div class="tabs" id="tabs"></div>
+  <div id="record"></div>
+</section>
+
+<section id="more">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の2枚は動かない見本です。</p>
+  <div class="ex"><b><span class="ex-tag">例</span>次回の目安のお知らせ</b><p>前回から決めた週がたったら、1通だけ届きます。間隔は犬ごとに選べます。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>レシートの記帳</b><p>レシートの写真をLINEで送ると、日付と品目が表に残ります。</p></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店・犬・お客さまの名前は架空です。押した内容は、この端末の中だけに残ります。犬の絵は見本です。<br>
+  紙のカルテと、電話での予約は、今のまま使えます。LINEを使わない飼い主さんの分は、受付で聞いて、お店で入れます。この控えは、聞いたことと伝えたことを残すためのものです。体のことの判断はしません。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='shirotsume_demo_state';
+  var TODAY='2026/11/20';
+  var AP=['いつもどおり','少なめ','食べていない'];
+  var GE=['いつもどおり','少しおとなしい'];
+  var SP=['なし','耳','足先','おなか','来店のときに話す'];
+  var LE=['前回と同じ','短め','長め'];
+  var FA=['前回と同じ','丸く','すっきり'];
+  var MOOD=['おりこうでした','少し緊張していました','苦手な所がありました'];
+  var COAT=['毛玉はありませんでした','毛玉が少しありました','毛玉が多めでした'];
+  var TELL=['特にありません','右の耳をよくかいていました','足先をよくなめていました'];
+  var CHECK_AT={1:'10:02',2:'13:01',3:'15:03'};
+  var FILL_AT={1:'10:01',2:'13:00',3:'15:02'};
+  var FUR={1:'#c9a27a',2:'#d79a55',3:'#8f8a86'};
+
+  function seed(){
+    return {
+      v:5,
+      flow:{step:'ap',ap:'',ge:'',sp:'',le:'',fa:''},
+      log:[],
+      open:0,
+      tab:1,
+      after:{mood:0,coat:0,tell:0,sent:false,seen:false},
+      dogs:[
+        {id:1,name:'こむぎ',kind:'トイ・プードル',owner:'山田さま',time:'10:00',memo:'ドライヤーの音が苦手。耳のまわりは、ゆっくり。',today:null,checked:'',prevLe:'短め',prevFa:'丸く',
+         hist:[
+           {date:'2026/10/09',before:'食欲 いつもどおり／元気 いつもどおり／気になる所 なし',order:'体の毛の長さ 短め／顔まわり 丸く',after:'おりこうでした。毛玉はありませんでした。'},
+           {date:'2026/08/28',before:'食欲 いつもどおり／元気 いつもどおり／気になる所 足先',order:'体の毛の長さ 短め／顔まわり 丸く',after:'少し緊張していました。毛玉が少しありました。'}
+         ]},
+        {id:2,name:'もなか',kind:'柴',owner:'佐藤さま',time:'13:00',memo:'足先をさわるときは、声をかけてから。',
+         today:{at:'8:40',route:'LINE',ap:'いつもどおり',ge:'いつもどおり',sp:'足先',order:'シャンプーのみ（カットなし）'},checked:'',
+         hist:[
+           {date:'2026/10/16',before:'食欲 いつもどおり／元気 いつもどおり／気になる所 なし',order:'シャンプーのみ（カットなし）',after:'おりこうでした。毛玉はありませんでした。'}
+         ]},
+        {id:3,name:'くるみ',kind:'ミニチュア・シュナウザー',owner:'鈴木さま',time:'15:00',memo:'はさみの音は平気。バリカンの音が苦手。',today:null,checked:'',noLine:true,prevLe:'短め',prevFa:'すっきり',
+         hist:[
+           {date:'2026/10/02',before:'（来店の前の控えなし）',order:'体の毛の長さ 短め／顔まわり すっきり',after:'おりこうでした。毛玉が少しありました。'}
+         ]}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==5||!S.dogs||!S.flow||!S.after||S.dogs.length!==3){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function dogOf(id){for(var i=0;i<S.dogs.length;i++){if(S.dogs[i].id===id){return S.dogs[i];}}return null;}
+  function dogSvg(id){
+    var c=FUR[id]||'#c9a27a';
+    return '<svg viewBox="0 0 48 48" role="img" aria-label="犬の絵（デモ用の見本）"><circle cx="24" cy="24" r="23" fill="#f3e7d8"/><ellipse cx="11" cy="20" rx="6" ry="10" fill="'+c+'"/><ellipse cx="37" cy="20" rx="6" ry="10" fill="'+c+'"/><circle cx="24" cy="25" r="13" fill="'+c+'"/><ellipse cx="24" cy="30" rx="6" ry="5" fill="#fff"/><circle cx="19" cy="23" r="1.8" fill="#4E3222"/><circle cx="29" cy="23" r="1.8" fill="#4E3222"/><ellipse cx="24" cy="28" rx="2" ry="1.5" fill="#4E3222"/></svg>';
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function same(v,prev){return v==='前回と同じ'&&prev?'前回と同じ（'+prev+'）':v;}
+  function orderText(d,le,fa){return '体の毛の長さ '+same(le,d.prevLe)+'／顔まわり '+same(fa,d.prevFa);}
+  function diffOf(d){
+    var t=d.today,a=[];
+    if(!t||!t.le){return a;}
+    if(t.le!=='前回と同じ'&&t.le!==d.prevLe){a.push('体の毛の長さ '+d.prevLe+' → '+t.le);}
+    if(t.fa!=='前回と同じ'&&t.fa!==d.prevFa){a.push('顔まわり '+d.prevFa+' → '+t.fa);}
+    return a;
+  }
+  function beforeText(t){return '食欲 '+t.ap+'／元気 '+t.ge+'／気になる所 '+t.sp;}
+  function flagsOf(t){
+    var a=[];
+    if(t.ap!=='いつもどおり'){a.push('食欲 '+t.ap);}
+    if(t.ge!=='いつもどおり'){a.push('元気 '+t.ge);}
+    if(t.sp!=='なし'){a.push('気になる所 '+t.sp);}
+    return a;
+  }
+
+  /* ---------- 1. 飼い主さんのLINE（来店の前） ---------- */
+  function say(who,text,auto){S.log.push({who:who,text:text,auto:!!auto});}
+  function startFlow(){
+    S.flow={step:'ap',ap:'',ge:'',sp:'',le:'',fa:''};
+    S.log=[];
+    say('bot','トリミングルーム しろつめです🐾\n本日10:00の、こむぎちゃんのご予約ありがとうございます。\n\nご来店の前に、今日の様子とカットのご希望をうかがいます。\nお時間がなければ、ご来店のときに口でうかがいます。\n\nまず、今朝の食欲はどうですか？');
+  }
+  function resetAfter(){S.after={mood:0,coat:0,tell:0,sent:false,seen:false};}
+  function bubbles(log){
+    var h='';
+    for(var i=0;i<log.length;i++){
+      var m=log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.auto){h+='<span class="auto">※ ここまで自動で返ります</span>';}
+      h+='</div></div>';
+    }
+    return h;
+  }
+  function renderChat(){$('chat').innerHTML=bubbles(S.log);}
+  function optBtns(arr,key,cls){
+    var h='';
+    for(var i=0;i<arr.length;i++){h+=btn(arr[i],key+':'+i,cls);}
+    return h;
+  }
+  function renderChoices(){
+    var st=S.flow.step,h='';
+    if(st==='ap'){h=optBtns(AP,'ap','third')+btn('変わりなし<span class="sub">様子はいつもどおり・カットは前回と同じ</span>','allsame','full');}
+    else if(st==='ge'){h=optBtns(GE,'ge','half');}
+    else if(st==='sp'){h=optBtns(SP,'sp','half');}
+    else if(st==='le'){h=optBtns(LE,'le','third');}
+    else if(st==='fa'){h=optBtns(FA,'fa','third');}
+    else if(st==='confirm'){h=btn('この内容で送る','send','full fill')+btn('最初から選び直す','redo','full ghost');}
+    else if(st==='end'){h=btn('▼ お店の画面を見る','goto:s2','full fill')+btn('もう一度、最初からやってみる','again','full ghost');}
+    $('choices').innerHTML=h;
+  }
+  function onFlow(k,i){
+    var f=S.flow;
+    if(k==='ap'){f.ap=AP[i];say('me',f.ap);say('bot','元気は、どうですか？');f.step='ge';}
+    else if(k==='ge'){f.ge=GE[i];say('me',f.ge);say('bot','気になる所はありますか？\n（くわしくは、ご来店のときにうかがいます）');f.step='sp';}
+    else if(k==='sp'){f.sp=SP[i];say('me',f.sp);say('bot','✂️ ここからは、カットのご希望です。\n体の毛の長さは、どうしますか？\n（前回は「'+dogOf(1).prevLe+'」でした）');f.step='le';}
+    else if(k==='le'){f.le=LE[i];say('me',f.le);say('bot','顔まわりは、どうしますか？\n（前回は「'+dogOf(1).prevFa+'」でした）');f.step='fa';}
+    else if(k==='fa'){
+      f.fa=FA[i];say('me',f.fa);
+      say('bot','📋 今日の控え（こむぎちゃん）\n\n食欲：'+f.ap+'\n元気：'+f.ge+'\n気になる所：'+f.sp+'\n体の毛の長さ：'+same(f.le,dogOf(1).prevLe)+'\n顔まわり：'+same(f.fa,dogOf(1).prevFa)+'\n\nこの内容で、お店に送りますか？');
+      f.step='confirm';
+    }
+  }
+  function allSame(){
+    var f=S.flow,d=dogOf(1);
+    f.ap=AP[0];f.ge=GE[0];f.sp=SP[0];f.le=LE[0];f.fa=FA[0];
+    say('me','変わりなし');
+    say('bot','📋 今日の控え（こむぎちゃん）\n\n食欲：'+f.ap+'\n元気：'+f.ge+'\n気になる所：'+f.sp+'\n体の毛の長さ：'+same(f.le,d.prevLe)+'\n顔まわり：'+same(f.fa,d.prevFa)+'\n\nこの内容で、お店に送りますか？');
+    f.step='confirm';
+  }
+  function sendHikae(){
+    var f=S.flow,d=dogOf(1);
+    d.today={at:'8:12',route:'LINE',ap:f.ap,ge:f.ge,sp:f.sp,le:f.le,fa:f.fa,order:orderText(d,f.le,f.fa)};
+    d.checked='';
+    resetAfter();
+    say('me','この内容で送る');
+    say('bot','✅ お店に届きました。\nこの控えは、こむぎちゃんの記録に残ります。'+(flagsOf(d.today).length?'\nいつもと違う所は、ご来店のときにうかがいます。':'')+'\nでは10:00に、お待ちしています。',true);
+    f.step='end';
+  }
+
+  /* ---------- 2. お店の画面（今日の控え） ---------- */
+  function renderList(){
+    var has=0,none=0,ok=0,i,h='';
+    for(i=0;i<S.dogs.length;i++){
+      if(S.dogs[i].checked){ok++;}else if(S.dogs[i].today){has++;}else{none++;}
+    }
+    $('chips').innerHTML='<span class="chip">控えあり <b>'+has+'</b></span><span class="chip">受付で聞く <b>'+none+'</b></span><span class="chip">受付で確かめた <b>'+ok+'</b></span>';
+    for(i=0;i<S.dogs.length;i++){
+      var d=S.dogs[i],t=d.today,st,stc;
+      if(d.checked){st='受付で確かめた '+d.checked;stc='ok';}
+      else if(t){st='控えあり '+t.at;stc='has';}
+      else{st=(d.noLine?'LINEなし・受付で聞きます':'まだ届いていません');stc='';}
+      h+='<div class="card '+(t?'has':'none')+'">';
+      h+='<div class="card-top"><span>'+esc(d.time)+' のご予約</span><span class="status '+stc+'">'+esc(st)+'</span></div>';
+      h+='<div class="dog">'+dogSvg(d.id)+'<div><h3>'+esc(d.name)+'ちゃん</h3><p>'+esc(d.kind)+'｜'+esc(d.owner)+'</p></div></div>';
+      if(t){
+        var fl=flagsOf(t);
+        if(fl.length){h+='<div class="flag">いつもと違うと答えた所：'+esc(fl.join('／'))+'</div>';}
+      }
+      h+='<dl class="kv cmp">';
+      if(t){h+='<dt>✂️ 今日</dt><dd>'+esc(t.order)+'</dd>';}
+      if(d.hist.length){h+='<dt>前回 '+esc(d.hist[0].date.slice(5))+'</dt><dd>'+esc(d.hist[0].order)+'</dd>';}
+      h+='</dl>';
+      var df=diffOf(d);
+      if(df.length){h+='<div class="flag">前回と違うご希望：'+esc(df.join('／'))+'</div>';}
+      h+='<div class="card-act">'+btn(S.open===d.id?'記録を閉じる':'記録を開く','open:'+d.id,'full'+(S.open===d.id?'':' fill'))+'</div>';
+      if(S.open===d.id){
+        h+='<div class="rec">';
+        if(t){
+          h+='<h4>📋 今日の控え</h4><p class="small">'+esc(t.route==='LINE'?'飼い主さんがLINEで送りました（'+t.at+'）':'受付で聞いて、お店で入れました（'+t.at+'）')+'</p>';
+          h+='<dl class="kv"><dt>食欲</dt><dd>'+esc(t.ap)+'</dd><dt>元気</dt><dd>'+esc(t.ge)+'</dd><dt>気になる所</dt><dd>'+esc(t.sp)+'</dd><dt>ご希望</dt><dd>'+esc(t.order)+'</dd></dl>';
+        }else{
+          h+='<h4>📋 今日の控え</h4><p>'+(d.noLine?'LINEを使っていない飼い主さんです。受付で聞いて、お店で入れます。':'まだ届いていません。受付で聞いて、お店で入れることもできます。')+'</p>';
+        }
+        if(d.hist.length){
+          var p=d.hist[0];
+          h+='<h4>前回（'+esc(p.date)+'）</h4><dl class="kv"><dt>来店の前</dt><dd>'+esc(p.before)+'</dd><dt>ご希望</dt><dd>'+esc(p.order)+'</dd><dt>お迎えのあと</dt><dd>'+esc(p.after)+'</dd></dl>';
+        }
+        h+='<h4>🔒 お店だけに見えるメモ</h4><div class="lock">'+esc(d.memo)+'</div>';
+        h+='<div class="card-act">';
+        if(!t){h+=btn('「変わりなし」で入れる（1回押すだけ）','fill:'+d.id,'full fill')+'<p class="hint">様子は「いつもどおり」、カットは「前回と同じ」で入ります。違う所があるときだけ、選んで直す形にできます。</p>';}
+        else if(!d.checked){h+=btn('受付で、飼い主さんと確かめた','check:'+d.id,'full fill')+'<p class="hint">押さなくても、控えは残ります。</p>';}
+        else{h+='<p class="small">'+(t.route==='LINE'?'受付で、飼い主さんと確かめました（':'受付で、飼い主さんに聞いて入れました（')+esc(d.checked)+'）。この時刻も記録に残ります。</p>';}
+        h+='</div></div>';
+      }
+      h+='</div>';
+    }
+    $('list').innerHTML=h;
+  }
+
+  /* ---------- 3. お迎えのあとの1通 ---------- */
+  function afterText(){
+    var a=S.after;
+    return 'こむぎちゃん、今日のトリミングが終わりました🐾\n\n・今日の様子：'+MOOD[a.mood]+'\n・毛の状態：'+COAT[a.coat]+'\n・お伝えすること：'+TELL[a.tell]+'\n\n見たことを、そのままお伝えしています。'+(a.tell>0?'\n気になるときは、かかりつけの動物病院にご相談ください。':'')+'\nご返信はいりません。';
+  }
+  function afterShort(){
+    var a=S.after;
+    return MOOD[a.mood]+'。'+COAT[a.coat]+'。'+(a.tell>0?TELL[a.tell]+'。':'');
+  }
+  function grp(title,arr,key){
+    var h='<div class="grp"><p class="grp-t">'+title+'</p><div class="opts">';
+    for(var i=0;i<arr.length;i++){
+      var on=(S.after[key]===i);
+      h+='<button type="button" class="btn'+(on?' on':'')+'" aria-pressed="'+(on?'true':'false')+'" data-act="opt:'+key+':'+i+'">'+(on?'● ':'○ ')+arr[i]+'</button>';
+    }
+    return h+'</div></div>';
+  }
+  function renderAfter(){
+    var d=dogOf(1),a=S.after,h='<div class="panel">';
+    if(!d.today){
+      h+='<p style="margin:0 0 10px;font-size:14px">こむぎちゃんの今日の控えが、まだありません。①で控えを送ると、ここが使えます。</p>'+btn('▲ ①で控えを送る','goto:s1','full');
+    }else if(a.sent){
+      h+='<p style="margin:0 0 4px;font-weight:700">こむぎちゃんの飼い主さんに送りました（17:10）</p>';
+      h+='<p class="small" style="margin:0 0 10px">'+(a.seen?'飼い主さんから返事がありました（17:25）。':'返事がなくても、送ったことは記録に残ります。')+'</p>';
+      h+=btn('書き直してみる（デモ用）','aredo','full ghost');
+    }else{
+      h+='<div class="dog" style="margin:0 0 12px">'+dogSvg(1)+'<div><h3>こむぎちゃん</h3><p>お迎え 17:00｜山田さま</p></div></div>';
+      h+=grp('今日の様子',MOOD,'mood')+grp('毛の状態',COAT,'coat')+grp('お伝えすること',TELL,'tell');
+      h+='<div class="preview"><p class="preview-t">この文が届きます</p><div class="bubble">'+esc(afterText())+'</div></div>';
+      h+=btn('この1通を送る','asend','full fill');
+      h+='<p class="small" style="margin:8px 0 0">最初から1つずつ選んであります。変わったことがなければ、「送る」を1回押すだけです。文字は打ちません。</p>';
+    }
+    $('after').innerHTML=h+'</div>';
+  }
+  function renderPhone2(){
+    var a=S.after,d=dogOf(1),log=[],c='';
+    if(d.today&&a.sent){
+      log.push({who:'bot',text:afterText(),auto:false});
+      if(a.seen){
+        log.push({who:'me',text:'ありがとうございます'});
+        log.push({who:'bot',text:'またのご来店をお待ちしています🐾',auto:true});
+      }else{
+        c='<p class="hint">返事はしなくても大丈夫です。デモでは、返したときの見え方も試せます。</p>'+btn('「ありがとうございます」と返す','aseen','full');
+      }
+      $('chat2').innerHTML=bubbles(log);
+    }else{
+      $('chat2').innerHTML='<div class="wait">まだ届いていません。<br>上の「この1通を送る」を押すと、ここに届きます。</div>';
+    }
+    $('choices2').innerHTML=c;
+  }
+
+  /* ---------- 4. 犬ごとの記録 ---------- */
+  function renderRecord(){
+    var i,h='';
+    for(i=0;i<S.dogs.length;i++){
+      var on=(S.tab===S.dogs[i].id);
+      h+='<button type="button" class="btn'+(on?' on':'')+'" aria-pressed="'+(on?'true':'false')+'" data-act="tab:'+S.dogs[i].id+'">'+esc(S.dogs[i].name)+'ちゃん</button>';
+    }
+    $('tabs').innerHTML=h;
+    var d=dogOf(S.tab)||S.dogs[0],t=d.today,r='';
+    if(t){
+      r+='<div class="card new"><div class="card-top"><span><b>'+TODAY+'（今日）</b></span><span>'+esc(d.name)+'ちゃん</span></div><dl class="kv" style="margin-top:8px">';
+      r+='<dt>来店の前</dt><dd>'+esc(beforeText(t))+'<br><span class="small">'+esc(t.route==='LINE'?'LINEで '+t.at:'受付で入力 '+t.at)+'</span></dd>';
+      r+='<dt>ご希望</dt><dd>'+esc(t.order)+'</dd>';
+      r+='<dt>受付</dt><dd>'+(d.checked?(t.route==='LINE'?'飼い主さんと確かめた（':'飼い主さんに聞いて入れた（')+esc(d.checked)+'）':'まだ')+'</dd>';
+      if(d.id===1&&S.after.sent){
+        r+='<dt>お迎えのあと</dt><dd>'+esc(afterShort())+'<br><span class="small">17:10 に送信</span></dd>';
+        if(S.after.seen){r+='<dt>返事</dt><dd>「ありがとうございます」（17:25）</dd>';}
+      }else{
+        r+='<dt>お迎えのあと</dt><dd>'+(d.noLine?'LINEなし。お迎えのときに、口で伝えます':'まだ送っていません')+'</dd>';
+      }
+      r+='</dl></div>';
+    }
+    for(i=0;i<d.hist.length;i++){
+      var p=d.hist[i];
+      r+='<div class="card"><div class="card-top"><span><b>'+esc(p.date)+'</b></span><span>'+esc(d.name)+'ちゃん</span></div><dl class="kv" style="margin-top:8px"><dt>来店の前</dt><dd>'+esc(p.before)+'</dd><dt>ご希望</dt><dd>'+esc(p.order)+'</dd><dt>お迎えのあと</dt><dd>'+esc(p.after)+'</dd></dl></div>';
+    }
+    $('record').innerHTML=r||'<div class="empty">まだ記録がありません。</div>';
+  }
+
+  function renderAll(){renderChat();renderChoices();renderList();renderAfter();renderPhone2();renderRecord();}
+  function goTo(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+
+  function onAct(act){
+    var p=act.split(':'),k=p[0],v=p[1],inChat=false,d;
+    if(k==='goto'){goTo(v);return;}
+    if(k==='ap'||k==='ge'||k==='sp'||k==='le'||k==='fa'){
+      if(S.flow.step!==k){return;}
+      onFlow(k,parseInt(v,10));inChat=true;
+    }else if(k==='allsame'){
+      if(S.flow.step!=='ap'){return;}
+      allSame();inChat=true;
+    }else if(k==='send'){
+      if(S.flow.step!=='confirm'){return;}
+      sendHikae();inChat=true;
+    }else if(k==='redo'){
+      startFlow();inChat=true;
+    }else if(k==='again'){
+      startFlow();d=dogOf(1);d.today=null;d.checked='';resetAfter();inChat=true;
+    }else if(k==='open'){
+      v=parseInt(v,10);S.open=(S.open===v?0:v);
+    }else if(k==='check'){
+      v=parseInt(v,10);d=dogOf(v);if(d&&d.today){d.checked=CHECK_AT[v]||'10:02';}
+    }else if(k==='fill'){
+      v=parseInt(v,10);d=dogOf(v);
+      if(d&&!d.today){d.today={at:FILL_AT[v]||'10:01',route:'受付',ap:'いつもどおり',ge:'いつもどおり',sp:'なし',le:'前回と同じ',fa:'前回と同じ',order:orderText(d,'前回と同じ','前回と同じ')};d.checked=FILL_AT[v]||'10:01';}
+    }else if(k==='opt'){
+      if(S.after.sent){return;}
+      S.after[v]=parseInt(p[2],10);
+    }else if(k==='asend'){
+      if(!dogOf(1).today){return;}
+      S.after.sent=true;S.after.seen=false;
+    }else if(k==='aseen'){
+      if(S.after.sent){S.after.seen=true;}
+    }else if(k==='aredo'){
+      resetAfter();
+    }else if(k==='tab'){
+      S.tab=parseInt(v,10);
+    }
+    save();renderAll();
+    if(inChat){var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}}
+  }
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnReset').addEventListener('click',function(){S=seed();startFlow();save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  if(!S.log||!S.log.length){startFlow();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

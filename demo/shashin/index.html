@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ひつじ雲写真館（デモ）撮影の前の日と当日の朝の確認</title>
+<style>
+:root{--main:#3A3A44;--main-d:#26262e;--accent:#D4A017;--accent-d:#7a5a00;--bg:#F6F5F2;--ink:#24242a;--sub:#62626c;--line:#dcdad4;--card:#ffffff;--chat:#e6e5e1;--me:#a6e89b;--warn:#b4472c;--ok:#2f7d4f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#2b2000;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:12px;align-items:center}
+header.top svg{flex:none;width:58px;height:58px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+.top-sub{background:#fff;border:1px solid var(--line);border-radius:0 0 12px 12px;margin:0 -14px;padding:8px 18px;font-size:13px;color:var(--sub)}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:#e6e5ea;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#2a2a31;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+.chat{padding:12px 10px 4px;min-height:120px}
+.chat .wait{font-size:13px;color:var(--sub);text-align:center;padding:30px 10px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:82%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.msg.bot .bubble.slip{border-left:5px solid var(--accent)}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.on{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+/* shop send box */
+.send-box{background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:12px;margin-bottom:14px}
+.send-box p{margin:0 0 8px;font-size:14px}
+.send-row{display:flex;gap:8px;flex-wrap:wrap}
+.sent{font-size:13px;background:#eaf4ec;border:1px solid #bcd9c3;border-radius:6px;padding:6px 8px;color:#215c39;margin-bottom:8px}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.filter{display:flex;gap:8px;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--warn)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--sub)}
+.card-top b{color:var(--main-d);font-size:15px}
+.kind{font-weight:700;border-radius:6px;padding:1px 8px;font-size:12px;background:#f3e6bd;color:#4a3800}
+.card h3{margin:6px 0 2px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.chk{border-top:1px dashed var(--line);margin-top:8px;padding-top:8px}
+.chk-name{font-size:12px;color:var(--sub);display:block}
+.noline{display:inline-block;font-size:12px;font-weight:700;background:#eeeef0;color:var(--main-d);border-radius:6px;padding:2px 8px;margin-top:4px}
+.resent{font-size:12px;color:var(--sub);background:#f4f3f0;border-radius:6px;padding:6px 8px;margin:6px 0 0}
+.chk.today{background:#fbf3d9;border:1px solid #e6cf85;border-radius:8px;padding:8px;margin-top:8px}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:#eeeef0;color:var(--sub)}
+.status.todo{background:#fbe6de;color:var(--warn)}
+.status.ok{background:#dff1e6;color:var(--ok)}
+.when{font-size:12px;color:var(--sub);margin-left:6px}
+.card-act{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.empty{font-size:13px;color:var(--sub);padding:14px 4px}
+/* more */
+.more{background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:10px 12px;margin-top:10px}
+.more b{display:block;font-size:15px}
+.more span{display:block;font-size:13px;color:var(--sub)}
+.more .ex{display:inline-block;font-size:12px;font-weight:700;color:var(--accent-d);border:1px solid var(--accent);border-radius:6px;padding:0 6px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .top-sub{margin:0 -12px}
+  .bubble{max-width:88%}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「ひつじ雲写真館」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="カメラの絵（デモ用）"><circle cx="30" cy="30" r="29" fill="#F6F5F2"/><rect x="11" y="21" width="38" height="25" rx="4" fill="#3A3A44"/><rect x="22" y="15" width="16" height="8" rx="2" fill="#3A3A44"/><circle cx="30" cy="33" r="9" fill="#F6F5F2"/><circle cx="30" cy="33" r="6" fill="#D4A017"/><circle cx="43" cy="26" r="2" fill="#D4A017"/></svg>
+  <div>
+    <h1>ひつじ雲写真館</h1>
+    <p>外で撮る日の前の日と当日の朝に、「予定どおり・雨ならどうする・おくれます」をボタンでやりとりできます。返事は一覧に並びます。</p>
+  </div>
+</header>
+<div class="top-sub">家族で営む写真館の見本です。神社や公園への出張撮影も受けています。予約の受付そのものは、今のやり方のままです。</div>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>予約が決まった日。日時と決まりが1通で届く</h2></div>
+  <p class="sec-lead">予約のときに伝えた日時・場所・雨のときの扱い・変更とキャンセルの決まりを、あとで見返せる1通にまとめて届けます。「確認しました」を押してみてください。</p>
+  <span class="who">見ている人：お客さん</span>
+  <div class="phone">
+    <div class="phone-head"><b>ひつじ雲写真館</b><span class="clock">11/15（日）20:10</span></div>
+    <div class="chat" id="chat1"></div>
+    <div class="choices" id="choices1"></div>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>前の日の夕方。あしたの確認を送る</h2></div>
+  <p class="sec-lead">撮影の前の日に、店が天気の見こみを選んで、あしたの人にまとめて送ります。返事はボタンで返り、下の一覧に並びます。</p>
+  <span class="who">見ている人：店の人</span>
+  <div class="send-box" id="sendBox"></div>
+  <span class="who">見ている人：お客さん</span>
+  <div class="phone">
+    <div class="phone-head"><b>ひつじ雲写真館</b><span class="clock">11/21（土）17:00</span></div>
+    <div class="chat" id="chat2"></div>
+    <div class="choices" id="choices2"></div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><div class="sec-no">3</div><h2>当日の朝。おくれる・行けないを知らせる</h2></div>
+  <p class="sec-lead">おくれそうなとき・行けなくなったときに、家を出る前でもボタンで知らせられます。電話でもかまいません。</p>
+  <span class="who">見ている人：お客さん</span>
+  <div class="phone">
+    <div class="phone-head"><b>ひつじ雲写真館</b><span class="clock">11/22（日）8:10</span></div>
+    <div class="chat" id="chat3"></div>
+    <div class="choices" id="choices3"></div>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">4</div><h2>店の画面。返事の一覧</h2></div>
+  <p class="sec-lead">確認が済んだ人と、まだの人が、撮影の日の順に並びます。当日の朝に連絡があった人は、いちばん上に出ます。電話で確かめた分も、同じ所に残せます。</p>
+  <span class="who">見ている人：店の人</span>
+  <div class="chips" id="chips"></div>
+  <div class="filter" id="filter"></div>
+  <div id="list"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">＋</div><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の2つは動かない見本です。</p>
+  <div class="more"><b><span class="ex">例</span>次の節目の知らせ</b><span>七五三のあと、入学の前に1通。「知らせてほしい」と答えた人にだけ送る。</span></div>
+  <div class="more"><b><span class="ex">例</span>写真の受け渡しの知らせ</b><span>できあがりの日と、受け取り方を1通で送る。受け取った日も残る。</span></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店の名前とお客さまの名前は架空です。日付と時刻はデモ用です。押した内容は、この端末の中だけに残ります。<br>
+  変更・キャンセルの決まりは、店ごとに決める所です。〈 〉は空欄にしています。当日に「行けなくなりました」と届いたあとの扱いも、店の決まりによります。<br>
+  「確認しました」や返事の記録は、あとで見返すためのものです。<br>
+  予約の受付と支払いは、このデモでは扱いません。今の予約のやり方（電話・LINE・予約の道具）は、そのまま使えます。<br>
+  電話での連絡は、今までどおりです。電話で確かめた分も、同じ一覧に残せます。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='shashin_demo_state';
+  var TOMORROW='1122';
+  var SLIP='📅 日時\n11月22日（日）10:00から。1時間ほど\n\n📍 場所\n○○神社。鳥居の前で待ち合わせ\n\n☔ 雨のとき\n前の日の夕方に、こちらからLINEでお知らせします。日にちを変える・店のスタジオで撮る・雨でも行う、から選べます\n\n🔁 変更・キャンセルの決まり\n日にちの変更は〈 〉日前まで。そのあとの変更・キャンセルは〈 〉\n（デモでは空欄です）';
+
+  function seed(){
+    return {
+      v:2,t1:1210,tA:540,t2:1020,t3:490,
+      filter:'all',
+      c1:{step:'confirm',log:[]},
+      c2:{step:'none',log:[],sent:''},
+      c3:{step:'menu',log:[]},
+      list:[
+        {id:1,name:'山田さま',kind:'七五三',dayK:'1122',when:'11/22（日）10:00',place:'○○神社（出張）',c1:'no',c1At:'',c1How:'',c1Re:'',c2:'none',c2At:'',c2How:'',c3:'',c3At:'',c3How:''},
+        {id:2,name:'佐藤さま',kind:'お宮参り',dayK:'1122',when:'11/22（日）13:30',place:'△△神社（出張）',c1:'yes',c1At:'11/08 21:02',c1How:'LINEで「確認しました」',c1Re:'',c2:'none',c2At:'',c2How:'',c3:'',c3At:'',c3How:''},
+        {id:3,name:'鈴木さま',kind:'家族写真',noLine:true,dayK:'1123',when:'11/23（月・祝）11:00',place:'店のスタジオ',c1:'no',c1At:'',c1How:'',c1Re:'',c2:'none',c2At:'',c2How:'',c3:'',c3At:'',c3How:''},
+        {id:4,name:'高橋さま',kind:'成人の前撮り',dayK:'1128',when:'11/28（土）9:30',place:'○○公園（出張）',c1:'yes',c1At:'11/12 12:40',c1How:'電話で確かめた',c1Re:'',c2:'none',c2At:'',c2How:'',c3:'',c3At:'',c3How:''},
+        {id:5,name:'田中さま',kind:'七五三',dayK:'1129',when:'11/29（日）10:00',place:'□□神社（出張）',c1:'no',c1At:'',c1How:'',c1Re:'',c2:'none',c2At:'',c2How:'',c3:'',c3At:'',c3How:''}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==2||!S.list||!S.c1||!S.c2||!S.c3){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function two(n){return (n<10?'0':'')+n;}
+  function hm(m){return two(Math.floor(m/60)%24)+':'+two(m%60);}
+  function stamp1(){S.t1+=2;return '11/15 '+hm(S.t1);}
+  function stampA(){S.tA+=4;return '11/16 '+hm(S.tA);}
+  function stamp2(){S.t2+=3;return '11/21 '+hm(S.t2);}
+  function stamp3(){S.t3+=2;return '11/22 '+hm(S.t3);}
+  function find(id){for(var i=0;i<S.list.length;i++){if(S.list[i].id===id){return S.list[i];}}return null;}
+  function goTo(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+  function btn(label,attr,act,cls){return '<button type="button" class="btn '+(cls||'')+'" '+attr+'="'+esc(act)+'">'+esc(label)+'</button>';}
+  function say(c,who,text,opt){c.log.push({who:who,text:text,slip:!!(opt&&opt.slip),auto:!!(opt&&opt.auto)});}
+  function chatHtml(c,emptyText){
+    var h='';
+    if(!c.log.length){return '<div class="wait">'+esc(emptyText)+'</div>';}
+    for(var i=0;i<c.log.length;i++){
+      var m=c.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble'+(m.slip?' slip':'')+'">'+esc(m.text);
+      if(m.auto){h+='<span class="auto">※ 決めておいた文が、自動で返ります</span>';}
+      h+='</div></div>';
+    }
+    return h;
+  }
+  function scrollLast(id){var c=$(id);if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}}
+
+  /* ---------- 1. 予約が決まった日 ---------- */
+  function start1(){
+    S.c1={step:'confirm',log:[]};
+    say(S.c1,'bot','山田さま、七五三の撮影のご予約、ありがとうございます。\nひつじ雲写真館です。\nご予約の中身を、あとで見返せるようにお送りします。\n\n'+SLIP+'\n\n読んでいただけたら「確認しました」を押してください。',{slip:true});
+    var r=find(1);if(r){r.c1='no';r.c1At='';r.c1How='';r.c1Re='';}
+  }
+  function renderChat1(){
+    var st=S.c1.step,h='';
+    $('chat1').innerHTML=chatHtml(S.c1,'');
+    if(st==='confirm'){
+      h=btn('確認しました','data-a1','ok','full fill')+btn('聞きたいことがある','data-a1','ask','full');
+    }else if(st==='ask'){
+      h=btn('📍 待ち合わせの場所','data-a1','q:place','full')+btn('🎒 持ち物','data-a1','q:items','full')+btn('そのほか（店から連絡がほしい）','data-a1','q:other','full');
+    }else if(st==='asked'){
+      h='<p class="hint">店の一覧に「質問あり」と残りました。</p>'+btn('▼ 店の一覧を見る','data-a1','goto:s3','full fill')+btn('もう一度、最初からやってみる','data-a1','again','full ghost');
+    }else if(st==='end'){
+      h=btn('▼ 前の日の1通を見る','data-a1','goto:s2','full fill')+btn('もう一度、最初からやってみる','data-a1','again','full ghost');
+    }
+    $('choices1').innerHTML=h;
+  }
+  function on1(act){
+    var p=act.split(':'),k=p[0],v=p[1]||'',c=S.c1,r=find(1);
+    if(k==='goto'){goTo(v);return;}
+    if(k==='ok'){
+      say(c,'me','確認しました');
+      say(c,'bot','ありがとうございます。\n前の日の夕方に、もう一度お知らせします。');
+      if(r){r.c1='yes';r.c1At=stamp1();r.c1How='LINEで「確認しました」';}
+      c.step='end';
+    }else if(k==='ask'){
+      say(c,'me','聞きたいことがある');say(c,'bot','何についてですか？');c.step='ask';
+    }else if(k==='q'){
+      if(v==='place'){
+        say(c,'me','📍 待ち合わせの場所');
+        say(c,'bot','鳥居の前の、灯ろうの横でお待ちしています。\n車は、神社の駐車場を使えます。\n（デモ用の文です）\n\nほかに無ければ、上の「確認しました」をどうぞ。',{auto:true});
+        c.step='confirm';
+      }else if(v==='items'){
+        say(c,'me','🎒 持ち物');
+        say(c,'bot','お子さまの着物一式と、歩きやすいはき物をお持ちください。\n（デモ用の文です）\n\nほかに無ければ、上の「確認しました」をどうぞ。',{auto:true});
+        c.step='confirm';
+      }else{
+        say(c,'me','そのほか（店から連絡がほしい）');
+        say(c,'bot','承知しました。あす、店からご連絡します。\nご確認は、そのあとでかまいません。',{auto:true});
+        if(r){r.c1='ask';r.c1At=stamp1();r.c1How='LINEで「聞きたいことがある」';}
+        c.step='asked';
+      }
+    }else if(k==='again'){
+      start1();
+    }
+    save();renderAll();scrollLast('chat1');
+  }
+
+  /* ---------- 2. 前の日の夕方 ---------- */
+  function countTomorrow(){var n=0;for(var i=0;i<S.list.length;i++){if(S.list[i].dayK===TOMORROW){n++;}}return n;}
+  function renderSend(){
+    var h='',n=countTomorrow();
+    if(!S.c2.sent){
+      h='<p>あした（11/22）の撮影は <b>'+n+'件</b> です。天気の見こみを選んで、確認の1通を送ります。押すのは1回です。店のスタジオで撮る人には、天気の行を付けずに送ります。</p><div class="send-row">'+btn('☀ 予定どおりで送る','data-send','fine','half fill')+btn('☔ 雨の見こみで送る','data-send','rain','half')+'</div>';
+    }else{
+      h='<div class="sent">11/21 17:00　'+n+'件に送りました（'+(S.c2.sent==='fine'?'☀ 予定どおり':'☔ 雨の見こみ')+'）</div><div class="send-row">'+btn('天気を選び直す（デモ用）','data-send','undo','full ghost')+'</div>';
+    }
+    $('sendBox').innerHTML=h;
+  }
+  function renderChat2(){
+    var st=S.c2.step,h='';
+    $('chat2').innerHTML=chatHtml(S.c2,'上のボタンで送ると、ここに届きます。');
+    if(st==='fine'){
+      h=btn('予定どおり行きます','data-a2','go','full fill')+btn('相談したいことがある','data-a2','talk','full');
+    }else if(st==='rain'){
+      h=btn('日にちを変えたい','data-a2','move','full')+btn('店のスタジオで撮る','data-a2','studio','full')+btn('雨でも予定どおり','data-a2','light','full');
+    }else if(st==='end'){
+      h=btn('▼ 店の一覧を見る','data-a2','goto:s3','full fill');
+    }
+    $('choices2').innerHTML=h;
+  }
+  function onSend(v){
+    var i,r;
+    if(v==='undo'){
+      S.c2={step:'none',log:[],sent:''};S.t2=1020;start3();
+      for(i=0;i<S.list.length;i++){r=S.list[i];if(r.dayK===TOMORROW){r.c2='none';r.c2At='';r.c2How='';}}
+    }else if(!S.c2.sent){
+      S.c2={step:v,log:[],sent:v};
+      for(i=0;i<S.list.length;i++){r=S.list[i];if(r.dayK===TOMORROW){r.c2='no';r.c2At='';r.c2How='';}}
+      if(v==='fine'){
+        say(S.c2,'bot','山田さま、あしたの撮影のご確認です。\n\n📅 11月22日（日）10:00から\n📍 ○○神社。鳥居の前\n☀ 予定どおり行います\n\nご都合はいかがですか？ お電話でのお返事でもかまいません。');
+      }else{
+        say(S.c2,'bot','山田さま、あしたの撮影のご確認です。\n\n📅 11月22日（日）10:00から\n📍 ○○神社。鳥居の前\n☔ あしたは雨の見こみです\n\nどうされますか？ お電話でのお返事でもかまいません。');
+      }
+    }
+    save();renderAll();scrollLast('chat2');
+  }
+  function on2(act){
+    var p=act.split(':'),k=p[0],c=S.c2,r=find(1);
+    if(k==='goto'){goTo(p[1]);return;}
+    if(!r){return;}
+    if(k==='go'){
+      say(c,'me','予定どおり行きます');
+      say(c,'bot','ありがとうございます。あした、鳥居の前でお待ちしています。\n当日おくれそうなときは、下のメニューかお電話で教えてください。');
+      r.c2='yes';r.c2How='LINEで「予定どおり行きます」';
+    }else if(k==='talk'){
+      say(c,'me','相談したいことがある');
+      say(c,'bot','承知しました。今日のうちに、店からお電話します。');
+      r.c2='ask';r.c2How='LINEで「相談したいことがある」';
+    }else if(k==='move'){
+      say(c,'me','日にちを変えたい');
+      say(c,'bot','承知しました。変えられる日を、今日のうちに店からお送りします。');
+      r.c2='ask';r.c2How='雨の見こみ：日にちを変えたい';
+    }else if(k==='studio'){
+      say(c,'me','店のスタジオで撮る');
+      say(c,'bot','承知しました。あした10:00に、店のスタジオでお待ちしています。');
+      r.c2='yes';r.c2How='雨の見こみ：店のスタジオで撮る';
+    }else if(k==='light'){
+      say(c,'me','雨でも予定どおり');
+      say(c,'bot','承知しました。あしたは、雨でも予定どおり行います。\n鳥居の前でお待ちしています。');
+      r.c2='yes';r.c2How='雨の見こみ：雨でも予定どおり';
+    }else{return;}
+    r.c2At=stamp2();c.step='end';
+    save();renderAll();scrollLast('chat2');
+  }
+
+  /* ---------- 3. 当日の朝 ---------- */
+  var LATE=['10分ほど','30分ほど','もっと・まだ分からない'];
+  function start3(){
+    S.c3={step:'menu',log:[]};S.t3=490;
+    var r=find(1);if(r){r.c3='';r.c3At='';r.c3How='';}
+  }
+  function renderChat3(){
+    var st=S.c3.step,h='',i,r=find(1);
+    $('chat3').innerHTML=chatHtml(S.c3,'トークの下のメニューから、いつでも押せます。店からは何も送りません。');
+    if(r&&r.c2How==='雨の見こみ：日にちを変えたい'&&st==='menu'){
+      h='<p class="hint">前の日に「日にちを変えたい」を選んだので、当日の連絡はありません。</p>';
+    }else if(st==='menu'){
+      h=btn('⏰ おくれそうです','data-a3','late','full')+btn('きょうは行けなくなりました','data-a3','cancel','full');
+    }else if(st==='late'){
+      for(i=0;i<LATE.length;i++){h+=btn(LATE[i],'data-a3','l:'+i,'full');}
+    }else if(st==='end'){
+      h='<p class="hint">店の人のスマホにも、すぐ知らせが届きます。一覧のいちばん上にも出ます。</p>'+btn('▼ 店の一覧を見る','data-a3','goto:s3','full fill')+btn('当日の連絡をやり直す（デモ用）','data-a3','redo','full ghost');
+    }
+    $('choices3').innerHTML=h;
+  }
+  function on3(act){
+    var p=act.split(':'),k=p[0],c=S.c3,r=find(1),n;
+    if(k==='goto'){goTo(p[1]);return;}
+    if(!r){return;}
+    if(k==='late'){
+      say(c,'me','⏰ おくれそうです');
+      say(c,'bot','お知らせ、ありがとうございます。\nどのくらいになりそうですか？',{auto:true});
+      c.step='late';
+    }else if(k==='l'){
+      n=parseInt(p[1],10)||0;
+      say(c,'me',LATE[n]||LATE[0]);
+      if(n<2){
+        say(c,'bot','ありがとうございます。あわてずに、気をつけてお越しください。\n'+((r.c2How||'').indexOf('スタジオ')>=0?'店のスタジオでお待ちしています。':'待ち合わせの場所でお待ちしています。'),{auto:true});
+        r.c3='late';
+      }else{
+        say(c,'bot','ありがとうございます。このあと、店からお電話します。',{auto:true});
+        r.c3='ask';
+      }
+      r.c3At=stamp3();r.c3How='おくれます（'+(LATE[n]||LATE[0])+'）';c.step='end';
+    }else if(k==='cancel'){
+      say(c,'me','きょうは行けなくなりました');
+      say(c,'bot','お知らせ、ありがとうございます。\nきょうの撮影は、いったん止めます。このあとのことは、店からお電話します。',{auto:true});
+      r.c3='ask';r.c3At=stamp3();r.c3How='きょうは行けなくなった';c.step='end';
+    }else if(k==='redo'){
+      start3();
+    }else{return;}
+    save();renderAll();scrollLast('chat3');
+  }
+
+  /* ---------- 4. 店の一覧 ---------- */
+  function isOpen(r){return r.c1==='no'||r.c1==='ask'||r.c2==='no'||r.c2==='ask'||r.c3==='ask'||(!!r.noLine&&r.c2==='none');}
+  function cmpList(a,b){return ((b.c3?1:0)-(a.c3?1:0))||(a.id-b.id);}
+  function renderList(){
+    var i,r,h='',done=0,open=0,shown=0;
+    for(i=0;i<S.list.length;i++){if(isOpen(S.list[i])){open++;}else{done++;}}
+    $('chips').innerHTML='<span class="chip todo">まだの人 <b>'+open+'</b></span><span class="chip">確認が済んだ人 <b>'+done+'</b></span>';
+    $('filter').innerHTML=btn('すべて','data-f','all','half'+(S.filter==='all'?' on':''))+btn('まだの人だけ','data-f','open','half'+(S.filter==='open'?' on':''));
+    var arr=S.list.slice().sort(cmpList);
+    for(i=0;i<arr.length;i++){
+      r=arr[i];
+      if(S.filter==='open'&&!isOpen(r)){continue;}
+      shown++;
+      h+='<div class="card'+(isOpen(r)?' todo':'')+'" id="r'+r.id+'">';
+      h+='<div class="card-top"><b>'+esc(r.when)+'</b><span class="kind">'+esc(r.kind)+'</span></div>';
+      h+='<h3>'+esc(r.name)+'</h3><p>'+esc(r.place)+'</p>';
+      if(r.noLine){h+='<p class="noline">LINEを使わない方。連絡は電話で</p>';}
+      /* 当日の連絡 */
+      if(r.c3){
+        h+='<div class="chk today"><span class="chk-name">当日の朝の連絡</span>';
+        if(r.c3==='ask'){
+          h+='<span class="status todo">'+esc(r.c3How)+'・店から電話する</span><span class="when">'+esc(r.c3At)+'</span>';
+          h+='<div class="card-act">'+btn('電話で話した','data-do','c3tel:'+r.id,'fill')+'</div>';
+        }else{
+          h+='<span class="status ok">'+esc(r.c3How)+'</span><span class="when">'+esc(r.c3At)+'</span>';
+        }
+        h+='</div>';
+      }
+      /* 予約のときの確認 */
+      h+='<div class="chk"><span class="chk-name">予約のときの確認（日時・場所・雨のとき・変更とキャンセルの決まり）</span>';
+      if(r.c1==='yes'){
+        h+='<span class="status ok">済み</span><span class="when">'+esc(r.c1At)+'　'+esc(r.c1How)+'</span>';
+      }else if(r.c1==='ask'){
+        h+='<span class="status todo">質問あり・店から連絡する</span><span class="when">'+esc(r.c1At)+'</span>';
+        h+='<div class="card-act">'+btn('電話で話して、確かめた','data-do','c1tel:'+r.id,'fill')+'</div>';
+      }else{
+        h+='<span class="status todo">まだ</span>';
+        if(r.c1Re){h+='<span class="when">'+esc(r.c1Re)+'　もう一度送った（1回だけ）</span><p class="resent">送った文：念のため、もう一度お送りします。ご確認がお済みでしたら、このままで大丈夫です。</p>';}
+        h+='<div class="card-act">'+((r.c1Re||r.noLine)?'':btn('もう一度送る','data-do','c1re:'+r.id,''))+btn('電話で確かめた','data-do','c1tel:'+r.id,'')+'</div>';
+      }
+      h+='</div>';
+      /* 前の日の確認 */
+      h+='<div class="chk"><span class="chk-name">前の日の確認</span>';
+      if(r.c2==='none'&&r.noLine){
+        h+='<span class="status">前の日に電話します</span>';
+        h+='<div class="card-act">'+btn('電話で確かめた','data-do','c2tel:'+r.id,'')+'</div>';
+      }else if(r.c2==='none'){
+        h+='<span class="status">前の日の夕方に送ります</span>';
+      }else if(r.c2==='yes'){
+        h+='<span class="status ok">済み</span><span class="when">'+esc(r.c2At)+'　'+esc(r.c2How)+'</span>';
+      }else if(r.c2==='ask'){
+        h+='<span class="status todo">店から連絡する</span><span class="when">'+esc(r.c2At)+'　'+esc(r.c2How)+'</span>';
+        h+='<div class="card-act">'+btn('電話で話して、決まった','data-do','c2tel:'+r.id,'fill')+'</div>';
+      }else{
+        h+='<span class="status todo">送った・返事はまだ</span>';
+        h+='<div class="card-act">'+btn('電話で確かめた','data-do','c2tel:'+r.id,'')+'</div>';
+      }
+      h+='</div></div>';
+    }
+    if(!shown){h='<div class="empty">まだの人は、いません。</div>';}
+    $('list').innerHTML=h;
+  }
+  function onDo(act){
+    var p=act.split(':'),k=p[0],r=find(parseInt(p[1],10));
+    if(!r){return;}
+    if(k==='c1re'){
+      r.c1Re=stampA();
+    }else if(k==='c1tel'){
+      r.c1='yes';r.c1At=stampA();r.c1How='電話で確かめた';
+      if(r.id===1&&S.c1.step!=='end'){
+        say(S.c1,'bot','お電話でのご確認、ありがとうございました。\n前の日の夕方に、もう一度お知らせします。');
+        S.c1.step='end';
+      }
+    }else if(k==='c3tel'){
+      r.c3='done';r.c3At=stamp3();r.c3How=r.c3How+'／電話で話した';
+    }else if(k==='c2tel'){
+      r.c2='yes';r.c2At=stamp2();r.c2How='電話で確かめた';
+      if(r.id===1&&S.c2.step!=='end'){
+        say(S.c2,'bot','お電話でのご確認、ありがとうございました。');
+        S.c2.step='end';
+      }
+    }
+    save();renderAll();
+  }
+  function onFilter(v){S.filter=(v==='open')?'open':'all';save();renderList();}
+
+  function renderAll(){renderChat1();renderSend();renderChat2();renderChat3();renderList();}
+
+  function onClick(ev){
+    var t=ev.target,a;
+    while(t&&t!==document){
+      if(t.getAttribute){
+        a=t.getAttribute('data-a1');if(a){on1(a);return;}
+        a=t.getAttribute('data-a2');if(a){on2(a);return;}
+        a=t.getAttribute('data-a3');if(a){on3(a);return;}
+        a=t.getAttribute('data-send');if(a){onSend(a);return;}
+        a=t.getAttribute('data-do');if(a){onDo(a);return;}
+        a=t.getAttribute('data-f');if(a){onFilter(a);return;}
+      }
+      t=t.parentNode;
+    }
+  }
+  function onReset(){S=seed();start1();save();renderAll();window.scrollTo(0,0);}
+
+  document.addEventListener('click',onClick);
+  $('btnReset').addEventListener('click',onReset);
+
+  load();
+  if(!S.c1.log.length){start1();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

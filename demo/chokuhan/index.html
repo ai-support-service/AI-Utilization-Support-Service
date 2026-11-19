@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>かぜまち果樹園（デモ）毎年のご注文を、去年の送り先から受ける</title>
+<style>
+:root{--main:#7B5E3B;--main-d:#56401f;--accent:#7FB069;--accent-d:#2f5220;--bg:#FAF7EF;--ink:#2f2618;--sub:#6b5f50;--line:#e0d8c8;--card:#ffffff;--chat:#ece6d6;--me:#b9e3a2;--warn:#b4430c;--ok:#2f6b2f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#16290d;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:14px;align-items:center}
+header.top svg{flex:none;width:58px;height:58px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:#efe6d6;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#3a3128;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+#chat{padding:12px 10px 4px;min-height:150px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:84%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:11px;color:var(--sub)}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+button.btn[disabled]{background:#efece4;color:var(--sub);border-color:var(--line);cursor:default}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.small{font-size:13px;padding:6px 10px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.mini-form{display:grid;gap:6px}
+.mini-form label{font-size:12px;color:var(--sub)}
+input[type=text],select{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.next-link{display:block;text-align:center;margin:12px 0 0;font-size:14px;font-weight:700;color:var(--main-d);padding:11px 0;min-height:44px}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.mine{border-left:5px solid var(--accent)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.route{font-weight:700;border-radius:6px;padding:1px 8px;font-size:12px;color:#fff}
+.route.line{background:#1d7a3e}.route.tel{background:#5f6b76}.route.fax{background:var(--main)}
+.card h3{margin:6px 0 4px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.item{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:14px;padding:6px 0;border-top:1px dashed var(--line)}
+.kind{flex:none;font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px}
+.kind.e{background:#e3efd8;color:var(--accent-d)}
+.kind.l{background:#f1e3cd;color:var(--main-d)}
+.mark{font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px;background:#efece4;color:var(--sub)}
+.mark.done{background:#dcefdc;color:var(--ok)}
+.mark.warn{background:#fbe6da;color:var(--warn)}
+.dm{font-size:11px;border:1px solid var(--line);border-radius:6px;padding:0 6px;color:var(--sub);background:#fff}
+.dm.chg,.dm.new{border-color:var(--main);color:var(--main-d);font-weight:700}
+.pay{margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+.notes{margin:8px 0 0;padding:6px 8px;font-size:12px;background:#f6f1e4;border-radius:6px;color:var(--sub)}
+.notes div{margin:1px 0}
+.add-box{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px;display:none}
+.add-box.open{display:block}
+.last-box{background:#f6f1e4;border-radius:8px;padding:8px 10px;font-size:14px;margin:4px 0 6px}
+.last-box p{margin:0 0 4px;font-size:12px;color:var(--sub)}
+.last-box div{margin:2px 0}
+/* season */
+.tabs{display:flex;gap:8px;margin-bottom:10px}
+.tab{flex:1;min-height:44px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:14px;padding:6px 8px}
+.tab.on{background:var(--main);color:#fff}
+.sum{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.sum p{margin:0 0 6px;font-size:14px}
+.sum b{font-size:18px}
+.bar{height:14px;border-radius:7px;background:#ece6d6;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar.over span{background:var(--warn)}
+.sum small{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px;margin-top:10px}
+th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f1eada;font-size:12px;color:var(--sub)}
+.ship-msg{margin-top:10px;font-size:14px;background:#e3efd8;color:var(--accent-d);border-radius:10px;padding:10px 12px;display:none}
+.ship-msg.open{display:block}
+.ship-msg a{color:var(--accent-d);font-weight:700}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+/* customers */
+.cust{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px}
+.cust h3{margin:0 0 4px;font-size:15px}
+.cust dl{margin:0;display:grid;grid-template-columns:52px 1fr;gap:2px 8px;font-size:13px}
+.cust dt{color:var(--sub);font-weight:700}
+.cust dd{margin:0}
+.cust.new{background:#f3f8ec;border-color:var(--accent)}
+/* examples */
+.eg{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;font-size:14px}
+.eg .tag{display:inline-block;font-size:11px;font-weight:700;background:#efe6d6;color:var(--main-d);border-radius:6px;padding:1px 7px;margin-right:6px}
+.eg b{font-size:15px}
+.eg p{margin:4px 0 0;color:var(--sub);font-size:13px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:88%}
+  .cust dl{grid-template-columns:48px 1fr}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「かぜまち果樹園」は架空の農園です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="梨の絵"><circle cx="30" cy="30" r="29" fill="#FAF7EF"/><path d="M30 17c-6 0-9 5-10 10-1 4-5 6-5 12 0 7 7 11 15 11s15-4 15-11c0-6-4-8-5-12-1-5-4-10-10-10z" fill="#d9c56b"/><path d="M30 17c1-4 3-6 5-7" stroke="#56401f" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M34 12c4-3 9-2 11 1-4 3-9 2-11-1z" fill="#7FB069"/><circle cx="25" cy="34" r="1" fill="#a8923d"/><circle cx="33" cy="40" r="1" fill="#a8923d"/><circle cx="36" cy="31" r="1" fill="#a8923d"/><circle cx="27" cy="43" r="1" fill="#a8923d"/></svg>
+  <div>
+    <h1>かぜまち果樹園</h1>
+    <p>毎年たのんでくれるお客さんの注文を、去年の送り先から受けます。LINEの人も、電話・FAXの人も、同じ一覧に入ります。</p>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>去年の送り先が、お客さんに届く</h2></div>
+  <p class="sec-lead">今年の梨の受付を始めた日です。去年たのんだ人に、去年の送り先がそのまま届きます。紙の案内を出している農園なら、同じ中身をLINEの人にも届ける形です。</p>
+  <span class="who">見ている人：お客さん（山田さま）</span>
+  <div class="phone">
+    <div class="phone-head"><b>かぜまち果樹園</b><span class="clock">8/25 9:05</span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <a class="next-link" href="#s2">▼ 農園の一覧を見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>LINEも電話・FAXも入る、注文の一覧</h2></div>
+  <p class="sec-lead">LINEの注文は、書き写さなくても、そのまま入ります。電話・FAX・注文用紙で受けた分も、同じ一覧に足せます。「去年と同じ」の分は、今の送り状の道具で、去年のまま出せます。</p>
+  <span class="who">見ている人：事務をしているご家族</span>
+  <div class="chips" id="chips"></div>
+  <button class="btn full" id="btnAdd" type="button">＋ 電話・FAXで受けた注文を足す</button>
+  <div class="add-box" id="addBox">
+    <div class="mini-form">
+      <label for="aWho">注文した人</label>
+      <select id="aWho"></select>
+      <label for="aRoute">受け方</label>
+      <select id="aRoute"><option value="tel">電話</option><option value="fax">FAX・注文用紙</option></select>
+      <div id="aLast"></div>
+      <div id="aNew" class="mini-form">
+        <label for="aName">お名前</label><input type="text" id="aName" value="小林さま">
+        <label for="aTo">送り先</label><input type="text" id="aTo" value="ご自宅（○○町）">
+        <label for="aKind">時期</label>
+        <select id="aKind"><option value="e">早い時期の梨（9月上旬）</option><option value="l">おそい時期の梨（10月上旬）</option></select>
+        <label for="aSize">箱</label>
+        <select id="aSize"><option value="0">3kg箱</option><option value="1">5kg箱</option></select>
+        <label for="aNum">数</label>
+        <select id="aNum"><option>1</option><option>2</option><option>3</option></select>
+        <button class="btn fill" id="btnAddOk" type="button">一覧に足す</button>
+      </div>
+    </div>
+  </div>
+  <div id="list"></div>
+  <a class="next-link" href="#s3">▼ 出荷の時期ごとの一覧を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>出荷の時期ごとに、箱の数が出る</h2></div>
+  <p class="sec-lead">1つの注文に、時期のちがう梨がまざっていても、出荷の時期ごとに分かれて並びます。受けた箱の数も、ここで見られます。「発送した」を押すのは、荷物を出し終わったあとの1回です。</p>
+  <span class="who">見ている人：箱づめをする人と、事務をしているご家族</span>
+  <div class="tabs">
+    <button class="tab" type="button" data-tab="e" id="tabE">早い時期（9月上旬）</button>
+    <button class="tab" type="button" data-tab="l" id="tabL">おそい時期（10月上旬）</button>
+  </div>
+  <div id="season"></div>
+  <div class="ship-msg" id="shipMsg"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>来年の受付のために残る記録</h2></div>
+  <p class="sec-lead">だれが・どこへ・どの時期に・何箱、が年ごとに残ります。来年の受付は、ここから始められます。住所そのものは、今の送り状の道具に入ったままで、ここには写しません。</p>
+  <span class="who">見ている人：事務をしているご家族</span>
+  <input type="text" id="q" placeholder="お名前で探す（例：山田）" aria-label="お名前で探す">
+  <div id="custs"></div>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の3つは動かない見本です。</p>
+  <div class="eg"><span class="tag">例</span><b>水揚げのあった日だけの知らせ</b><p>漁師さん向け。港でボタンを1つ押すと、たのんでいる人に「今日はあります」が届きます。出られない日は「今日はお休みです」。</p></div>
+  <div class="eg"><span class="tag">例</span><b>レシートを送ると、経費の一覧にたまる</b><p>箱・資材・送料のレシートをLINEに送ると、日付と中身が表に並びます。</p></div>
+  <div class="eg"><span class="tag">例</span><b>届いたあとの写真の受け口</b><p>「気になる所があった」ときに、お客さんが写真を送れます。日付つきで、その注文の記録に残ります。</p></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  農園の名前とお客さまの名前は架空です。押した内容は、この端末の中だけに残ります。日付と時刻はデモ用で、本物ではありません。お代の欄は、デモでは空欄にしています。<br>
+  電話・FAX・注文用紙は、今のまま使えます。LINEの注文は、それに足すものです。送り状は、今お使いの道具でそのまま出します。この仕組みは送り状を出しません。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='chokuhan_demo_state';
+  var K={
+    e:{name:'早い時期の梨',ship:'9月上旬',cap:12,date:'9/5'},
+    l:{name:'おそい時期の梨',ship:'10月上旬',cap:8,date:'10/6'}
+  };
+  var SIZE=['3kg箱','5kg箱'];
+  function box(it){return SIZE[it.s]+'×'+it.n;}
+  var ROUTE={line:'LINE',tel:'電話',fax:'FAX・注文用紙'};
+  var ME='山田さま';
+
+  function seed(){
+    return {
+      v:2,seq:4,clock:0,tab:'e',myOrder:0,skipped:false,
+      flow:{step:'start',i:0,items:[],k:''},
+      log:[],
+      cust:[
+        {name:'山田さま',last:[{to:'ご自宅（○○町）',k:'e',s:1,n:1},{to:'ご実家（○○市）',k:'e',s:1,n:1},{to:'中村さま（○○町）',k:'l',s:0,n:1}]},
+        {name:'鈴木さま',last:[{to:'ご自宅（○○町）',k:'e',s:1,n:2},{to:'田中さま（○○市）',k:'e',s:0,n:1}]},
+        {name:'高橋さま',last:[{to:'ご自宅（○○市）',k:'l',s:0,n:2}]},
+        {name:'佐藤さま',last:[{to:'ご自宅（○○町）',k:'e',s:1,n:2},{to:'伊藤さま（○○市）',k:'e',s:1,n:1},{to:'渡辺さま（○○町）',k:'e',s:1,n:1}]},
+        {name:'吉田さま',last:[{to:'ご自宅（○○町）',k:'l',s:1,n:1}]}
+      ],
+      orders:[
+        {id:1,route:'fax',time:'8/23 FAX',name:'鈴木さま',paid:false,paidAt:'',notes:[],items:[
+          {to:'ご自宅（○○町）',k:'e',s:1,n:2,addr:false,shipped:''},
+          {to:'田中さま（○○市）',k:'e',s:0,n:1,addr:false,shipped:''},
+          {to:'井上さま（○○町）',k:'l',s:1,n:1,addr:false,shipped:''}]},
+        {id:2,route:'tel',time:'8/24 電話',name:'高橋さま',paid:false,paidAt:'',notes:[],items:[
+          {to:'ご自宅（○○市）',k:'l',s:0,n:2,addr:false,shipped:''}]},
+        {id:3,route:'line',time:'8/25 8:40',name:'佐藤さま',paid:true,paidAt:'8/25 8:55',notes:[],items:[
+          {to:'ご自宅（○○町）',k:'e',s:1,n:2,addr:false,shipped:''},
+          {to:'伊藤さま（○○市）',k:'e',s:1,n:1,addr:false,shipped:''},
+          {to:'渡辺さま（○○町）',k:'e',s:1,n:1,addr:false,shipped:''}]}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==2||!S.orders||!S.flow||!S.cust){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function stamp(){
+    S.clock+=4;
+    var m=9*60+5+S.clock,h=Math.floor(m/60),mm=m%60;
+    return '8/25 '+h+':'+(mm<10?'0':'')+mm;
+  }
+  function itemText(it){return it.to+'　'+K[it.k].name+'・'+box(it);}
+  function itemLines(it){return it.to+'\n　'+K[it.k].name+'・'+box(it);}
+  function findCust(name){for(var i=0;i<S.cust.length;i++){if(S.cust[i].name===name){return S.cust[i];}}return null;}
+  function findOrder(id){for(var i=0;i<S.orders.length;i++){if(S.orders[i].id===id){return S.orders[i];}}return null;}
+  function boxes(k){
+    var n=0;
+    for(var i=0;i<S.orders.length;i++){for(var j=0;j<S.orders[i].items.length;j++){var it=S.orders[i].items[j];if(it.k===k){n+=it.n;}}}
+    return n;
+  }
+  function left(k){return K[k].cap-boxes(k);}
+  function diffOf(name,it){
+    var c=findCust(name),i;
+    if(!c){return 'new';}
+    if(it.moved){return 'chg';}
+    for(i=0;i<c.last.length;i++){
+      if(c.last[i].to===it.to){var d=c.last[i];return (d.k===it.k&&d.s===it.s&&d.n===it.n)?'same':'chg';}
+    }
+    return 'new';
+  }
+  var DIFF={same:'去年と同じ',chg:'去年から変更',new:'今年から'};
+
+  /* ---------- 1. お客さんのLINE ---------- */
+  function say(who,text,auto){S.log.push({who:who,text:text,auto:auto||''});}
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.auto){h+='<span class="auto">'+esc(m.auto)+'</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function kindBtn(k,label){
+    var n=left(k);
+    if(n>0){return btn(label+'<br>残り'+n+'箱','kind:'+k,'half');}
+    return '<button type="button" class="btn half" disabled>'+label+'<br>いっぱいです</button>';
+  }
+  function renderChoices(){
+    var st=S.flow.step,h='';
+    if(st==='start'){
+      h=btn('全部、去年と同じで注文する','allsame','full fill')+btn('1件ずつ決める','begin','full')+btn('今年は見送る','skipall','full');
+    }else if(st==='dest'){
+      h=btn('今年も同じで送る','same','half fill')+btn('中身を変える','change','half')+btn('今年は送らない','none','half')+btn('住所が変わった','moved','half');
+    }else if(st==='kind'){
+      h=kindBtn('e','早い時期<br>9月上旬')+kindBtn('l','おそい時期<br>10月上旬')+btn('前にもどる','back','full ghost');
+    }else if(st==='size'){
+      h=btn('3kg箱','size:0','half')+btn('5kg箱','size:1','half');
+    }else if(st==='confirm'){
+      h=btn('この内容で注文する','ok','full fill')+btn('最初からやり直す','again','full ghost');
+    }else if(st==='end'){
+      h=btn('▼ 農園の一覧を見る','goto:s2','full fill')+btn('もう一度、最初からやってみる','again','full ghost')+'<p class="hint">やり直すと、いま入れた山田さまの注文は取り消されます。</p>';
+    }else if(st==='end0'){
+      h=btn('▼ お客さんごとの記録を見る','goto:s4','full fill')+btn('もう一度、最初からやってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function lastOf(){var c=findCust(ME);return c?c.last:[];}
+  function askDest(){
+    var ls=lastOf(),d=ls[S.flow.i];
+    say('bot','（'+(S.flow.i+1)+'／'+ls.length+'）'+d.to+'\n去年：'+K[d.k].name+'・'+box(d)+'\n\n今年はどうしますか？');
+    S.flow.step='dest';
+  }
+  function nextDest(){
+    var ls=lastOf();
+    S.flow.i++;
+    if(S.flow.i<ls.length){askDest();return;}
+    if(!S.flow.items.length){
+      say('bot','今年のお届けは0件になりました。\n山田さまの記録に「今年は見送り」と残しました。\n気が変わったときは、このLINEか電話でどうぞ。');
+      S.skipped=true;S.flow.step='end0';return;
+    }
+    var t='【ご注文の中身】';
+    for(var i=0;i<S.flow.items.length;i++){t+='\n・'+itemLines(S.flow.items[i])+(S.flow.items[i].addr?'\n　（住所は確認待ち）':'');}
+    t+='\nお代：〈 〉円（デモでは空欄）\n\nこの内容でよろしいですか？';
+    say('bot',t);S.flow.step='confirm';
+  }
+  function dropMine(){
+    if(!S.myOrder){return;}
+    var out=[];
+    for(var i=0;i<S.orders.length;i++){if(S.orders[i].id!==S.myOrder){out.push(S.orders[i]);}}
+    S.orders=out;S.myOrder=0;
+  }
+  function startFlow(){
+    dropMine();
+    S.skipped=false;
+    S.flow={step:'start',i:0,items:[],k:''};
+    S.log=[];
+    var ls=lastOf();
+    var t='かぜまち果樹園です。\n山田さま、今年の梨の受付を始めました。\n\n去年のお届けは、'+ls.length+'件でした。';
+    for(var i=0;i<ls.length;i++){t+='\n・'+itemLines(ls[i]);}
+    t+='\n\n電話・FAXでも、今までどおり受けています。';
+    say('bot',t);
+  }
+  function onChoice(act){
+    var p=act.split(':'),k=p[0],v=p.slice(1).join(':'),ls=lastOf(),d=ls[S.flow.i];
+    if(k==='begin'){
+      say('me','1件ずつ決める');S.flow.i=0;askDest();
+    }else if(k==='allsame'){
+      say('me','全部、去年と同じで注文する');
+      S.flow.items=[];
+      for(var a=0;a<ls.length;a++){S.flow.items.push({to:ls[a].to,k:ls[a].k,s:ls[a].s,n:ls[a].n,addr:false,shipped:''});}
+      S.flow.i=ls.length-1;nextDest();
+    }else if(k==='back'){
+      S.log.pop();S.log.pop();S.flow.step='dest';
+    }else if(k==='skipall'){
+      say('me','今年は見送る');
+      say('bot','承知しました。\n山田さまの記録に「今年は見送り」と残しました。\n気が変わったときは、このLINEか電話でどうぞ。','※ ここまで自動で返ります');
+      S.skipped=true;S.flow.step='end0';
+    }else if(k==='same'){
+      say('me','今年も同じで送る');
+      S.flow.items.push({to:d.to,k:d.k,s:d.s,n:d.n,addr:false,shipped:''});nextDest();
+    }else if(k==='change'){
+      say('me','中身を変える');say('bot','どちらの時期にしますか？');S.flow.step='kind';
+    }else if(k==='kind'){
+      S.flow.k=v;say('me',K[v].name+'（'+K[v].ship+'）');say('bot','箱の大きさは、どちらにしますか？');S.flow.step='size';
+    }else if(k==='size'){
+      var s=parseInt(v,10);
+      say('me',SIZE[s]);
+      S.flow.items.push({to:d.to,k:S.flow.k,s:s,n:1,addr:false,shipped:''});nextDest();
+    }else if(k==='none'){
+      say('me','今年は送らない');nextDest();
+    }else if(k==='moved'){
+      say('me','住所が変わった');
+      say('bot','新しい住所は、このLINEに書いて送るか、電話でお知らせください。\n農園で確認するまで、このお届け先は「住所の確認待ち」になります。');
+      S.flow.items.push({to:d.to,k:d.k,s:d.s,n:d.n,addr:true,moved:true,shipped:''});nextDest();
+    }else if(k==='ok'){
+      say('me','この内容で注文する');
+      var o={id:S.seq++,route:'line',time:stamp(),name:ME,paid:false,paidAt:'',notes:[],items:S.flow.items.slice()};
+      S.orders.push(o);S.myOrder=o.id;S.skipped=false;
+      var t='山田さま、ご注文を受けました。\n【控え】';
+      for(var i=0;i<o.items.length;i++){t+='\n・'+itemLines(o.items[i])+(o.items[i].addr?'\n　（住所は確認待ち）':'');}
+      t+='\n\n発送したら、このLINEでお知らせします。\n※ 天候で、発送の時期が前後することがあります。';
+      say('bot',t,'※ ここまで自動で返ります。農園の一覧にも、同じ中身が入ります');
+      S.flow.step='end';
+    }else if(k==='goto'){
+      var el=$(v);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}
+      return;
+    }else if(k==='again'){
+      startFlow();hideShipMsg();
+    }
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  /* ---------- 2. 注文の一覧 ---------- */
+  function renderList(){
+    var unpaid=0,addr=0,i,j;
+    for(i=0;i<S.orders.length;i++){
+      if(!S.orders[i].paid){unpaid++;}
+      for(j=0;j<S.orders[i].items.length;j++){if(S.orders[i].items[j].addr){addr++;}}
+    }
+    $('chips').innerHTML='<span class="chip">注文 <b>'+S.orders.length+'</b>件</span><span class="chip">入金まだ <b>'+unpaid+'</b></span><span class="chip'+(addr?' todo':'')+'">住所の確認待ち <b>'+addr+'</b></span>';
+    var arr=S.orders.slice().sort(function(a,b){return b.id-a.id;});
+    var h='';
+    for(i=0;i<arr.length;i++){
+      var o=arr[i];
+      h+='<div class="card'+(o.id===S.myOrder?' mine':'')+'">';
+      h+='<div class="card-top"><span class="route '+o.route+'">'+ROUTE[o.route]+'</span><span>'+esc(o.time)+'</span></div>';
+      h+='<h3>'+esc(o.name)+'</h3>';
+      for(j=0;j<o.items.length;j++){
+        var it=o.items[j];
+        h+='<div class="item"><span class="kind '+it.k+'">'+(it.k==='e'?'早い':'おそい')+'</span><span>'+esc(it.to)+'　'+box(it)+'</span>';
+        var df=diffOf(o.name,it);
+        h+='<span class="dm '+df+'">'+DIFF[df]+'</span>';
+        if(it.addr){h+='<span class="mark warn">住所の確認待ち</span><button type="button" class="btn small" data-addr="'+o.id+':'+j+'">住所を確認した</button>';}
+        else if(it.shipped){h+='<span class="mark done">発送済み '+esc(it.shipped)+'</span>';}
+        else{h+='<span class="mark">未発送</span>';}
+        h+='</div>';
+      }
+      h+='<div class="pay">';
+      if(o.paid){h+='<span class="mark done">入金あり '+esc(o.paidAt)+'</span>';}
+      else{h+='<span class="mark">入金まだ</span><button type="button" class="btn small" data-paid="'+o.id+'">入金を確認した</button>';}
+      h+='</div>';
+      if(o.notes.length){
+        h+='<div class="notes">';
+        for(j=0;j<o.notes.length;j++){h+='<div>'+esc(o.notes[j])+'</div>';}
+        h+='</div>';
+      }
+      h+='</div>';
+    }
+    $('list').innerHTML=h;
+  }
+  function onPaid(id){
+    var o=findOrder(id);if(!o){return;}
+    o.paid=true;o.paidAt=stamp();
+    save();renderAll();
+  }
+  function onAddr(v){
+    var p=v.split(':'),o=findOrder(parseInt(p[0],10)),j=parseInt(p[1],10);
+    if(!o||!o.items[j]){return;}
+    o.items[j].addr=false;
+    o.notes.push(o.items[j].to+'の住所を確認した（'+stamp()+'）');
+    save();renderAll();
+  }
+  function hasOrder(name){for(var i=0;i<S.orders.length;i++){if(S.orders[i].name===name){return true;}}return false;}
+  function renderAddBox(){
+    var sel=$('aWho'),cur=sel.value,h='',i,ok=false;
+    for(i=0;i<S.cust.length;i++){
+      var c=S.cust[i];
+      if(c.name===ME||hasOrder(c.name)){continue;}
+      h+='<option value="'+esc(c.name)+'">'+esc(c.name)+'（去年 '+c.last.length+'件）</option>';
+      if(c.name===cur){ok=true;}
+    }
+    h+='<option value="new">去年の注文がない人</option>';
+    sel.innerHTML=h;
+    if(ok||cur==='new'){sel.value=cur;}
+    var c2=findCust(sel.value);
+    if(c2&&sel.value!=='new'){
+      var t='<div class="last-box"><p>去年の送り先</p>';
+      for(i=0;i<c2.last.length;i++){t+='<div>'+esc(itemText(c2.last[i]))+'</div>';}
+      t+='</div><button class="btn fill full" id="btnAddSame" type="button" data-addsame="1">去年と同じで足す</button>';
+      $('aLast').innerHTML=t;$('aLast').style.display='';$('aNew').style.display='none';
+    }else{
+      $('aLast').innerHTML='';$('aLast').style.display='none';$('aNew').style.display='';
+    }
+  }
+  function onAddSame(){
+    var c=findCust($('aWho').value),r=$('aRoute').value,items=[],i;
+    if(!c){return;}
+    for(i=0;i<c.last.length;i++){items.push({to:c.last[i].to,k:c.last[i].k,s:c.last[i].s,n:c.last[i].n,addr:false,shipped:''});}
+    S.orders.push({id:S.seq++,route:r,time:stamp()+' '+(r==='tel'?'電話':'FAX'),name:c.name,paid:false,paidAt:'',notes:[],items:items});
+    $('addBox').className='add-box';
+    save();renderAll();
+  }
+  function onAdd(){
+    var n=$('aName').value||'お名前なし',to=$('aTo').value||'ご自宅',r=$('aRoute').value,k=$('aKind').value;
+    var s=parseInt($('aSize').value,10),num=parseInt($('aNum').value,10)||1;
+    if(!/さま$/.test(n)){n+='さま';}
+    S.orders.push({id:S.seq++,route:r,time:stamp()+' '+(r==='tel'?'電話':'FAX'),name:n,paid:false,paidAt:'',notes:[],items:[{to:to,k:k,s:s,n:num,addr:false,shipped:''}]});
+    $('addBox').className='add-box';
+    save();renderAll();
+  }
+
+  /* ---------- 3. 出荷の時期ごとの一覧 ---------- */
+  function renderSeason(){
+    var k=S.tab,kk=K[k],i,j,rows='',wait=0,total=boxes(k),lf=kk.cap-total;
+    $('tabE').className='tab'+(k==='e'?' on':'');
+    $('tabL').className='tab'+(k==='l'?' on':'');
+    for(i=0;i<S.orders.length;i++){
+      var o=S.orders[i];
+      for(j=0;j<o.items.length;j++){
+        var it=o.items[j];
+        if(it.k!==k){continue;}
+        var mk;
+        if(it.addr){mk='<span class="mark warn">住所の確認待ち</span>';}
+        else if(it.shipped){mk='<span class="mark done">発送済み '+esc(it.shipped)+'</span>';}
+        else{mk='<span class="mark">未発送</span>';wait++;}
+        rows+='<tr><td>'+esc(it.to)+'</td><td>'+box(it)+'</td><td>'+esc(o.name)+'<br>'+(o.route==='fax'?'FAX':ROUTE[o.route])+'</td><td>'+mk+'</td></tr>';
+      }
+    }
+    var pct=Math.min(100,Math.round(total*100/kk.cap));
+    var h='<div class="sum"><p>'+kk.name+'（'+kk.ship+'）</p><p>受けた箱 <b>'+total+'</b>箱 ／ 受けられる目安 '+kk.cap+'箱<br>'+(lf>=0?('残り <b>'+lf+'</b>箱'):('目安より <b>'+(-lf)+'</b>箱多い'))+'</p>';
+    h+='<div class="bar'+(lf<0?' over':'')+'"><span style="width:'+pct+'%"></span></div>';
+    h+='<small>受けられる目安の数は、デモ用に決めた数です。お客さんのLINEの「中身を変える」にも、同じ残りが出ます。</small></div>';
+    h+=rows?('<table><thead><tr><th>送り先</th><th>箱</th><th>だれから</th><th>発送</th></tr></thead><tbody>'+rows+'</tbody></table>'):'<div class="empty">この時期の注文は、まだありません。</div>';
+    if(wait){h+='<div style="margin-top:10px"><button type="button" class="btn fill full" data-ship="'+k+'">未発送の'+wait+'件を「発送した」にする</button></div>';}
+    $('season').innerHTML=h;
+  }
+  function hideShipMsg(){$('shipMsg').className='ship-msg';$('shipMsg').innerHTML='';}
+  function onShip(k){
+    var kk=K[k],cnt=0,lineCnt=0,mine=false,i,j;
+    for(i=0;i<S.orders.length;i++){
+      var o=S.orders[i],got=[];
+      for(j=0;j<o.items.length;j++){
+        var it=o.items[j];
+        if(it.k===k&&!it.shipped&&!it.addr){it.shipped=kk.date;got.push(it);cnt++;}
+      }
+      if(!got.length){continue;}
+      if(o.route==='line'){
+        lineCnt++;
+        o.notes.push(kk.name+'を発送（'+kk.date+'）。LINEで知らせた');
+        if(o.id===S.myOrder){
+          mine=true;
+          var t='山田さま、今日、'+kk.name+'を発送しました。\n【お届け先】';
+          for(j=0;j<got.length;j++){t+='\n・'+got[j].to+'　'+box(got[j]);}
+          t+='\n\n何かあれば、このLINEか電話でお知らせください。';
+          say('bot',t,'※ 農園が「発送した」を押すと、自動で届きます（'+kk.date+'）');
+        }
+      }else{
+        o.notes.push(kk.name+'を発送（'+kk.date+'）。知らせは無し（'+ROUTE[o.route]+'のお客さん）');
+      }
+    }
+    save();renderAll();
+    var m=cnt+'件を「発送済み」にしました。LINEのお客さん'+lineCnt+'人に、知らせが届きました。電話・FAXのお客さんには届きません。';
+    if(mine){m+='<br><a href="#s1">▲ 山田さまのLINEに届いた知らせを見る</a>';}
+    $('shipMsg').innerHTML=m;$('shipMsg').className='ship-msg open';
+  }
+
+  /* ---------- 4. お客さんごとの記録 ---------- */
+  function listText(items){
+    if(!items.length){return '';}
+    var t='',n=0;
+    for(var i=0;i<items.length;i++){t+=(i?'<br>':'')+esc(items[i].to)+'　'+(items[i].k==='e'?'早い':'おそい')+'・'+box(items[i]);n+=items[i].n;}
+    return items.length+'件・'+n+'箱<br>'+t;
+  }
+  function renderCusts(){
+    var q=($('q').value||'').replace(/\s/g,''),names=[],i,j,h='';
+    for(i=0;i<S.cust.length;i++){names.push(S.cust[i].name);}
+    for(i=0;i<S.orders.length;i++){if(names.indexOf(S.orders[i].name)<0){names.push(S.orders[i].name);}}
+    for(i=0;i<names.length;i++){
+      var nm=names[i];
+      if(q&&nm.indexOf(q)<0){continue;}
+      var c=findCust(nm),now=[],paid='';
+      for(j=0;j<S.orders.length;j++){
+        if(S.orders[j].name===nm){now=now.concat(S.orders[j].items);paid=S.orders[j].paid?'あり':'まだ';}
+      }
+      var nowT=now.length?listText(now):((nm===ME&&S.skipped)?'今年は見送り':'まだ注文なし');
+      h+='<div class="cust'+((nm===ME&&S.myOrder)?' new':'')+'"><h3>'+esc(nm)+'</h3><dl>';
+      h+='<dt>去年</dt><dd>'+(c?listText(c.last):'なし（今年から）')+'</dd>';
+      h+='<dt>今年</dt><dd>'+nowT+'</dd>';
+      if(now.length){h+='<dt>入金</dt><dd>'+paid+'</dd>';}
+      h+='</dl></div>';
+    }
+    $('custs').innerHTML=h||'<div class="empty">当てはまるお客さんはいません。</div>';
+  }
+
+  function renderAll(){renderChat();renderChoices();renderList();renderAddBox();renderSeason();renderCusts();}
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target,names=['data-act','data-paid','data-addr','data-ship','data-tab','data-addsame'],hit='',i;
+    while(t&&t!==document){
+      if(t.getAttribute){
+        for(i=0;i<names.length;i++){if(t.getAttribute(names[i])){hit=names[i];break;}}
+        if(hit){break;}
+      }
+      t=t.parentNode;
+    }
+    if(!hit){return;}
+    var v=t.getAttribute(hit);
+    if(hit==='data-act'){onChoice(v);}
+    else if(hit==='data-paid'){onPaid(parseInt(v,10));}
+    else if(hit==='data-addr'){onAddr(v);}
+    else if(hit==='data-ship'){onShip(v);}
+    else if(hit==='data-addsame'){onAddSame();}
+    else if(hit==='data-tab'){S.tab=v;hideShipMsg();save();renderSeason();}
+  });
+  $('btnAdd').addEventListener('click',function(){var b=$('addBox');b.className=(b.className.indexOf('open')>=0)?'add-box':'add-box open';});
+  $('btnAddOk').addEventListener('click',onAdd);
+  $('aWho').addEventListener('change',renderAddBox);
+  $('q').addEventListener('input',renderCusts);
+  $('btnReset').addEventListener('click',function(){S=seed();startFlow();hideShipMsg();$('q').value='';save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  if(!S.log||!S.log.length){startFlow();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

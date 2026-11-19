@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ごはん処 はつづき（デモ）今日の出た数から、あすの仕込みと発注の目安</title>
+<style>
+:root{--main:#8C3B3B;--main-d:#6a2a2a;--accent:#E3B55A;--bg:#FBF6EE;--ink:#33261f;--sub:#6b5a50;--line:#e4d9c9;--card:#ffffff;--chat:#efe6d8;--me:#a6e89b;--tint:#f6e9e6;--acc-l:#fbf1d9;--acc-d:#4a3508;--warn:#a8452a;--ok:#2f6f4f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:var(--acc-d);font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:12px;align-items:center}
+header.top svg{flex:none;width:52px;height:52px}
+header.top h1{margin:0;font-size:20px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:28px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--tint);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:var(--ink);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+.chat{padding:12px 10px 4px;min-height:90px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:86%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.third{flex:1 1 calc(33% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.next-link{display:block;text-align:center;margin:12px 0 0;font-size:14px;font-weight:700;color:var(--main-d);min-height:44px;line-height:44px}
+/* counter rows */
+.cnt{flex-basis:100%;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.cnt .nm{font-size:14px;font-weight:700;display:block;margin-bottom:6px}
+.cnt .row{display:flex;align-items:center;gap:8px}
+.step{width:44px;height:44px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-size:20px;font-weight:700;line-height:1}
+.num{min-width:54px;text-align:center;font-size:19px;font-weight:700}
+.num small{font-size:12px;font-weight:400;color:var(--sub);margin-left:2px}
+.so{margin-left:auto;min-height:44px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--sub);font-size:13px}
+.so.on{background:var(--acc-l);border-color:var(--accent);color:var(--acc-d);font-weight:700}
+/* plan */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card h3{margin:0 0 4px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.why{font-size:12px;color:var(--sub);margin:2px 0 8px}
+.flag{display:inline-block;font-size:12px;font-weight:700;background:var(--acc-l);border:1px solid var(--accent);color:var(--acc-d);border-radius:6px;padding:0 6px;margin-left:6px}
+.how{background:var(--acc-l);border:1px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--acc-d)}
+.how b{display:block;margin-bottom:2px}
+.shop{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+.shop b{font-size:14px}
+.shop ul{margin:4px 0 0;padding-left:18px;font-size:14px}
+.memo{margin-top:6px;background:var(--tint);border-radius:8px;padding:8px 10px;font-size:13px;white-space:pre-line}
+.sent-line{margin-top:10px;font-size:14px;font-weight:700;color:var(--ok)}
+.card-act{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--tint);font-size:12px;color:var(--main-d)}
+td.r,th.r{text-align:right;white-space:nowrap}
+td small{font-size:12px;color:var(--sub)}
+tr.new td{background:var(--acc-l)}
+/* examples */
+.ex{background:var(--card);border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px}
+.ex b{font-size:15px}
+.ex p{margin:4px 0 0;font-size:14px;color:var(--sub)}
+.ex-tag{display:inline-block;font-size:12px;font-weight:700;background:var(--accent);color:var(--acc-d);border-radius:6px;padding:1px 8px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:28px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:92%}
+  th,td{padding:7px 5px}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「ごはん処 はつづき」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 52 52" role="img" aria-label="茶わんと月の絵（デモ用）"><circle cx="26" cy="26" r="25" fill="#fff"/><circle cx="37" cy="14" r="6" fill="#E3B55A"/><path d="M11 27 h30 a15 13 0 0 1 -30 0 z" fill="#8C3B3B"/><rect x="21" y="40" width="10" height="3" rx="1" fill="#6a2a2a"/><path d="M17 23 q3 -5 0 -9 M24 23 q3 -5 0 -9" fill="none" stroke="#6b5a50" stroke-width="2" stroke-linecap="round"/></svg>
+  <div>
+    <h1>ごはん処 はつづき</h1>
+    <p>閉店後に今日の出た数を入れると、あすの仕込みと発注の目安が出ます。数を決めるのは店主で、発注は自動では送りません。</p>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>閉店後。今日の出た数を、店主がLINEに入れる</h2></div>
+  <p class="sec-lead">店を閉めたあと、LINEに今日の出た数を入れます。あすの天気を選ぶと、目安が返ります。レジに品ごとの数が出る店は、ここは打たずに、その数を使う形にできます。</p>
+  <span class="who">見ている人：店主</span>
+  <div class="phone">
+    <div class="phone-head"><b>はつづき 仕込みメモ</b><span class="clock">11/19（木）21:35</span></div>
+    <div class="chat" id="chat"></div>
+    <div class="choices" id="choices"></div>
+  </div>
+  <a class="next-link" href="#s2">▼ あすの仕込みと発注の目安を見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>あすの仕込みと発注の目安。店主が直して決める</h2></div>
+  <p class="sec-lead">目安は、＋と−で直せます。数を決めるのは店主です。食材の量は、決めた数から出ます。</p>
+  <span class="who">見ている人：店主</span>
+  <div id="plan"></div>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>目安と、実際に出た数。外れた日も残る</h2></div>
+  <p class="sec-lead">出した目安と、実際に出た数が、日ごとに並びます。外れた日も、そのまま残ります。</p>
+  <span class="who">見ている人：店主</span>
+  <div id="hist"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の3つは動かない見本です。</p>
+  <div class="ex"><b><span class="ex-tag">例</span>予約の人数を目安に足す</b><p>あすの予約の人数を入れると、その分が目安に足されます。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>仕入れ先ごとの締め時間の知らせ</b><p>締め時間の前に、まだ頼んでいない仕入れ先が1通で届きます。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>仕入れ先に頼んだ中身の控え</b><p>いつ・どこに・何をいくつ頼んだかが、仕入れ先ごとに並びます。</p></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店の名前は架空です。出た数・天気・1食あたりの食材の量は、デモ用に決めたものです。押した内容は、この端末の中だけに残ります。<br>
+  目安は、これまでの数から出したものです。当たるとは限りません。決めるのは店主です。発注は自動では送りません。<br>
+  出た数の入れ方（ボタン・伝票の数・レジの記録）は、店に合わせて変えられます。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='hatsuzuki_demo_state';
+  var ITEMS=['日替わり定食','から揚げ定食','焼き魚定食','カレーライス','だし巻き玉子'];
+  var UNIT=['食','食','食','皿','本'];
+  var BASE=[26,18,12,10,8];
+  var DOW=['月','火','水','木','金','土'];
+  var DOWMUL=[0.9,0.95,1,1,1.2,1.1];
+  var WXN={s:'☀ 晴れ',c:'☁ くもり',r:'☔ 雨'};
+  var WXMUL={s:1.04,c:0.97,r:0.8};
+  var DATES=['10/22','10/23','10/24','10/26','10/27','10/28','10/29','10/30','10/31','11/2','11/3','11/4','11/5','11/6','11/7','11/9','11/10','11/11','11/12','11/13','11/14','11/16','11/17','11/18'];
+  var WXS='sscsrscsscrsscsrssrcssrc';
+  var PASTDIFF=[3,-6,2,-1,8,-4];
+  var MAT=[
+    {name:'豚ロース（しょうが焼き用）',shop:0,unit:'kg',per:[0.12,0,0,0,0],step:0.5},
+    {name:'鶏もも肉',shop:0,unit:'kg',per:[0,0.18,0,0,0],step:0.5},
+    {name:'さば（半身）',shop:1,unit:'枚',per:[0,0,1,0,0],step:1},
+    {name:'キャベツ',shop:2,unit:'玉',per:[0.05,0.05,0,0,0],step:1},
+    {name:'玉ねぎ',shop:2,unit:'kg',per:[0.03,0,0,0.1,0],step:0.5},
+    {name:'卵',shop:2,unit:'個',per:[0,0,0,0,3],step:10},
+    {name:'米',shop:3,unit:'kg',per:[0.09,0.09,0.09,0.1,0],step:1}
+  ];
+  var SHOP=['肉屋さん','魚屋さん','八百屋さん','米屋さん'];
+
+  /* これまで24日ぶんの出た数（デモ用。毎回同じ数になる） */
+  var HIST=[];
+  function genHist(){
+    var sv=11,i,j;
+    function rnd(){sv=(sv*73+17)%251;return sv/251;}
+    for(i=0;i<DATES.length;i++){
+      var d=(i+3)%6,w=WXS.charAt(i),c=[],t=0;
+      for(j=0;j<ITEMS.length;j++){
+        var n=Math.round(BASE[j]*DOWMUL[d]*WXMUL[w]+(rnd()*4-2));
+        if(n<0){n=0;}
+        c.push(n);t+=n;
+      }
+      HIST.push({date:DATES[i],dow:d,wx:w,c:c,total:t});
+    }
+  }
+  function avgItemDow(item,dow){
+    var s=0,n=0;
+    for(var i=0;i<HIST.length;i++){if(HIST[i].dow===dow){s+=HIST[i].c[item];n++;}}
+    return n?s/n:0;
+  }
+  function avgTotalDow(dow){
+    var s=0,n=0;
+    for(var i=0;i<HIST.length;i++){if(HIST[i].dow===dow){s+=HIST[i].total;n++;}}
+    return n?s/n:1;
+  }
+  function wxFactor(w){
+    var s=0,n=0;
+    for(var i=0;i<HIST.length;i++){if(HIST[i].wx===w){s+=HIST[i].total/avgTotalDow(HIST[i].dow);n++;}}
+    return n?s/n:1;
+  }
+  function sum(a){var s=0;for(var i=0;i<a.length;i++){s+=a[i];}return s;}
+
+  function seed(){
+    return {
+      v:1,
+      c:[27,19,11,9,7],
+      so:[false,false,false,false,false],
+      step:'in',
+      wx:'',
+      log:[],
+      plan:null,
+      decided:false
+    };
+  }
+  var S;
+  function load(){
+    S=null;
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==1||!S.c||!S.so||!S.log){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function goto(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+  function say(who,text,note){S.log.push({who:who,text:text,note:note||''});}
+  function pct(x){return Math.round(x*100);}
+  function moreLess(x,pre){var d=pct(x)-100;if(d>0){return pre+d+'％多い';}if(d<0){return pre+(-d)+'％少ない';}return 'と同じくらい';}
+
+  /* ---------- 目安の計算 ---------- */
+  function makePlan(){
+    var mom=sum(S.c)/avgTotalDow(3);
+    if(mom<0.85){mom=0.85;}
+    if(mom>1.15){mom=1.15;}
+    var wf=wxFactor(S.wx),base=[],est=[],i;
+    for(i=0;i<ITEMS.length;i++){
+      var b=avgItemDow(i,4),e=Math.round(b*mom*wf);
+      if(S.so[i]){e=Math.ceil(e*1.1);}
+      base.push(Math.round(b));est.push(e);
+    }
+    S.plan={base:base,est:est,adj:est.slice(),mom:mom,wf:wf};
+    S.decided=false;
+  }
+  function fmtQty(q,unit){
+    var t=(Math.round(q*10)/10);
+    return t+unit;
+  }
+  function matList(){
+    var out=[],i,j;
+    for(i=0;i<MAT.length;i++){
+      var m=MAT[i],s=0;
+      for(j=0;j<ITEMS.length;j++){s+=S.plan.adj[j]*m.per[j];}
+      var q=Math.ceil(s/m.step-0.0001)*m.step;
+      out.push({name:m.name,shop:m.shop,text:fmtQty(q,m.unit),zero:(q<=0)});
+    }
+    return out;
+  }
+
+  /* ---------- 1. 店主のLINE ---------- */
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.note){h+='<span class="auto">'+esc(m.note)+'</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+  }
+  function renderChoices(){
+    var st=S.step,h='',i;
+    if(st==='in'){
+      h='<p class="hint">デモでは、今日の数を先に入れてあります。実物では、いつもの木曜の数が先に入り、ちがう分だけ ＋と− で直します。入れるのは、仕込みに時間がかかる品だけで足ります。早く売り切れた品は「売り切れた」を押します。</p>';
+      for(i=0;i<ITEMS.length;i++){
+        h+='<div class="cnt"><span class="nm">'+ITEMS[i]+'</span><div class="row">';
+        h+='<button type="button" class="step" data-act="dec:'+i+'" aria-label="'+ITEMS[i]+'を1つ減らす">−</button>';
+        h+='<span class="num" id="n'+i+'">'+S.c[i]+'<small>'+UNIT[i]+'</small></span>';
+        h+='<button type="button" class="step" data-act="inc:'+i+'" aria-label="'+ITEMS[i]+'を1つ増やす">＋</button>';
+        h+='<button type="button" class="so'+(S.so[i]?' on':'')+'" aria-pressed="'+(S.so[i]?'true':'false')+'" data-act="so:'+i+'">'+(S.so[i]?'売り切れた ✓':'売り切れた')+'</button>';
+        h+='</div></div>';
+      }
+      h+=btn('📝 この数で送る','sendc','fill full');
+    }else if(st==='wx'){
+      h=btn(WXN.s,'wx:s','third')+btn(WXN.c,'wx:c','third')+btn(WXN.r,'wx:r','third');
+    }else if(st==='out'){
+      h=btn('▼ 仕込みと発注の目安を見る','goto2','full fill')+'<p class="hint">あすの朝、予報が変わったら「天気を選び直す」で出し直せます。</p>'+btn('天気を選び直す','rewx','half ghost')+btn('数を入れ直す','again','half ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function startFlow(){
+    S.log=[];
+    say('bot','おつかれさまでした。\n今日（11/19 木）の出た数を教えてください。');
+    S.step='in';
+  }
+  function planText(){
+    var p=S.plan,t='あす（11/20 金）の仕込みの目安です。\n',i;
+    for(i=0;i<ITEMS.length;i++){
+      t+='\n'+ITEMS[i]+'　'+p.est[i]+UNIT[i]+(S.so[i]?'（今日売り切れ。多めにしています）':'');
+    }
+    t+='\n\n出し方：これまでの金曜の数をもとに、今日の出方と、あすの天気で足し引きしています。\n下の画面で直して、数を決められます。';
+    return t;
+  }
+
+  /* ---------- 2. 仕込みと発注の目安 ---------- */
+  function renderPlan(){
+    var p=S.plan,h='',i;
+    if(!p){$('plan').innerHTML='<div class="empty">まだ目安は出ていません。①で今日の数と、あすの天気を入れると、ここに出ます。</div>';return;}
+    h+='<div class="how"><b>あす 11/20（金）・'+WXN[S.wx]+' の目安の出し方</b>①これまでの金曜4回の平均<br>②今日は、いつもの木曜'+moreLess(p.mom,'より ')+'<br>③これまでの'+WXN[S.wx].slice(2)+'の日は、ならして'+moreLess(p.wf,' ')+'<br>①に、②と③の分を足し引きした数です。</div>';
+    h+='<div class="card"><h3>仕込みの数</h3>';
+    for(i=0;i<ITEMS.length;i++){
+      h+='<div class="cnt" style="border:0;border-top:1px solid #e4d9c9;border-radius:0;padding:8px 0"><span class="nm">'+ITEMS[i]+(i===0?'（あす：しょうが焼き）':'')+(S.so[i]?'<span class="flag">今日売り切れ</span>':'')+'</span>';
+      h+='<p class="why">金曜の平均 '+p.base[i]+UNIT[i]+' → 目安 '+p.est[i]+UNIT[i]+(p.adj[i]!==p.est[i]?'　→ 直した数 '+p.adj[i]+UNIT[i]:'')+'</p>';
+      if(S.decided){
+        h+='<div class="row"><span class="num">'+p.adj[i]+'<small>'+UNIT[i]+'</small></span></div>';
+      }else{
+        h+='<div class="row"><button type="button" class="step" data-act="adec:'+i+'" aria-label="'+ITEMS[i]+'の数を1つ減らす">−</button><span class="num" id="a'+i+'">'+p.adj[i]+'<small>'+UNIT[i]+'</small></span><button type="button" class="step" data-act="ainc:'+i+'" aria-label="'+ITEMS[i]+'の数を1つ増やす">＋</button></div>';
+      }
+      h+='</div>';
+    }
+    h+='</div>';
+    var ml=matList(),s,j;
+    h+='<div class="card" id="matCard"><h3>食材の目安（仕入れ先ごと）</h3><p class="why">決めた数 × 1食あたりの量。今ある分は引いていません。冷蔵庫を見て直してください。</p>';
+    for(s=0;s<SHOP.length;s++){
+      var li='',memo='';
+      for(j=0;j<ml.length;j++){
+        if(ml[j].shop===s&&!ml[j].zero){li+='<li>'+esc(ml[j].name)+'　<b>'+esc(ml[j].text)+'</b></li>';memo+=(memo?'、':'')+ml[j].name.replace(/（.*）/,'')+' '+ml[j].text;}
+      }
+      if(!li){continue;}
+      h+='<div class="shop"><b>'+SHOP[s]+'</b><ul>'+li+'</ul>';
+      if(S.decided){h+='<div class="memo">発注メモの下書き\n「いつもありがとうございます。はつづきです。あす 11/20（金）の分、'+esc(memo)+' をお願いします。」</div>';}
+      h+='</div>';
+    }
+    h+='</div>';
+    if(S.decided){
+      h+='<div class="sent-line">✅ 11/19 21:40 に、あすの数を決めました（合計 '+sum(p.adj)+'）</div><p class="why">発注は自動では送りません。メモを見て、いつもの方法（電話・FAX・LINE）で頼めます。</p>';
+      h+='<div class="card-act">'+btn('▼ 目安と実際の記録を見る','goto3','full fill')+btn('数を決め直す','undecide','full ghost')+'</div>';
+    }else{
+      h+='<div class="card-act">'+btn('✅ この数で決める','decide','fill full')+'</div>';
+    }
+    $('plan').innerHTML=h;
+  }
+
+  /* ---------- 3. 目安と実際 ---------- */
+  function renderHist(){
+    var rows='',p=S.plan,i;
+    rows+='<tr class="new"><td>11/20（金）あす'+((p&&!S.decided)?'<br><small>目安はまだ決めていない</small>':'')+'</td><td>'+(S.wx?WXN[S.wx]+'<br><small>予報</small>':'—')+'</td><td class="r">'+(p?(sum(p.est)+(S.decided?'<br><small>決めた数 '+sum(p.adj)+'</small>':'')):'—')+'</td><td class="r">あす</td><td class="r">—</td></tr>';
+    var entered=(S.step!=='in'),tt=sum(S.c);
+    rows+='<tr'+(entered?' class="new"':'')+'><td>11/19（木）今日'+(entered?'':'<br><small>出た数はまだ入っていません</small>')+'</td><td>'+WXN.s+'</td><td class="r">70</td><td class="r">'+(entered?tt:'—')+'</td><td class="r">'+(entered?diff(tt-70):'—')+'</td></tr>';
+    for(i=0;i<6;i++){
+      var d=HIST[HIST.length-1-i],est=d.total+PASTDIFF[i];
+      rows+='<tr><td>'+d.date+'（'+DOW[d.dow]+'）</td><td>'+WXN[d.wx]+'</td><td class="r">'+est+'</td><td class="r">'+d.total+'</td><td class="r">'+diff(d.total-est)+'</td></tr>';
+    }
+    $('hist').innerHTML='<table><thead><tr><th>日</th><th>天気</th><th class="r">目安</th><th class="r">実際</th><th class="r">差</th></tr></thead><tbody>'+rows+'</tbody></table><p class="why" style="margin-top:6px">「目安」は、この仕組みが出した数です。店主が直して決めた数は、下に小さく添えます。「差」は、この仕組みの目安と、実際の差です。<br>5つの品を足した数です。品ごとの数も同じように残ります。</p>';
+  }
+  function diff(n){return (n>0?'＋':(n<0?'−':'±'))+Math.abs(n);}
+
+  function renderAll(){renderChat();renderChoices();renderPlan();renderHist();}
+
+  function onAct(act){
+    var p=act.split(':'),k=p[0],i=parseInt(p[1],10),scroll='';
+    if(k==='inc'){if(S.c[i]<99){S.c[i]++;}
+    }else if(k==='dec'){if(S.c[i]>0){S.c[i]--;}
+    }else if(k==='so'){S.so[i]=!S.so[i];
+    }else if(k==='sendc'){
+      var t='',so=[];
+      for(i=0;i<ITEMS.length;i++){t+=(i?'\n':'')+ITEMS[i]+' '+S.c[i]+UNIT[i];if(S.so[i]){so.push(ITEMS[i]);}}
+      if(so.length){t+='\n（売り切れた：'+so.join('、')+'）';}
+      say('me',t);
+      say('bot','ありがとうございます。記録しました。\nあす（11/20 金）の天気予報を選んでください。');
+      S.step='wx';
+    }else if(k==='wx'){
+      S.wx=p[1];
+      say('me',WXN[S.wx]);
+      makePlan();
+      say('bot',planText(),'※ ここまで自動で返ります。目安は当たるとは限りません');
+      S.step='out';
+    }else if(k==='rewx'){
+      S.log.pop();S.log.pop();S.plan=null;S.decided=false;S.wx='';S.step='wx';
+    }else if(k==='again'){
+      var keepC=S.c,keepSo=S.so;S=seed();S.c=keepC;S.so=keepSo;startFlow();
+    }else if(k==='ainc'){if(S.plan&&!S.decided&&S.plan.adj[i]<199){S.plan.adj[i]++;}
+    }else if(k==='adec'){if(S.plan&&!S.decided&&S.plan.adj[i]>0){S.plan.adj[i]--;}
+    }else if(k==='decide'){if(S.plan){S.decided=true;}
+    }else if(k==='undecide'){S.decided=false;
+    }else if(k==='goto2'){goto('s2');return;
+    }else if(k==='goto3'){goto('s3');return;}
+    save();renderAll();
+    if(k==='sendc'||k==='wx'||k==='rewx'||k==='again'){
+      var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+    }
+  }
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnReset').addEventListener('click',function(){S=seed();startFlow();save();renderAll();window.scrollTo(0,0);});
+
+  genHist();
+  load();
+  if(!S.log.length){startFlow();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

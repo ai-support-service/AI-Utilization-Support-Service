@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>あおさぎ自動車整備（デモ）追加の作業の説明と、お客さんの返事の記録</title>
+<style>
+:root{--main:#34495E;--main-d:#243443;--accent:#E67E22;--bg:#F4F5F7;--ink:#1f2933;--sub:#5b6570;--line:#d6dae0;--card:#ffffff;--chat:#dde3ea;--me:#a6e89b;--warn:#b4530a;--ok:#2f7d4f;--soft:#e4e8ee}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#2b1600;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+.badge{display:inline-block;margin-top:10px;background:#fff;color:var(--main-d);font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--soft);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#232f3b;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px;opacity:.9}
+#chat{padding:12px 10px 4px;min-height:150px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:86%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.bubble svg{display:block;width:180px;max-width:100%;height:auto;border-radius:8px}
+.day{text-align:center;font-size:12px;color:var(--sub);margin:12px 0 4px}
+.day span{background:#fff;border-radius:999px;padding:2px 10px}
+.slip{white-space:normal;font-size:14px}
+.slip .rt{display:block;font-size:13px;font-weight:700;color:var(--main-d);border-bottom:2px solid var(--accent);padding-bottom:4px;margin-bottom:6px}
+.slip dl{margin:0;display:grid;grid-template-columns:4.2em 1fr;gap:4px 8px}
+.slip dt{font-size:12px;color:var(--sub);padding-top:2px}
+.slip dd{margin:0}
+.slip ul{margin:4px 0;padding-left:1.1em}
+.slip li{margin:3px 0}
+.slip .st{margin:0 0 8px}
+.slip .sf{margin:8px 0 0;padding-top:6px;border-top:1px solid var(--line)}
+.card-act{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.card-act .btn{font-size:14px;font-weight:400}
+.slip small{font-size:12px;color:var(--sub)}
+.blank{display:inline-block;min-width:6.5em;border:1px dashed var(--sub);border-radius:6px;padding:0 6px;color:var(--sub);text-align:center;background:#fafbfc}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.btn.opt{font-weight:400;font-size:14px;padding:8px 12px}
+.btn.opt[aria-pressed="true"]{background:var(--main);color:#fff;font-weight:700}
+.btn[disabled]{opacity:.45;cursor:default}
+textarea{display:block;width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;line-height:1.5;background:#fff;color:var(--ink);resize:vertical}
+.next-link{display:block;text-align:center;margin:12px 0 0;padding:12px 0;font-size:14px;font-weight:700;color:var(--main-d)}
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--accent)}
+.card.new{background:#fff6ea}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.card h3{margin:6px 0 2px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.card p.small{font-size:12px;color:var(--sub);margin-top:6px}
+.car{display:flex;gap:12px;align-items:center}
+.car svg{flex:none;width:84px;height:auto}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:#eceff2;color:var(--sub)}
+.status.todo{background:#fbe9d7;color:var(--warn)}
+.status.done{background:#dff1e6;color:var(--ok)}
+.status.no{background:#e4e8ee;color:var(--main-d)}
+.hist{font-size:13px;background:#fff4e2;border:1px solid #f0cf9f;border-radius:6px;padding:6px 8px;margin-top:8px}
+.thumb svg{width:110px;height:auto;border-radius:6px;border:1px solid var(--line);margin-top:6px;display:block}
+/* form */
+.form{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px;display:none}
+.form.open{display:block}
+.form .q{font-size:13px;font-weight:700;color:var(--main-d);margin:12px 0 6px}
+.form .q:first-child{margin-top:0}
+.form label{display:block}
+.group{display:flex;flex-wrap:wrap;gap:6px}
+.err{font-size:13px;color:var(--warn);min-height:1.4em;margin:8px 0 0}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+/* timeline */
+.tl{margin-top:10px;border-left:3px solid var(--line);padding-left:12px}
+.tl .ev{position:relative;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.tl .ev:before{content:"";position:absolute;left:-20px;top:16px;width:11px;height:11px;border-radius:50%;background:var(--main)}
+.tl .ev.new{background:#fff6ea}
+.tl .ev.new:before{background:var(--accent)}
+.tl .ev .dt{font-size:12px;color:var(--sub)}
+.tl .ev b{display:block;font-size:15px}
+.tl .ev p{margin:2px 0;font-size:14px}
+/* more */
+.more{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;display:flex;gap:10px;align-items:flex-start}
+.more .ex{flex:none;font-size:12px;font-weight:700;color:#2b1600;background:var(--accent);border-radius:6px;padding:2px 8px;margin-top:3px}
+.more b{display:block;font-size:15px}
+.more span{display:block;font-size:13px;color:var(--sub)}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:90%}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「あおさぎ自動車整備」は架空の工場です</div>
+<div class="wrap">
+
+<header class="top">
+  <h1>あおさぎ自動車整備</h1>
+  <p class="lead">車検で預かった車に追加の作業が見つかったとき、その説明と、お客さんの返事（LINEでも電話でも）が、日時つきで車ごとに残ります。見積書や請求書を作る道具ではありません。</p>
+  <span class="badge">整備士が2〜3人の工場（デモの設定）</span>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>工場。追加の作業（追加整備）を、決まった形で送る</h2></div>
+  <p class="sec-lead">車検で預かった車を上げたら、追加の作業が見つかった、という場面です。リフトの下では、写真を撮るだけ。作業と見積もりは、手を洗ってから（または事務の人が）選んで送ります。理由は見本の文が入るので、打つのは見積もりの数字だけです。</p>
+  <span class="who">見ている人：工場の人</span>
+  <div id="carBox"></div>
+  <button class="btn fill full" id="btnForm" type="button" style="margin-top:10px">＋ 追加の作業を見つけた</button>
+  <div class="form" id="form">
+    <p class="q">作業</p>
+    <div class="group" id="gWork"></div>
+    <div id="fPast"></div>
+    <p class="q"><label for="fReason">理由（書きかえられます）</label></p>
+    <textarea id="fReason" rows="2" placeholder="作業を選ぶと、見本の文が入ります"></textarea>
+    <p class="q">写真</p>
+    <div class="group" id="gPhoto"></div>
+    <div class="thumb" id="fPhoto"></div>
+    <p class="q">変わったあとの見積もり</p>
+    <p style="margin:0;font-size:14px"><span class="blank">〈　　　　〉</span> <small style="color:var(--sub);font-size:12px">デモでは数字を入れません</small></p>
+    <p class="q">納車の予定</p>
+    <div class="group" id="gNouki"></div>
+    <p class="err" id="fHint" role="status"></p>
+    <button class="btn fill full" id="btnSend" type="button">お客さんに送る</button>
+  </div>
+  <div id="asks"></div>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>お客さんのスマホ。写真と理由を見て、返事を押す</h2></div>
+  <p class="sec-lead">仕事の合間に、写真と理由を見て返事ができます。押した返事は、日時つきで残ります。</p>
+  <span class="who">見ている人：お客さん（山田さま）</span>
+  <div class="phone">
+    <div class="phone-head"><b>あおさぎ自動車整備</b><span class="clock" id="clock">9:05</span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <p class="sec-lead" style="margin-top:10px">LINEを使わないお客さんには、今までどおり電話で。聞いた返事は、①のカードから工場が残せます。</p>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>納車の日。追加の作業の控えを送る</h2></div>
+  <p class="sec-lead">整備の記録簿と請求書は、今のまま紙で渡します。LINEには、追加でやった作業と、見送った作業が、1通にまとまって届きます。</p>
+  <span class="who">見ている人：工場の人 → お客さん</span>
+  <button class="btn fill full" id="btnDeliver" type="button">納車する。追加の作業の控えを送る</button>
+  <p class="err" id="dHint" role="status"></p>
+  <div id="hikae"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>車ごとの記録。前に見送った作業も出てくる</h2></div>
+  <p class="sec-lead">送った説明・写真・返事が、車ごとに古い順から積み上がります。前に見送った作業も、ここで分かります。</p>
+  <span class="who">見ている人：工場の人</span>
+  <div class="group" id="gCar"></div>
+  <div id="tl"></div>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下は動かない見本です。</p>
+  <div class="more"><span class="ex">例</span><div><b>車検の時期の控え</b><span>車検の満了が近い車が、月ごとの一覧に出ます。お客さんへの知らせの下書きも付きます。</span></div></div>
+  <div class="more"><span class="ex">例</span><div><b>代車の予定</b><span>どの代車が、いつ、だれに出ているかが、日ごとに並びます。</span></div></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  工場の名前とお客さまの名前は架空です。日付と時刻は見本です。入力した内容は、この端末の中だけに残ります。写真の代わりに絵を使っています。<br>
+  見積もりの欄は、デモでは空けています。<br>
+  記録は、あとで見返すための控えです。何かを証明するものではなく、見積書や整備の記録簿の代わりにもなりません。<br>
+  電話は今のまま使えます。見積書・請求書・整備の記録簿は、今お使いの紙や道具のままです。これは、そこに足すものです。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='seibi_demo_state';
+  var CAR='<svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="白い軽自動車の絵（デモ用）"><rect width="120" height="70" rx="8" fill="#e4e8ee"/><path d="M18 46 v-12 l8 -14 h50 l14 14 h8 a6 6 0 0 1 6 6 v6 z" fill="#ffffff" stroke="#34495E" stroke-width="2"/><path d="M30 33 l5 -9 h18 v9 z M57 24 h17 l9 9 h-26 z" fill="#b9c6d3"/><circle cx="36" cy="48" r="8" fill="#243443"/><circle cx="36" cy="48" r="3" fill="#d6dae0"/><circle cx="84" cy="48" r="8" fill="#243443"/><circle cx="84" cy="48" r="3" fill="#d6dae0"/></svg>';
+  var PHOTOS={
+    brake:'<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ブレーキまわりの絵。矢印がパッドを指している（デモ用）"><rect width="180" height="120" fill="#3b4652"/><circle cx="78" cy="62" r="44" fill="#9aa5b1"/><circle cx="78" cy="62" r="36" fill="#b9c2cc"/><circle cx="78" cy="62" r="13" fill="#5b6570"/><path d="M104 22 h26 a8 8 0 0 1 8 8 v64 a8 8 0 0 1 -8 8 h-26 z" fill="#243443"/><rect x="101" y="34" width="5" height="56" fill="#c9a36a"/><path d="M168 30 l-44 24" stroke="#E67E22" stroke-width="5" stroke-linecap="round"/><path d="M110 61 l20 -2 l-9 -15 z" fill="#E67E22"/></svg>',
+    battery:'<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="バッテリーと点検の機械の絵（デモ用）"><rect width="180" height="120" fill="#3b4652"/><rect x="16" y="42" width="84" height="58" rx="4" fill="#1f2933"/><rect x="16" y="42" width="84" height="14" fill="#5b6570"/><rect x="28" y="32" width="14" height="12" fill="#b9c2cc"/><rect x="74" y="32" width="14" height="12" fill="#b9c2cc"/><rect x="112" y="26" width="56" height="74" rx="6" fill="#d6dae0"/><rect x="118" y="34" width="44" height="26" rx="3" fill="#ffffff"/><rect x="122" y="42" width="36" height="10" rx="2" fill="#E67E22"/><circle cx="130" cy="78" r="6" fill="#5b6570"/><circle cx="150" cy="78" r="6" fill="#5b6570"/><path d="M35 32 q30 -24 84 4" stroke="#E67E22" stroke-width="3" fill="none"/></svg>',
+    wiper:'<svg viewBox="0 0 180 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ワイパーの絵。矢印がゴムの切れ目を指している（デモ用）"><rect width="180" height="120" fill="#3b4652"/><path d="M10 100 q80 -90 160 0 z" fill="#b9c6d3"/><path d="M40 98 l78 -44" stroke="#1f2933" stroke-width="7" stroke-linecap="round"/><path d="M40 98 l78 -44" stroke="#5b6570" stroke-width="2"/><path d="M84 71 l6 6 M92 66 l5 7" stroke="#ffffff" stroke-width="2"/><path d="M150 22 l-38 30" stroke="#E67E22" stroke-width="5" stroke-linecap="round"/><path d="M96 64 l20 -4 l-10 -14 z" fill="#E67E22"/></svg>'
+  };
+  var WORKS=[
+    {k:'brake',l:'ブレーキパッドの交換（前）',r:'残りの厚みが少なくなっています',p:'（写真の矢印の所）'},
+    {k:'battery',l:'バッテリーの交換',r:'点検の機械（テスター）で「要交換」と出ました',p:'（写真）'},
+    {k:'wiper',l:'ワイパーゴムの交換',r:'ゴムに切れ目があります',p:'（写真の矢印の所）'}
+  ];
+  var TIMES=[{s:'14:20',a:'14:32',t:'15:10'},{s:'15:25',a:'15:36',t:'16:05'},{s:'16:15',a:'16:24',t:'16:50'}];
+  var DAY1='11/19（木）';
+  var ANS={yes:'お願いします',no:'今回は見送る'};
+  var CARS=[
+    {k:'yamada',l:'山田さま｜軽自動車（白）'},
+    {k:'sato',l:'佐藤さま｜ミニバン（銀）'},
+    {k:'suzuki',l:'鈴木さま｜軽トラック（白）'}
+  ];
+  var PAST={
+    yamada:[
+      {dt:'2024/11/16（土）',t:'車検',p:['整備一式','追加の作業：なし']},
+      {dt:'2025/11/15（土）',t:'12か月点検',p:['追加の作業：ワイパーゴムの交換','返事：10:12「今回は見送る」']}
+    ],
+    sato:[
+      {dt:'2026/3/7（土）',t:'車検',p:['追加の作業：バッテリーの交換（写真つき）','返事：3/5（木）11:40「お願いします」']},
+      {dt:'2026/9/12（土）',t:'オイル交換',p:['追加の作業：なし']}
+    ],
+    suzuki:[
+      {dt:'2026/6/13（土）',t:'車検',p:['整備一式','追加の作業：なし']}
+    ]
+  };
+
+  function seed(){
+    return {
+      seq:1,
+      form:{open:false,work:'',photo:false,nouki:'same'},
+      asks:[],
+      log:[],
+      clock:'9:05',
+      delivered:false,
+      car:'yamada'
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||!S.asks||!S.form||!S.log){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function findBy(arr,key,val){for(var i=0;i<arr.length;i++){if(arr[i][key]===val){return arr[i];}}return null;}
+  function workOf(k){return findBy(WORKS,'k',k);}
+  function preset(w,ph){return w.r+(ph?w.p:'')+'。';}
+  function pending(){
+    for(var i=0;i<S.asks.length;i++){if(S.asks[i].st==='sent'||S.asks[i].st==='tel'){return S.asks[i];}}
+    return null;
+  }
+  function isLate(){
+    for(var i=0;i<S.asks.length;i++){if(S.asks[i].st==='yes'&&S.asks[i].nouki==='late'){return true;}}
+    return false;
+  }
+  function nouDay(){return isLate()?'11/24（火）':'11/21（土）';}
+  function nouLong(){return isLate()?'11月24日（火）':'11月21日（土）';}
+  function go(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+  function blank(){return '<span class="blank">〈　　　　〉</span>';}
+
+  /* ---------- 1. 工場：追加の作業を送る ---------- */
+  function renderCar(){
+    var p=pending(),st;
+    if(S.delivered){st='<span class="status done">納車しました</span>';}
+    else if(p){st='<span class="status todo">返事まち</span>';}
+    else{st='<span class="status">車検で入庫中</span>';}
+    $('carBox').innerHTML='<div class="card"><div class="car">'+CAR+'<div><div class="card-top"><span>入庫 '+DAY1+'9:00</span></div><h3>山田さま</h3><p>軽自動車（白）｜車検</p><p>納車の予定：'+nouDay()+'</p><div style="margin-top:6px">'+st+'</div></div></div></div>';
+  }
+  function optBtn(group,val,label,on,dis){
+    return '<button type="button" class="btn opt" aria-pressed="'+(on?'true':'false')+'"'+(dis?' disabled':'')+' data-pick="'+group+':'+val+'">'+label+'</button>';
+  }
+  function renderForm(){
+    var i,h='',f=S.form;
+    $('form').className=(f.open&&!S.delivered)?'form open':'form';
+    $('btnForm').disabled=!!S.delivered;
+    $('btnForm').innerHTML=S.delivered?'納車が済んでいます':(f.open?'× 閉じる':'＋ 追加の作業を見つけた');
+    for(i=0;i<WORKS.length;i++){
+      var used=!!findBy(S.asks,'work',WORKS[i].k);
+      h+=optBtn('work',WORKS[i].k,WORKS[i].l+(used?'（送信済み）':''),f.work===WORKS[i].k,used);
+    }
+    $('gWork').innerHTML=h;
+    $('fPast').innerHTML=(f.work==='wiper')?'<div class="hist">車の記録：2025/11/15 の点検で「今回は見送る」の返事があります。</div>':'';
+    $('gPhoto').innerHTML=optBtn('photo','on',f.photo?'📷 写真をつけました（外す）':'📷 写真をつける',f.photo,false);
+    $('fPhoto').innerHTML=(f.photo&&f.work)?PHOTOS[f.work]:(f.photo?'<p class="small" style="font-size:12px;color:var(--sub);margin:6px 0 0">作業を選ぶと、絵が出ます。</p>':'');
+    $('gNouki').innerHTML=optBtn('nouki','same','変わらない（11/21 土）',f.nouki==='same',false)+optBtn('nouki','late','部品待ちで 11/24（火）になる',f.nouki==='late',false);
+  }
+  function onPick(v){
+    var p=v.split(':'),g=p[0],val=p[1];
+    if(g==='work'){
+      var w=workOf(val);if(!w||findBy(S.asks,'work',val)){return;}
+      S.form.work=val;$('fReason').value=preset(w,S.form.photo);
+    }else if(g==='photo'){
+      var w2=workOf(S.form.work);
+      if(w2&&$('fReason').value===preset(w2,S.form.photo)){$('fReason').value=preset(w2,!S.form.photo);}
+      S.form.photo=!S.form.photo;
+    }else if(g==='nouki'){
+      S.form.nouki=(val==='late')?'late':'same';
+    }else if(g==='car'){
+      if(findBy(CARS,'k',val)){S.car=val;}
+      save();renderTl();return;
+    }else{return;}
+    $('fHint').innerHTML='';
+    save();renderForm();
+  }
+  function onToggleForm(){
+    S.form.open=!S.form.open;
+    $('fHint').innerHTML='';
+    save();renderForm();
+  }
+  function onSend(){
+    var f=S.form,w=workOf(f.work);
+    if(S.delivered){$('fHint').innerHTML='納車が済んでいます。「デモを最初の状態に戻す」でやり直せます。';return;}
+    if(pending()){$('fHint').innerHTML='返事まちの作業があります。②でお客さんの返事を押してください。';return;}
+    if(!w){$('fHint').innerHTML='作業を選んでください。';return;}
+    var tm=TIMES[S.asks.length]||TIMES[TIMES.length-1];
+    var a={id:S.seq++,work:w.k,label:w.l,reason:$('fReason').value||preset(w,f.photo),photo:f.photo,nouki:f.nouki,st:'sent',tSent:tm.s,tAns:'',tTel:'',t3:tm.t,tA:tm.a,viaTel:false};
+    S.asks.push(a);
+    S.clock=tm.s;
+    if(a.photo){say('bot','',{type:'photo',ref:a.work});}
+    say('bot','',{type:'ask',ref:a.id});
+    S.form={open:false,work:'',photo:false,nouki:'same'};
+    $('fReason').value='';$('fHint').innerHTML='';
+    save();renderAll();go('s2');
+  }
+  function stLabel(a){
+    if(a.st==='sent'){return '<span class="status todo">返事まち</span>';}
+    if(a.st==='tel'){return '<span class="status todo">電話で説明する（'+esc(a.tTel)+' に希望）</span>';}
+    var by=a.byShop?'（電話で聞いて、工場が残した）':'';
+    if(a.st==='yes'){return '<span class="status done">'+DAY1+esc(a.tAns)+'「お願いします」'+by+'</span>';}
+    return '<span class="status no">'+DAY1+esc(a.tAns)+'「今回は見送る」'+by+'</span>';
+  }
+  function renderAsks(){
+    var h='';
+    for(var i=S.asks.length-1;i>=0;i--){
+      var a=S.asks[i];
+      h+='<div class="card'+((a.st==='sent'||a.st==='tel')?' todo':'')+'"><div class="card-top"><span>送った：'+DAY1+esc(a.tSent)+(a.photo?'（写真つき）':'')+'</span></div>';
+      h+='<h3>'+esc(a.label)+'</h3><p>理由：'+esc(a.reason)+'</p><div style="margin-top:6px">'+stLabel(a)+'</div>';
+      if(a.st==='sent'||a.st==='tel'){
+        h+='<p class="small">返事が来ないとき、LINEを使わないお客さんのときは、電話で聞いて、ここから残せます。</p><div class="card-act"><button type="button" class="btn" data-shop="'+a.id+':yes">📞 電話で聞いた：お願いします</button><button type="button" class="btn" data-shop="'+a.id+':no">📞 電話で聞いた：見送る</button></div>';
+      }
+      h+='</div>';
+    }
+    $('asks').innerHTML=h;
+  }
+
+  /* ---------- 2. お客さんのLINE ---------- */
+  function say(who,text,opt){
+    S.log.push({who:who,text:text,type:(opt&&opt.type)||'text',ref:(opt&&opt.ref)||'',auto:!!(opt&&opt.auto)});
+  }
+  function askHtml(a){
+    return '<div class="slip"><span class="rt">追加の作業のご相談</span><p class="st">山田さま、車検でお預かり中のお車で、追加の作業が見つかりました。</p><dl><dt>作業</dt><dd><b>'+esc(a.label)+'</b></dd><dt>理由</dt><dd>'+esc(a.reason)+'</dd><dt>見積もり</dt><dd>'+blank()+'<br><small>追加の作業をふくめた、変わったあとの目安</small></dd><dt>納車</dt><dd>'+(a.nouki==='late'?'部品待ちのため 11/24（火）になります':'予定どおり 11/21（土）です')+'</dd></dl><p class="sf">どちらでもかまいません。お返事をいただくまで、この作業には手をつけません。</p></div>';
+  }
+  function hikaeHtml(){
+    var i,c=0,h='<div class="slip"><span class="rt">追加の作業の控え</span><dl><dt>お車</dt><dd>山田さま｜軽自動車（白）</dd><dt>納車</dt><dd>2026/'+nouDay()+'16:30</dd></dl><ul>';
+    for(i=0;i<S.asks.length;i++){
+      var a=S.asks[i];
+      if(a.st==='yes'){c++;h+='<li><b>追加：'+esc(a.label)+'</b><br><small>'+DAY1+esc(a.tAns)+'「お願いします」'+(a.byShop?'（電話でうかがいました）':(a.viaTel?'（電話で説明のあと）':''))+'</small></li>';}
+      else if(a.st==='no'){c++;h+='<li><b>見送り：'+esc(a.label)+'</b><br><small>'+DAY1+esc(a.tAns)+'「今回は見送る」'+(a.byShop?'（電話でうかがいました）':(a.viaTel?'（電話で説明のあと）':''))+'</small></li>';}
+    }
+    if(!c){h+='<li>追加の作業はありませんでした</li>';}
+    h+='</ul><dl><dt>次回</dt><dd>次の車検の満了は 2028年11月</dd></dl><small>整備の記録簿と請求書は、お渡しした紙をご覧ください。</small></div>';
+    return h;
+  }
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      if(m.type==='day'){h+='<div class="day"><span>'+esc(m.text)+'</span></div>';continue;}
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">';
+      if(m.type==='photo'){h+=PHOTOS[m.ref]||'';}
+      else if(m.type==='ask'){var a=findBy(S.asks,'id',m.ref);h+=a?askHtml(a):'';}
+      else if(m.type==='hikae'){h+=hikaeHtml();}
+      else{h+=esc(m.text);}
+      if(m.auto){h+='<span class="auto">※ この返事は、日時つきで車の記録に残ります</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+    $('clock').innerHTML=esc(S.clock);
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function renderChoices(){
+    var p=pending(),h='';
+    if(S.delivered){
+      h=btn('▼ 車ごとの記録を見る','goto:s4','full fill');
+    }else if(p&&p.st==='sent'){
+      h=btn('お願いします','ans:yes','half fill')+btn('今回は見送る','ans:no','half')+btn('📞 電話で聞きたい','ans:tel','full');
+    }else if(p&&p.st==='tel'){
+      h='<p class="hint">デモでは、工場からの電話が終わったことにして進めます。</p>'+btn('電話で聞いた。お願いします','ans:yes','full fill')+btn('電話で聞いた。今回は見送る','ans:no','full');
+    }else if(!S.asks.length){
+      h='<p class="hint">①で工場が「お客さんに送る」を押すと、ここに届きます。</p>'+btn('▲ ①へ戻る','goto:s1','full');
+    }else{
+      h='<p class="hint">①から、別の作業も送れます。いくつか見つかったときに、まとめて1通で送る形にもできます（デモは1つずつ）。</p>'+btn('▼ 納車の日へ進む','goto:s3','full fill');
+    }
+    $('choices').innerHTML=h;
+  }
+  function startChat(){
+    S.log=[];S.clock='9:05';
+    say('bot','11月19日（木）',{type:'day'});
+    say('bot','あおさぎ自動車整備です。\n山田さま、車検のお預かりをありがとうございます。\n納車は11月21日（土）の予定です。\n\nお預かりのときの見積もりは、目安です。開けてみて追加の作業が見つかったときは、進める前に、このトークでお知らせします。');
+  }
+  function onChoice(act){
+    var q=act.split(':'),k=q[0],v=q[1],p=pending();
+    if(k==='goto'){go(v);return;}
+    if(k!=='ans'||!p){return;}
+    if(v==='tel'){
+      if(p.st!=='sent'){return;}
+      p.st='tel';p.tTel=p.tA;p.viaTel=true;S.clock=p.tA;
+      say('me','電話で聞きたい');
+      say('bot','承知しました。\n手があきしだい、工場からお電話します。作業の都合で、少しお待たせすることがあります。');
+    }else if(v==='yes'||v==='no'){
+      var when=(p.st==='tel')?p.t3:p.tA;
+      p.st=v;p.tAns=when;S.clock=when;
+      say('me',ANS[v]);
+      if(v==='yes'){
+        say('bot','ありがとうございます。\n'+DAY1+when+' に「お願いします」を受け取りました。\n'+p.label+'を進めます。\n納車は'+nouLong()+'の予定です。',{auto:true});
+      }else{
+        say('bot','承知しました。今回は行いません。\n'+DAY1+when+' に「今回は見送る」を受け取りました。\n次の点検のときに、あらためて様子をお伝えします。',{auto:true});
+      }
+    }else{return;}
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  function onShop(v){
+    var q=v.split(':'),a=findBy(S.asks,'id',parseInt(q[0],10)),r=q[1];
+    if(!a||(a.st!=='sent'&&a.st!=='tel')||(r!=='yes'&&r!=='no')||S.delivered){return;}
+    var when=a.t3;
+    a.st=r;a.tAns=when;a.viaTel=true;a.byShop=true;S.clock=when;
+    if(r==='yes'){
+      say('bot','お電話ありがとうございました。\n'+DAY1+when+' に、お電話で「お願いします」とうかがいました。\n'+a.label+'を進めます。\n納車は'+nouLong()+'の予定です。',{auto:true});
+    }else{
+      say('bot','お電話ありがとうございました。\n'+DAY1+when+' に、お電話で「今回は見送る」とうかがいました。今回は行いません。\n次の点検のときに、あらためて様子をお伝えします。',{auto:true});
+    }
+    save();renderAll();
+  }
+
+  /* ---------- 3. 納車：作業の控え ---------- */
+  function onDeliver(){
+    if(S.delivered){return;}
+    if(pending()){$('dHint').innerHTML='返事まちの作業があります。②でお客さんの返事を押してください。';return;}
+    S.delivered=true;S.clock='16:30';
+    S.form.open=false;
+    say('bot',nouLong(),{type:'day'});
+    say('bot','山田さま、本日はありがとうございました。\n追加の作業の控えをお送りします。');
+    say('bot','',{type:'hikae'});
+    $('dHint').innerHTML='';
+    save();renderAll();
+  }
+  function renderDeliver(){
+    var b=$('btnDeliver');
+    if(S.delivered){
+      b.disabled=true;b.innerHTML='納車しました（'+nouDay()+'16:30）';
+      $('hikae').innerHTML='<p class="sec-lead" style="margin-top:12px">お客さんのLINEに届いた控え</p><div class="card new">'+hikaeHtml()+'</div><a class="next-link" href="#s4">▼ 車ごとの記録を見る</a>';
+    }else{
+      b.disabled=false;b.innerHTML='納車する。追加の作業の控えを送る';
+      $('hikae').innerHTML='';
+    }
+  }
+
+  /* ---------- 4. 車ごとの記録 ---------- */
+  function ev(dt,title,lines,isNew,photo){
+    var h='<div class="ev'+(isNew?' new':'')+'"><span class="dt">'+esc(dt)+'</span><b>'+esc(title)+'</b>';
+    for(var i=0;i<lines.length;i++){h+='<p>'+esc(lines[i])+'</p>';}
+    if(photo){h+='<div class="thumb">'+photo+'</div>';}
+    return h+'</div>';
+  }
+  function renderTl(){
+    var i,h='';
+    for(i=0;i<CARS.length;i++){h+=optBtn('car',CARS[i].k,CARS[i].l,S.car===CARS[i].k,false);}
+    $('gCar').innerHTML=h;
+    var past=PAST[S.car]||[],out='';
+    for(i=0;i<past.length;i++){out+=ev(past[i].dt,past[i].t,past[i].p,false,'');}
+    if(S.car==='yamada'){
+      out+=ev('2026/'+DAY1+'9:00','車検で入庫',['納車の予定：11/21（土）'],false,'');
+      for(i=0;i<S.asks.length;i++){
+        var a=S.asks[i],ls=['送った：'+a.tSent+(a.photo?'（写真つき）':''),'理由：'+a.reason,'変わったあとの見積もり：〈　　　　〉'];
+        if(a.nouki==='late'){ls.push('納車の予定：部品待ちで 11/24（火）と伝えた');}
+        if(a.tTel){ls.push('電話で聞きたい：'+a.tTel);}
+        if(a.byShop){ls.push('電話で聞いた返事を、工場が残した');}
+        if(a.st==='yes'||a.st==='no'){ls.push('返事：'+a.tAns+'「'+ANS[a.st]+'」');}
+        else{ls.push('返事：まだ');}
+        out+=ev('2026/'+DAY1+a.tSent,'追加の作業：'+a.label,ls,true,a.photo?PHOTOS[a.work]:'');
+      }
+      if(S.delivered){out+=ev('2026/'+nouDay()+'16:30','納車。追加の作業の控えを送った',['次の車検の満了：2028年11月'],true,'');}
+    }
+    $('tl').innerHTML='<div class="tl">'+out+'</div>';
+  }
+
+  function renderAll(){renderCar();renderForm();renderAsks();renderChat();renderChoices();renderDeliver();renderTl();}
+
+  var ATTRS=['data-act','data-pick','data-shop'];
+  function hit(t){
+    if(!t.getAttribute){return '';}
+    for(var i=0;i<ATTRS.length;i++){if(t.getAttribute(ATTRS[i])!==null){return ATTRS[i];}}
+    return '';
+  }
+  document.addEventListener('click',function(ev2){
+    var t=ev2.target;
+    while(t&&t!==document&&!hit(t)){t=t.parentNode;}
+    if(!t||t===document||t.disabled){return;}
+    var a=hit(t),v=t.getAttribute(a);
+    if(a==='data-act'){onChoice(v);}
+    else if(a==='data-pick'){onPick(v);}
+    else if(a==='data-shop'){onShop(v);}
+  });
+  $('btnForm').addEventListener('click',onToggleForm);
+  $('btnSend').addEventListener('click',onSend);
+  $('btnDeliver').addEventListener('click',onDeliver);
+  $('btnReset').addEventListener('click',function(){
+    S=seed();startChat();
+    $('fReason').value='';$('fHint').innerHTML='';$('dHint').innerHTML='';
+    save();renderAll();window.scrollTo(0,0);
+  });
+
+  load();
+  if(!S.log||!S.log.length){startChat();}
+  if(S.form.work&&workOf(S.form.work)){$('fReason').value=preset(workOf(S.form.work),S.form.photo);}
+  renderAll();
+})();
+</script>
+</body>
+</html>

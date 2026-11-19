@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>くすのき通り学習教室（デモ）振替日の知らせと、講習のお知らせ</title>
+<style>
+:root{--main:#2F6DB5;--main-d:#1f4c82;--accent:#9BC53D;--bg:#F5F8FC;--ink:#1f2b3a;--sub:#566578;--line:#d3dde9;--card:#ffffff;--chat:#dfe8f3;--me:#a6e89b;--tint:#e4eefa;--acc-l:#eef6dc;--acc-d:#2c3d08;--warn:#b4491f;--ok:#2f6f3f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:var(--acc-d);font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:12px;align-items:center}
+header.top svg{flex:none;width:52px;height:52px}
+header.top h1{margin:0;font-size:20px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:28px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--tint);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:var(--ink);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+.chat{padding:12px 10px 4px;min-height:110px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:84%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.daysep{text-align:center;margin:12px 0 4px}
+.daysep span{display:inline-block;font-size:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:1px 12px;color:var(--sub)}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+.choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.next-link{display:block;text-align:center;margin:12px 0 0;font-size:14px;font-weight:700;color:var(--main-d);min-height:44px;line-height:44px}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--warn)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.card h3{margin:4px 0 2px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.tl{list-style:none;margin:6px 0 0;padding:0;font-size:14px}
+.tl li{padding:4px 0 4px 14px;border-left:3px solid var(--line);margin-left:4px}
+.tl li.hot{border-left-color:var(--warn)}
+.tl li.good{border-left-color:var(--ok)}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;margin-top:8px;background:#edf1f5;color:var(--sub)}
+.status.todo{background:#fbe7dc;color:var(--warn)}
+.status.done{background:#dff1e3;color:var(--ok)}
+.card-act{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.lbl{font-size:12px;color:var(--sub);display:block;margin:10px 0 4px}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{min-height:44px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:14px}
+.opt.on{background:var(--tint);border-color:var(--main);color:var(--main-d);font-weight:700}
+.opt:disabled{opacity:.75;cursor:default}
+.pre-note{margin:0 0 10px;font-size:13px;color:var(--main-d);background:var(--tint);border-radius:8px;padding:6px 10px}
+.preview{margin-top:12px;background:var(--acc-l);border:1px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:13px;white-space:pre-line;color:var(--acc-d)}
+.sent-line{margin-top:10px;font-size:14px;font-weight:700;color:var(--ok)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px;margin-top:10px}
+th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--tint);font-size:12px;color:var(--main-d)}
+tr.me-row td{background:var(--acc-l)}
+td.no{color:var(--warn);font-weight:700}
+td.yes{color:var(--ok);font-weight:700}
+/* examples */
+.ex{background:var(--card);border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px}
+.ex b{font-size:15px}
+.ex p{margin:4px 0 0;font-size:14px;color:var(--sub)}
+.ex-tag{display:inline-block;font-size:12px;font-weight:700;background:var(--accent);color:var(--acc-d);border-radius:6px;padding:1px 8px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:28px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:90%}
+  th,td{padding:7px 6px}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「くすのき通り学習教室」は架空の教室です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 52 52" role="img" aria-label="木とえんぴつの絵（デモ用）"><circle cx="26" cy="26" r="25" fill="#fff"/><circle cx="20" cy="20" r="10" fill="#9BC53D"/><circle cx="29" cy="24" r="8" fill="#9BC53D"/><rect x="21" y="27" width="4" height="14" rx="1" fill="#1f4c82"/><rect x="34" y="16" width="5" height="20" rx="1" fill="#2F6DB5"/><path d="M34 36 h5 l-2.5 6 z" fill="#1f2b3a"/></svg>
+  <div>
+    <h1>くすのき通り学習教室</h1>
+    <p>塾が決めた振替の日と、講習の日程を、保護者のLINEに知らせます。だれに届いたかが一覧になります。</p>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>欠席の連絡を受けたら。振替の日を選んで知らせる</h2></div>
+  <p class="sec-lead">欠席の連絡を受けたら、空いているコマから振替の日を選んで知らせます。日にちは塾が決めます。電話で決めたときも、同じ1通を控えとして送れます。</p>
+  <span class="who">見ている人：塾長</span>
+  <p class="pre-note">デモでは、欠席の連絡と空いているコマを先に入れてあります。実物では、名前・授業・振替の日時を、塾長がボタンで選びます。</p>
+  <div class="chips" id="chips1"></div>
+  <div id="list1"></div>
+  <a class="next-link" href="#s2">▼ 保護者のスマホを見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>保護者のスマホ。振替の日が1通で届く</h2></div>
+  <p class="sec-lead">振替の日が1通で届きます。ボタンを押すと、塾長の画面に「確認しました」が残ります。前の日にも、もう1通届きます。</p>
+  <span class="who">見ている人：保護者（山田さん）</span>
+  <div class="phone">
+    <div class="phone-head"><b>くすのき通り学習教室</b><span class="clock" id="clock1"></span></div>
+    <div class="chat" id="chat1"></div>
+    <div class="choices" id="choices1"></div>
+  </div>
+  <a class="next-link" href="#s3">▼ 講習のお知らせへ</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>冬期講習のお知らせを、学年を選んで送る</h2></div>
+  <p class="sec-lead">学年を選んで送ります。「読みました」と返事を押した人が一覧になります。LINEを使わないご家庭は「紙で渡した」と並びます。</p>
+  <span class="who">見ている人：塾長</span>
+  <div class="card" id="koMaker"></div>
+  <div id="koList"></div>
+  <a class="next-link" href="#s4">▼ 保護者のスマホを見る</a>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>保護者のスマホ。講習の日程と締切が届く</h2></div>
+  <p class="sec-lead">日程と締切が届きます。日にちは塾が決めたものです。返事はボタンを押すだけです。</p>
+  <span class="who">見ている人：保護者（山田さん）</span>
+  <div class="phone">
+    <div class="phone-head"><b>くすのき通り学習教室</b><span class="clock">11/19（木）</span></div>
+    <div class="chat" id="chat2"></div>
+    <div class="choices" id="choices2"></div>
+  </div>
+  <a class="next-link" href="#s3">▲ 塾長の一覧にもどる</a>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の3つは動かない見本です。</p>
+  <div class="ex"><b><span class="ex-tag">例</span>月謝の受け取りの控え</b><p>月謝袋を受け取ったら1回押します。その月の「まだの人」が一覧に残ります。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>振替の回数の控え</b><p>家庭ごとに、今年度の振替が何回目かが残ります。知らせの1通にも入ります。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>面談の日時のお知らせ</b><p>塾が決めた面談の日時を、家庭ごとに知らせます。「確認しました」と「この日は行けない」が残ります。</p></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  教室の名前と保護者の名前は架空です。押した内容は、この端末の中だけに残ります。日にちと時刻は、デモ用に決めたものです。<br>
+  紙のお知らせは、今のまま配れます。LINEには同じ中身が届きます。費用は画面に出していません。<br>
+  「申し込みたい」のボタンは、気持ちを先に知らせるものです。申込みは、紙の申込書で決まる形にしています。「確認しました」「読みました」は、押した日時が残るだけです。<br>
+  振替の決まり（回数や期限）は、教室の決まりに合わせて直せます。<br>
+  塾向けの連絡の道具や、学年ごとのグループLINEをもう使っている教室は、そちらで同じことができる場合があります。これは、電話・紙・個人のLINEで知らせている教室向けの見本です。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='kusunokidori_demo_state';
+  var SLOTS=['11/25（水）19:00','11/27（金）20:10','11/28（土）17:00'];
+  var PREV=['11/24（火）','11/26（木）','11/27（金）'];
+  var SLOTS_S=['11/24（火）17:00','11/26（木）17:00','11/28（土）15:00'];
+  var GR={sho:'小学生',c1:'中1',c2:'中2',c3:'中3'};
+  var GKEYS=['sho','c1','c2','c3'];
+  var FAM=[
+    {id:'yamada',name:'山田さん',g:'c2'},
+    {id:'sato',name:'佐藤さん',g:'c3'},
+    {id:'suzuki',name:'鈴木さん',g:'sho'},
+    {id:'takahashi',name:'高橋さん',g:'c2'},
+    {id:'tanaka',name:'田中さん',g:'c1'},
+    {id:'ito',name:'伊藤さん',g:'c3',paper:true},
+    {id:'watanabe',name:'渡辺さん',g:'c2'},
+    {id:'nakamura',name:'中村さん',g:'c1'}
+  ];
+  var LATER={
+    sato:{read:'11/19 21:10',ans:'申し込みたい'},
+    suzuki:{read:'11/20 7:45',ans:'今回は見送ります'},
+    takahashi:{read:'11/20 18:30',ans:''},
+    tanaka:{read:'11/19 20:02',ans:'申し込みたい'},
+    ito:{read:'',ans:''},
+    watanabe:{read:'',ans:''},
+    nakamura:{read:'11/21 8:15',ans:'あとで決める'}
+  };
+
+  function seed(){
+    return {
+      v:1,
+      y:{pick:0,st:'new',day:-1,ngDay:-1,pre:false},
+      z:{pick:0,st:'new',day:-1},
+      log1:[],step1:'none',
+      grades:{sho:false,c1:false,c2:true,c3:false},
+      ko:{sent:false,adv:false,resent:false,read:'',ans:''},
+      log2:[],step2:'none'
+    };
+  }
+  var S;
+  function load(){
+    S=null;
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==1||!S.y||!S.ko||!S.log1||!S.log2){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function goto(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+
+  function say(log,who,text,note){log.push({who:who,text:text,note:note||''});}
+  function sep(log,text){log.push({sep:text});}
+  function chatHtml(log,emptyText){
+    var h='';
+    if(!log.length){return '<div class="empty">'+emptyText+'</div>';}
+    for(var i=0;i<log.length;i++){
+      var m=log[i];
+      if(m.sep){h+='<div class="daysep"><span>'+esc(m.sep)+'</span></div>';continue;}
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.note){h+='<span class="auto">'+esc(m.note)+'</span>';}
+      h+='</div></div>';
+    }
+    return h;
+  }
+
+  /* ---------- 1. 振替の知らせ（塾長） ---------- */
+  function furiText(slot,again){
+    var t=slot.split('）'),end=(t[1]==='19:00')?'20:00':((t[1]==='20:10')?'21:10':'18:00');
+    return 'くすのき通り学習教室です。\n'+(again?'お電話でご相談した、振替の日のお知らせです。':'11/20（金）19:00 の数学は、お休みで承りました。')+'\n\n【振替の日】\n'+t[0]+'）'+t[1]+'〜'+end+'　数学\n\nご都合が悪いときは、下のボタンか、お電話でお知らせください。';
+  }
+  function pickRow(who,slots,cur,skip){
+    var h='<span class="lbl">振替の日を選ぶ（空いているコマ）</span><div class="opts">';
+    for(var i=0;i<slots.length;i++){
+      if(i===skip){continue;}
+      h+='<button type="button" class="opt'+(cur===i?' on':'')+'" aria-pressed="'+(cur===i?'true':'false')+'" data-act="pick:'+who+':'+i+'">'+esc(slots[i])+'</button>';
+    }
+    return h+'</div>';
+  }
+  function yamadaCard(){
+    var y=S.y,tl='<li>11/19 16:20　保護者から電話で欠席の連絡</li>',st='',act='',todo=false;
+    if(y.st==='new'){
+      todo=true;st='<span class="status todo">振替の日をまだ知らせていない</span>';
+      act=pickRow('y',SLOTS,y.pick,-1)+'<div class="card-act">'+btn('📩 この日で知らせる','send:y','fill full')+'</div>';
+    }else{
+      var first=(y.ngDay>=0)?y.ngDay:y.day;
+      tl+='<li class="good">11/19 16:32　振替の日を知らせた：'+esc(SLOTS[first])+'</li>';
+      if(y.ngDay>=0){tl+='<li class="hot">11/19 16:40　返事：この日は行けない</li>';}
+      if(y.st==='sent'){tl+='<li>まだ「確認しました」は押されていません</li>';st='<span class="status">確認まち</span>';}
+      if(y.st==='ng'){
+        todo=true;st='<span class="status todo">電話で相談する</span>';
+        act=pickRow('y',SLOTS,y.pick,y.ngDay)+'<div class="card-act">'+btn('📞 電話で決めた日を知らせる','resend:y','fill full')+'</div>';
+      }
+      if(y.ngDay>=0&&y.day>=0){
+        tl+='<li class="good">11/19 17:05　電話で相談して、知らせ直した：'+esc(SLOTS[y.day])+'</li>';
+        if(y.st==='sent2'){tl+='<li>まだ「確認しました」は押されていません</li>';st='<span class="status">確認まち</span>';}
+      }
+      if(y.st==='ok'){
+        tl+='<li class="good">11/19 '+(y.ngDay>=0?'17:12':'16:40')+'　「確認しました」</li>';
+        st='<span class="status done">確認ずみ　振替 '+esc(SLOTS[y.day])+'</span>';
+        if(y.pre){tl+='<li class="good">'+esc(PREV[y.day])+' 18:00　前の日の知らせを送った（自動）</li>';}
+      }
+      if((y.st==='sent'||y.st==='sent2')&&y.pre){tl+='<li class="good">'+esc(PREV[y.day])+' 18:00　前の日の知らせを送った（自動）</li>';}
+    }
+    return '<div class="card'+(todo?' todo':'')+'" id="cardY"><div class="card-top"><span>欠席：11/20（金）19:00　数学</span><span>今年度の振替 2回目</span></div><h3>山田さん（中2）</h3><ul class="tl">'+tl+'</ul><div>'+st+'</div>'+act+'</div>';
+  }
+  function suzukiCard(){
+    var z=S.z,tl='<li>11/19 7:50　保護者からLINEで欠席の連絡</li>',st,act='';
+    if(z.st==='new'){
+      st='<span class="status todo">振替の日をまだ知らせていない</span>';
+      act=pickRow('z',SLOTS_S,z.pick,-1)+'<div class="card-act">'+btn('📩 この日で知らせる','send:z','fill full')+'</div>';
+    }else{
+      tl+='<li class="good">11/19 16:35　振替の日を知らせた：'+esc(SLOTS_S[z.day])+'</li><li>まだ「確認しました」は押されていません</li>';
+      st='<span class="status">確認まち</span>';
+    }
+    return '<div class="card'+(z.st==='new'?' todo':'')+'" id="cardZ"><div class="card-top"><span>欠席：11/19（木）17:00　算数</span><span>今年度の振替 1回目</span></div><h3>鈴木さん（小6）</h3><ul class="tl">'+tl+'</ul><div>'+st+'</div>'+act+'</div>';
+  }
+  function renderList1(){
+    var y=S.y,z=S.z,todo=0,wait=0,done=1;
+    if(y.st==='new'||y.st==='ng'){todo++;}else if(y.st==='ok'){done++;}else{wait++;}
+    if(z.st==='new'){todo++;}else{wait++;}
+    $('chips1').innerHTML='<span class="chip'+(todo?' todo':'')+'">これから知らせる <b>'+todo+'</b></span><span class="chip">確認まち <b>'+wait+'</b></span><span class="chip">確認ずみ <b>'+done+'</b></span><span class="chip">電話で伝えた <b>1</b></span>';
+    var sato='<div class="card"><div class="card-top"><span>欠席：11/16（月）19:00　英語</span><span>今年度の振替 3回目</span></div><h3>佐藤さん（中3）</h3><ul class="tl"><li>11/16 15:10　保護者から電話で欠席の連絡</li><li class="good">11/16 15:30　振替の日を知らせた：11/21（土）17:00</li><li class="good">11/16 20:05　「確認しました」</li></ul><div><span class="status done">確認ずみ　振替 11/21（土）17:00</span></div></div>';
+    var ito='<div class="card"><div class="card-top"><span>欠席：11/17（火）20:10　国語</span><span>今年度の振替 1回目</span></div><h3>伊藤さん（中3）</h3><ul class="tl"><li>11/17 16:05　保護者から電話で欠席の連絡</li><li class="good">11/17 16:05　その電話で、振替の日を伝えた：11/24（火）20:10</li></ul><div><span class="status done">電話で伝えた（LINEを使わないご家庭）</span></div></div>';
+    $('list1').innerHTML=yamadaCard()+suzukiCard()+sato+ito;
+  }
+
+  /* ---------- 2. 保護者のLINE（振替） ---------- */
+  function renderPhone1(){
+    $('chat1').innerHTML=chatHtml(S.log1,'まだ何も届いていません。①で山田さんに振替の日を知らせると、ここに届きます。');
+    $('clock1').textContent=(S.y.pre)?PREV[S.y.day]:'11/19（木）';
+    var st=S.step1,h='';
+    var SKIP='<p class="hint">押さなくても、振替はこの日で入っています。前の日にも1通届きます。</p>'+btn('▶ 押さずに、前の日まで進める','pre','full ghost');
+    if(st==='notice'){
+      h=btn('確認しました','conf','half fill')+btn('この日は行けない','ng','half')+SKIP;
+    }else if(st==='notice2'){
+      h=btn('確認しました','conf2','fill full')+SKIP;
+    }else if(st==='wait'){
+      h='<p class="hint">塾長からの電話を待っています。①で、電話で決めた日を知らせると、ここに届きます。</p>'+btn('▲ 塾長の画面を見る','goto1','full fill');
+    }else if(st==='conf'){
+      h='<p class="hint">デモでは、日にちを進められます。</p>'+btn('▶ 振替の前の日まで進める','pre','fill full');
+    }else if(st==='end'){
+      h=btn('▼ 講習のお知らせへ','goto3','full fill');
+    }
+    $('choices1').innerHTML=h;
+  }
+
+  /* ---------- 3. 講習のお知らせ（塾長） ---------- */
+  function koText(){
+    return '【冬期講習のお知らせ】\n期間：12/24（木）〜12/29（火）\n　　　1/4（月）〜1/6（水）\n時間：13:00〜15:50\n申込みの締切：12/5（土）\n\nくわしい時間割と費用は、11/19にお渡しした紙のご案内をご覧ください。\nよろしければ、下の「読みました」を押してください。';
+  }
+  function targets(){
+    var out=[];
+    for(var i=0;i<FAM.length;i++){if(S.grades[FAM[i].g]){out.push(FAM[i]);}}
+    return out;
+  }
+  function stateOf(f){
+    if(f.id==='yamada'){return {read:S.ko.read,ans:S.ko.ans};}
+    if(S.ko.adv){return LATER[f.id];}
+    return {read:'',ans:''};
+  }
+  function renderKo(){
+    var t=targets(),h='<h3>冬期講習のお知らせ</h3><span class="lbl">送る学年を選ぶ（文は、紙のご案内と同じ日程です）</span><div class="opts">',i,lineN=0,paperN=0;
+    for(i=0;i<t.length;i++){if(t[i].paper){paperN++;}else{lineN++;}}
+    for(i=0;i<GKEYS.length;i++){
+      var g=GKEYS[i],on=S.grades[g];
+      h+='<button type="button" class="opt'+(on?' on':'')+'" aria-pressed="'+(on?'true':'false')+'" data-act="grade:'+g+'"'+(S.ko.sent?' disabled':'')+'>'+GR[g]+'</button>';
+    }
+    h+='</div><div class="preview">'+esc(koText())+'</div>';
+    if(S.ko.sent){
+      h+='<div class="sent-line">✅ 11/19 17:30 に、'+lineN+'人へ送りました</div>';
+    }else if(lineN){
+      h+='<div class="card-act">'+btn('📣 '+lineN+'人に送る','kosend','fill full')+'</div>';
+    }else{
+      h+='<p class="hint" style="margin-top:10px">学年を1つ以上選ぶと、送るボタンが出ます。</p>';
+    }
+    if(paperN){h+='<p class="hint" style="margin-top:8px">LINEを使わないご家庭が '+paperN+'軒あります。紙のお知らせを渡します。</p>';}
+    $('koMaker').innerHTML=h;
+
+    var l='';
+    if(S.ko.sent){
+      var read=0,app=0,unread=0,rows='';
+      for(i=0;i<t.length;i++){
+        var f=t[i],s=stateOf(f);
+        if(f.paper){
+          rows+='<tr><td>'+f.name+'（'+GR[f.g]+'）</td><td>紙で渡した</td><td>—</td></tr>';
+          continue;
+        }
+        if(s.read){read++;}else{unread++;}
+        if(s.ans==='申し込みたい'){app++;}
+        rows+='<tr'+(f.id==='yamada'?' class="me-row"':'')+'><td>'+f.name+'（'+GR[f.g]+'）</td><td class="'+(s.read?'yes':'no')+'">'+(s.read?esc(s.read):'まだ')+((!s.read&&S.ko.resent)?'<br>11/21 にもう1回':'')+'</td><td>'+(s.ans?esc(s.ans):'—')+'</td></tr>';
+      }
+      l+='<div class="chips" style="margin-top:12px"><span class="chip">送った <b>'+lineN+'</b></span><span class="chip">読んだ <b>'+read+'</b></span><span class="chip">申し込みたい <b>'+app+'</b></span><span class="chip'+(unread?' todo':'')+'">「読みました」がまだ <b>'+unread+'</b></span>'+(paperN?'<span class="chip">紙で渡した <b>'+paperN+'</b></span>':'')+'</div>';
+      l+='<table><thead><tr><th>保護者</th><th>読みました</th><th>返事</th></tr></thead><tbody>'+rows+'</tbody></table>';
+      l+='<div class="card-act">';
+      if(!S.ko.adv){l+='<p class="hint">デモでは、2日後のようすを見られます。</p>'+btn('▶ 2日後（11/21）に進める','koadv','full');}
+      else if(unread&&!S.ko.resent){l+=btn('「読みました」がまだの '+unread+'人に、もう1回だけ送る','koresend','full fill');}
+      else if(S.ko.resent){l+='<p class="hint">11/21 9:00 に、「読みました」がまだの人へ、もう1回だけ送りました。3回目は送りません。</p>';}
+      l+='</div>';
+    }
+    $('koList').innerHTML=l;
+  }
+
+  /* ---------- 4. 保護者のLINE（講習） ---------- */
+  function renderPhone2(){
+    var empty='まだ何も届いていません。③でお知らせを送ると、ここに届きます。',h='',st=S.step2;
+    if(S.ko.sent&&!S.grades.c2){empty='山田さんは中2です。③で「中2」を選んで送ると、ここに届きます。';}
+    $('chat2').innerHTML=chatHtml(S.log2,empty);
+    if(S.ko.sent&&!S.grades.c2){
+      h=btn('③をやり直す','koredo','full');
+    }else if(st==='notice'){
+      h=btn('読みました','koread','fill full')+'<p class="hint">押さなくても、お知らせはこのトークに残ります。返事だけ先に押すこともできます。</p>'+btn('申し込みたい','koans:0','half')+btn('今回は見送ります','koans:1','half');
+    }else if(st==='ans'){
+      h=btn('申し込みたい','koans:0','full fill')+btn('今回は見送ります','koans:1','half')+btn('あとで決める','koans:2','half');
+    }else if(st==='later'){
+      h=btn('申し込みたい','koans:0','half fill')+btn('今回は見送ります','koans:1','half')+btn('▲ 塾長の一覧にもどる','goto3','full ghost');
+    }else if(st==='end'){
+      h=btn('▲ 塾長の一覧にもどる','goto3','full fill');
+    }
+    $('choices2').innerHTML=h;
+  }
+
+  function renderAll(){renderList1();renderPhone1();renderKo();renderPhone2();}
+
+  function onAct(act){
+    var p=act.split(':'),k=p[0],scroll='';
+    if(k==='pick'){
+      var o=(p[1]==='y')?S.y:S.z;
+      o.pick=parseInt(p[2],10);
+    }else if(k==='send'){
+      if(p[1]==='y'){
+        if(S.y.st!=='new'){return;}
+        S.y.day=S.y.pick;S.y.st='sent';
+        S.log1=[];sep(S.log1,'11/19（木）');
+        say(S.log1,'bot',furiText(SLOTS[S.y.day],false),'※ 16:32 に届いた知らせ。塾長が日を選んで送りました');
+        S.step1='notice';scroll='s2';
+      }else{
+        if(S.z.st!=='new'){return;}
+        S.z.day=S.z.pick;S.z.st='sent';
+      }
+    }else if(k==='conf'){
+      say(S.log1,'me','確認しました');
+      say(S.log1,'bot','ありがとうございます。\n前の日にも、もう1通お知らせします。','※ ここは自動で返ります');
+      S.y.st='ok';S.step1='conf';
+    }else if(k==='ng'){
+      if(S.y.ngDay>=0){return;}
+      say(S.log1,'me','この日は行けない');
+      say(S.log1,'bot','承知しました。\n塾長からお電話します。授業中のときは、あすになることがあります。','※ ここは自動で返ります');
+      S.y.ngDay=S.y.day;S.y.day=-1;S.y.st='ng';
+      S.y.pick=(S.y.ngDay===0)?1:0;
+      S.step1='wait';
+    }else if(k==='resend'){
+      if(S.y.st!=='ng'){return;}
+      if(S.y.pick===S.y.ngDay){S.y.pick=(S.y.ngDay===0)?1:0;}
+      S.y.day=S.y.pick;S.y.st='sent2';
+      say(S.log1,'bot',furiText(SLOTS[S.y.day],true),'※ 17:05 に届いた知らせ');
+      S.step1='notice2';scroll='s2';
+    }else if(k==='conf2'){
+      say(S.log1,'me','確認しました');
+      say(S.log1,'bot','ありがとうございます。\n前の日にも、もう1通お知らせします。','※ ここは自動で返ります');
+      S.y.st='ok';S.step1='conf';
+    }else if(k==='pre'){
+      if(S.y.day<0||S.y.pre){return;}
+      if(S.y.st!=='ok'&&S.y.st!=='sent'&&S.y.st!=='sent2'){return;}
+      S.y.pre=true;
+      sep(S.log1,PREV[S.y.day]+' 振替の前の日');
+      say(S.log1,'bot','あす '+SLOTS[S.y.day]+' は、数学の振替の授業です。\nお待ちしています。','※ 18:00 に自動で届きます');
+      S.step1='end';
+    }else if(k==='grade'){
+      if(S.ko.sent){return;}
+      S.grades[p[1]]=!S.grades[p[1]];
+    }else if(k==='kosend'){
+      if(S.ko.sent||!targets().length){return;}
+      S.ko.sent=true;
+      if(S.grades.c2){
+        S.log2=[];sep(S.log2,'11/19（木）');
+        say(S.log2,'bot','くすのき通り学習教室です。\n\n'+koText(),'※ 17:30 に届いたお知らせ');
+        S.step2='notice';
+      }
+    }else if(k==='koadv'){
+      S.ko.adv=true;
+    }else if(k==='koresend'){
+      S.ko.resent=true;
+    }else if(k==='koredo'){
+      var keep=seed();S.ko=keep.ko;S.grades=keep.grades;S.log2=[];S.step2='none';scroll='s3';
+    }else if(k==='koread'){
+      say(S.log2,'me','読みました');
+      say(S.log2,'bot','ありがとうございます。\n受けるかどうかは、12/5（土）までに、下のボタンか、紙の申込書でお知らせください。','※ ここは自動で返ります');
+      S.ko.read='11/19 17:45';S.step2='ans';
+    }else if(k==='koans'){
+      var a=['申し込みたい','今回は見送ります','あとで決める'][parseInt(p[1],10)];
+      say(S.log2,'me',a);
+      if(p[1]==='0'){say(S.log2,'bot','ありがとうございます。「申し込みたい」を受け取りました。\n申込みは、紙の申込書のご提出で決まります。','※ ここは自動で返ります');S.step2='end';}
+      else if(p[1]==='1'){say(S.log2,'bot','承知しました。お返事ありがとうございます。','※ ここは自動で返ります');S.step2='end';}
+      else{say(S.log2,'bot','承知しました。締切は 12/5（土）です。\nこのトークのボタンは、そのまま使えます。','※ ここは自動で返ります');S.step2='later';}
+      S.ko.ans=a;
+      if(!S.ko.read){S.ko.read='11/19 17:45';}
+    }else if(k==='goto1'){goto('s1');return;
+    }else if(k==='goto3'){goto('s3');return;}
+    save();renderAll();
+    if(scroll){goto(scroll);}
+  }
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    if(t.disabled){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnReset').addEventListener('click',function(){S=seed();save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  renderAll();
+})();
+</script>
+</body>
+</html>

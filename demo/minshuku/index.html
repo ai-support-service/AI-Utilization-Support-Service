@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>一棟貸しの宿 なぎの縁側（デモ）近所からの連絡の記録と、ルールを届けた記録</title>
+<style>
+:root{--main:#2F5D73;--main-d:#214353;--accent:#E9C46A;--bg:#F7F5EF;--ink:#1f2b33;--sub:#5a6770;--line:#d9d6cb;--card:#ffffff;--chat:#dfe8ec;--me:#a6e89b;--warn:#b4530a;--ok:#2f7d4f;--soft:#e4edf1}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#3a2c00;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px}
+header.top .kind{margin:0;font-size:13px;opacity:.95}
+header.top h1{margin:0;font-size:22px;letter-spacing:.02em}
+header.top p.lead{margin:6px 0 0;font-size:14px}
+.badge{display:inline-block;margin-top:10px;background:#fff;color:var(--main-d);font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--soft);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#27343c;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px;opacity:.9}
+#chat{padding:12px 10px 4px;min-height:150px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:86%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.bubble svg{display:block;width:180px;max-width:100%;height:auto;border-radius:8px}
+.day{text-align:center;font-size:12px;color:var(--sub);margin:12px 0 4px}
+.day span{background:#fff;border-radius:999px;padding:2px 10px}
+.rules{white-space:normal}
+.rules .rt{display:block;font-size:13px;font-weight:700;color:var(--main-d);border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:6px}
+.rules ul{list-style:none;margin:0;padding:0}
+.rules li{display:flex;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.rules li:last-child{border-bottom:0}
+.rules .rf{display:block;border-top:1px solid var(--line);margin-top:6px;padding-top:6px;font-size:14px}
+.rules .ri{flex:none;width:26px;text-align:center;font-size:18px;line-height:1.3}
+.rules li b{display:block;font-size:14px}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.btn.opt{font-weight:400;font-size:14px;padding:8px 12px}
+.btn.opt[aria-pressed="true"]{background:var(--main);color:#fff;font-weight:700}
+input[type=text]{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.next-link{display:block;text-align:center;margin:12px 0 0;padding:12px 0;font-size:14px;font-weight:700;color:var(--main-d)}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--warn)}
+.card.new{background:#fff9e3}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.card h3{margin:6px 0 2px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.nw{white-space:nowrap}
+.card p.small{font-size:12px;color:var(--sub);margin-top:6px}
+.tag{display:inline-block;font-weight:700;border-radius:6px;padding:1px 8px;font-size:12px;color:#fff;background:var(--main)}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:#eef0ee;color:var(--sub)}
+.status.todo{background:#fbe9d7;color:var(--warn)}
+.status.done{background:#dff1e6;color:var(--ok)}
+.hist{font-size:13px;background:#fff8dc;border:1px solid #ecd98a;border-radius:6px;padding:6px 8px;margin-top:6px}
+.card-act{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.inner{margin-top:8px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fbfaf6}
+/* form */
+.form{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:12px}
+.form .q{font-size:13px;font-weight:700;color:var(--main-d);margin:12px 0 6px}
+.form .q:first-child{margin-top:0}
+.group{display:flex;flex-wrap:wrap;gap:6px}
+.times{display:flex;gap:6px;flex-wrap:wrap}
+.times .chip{background:var(--soft);border-color:var(--soft);font-size:13px}
+.tnote{margin:6px 0 0;font-size:12px;color:var(--sub)}
+.form label{font-size:12px;color:var(--sub);display:block}
+.err{font-size:13px;color:var(--warn);min-height:1.4em;margin:8px 0 0}
+.filter{display:flex;gap:6px;flex-wrap:wrap;margin:0}
+.filter .btn{font-size:13px;font-weight:400;padding:6px 10px}
+.filter .btn[aria-pressed="true"]{background:var(--main);color:#fff;font-weight:700}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+/* more */
+.more{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;display:flex;gap:10px;align-items:flex-start}
+.more .ex{flex:none;font-size:12px;font-weight:700;color:#3a2c00;background:var(--accent);border-radius:6px;padding:2px 8px;margin-top:3px}
+.more b{display:block;font-size:15px}
+.more span{display:block;font-size:13px;color:var(--sub)}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:90%}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「なぎの縁側」は架空の宿です</div>
+<div class="wrap">
+
+<header class="top">
+  <p class="kind">一棟貸しの宿</p>
+  <h1>なぎの縁側</h1>
+  <p class="lead">近所から電話が来た夜に、ボタン3つで「いつ・何の件・どうしたか」を残せます。近所の方は電話のまま。LINEを使うのは、オーナーとお客さんだけです。</p>
+  <span class="badge">ふだん人がいない一棟貸し（淡路島・デモの設定）</span>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>近所から電話が来た夜に、ボタンで残す</h2></div>
+  <p class="sec-lead">11月21日（土）の夜、近所の方から電話があった、という場面です。電話は今のまま受けます。そのあとでボタンを3つ選ぶと、記録が1件残ります。</p>
+  <span class="who">見ている人：宿のオーナー</span>
+  <p class="sec-lead">オーナーのLINEのメニューから開く形です（例）。毎日さわるものではありません。連絡が来た日にだけ使います。</p>
+  <div class="form">
+    <div class="times"><span class="chip">受けた時刻 <b id="tA">21:40</b></span><span class="chip">対応した時刻 <b id="tB">21:46</b></span></div>
+    <p class="tnote">時刻は打ちません。開いたときと「記録に残す」を押したときの時刻が、自動で入ります（デモでは見本の時刻）。</p>
+    <p class="q">だれから</p>
+    <div class="group" id="gFrom"></div>
+    <p class="q">何の件</p>
+    <div class="group" id="gKind"></div>
+    <p class="q">どうしたか</p>
+    <div class="group" id="gAct"></div>
+    <div id="fPrev"></div>
+    <p class="q"><label for="fMemo" style="font-size:13px;font-weight:700;color:inherit">メモ（書かなくてもかまいません）</label></p>
+    <input type="text" id="fMemo" value="" placeholder="例：テラスの明かりは消えていた">
+    <p class="err" id="fHint" role="status"></p>
+    <button class="btn fill full" id="btnRec" type="button">記録に残す</button>
+  </div>
+  <a class="next-link" href="#s2">▼ 記録の一覧を見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>連絡の記録が、新しい順に並ぶ</h2></div>
+  <p class="sec-lead">宿の画面です。いつ・だれから・何の件で・どうしたかが並びます。その日のお客さんと、ルールを読んだ日時も、いっしょに残ります。</p>
+  <span class="who">見ている人：宿のオーナー</span>
+  <div class="filter" id="filter"></div>
+  <div id="recs"></div>
+  <a class="next-link" href="#s3">▼ ルールを届ける場面を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>泊まる前。お客さんにルールが届く</h2></div>
+  <p class="sec-lead">玄関の掲示や予約サイトの文は、今のまま。そこに足すものです。予約が決まると、同じルール（ハウスルール）がLINEにも届きます。「読みました」を押すと、その日時が宿に残ります。②の記録にある「ルール：◯日に読みました」は、ここから来ています。</p>
+  <span class="who">見ている人：泊まるお客さん（ゲスト。代表の鈴木さま）</span>
+  <div class="phone">
+    <div class="phone-head"><b>なぎの縁側</b><span class="clock" id="clock">20:13</span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <p class="sec-lead" style="margin-top:10px">LINEを使わない方には、同じルールを紙で渡します。④の画面で「紙・電話で伝えた」と残せます。</p>
+  <a class="next-link" href="#s4">▼ 宿の画面を見る</a>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>だれに届けて、いつ読まれたか</h2></div>
+  <p class="sec-lead">宿の画面です。ルールを届けた日時と読まれた日時が、予約ごとに並びます。届けた文面も、あとから見られます。</p>
+  <span class="who">見ている人：宿のオーナー</span>
+  <div class="chips" id="chips"></div>
+  <div id="stays"></div>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下は動かない見本です。</p>
+  <div class="more"><span class="ex">例</span><div><b>清掃の人への知らせ</b><span>予約が入ると、清掃の人のLINEに「11/22（日）10時にチェックアウト。次のチェックインは15時」と届きます。</span></div></div>
+  <div class="more"><span class="ex">例</span><div><b>チェックインの案内</b><span>泊まる日の朝に、鍵の開け方と車を停める場所が届きます。</span></div></div>
+  <div class="more"><span class="ex">例</span><div><b>外国語のルール</b><span>同じルールを、英語でも届けます。読んだ日時も同じように残ります。</span></div></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  宿の名前とお客さまの名前は架空です。日付と時刻は見本です。入力した内容は、この端末の中だけに残ります。<br>
+  ルールの文面は見本です。宿ごとに書きかえて使います。<br>
+  記録は、あとで見返すための控えです。何かを約束したり、証明したりするものではありません。<br>
+  玄関の掲示、予約サイトのやりとり、電話は、今のまま使えます。これは、そこに足すものです。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='minshuku_demo_state';
+  var HOUSE='<svg viewBox="0 0 180 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="海の近くの一軒家の絵（デモ用）"><rect width="180" height="110" fill="#cfe1e8"/><rect y="62" width="180" height="14" fill="#7fa9bb"/><rect y="76" width="180" height="34" fill="#e3d9bd"/><circle cx="150" cy="24" r="11" fill="#E9C46A"/><path d="M38 58 L84 30 L130 58 Z" fill="#214353"/><rect x="46" y="58" width="76" height="34" fill="#f7f5ef"/><rect x="56" y="66" width="18" height="26" fill="#2F5D73"/><rect x="84" y="66" width="28" height="16" fill="#9cc3d2"/><rect x="34" y="92" width="100" height="5" fill="#8a7a5a"/><rect x="38" y="97" width="4" height="8" fill="#8a7a5a"/><rect x="126" y="97" width="4" height="8" fill="#8a7a5a"/></svg>';
+  var RULES=[
+    {ic:'🌙',t:'音',d:'21時からは、庭とテラスでの話し声と音楽をひかえて、室内でお過ごしください。'},
+    {ic:'🗑',t:'ごみ',d:'分けて、勝手口のごみ箱へ入れてください。外や、近くのごみ置き場には出さないでください。'},
+    {ic:'🔥',t:'火の扱い',d:'BBQはテラスのコンロだけ、20時までです。花火はできません。'},
+    {ic:'🚨',t:'緊急のとき',d:'火事や救急のときは、先に119番へ。そのあと宿へお電話ください。番号は玄関の掲示にあります。'},
+    {ic:'🧼',t:'片づけ・衛生',d:'生ごみは袋の口をしばってください。使った食器は洗って、元の場所へ戻してください。'}
+  ];
+  var RULE_VER='宿のルール（2026年10月版）';
+  var FROMS=['近所の方','自治会の方','通りがかりの方'];
+  var KINDS=[
+    {k:'oto',l:'🌙 音・声',m:'お楽しみのところ、すみません。近くのお宅に、声が届いているようです。21時を過ぎましたので、室内でお過ごしください。返信はいりません。'},
+    {k:'gomi',l:'🗑 ごみ',m:'夜分にすみません。ごみは勝手口のごみ箱へお願いします。外に出ている袋にお心当たりがあれば、中へ入れてください。返信はいりません。'},
+    {k:'hi',l:'🔥 煙・火',m:'お楽しみのところ、すみません。煙が近くのお宅へ流れているようです。BBQは20時までです。火の始末をお願いします。返信はいりません。'},
+    {k:'kuruma',l:'🚗 車の停め方',m:'夜分にすみません。道路に停めている車があれば、敷地の中の2台ぶんの場所へ移してください。返信はいりません。'},
+    {k:'hoka',l:'その他',m:'夜分にすみません。近くの方から、宿に連絡がありました。夜の時間ですので、まわりへのご配慮をお願いします。返信はいりません。'}
+  ];
+  var ACTS=[
+    {k:'line',l:'お客さんにLINEで伝えた'},
+    {k:'tel',l:'お客さんに電話で伝えた'},
+    {k:'genchi',l:'見に行った'},
+    {k:'seisou',l:'清掃の人に頼んだ'}
+  ];
+  var TIMES=[['21:40','21:46'],['22:15','22:21'],['22:50','22:57']];
+  function nowT(){var i=S.seq-3;if(i<0){i=0;}if(i>2){i=2;}return TIMES[i];}
+  var AFTERS={ok:'おさまった',again:'もう一度連絡があった',chigau:'宿のお客さんの件ではなかった'};
+
+  function seed(){
+    return {
+      seq:3,
+      flow:{step:'start',day2:false},
+      log:[],
+      form:{from:'',kind:'',act:''},
+      filter:'all',
+      stays:[
+        {id:1,name:'山田さま',people:'大人4名',date:'11/21（土）から1泊',sent:['11/19（木）20:13'],read:'11/19（木）20:14',open:false,flow:false,night:true},
+        {id:2,name:'佐藤さま',people:'大人2名・子ども2名',date:'11/22（日）から2泊',sent:['11/17（火）10:02'],read:'11/17（火）12:40',open:false,flow:false,night:false},
+        {id:3,name:'鈴木さま',people:'大人6名',date:'11/28（土）から1泊',sent:['11/22（日）20:13'],read:'',open:false,flow:true,night:false},
+        {id:4,name:'木村さま',people:'大人3名',date:'12/5（土）から1泊',sent:['11/20（金）9:15'],read:'',open:false,flow:false,night:false}
+      ],
+      recs:[
+        {id:1,date:'2026/9/20（日）',t1:'7:30',from:'自治会の方',kind:'gomi',act:'genchi',t2:'8:10',msg:'',memo:'ごみ置き場の袋を持ち帰った',stay:'前の日のお客さん：高橋さま｜ルール：9/17（木）19:22 に「読みました」',after:'ok',isNew:false},
+        {id:2,date:'2026/10/10（土）',t1:'20:50',from:'近所の方',kind:'hi',act:'line',t2:'20:55',msg:'お楽しみのところ、すみません。煙が近くのお宅へ流れているようです。BBQは20時までです。火の始末をお願いします。返信はいりません。',memo:'',stay:'この日のお客さん：田中さま｜ルール：10/8（木）21:10 に「読みました」',after:'ok',isNew:false}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||!S.stays||!S.recs||!S.flow||!S.form){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function findBy(arr,key,val){for(var i=0;i<arr.length;i++){if(arr[i][key]===val){return arr[i];}}return null;}
+  function guest(){return findBy(S.stays,'flow',true);}
+
+  function rulesHtml(foot){
+    var h='<div class="rules"><span class="rt">'+esc(RULE_VER)+'</span><ul>';
+    for(var i=0;i<RULES.length;i++){
+      h+='<li><span class="ri">'+RULES[i].ic+'</span><div><b>'+esc(RULES[i].t)+'</b>'+esc(RULES[i].d)+'</div></li>';
+    }
+    h+='</ul>';
+    if(foot){h+='<span class="rf">読み終わったら、下の「読みました」を押してもらえると助かります。ごいっしょの方にも、お伝えください。</span>';}
+    return h+'</div>';
+  }
+
+  /* ---------- 3. お客さんのLINE ---------- */
+  function say(who,text,opt){
+    S.log.push({who:who,text:text,type:(opt&&opt.type)||'text',auto:!!(opt&&opt.auto),foot:!!(opt&&opt.foot)});
+  }
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      if(m.type==='day'){h+='<div class="day"><span>'+esc(m.text)+'</span></div>';continue;}
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">';
+      if(m.type==='pic'){h+=HOUSE;}
+      else if(m.type==='rules'){h+=rulesHtml(m.foot);}
+      else{h+=esc(m.text);}
+      if(m.auto){h+='<span class="auto">※ ここまで自動です。読んだ日時は、宿の画面に残ります</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+    $('clock').innerHTML=S.flow.day2?'8:00':'20:13';
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function renderChoices(){
+    var st=S.flow.step,h='';
+    if(st==='start'){
+      h=btn('ルールを読む','open','full fill');
+    }else if(st==='rules'){
+      h=btn('読みました','read','half fill');
+      if(!S.flow.day2){h+=btn('あとで読む','later','half');}
+    }else if(st==='later'){
+      h='<p class="hint">デモでは、ボタンで次の日の朝に進めます。</p>'+btn('⏩ 泊まる前の日の朝に進める','tomorrow','full fill');
+    }else if(st==='end'){
+      h=btn('▼ 宿の画面を見る','goto','full fill')+btn('もう一度、最初からやってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function startFlow(){
+    S.flow={step:'start',day2:false};
+    S.log=[];
+    var g=guest();
+    if(g){g.sent=['11/22（日）20:13'];g.read='';}
+    say('bot','',{type:'pic'});
+    say('bot','一棟貸しの宿 なぎの縁側です。\n鈴木さま、11月28日（土）から1泊のご予約をありがとうございます。\n\nまわりは、ふだんの暮らしがある住宅地です。お泊まりの前に、宿のルールを5つお読みください。');
+  }
+  function onChoice(act){
+    var g=guest();
+    if(act==='open'){
+      say('me','ルールを読む');
+      say('bot','',{type:'rules',foot:true});
+      S.flow.step='rules';
+    }else if(act==='later'){
+      say('me','あとで読む');
+      say('bot','わかりました。\nお泊まりの前の日の朝8時に、もう一度お届けします。');
+      S.flow.step='later';
+    }else if(act==='tomorrow'){
+      S.flow.day2=true;
+      say('bot','11月27日（金）8:00',{type:'day'});
+      say('bot','おはようございます。なぎの縁側です。\n明日のお泊まりの前に、宿のルールをお読みください。');
+      say('bot','',{type:'rules',foot:true});
+      if(g){g.sent.push('11/27（金）8:00');}
+      S.flow.step='rules';
+    }else if(act==='read'){
+      var when=S.flow.day2?'11/27（金）8:03':'11/22（日）20:14';
+      say('me','読みました');
+      say('bot','ありがとうございます。\n「読みました」を受け取りました（'+when+'）。\n\nチェックインは15時からです。ルールは、このトークでいつでも読み返せます。玄関のファイルにも、同じものがあります。',{auto:true});
+      if(g){g.read=when;}
+      S.flow.step='end';
+    }else if(act==='goto'){
+      var el=$('s4');if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}
+      return;
+    }else if(act==='again'){
+      startFlow();
+    }
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  /* ---------- 4. ルールを届けた記録 ---------- */
+  function renderStays(){
+    var yes=0,no=0,pa=0,i,h='';
+    for(i=0;i<S.stays.length;i++){if(S.stays[i].paper){pa++;}else if(S.stays[i].read){yes++;}else{no++;}}
+    $('chips').innerHTML='<span class="chip">読みました <b>'+yes+'</b></span>'+(pa?'<span class="chip">紙・電話で伝えた <b>'+pa+'</b></span>':'')+'<span class="chip todo">まだ <b>'+no+'</b></span>';
+    for(i=0;i<S.stays.length;i++){
+      var s=S.stays[i];
+      var done=!!(s.read||s.paper);
+      h+='<div class="card'+(done?'':' todo')+'">';
+      h+='<div class="card-top"><span>'+esc(s.date)+'</span><span class="status '+(done?'done':'todo')+'">'+(s.paper?'紙・電話で伝えた':(s.read?'読みました':'まだ読んでいません'))+'</span></div>';
+      h+='<h3>'+esc(s.name)+'（'+esc(s.people)+'）</h3>';
+      h+='<p>届けた日時：'+esc(s.sent.join('、'))+'<span class="nw">（'+s.sent.length+'回）</span></p>';
+      if(s.paper){h+='<p>伝えた日時：'+esc(s.paper)+'（オーナーが残した）</p>';}
+      else{h+='<p>読んだ日時：'+(s.read?esc(s.read):'―')+'</p>';}
+      if(!done){h+='<p class="small">泊まる前の日の朝8時に、自動でもう一度届きます。オーナーが押す所はありません。</p>';}
+      if(s.flow&&!s.read){h+='<p class="small">③で「読みました」を押すと、ここが変わります。</p>';}
+      h+='<div class="card-act"><button type="button" class="btn" data-open="'+s.id+'">'+(s.open?'文面を閉じる':'届けた文面を見る')+'</button>';
+      if(!done&&!s.flow){
+        h+='<button type="button" class="btn" data-paper="'+s.id+'">紙・電話で伝えた、と残す</button>';
+        if(s.sent.length<2){h+='<button type="button" class="btn" data-resend="'+s.id+'">今すぐ、もう一度届ける</button>';}
+        else{h+='<span class="status">もう一度届けました</span>';}
+      }
+      h+='</div>';
+      if(s.open){h+='<div class="inner">'+rulesHtml()+'</div>';}
+      h+='</div>';
+    }
+    $('stays').innerHTML=h;
+  }
+  function onOpen(id){var s=findBy(S.stays,'id',id);if(!s){return;}s.open=!s.open;save();renderStays();}
+  function onPaper(id){
+    var s=findBy(S.stays,'id',id);if(!s||s.read||s.paper){return;}
+    s.paper='11/22（日）20:35';
+    save();renderStays();
+  }
+  function onResend(id){
+    var s=findBy(S.stays,'id',id);if(!s||s.read||s.paper||s.sent.length>=2){return;}
+    s.sent.push('11/22（日）20:30');
+    save();renderStays();
+  }
+
+  /* ---------- 1・2. 近所からの連絡の記録 ---------- */
+  function optBtn(group,val,label,on){
+    return '<button type="button" class="btn opt" aria-pressed="'+(on?'true':'false')+'" data-pick="'+group+':'+esc(val)+'">'+label+'</button>';
+  }
+  function kindOf(k){return findBy(KINDS,'k',k);}
+  function actOf(k){return findBy(ACTS,'k',k);}
+  function renderForm(){
+    var i,h='';
+    for(i=0;i<FROMS.length;i++){h+=optBtn('from',FROMS[i],FROMS[i],S.form.from===FROMS[i]);}
+    $('gFrom').innerHTML=h;h='';
+    for(i=0;i<KINDS.length;i++){h+=optBtn('kind',KINDS[i].k,KINDS[i].l,S.form.kind===KINDS[i].k);}
+    $('gKind').innerHTML=h;h='';
+    for(i=0;i<ACTS.length;i++){h+=optBtn('act',ACTS[i].k,ACTS[i].l,S.form.act===ACTS[i].k);}
+    $('gAct').innerHTML=h;
+    $('tA').innerHTML=nowT()[0];$('tB').innerHTML=nowT()[1];
+    var k=kindOf(S.form.kind);
+    if(k&&S.form.act==='line'){
+      $('fPrev').innerHTML='<div class="hist">お客さんのLINEに届く文（例）：<br>'+esc(k.m)+'</div>';
+    }else{$('fPrev').innerHTML='';}
+  }
+  function onPick(v){
+    var p=v.split(':'),g=p[0],val=p.slice(1).join(':');
+    if(g!=='from'&&g!=='kind'&&g!=='act'){return;}
+    S.form[g]=(S.form[g]===val)?'':val;
+    $('fHint').innerHTML='';
+    save();renderForm();
+  }
+  function stayLine(){
+    var g=findBy(S.stays,'night',true);
+    if(!g){return '';}
+    return 'この日のお客さん：'+g.name+'｜ルール：'+(g.read?(g.read+' に「読みました」'):'届けた（まだ読んでいません）');
+  }
+  function onRec(){
+    var f=S.form;
+    if(!f.from||!f.kind||!f.act){$('fHint').innerHTML='「だれから」「何の件」「どうしたか」を選んでください。';return;}
+    var k=kindOf(f.kind),i,tm=nowT();
+    for(i=0;i<S.recs.length;i++){S.recs[i].isNew=false;}
+    S.recs.push({id:S.seq++,date:'2026/11/21（土）',t1:tm[0],from:f.from,kind:f.kind,act:f.act,t2:tm[1],msg:(f.act==='line'&&k)?k.m:'',memo:$('fMemo').value||'',stay:stayLine(),after:'',isNew:true});
+    S.form={from:'',kind:'',act:''};
+    S.filter='all';
+    $('fMemo').value='';
+    $('fHint').innerHTML='';
+    save();renderForm();renderRecs();
+    var el=$('s2');if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth',block:'start'});}
+  }
+  function renderRecs(){
+    var i,h='<button type="button" class="btn" aria-pressed="'+(S.filter==='all'?'true':'false')+'" data-filter="all">すべて '+S.recs.length+'件</button>';
+    for(i=0;i<KINDS.length;i++){
+      h+='<button type="button" class="btn" aria-pressed="'+(S.filter===KINDS[i].k?'true':'false')+'" data-filter="'+KINDS[i].k+'">'+KINDS[i].l+'</button>';
+    }
+    $('filter').innerHTML=h;
+    var arr=S.recs.slice().reverse();h='';
+    for(i=0;i<arr.length;i++){
+      var r=arr[i];
+      if(S.filter!=='all'&&r.kind!==S.filter){continue;}
+      var k=kindOf(r.kind),a=actOf(r.act);
+      h+='<div class="card'+(r.isNew?' new':'')+'">';
+      h+='<div class="card-top"><span>'+esc(r.date)+' '+esc(r.t1)+'</span><span class="tag">'+(k?k.l:'')+'</span></div>';
+      h+='<h3>'+esc(r.from)+'から連絡</h3>';
+      h+='<p>対応：'+(a?esc(a.l):'')+'（'+esc(r.t2)+'）</p>';
+      if(r.msg){h+='<div class="hist">お客さんへ送った文：'+esc(r.msg)+'</div>';}
+      if(r.memo){h+='<p>メモ：'+esc(r.memo)+'</p>';}
+      if(r.stay){h+='<p class="small">'+esc(r.stay)+'</p>';}
+      if(r.after){
+        h+='<div style="margin-top:8px"><span class="status '+(r.after==='again'?'todo':'done')+'">その後：'+AFTERS[r.after]+'</span></div>';
+      }else{
+        h+='<p class="small">その後どうなったかも残せます。</p><div class="card-act"><button type="button" class="btn half" data-after="'+r.id+':ok">おさまった</button><button type="button" class="btn half" data-after="'+r.id+':again">もう一度連絡があった</button><button type="button" class="btn full" data-after="'+r.id+':chigau">宿のお客さんの件ではなかった</button></div>';
+      }
+      h+='</div>';
+    }
+    $('recs').innerHTML=h||'<div class="empty">この件の記録は、まだありません。</div>';
+  }
+  function onAfter(v){
+    var p=v.split(':'),r=findBy(S.recs,'id',parseInt(p[0],10));
+    if(!r||!AFTERS[p[1]]){return;}
+    r.after=p[1];save();renderRecs();
+  }
+  function onFilter(v){S.filter=v;save();renderRecs();}
+
+  function renderAll(){renderChat();renderChoices();renderStays();renderForm();renderRecs();}
+
+  var ATTRS=['data-act','data-open','data-resend','data-paper','data-pick','data-after','data-filter'];
+  function hit(t){
+    if(!t.getAttribute){return '';}
+    for(var i=0;i<ATTRS.length;i++){if(t.getAttribute(ATTRS[i])!==null){return ATTRS[i];}}
+    return '';
+  }
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!hit(t)){t=t.parentNode;}
+    if(!t||t===document){return;}
+    var a=hit(t),v=t.getAttribute(a);
+    if(a==='data-act'){onChoice(v);}
+    else if(a==='data-open'){onOpen(parseInt(v,10));}
+    else if(a==='data-resend'){onResend(parseInt(v,10));}
+    else if(a==='data-paper'){onPaper(parseInt(v,10));}
+    else if(a==='data-pick'){onPick(v);}
+    else if(a==='data-after'){onAfter(v);}
+    else if(a==='data-filter'){onFilter(v);}
+  });
+  $('btnRec').addEventListener('click',onRec);
+  $('btnReset').addEventListener('click',function(){
+    S=seed();startFlow();
+    $('fMemo').value='';$('fHint').innerHTML='';
+    save();renderAll();window.scrollTo(0,0);
+  });
+
+  load();
+  if(!S.log||!S.log.length){startFlow();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

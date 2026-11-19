@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>しらかし接骨院（デモ）施術中の問い合わせと院長の一覧</title>
+<style>
+:root{--main:#4F7A5A;--main-d:#2f4f3a;--accent:#E8A87C;--bg:#F6F8F3;--ink:#2F3A33;--sub:#5a6860;--line:#d5ddd2;--card:#ffffff;--chat:#e2eadf;--me:#a6e89b;--tint:#e6efe6;--peach-l:#fbeadd;--peach-d:#7a3f17}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#3a2416;font-weight:700;font-size:13px;text-align:center;padding:6px 10px;word-break:keep-all;overflow-wrap:anywhere;text-wrap:balance}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:12px;align-items:center}
+header.top svg{flex:none;width:52px;height:52px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:28px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--tint);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:var(--ink);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+.chat{padding:12px 10px 4px;min-height:120px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:82%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.wait{font-size:13px;color:var(--sub);text-align:center;padding:14px 10px}
+.choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 12px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.btn.left{text-align:left;font-weight:400}
+.next-link{display:flex;align-items:center;justify-content:center;min-height:44px;margin:8px 0 0;font-size:14px;font-weight:700;color:var(--main-d)}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--accent);color:var(--peach-d)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--accent)}
+.card.done{border-left:5px solid var(--main)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.card h3{margin:6px 0 2px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:var(--tint);color:var(--main-d)}
+.status.todo{background:var(--peach-l);color:var(--peach-d)}
+.card-act{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.reply{background:var(--tint);border-radius:8px;padding:8px 10px;font-size:14px;margin-top:8px}
+.small{font-size:12px;color:var(--sub)}
+.sub-h{margin:22px 0 4px;font-size:14px;font-weight:700}
+.autolist{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:12px}
+.autolist li{display:flex;gap:10px;padding:8px 12px;font-size:14px;border-bottom:1px solid var(--line)}
+.autolist li:last-child{border-bottom:0}
+.autolist .t{flex:none;width:3.2em;color:var(--sub)}
+.autolist .n{flex:none;width:5em}
+/* examples */
+.ex{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:10px 12px;margin-top:10px;font-size:14px}
+.ex b{display:block;font-size:15px}
+.ex-tag{display:inline-block;font-size:12px;font-weight:700;background:var(--accent);color:#3a2416;border-radius:6px;padding:1px 8px;margin-right:6px}
+.ex p{margin:4px 0 0;color:var(--sub)}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:28px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:88%}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「しらかし接骨院」は架空の院です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 52 52" role="img" aria-label="木の葉の絵（デモ用の見本）"><circle cx="26" cy="26" r="25" fill="#ffffff"/><circle cx="34" cy="17" r="7" fill="#E8A87C"/><path d="M10 40 C10 24 22 16 34 20 C34 34 24 42 10 40 Z" fill="#4F7A5A"/><path d="M12 39 C18 32 24 27 32 22" stroke="#ffffff" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+  <div>
+    <h1>しらかし接骨院</h1>
+    <p>施術中に届いた質問に、返事の時を先に伝えます。院長は、昼にまとめて返せます。予約の道具ではありません。</p>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>施術中：返事の時が、先に伝わる</h2></div>
+  <p class="sec-lead">午前10時40分。院長は施術中です。通っている山田さまが、院のLINEを開きます（LINEを使わない方は、今までどおり電話です）。受付時間や駐車場の答えは、LINEに元からある欄でも出せます。ここで足しているのは「院長に聞く」です。質問は文字で打たず、ボタンで選びます。</p>
+  <span class="who">見ている人：通っている人（山田さま）</span>
+  <div class="phone">
+    <div class="phone-head"><b>しらかし接骨院</b><span class="clock">10:40</span></div>
+    <div class="chat" id="chat"></div>
+    <div class="choices" id="choices"></div>
+  </div>
+  <a class="next-link" href="#s2">▼ 院長の一覧を見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>昼の休み：院長が一覧からまとめて返す</h2></div>
+  <p class="sec-lead">12時すぎ。午前の施術が終わりました。「院長に聞く」で届いた質問と、留守番電話の分が、同じ一覧に並んでいます。返事を選んで送ります。</p>
+  <span class="who">見ている人：院長</span>
+  <div class="chips" id="chips"></div>
+  <div id="list"></div>
+  <p class="sub-h">自動で返した質問（院長は何もしません）</p>
+  <ul class="autolist" id="autolist"></ul>
+  <a class="next-link" href="#s3">▼ 山田さまのスマホを見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>同じころ：院長の返事が届く</h2></div>
+  <p class="sec-lead">山田さまのスマホ。先に伝えてあった「15時まで」のうちに、院長の返事が届きます。</p>
+  <span class="who">見ている人：通っている人（山田さま）</span>
+  <div class="phone">
+    <div class="phone-head"><b>しらかし接骨院</b><span class="clock">12:15</span></div>
+    <div class="chat" id="chat2"></div>
+    <div class="choices" id="choices2"></div>
+  </div>
+</section>
+
+<section id="more">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の2枚は動かない見本です。</p>
+  <div class="ex"><b><span class="ex-tag">例</span>次の来院の目安のお知らせ</b><p>ご本人が「知らせてほしい」を押したときだけ、前の日に1通届きます。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>回数券の残りの控え</b><p>会計のときに1回押すと、残りの回数が残ります。紙のカードはそのまま使えます。</p></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  この画面は「こういう形が作れます」という見本です。院の名前とお名前は架空です。押した内容は、この端末の中だけに残ります。<br>
+  体のことと保険のことは、自動では答えません。院長が直接お話しします。電話と留守番電話は、今のまま使えます。LINEに元からある「よくある質問」の欄も、そのまま使えます。予約の道具の代わりではありません。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='shirakashi_demo_state';
+  var FAQ={
+    time:{label:'🕘 受付時間・休みの日',short:'受付時間・休みの日',text:'🕘 受付時間\n月〜土　9:00〜12:00／15:00〜20:00\n日曜　9:00〜12:00\n休み：木曜'},
+    park:{label:'🅿️ 駐車場',short:'駐車場',text:'🅿️ 院の前に3台とめられます。\nいっぱいのときは、受付で声をかけてください。'},
+    first:{label:'📝 はじめての方',short:'はじめての方',text:'📝 はじめての方は、お電話で時間を決めてからお越しください。\n体のことは、来院のときに院長が直接うかがいます。'}
+  };
+  var FAQ_KEYS=['time','park','first'];
+  var TOPIC_KEYS=['slot','bring','pay','hoken','tel'];
+  var TOPIC={slot:'空いている時間',bring:'持ち物・服装',pay:'支払いの方法',hoken:'保険のこと',tel:'電話で話したい'};
+  var REPLY={
+    slot:['今日は 15:30 と 18:00 が空いています。','今日はいっぱいです。あすの 9:30 が空いています。'],
+    bring:['いつもと同じで大丈夫です。','動きやすい服装でお越しください。着がえもあります。'],
+    pay:['現金でお願いしています。','現金のほかに、スマホでの支払いも使えます。'],
+    hoken:['次に来院されたときに、院長から直接ご説明します。','お電話でご説明します。このあと 12:30 ごろにおかけします。'],
+    tel:['このあと 12:30 ごろに、お電話します。','今日の 20時すぎに、お電話します。']
+  };
+
+  function seed(){
+    return {
+      v:4,
+      seq:3,
+      step:'menu',
+      log:[],
+      open:0,
+      reqs:[
+        {id:1,name:'佐藤さま',topic:'slot',time:'今日 9:50',via:'tel',st:'todo',reply:'',at:'',mine:false,thanks:false},
+        {id:2,name:'鈴木さま',topic:'pay',time:'昨日 19:40',st:'done',reply:'現金でお願いしています。',at:'昨日 20:10',mine:false,thanks:false}
+      ],
+      autos:[
+        {time:'9:15',name:'高橋さま',what:'受付時間・休みの日'},
+        {time:'9:58',name:'田中さま',what:'駐車場'}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==4||!S.reqs||!S.autos||!S.log){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function findReq(id){for(var i=0;i<S.reqs.length;i++){if(S.reqs[i].id===id){return S.reqs[i];}}return null;}
+  function mineReqs(){var a=[];for(var i=0;i<S.reqs.length;i++){if(S.reqs[i].mine){a.push(S.reqs[i]);}}return a;}
+
+  /* ---------- 1. 通っている人のLINE ---------- */
+  function say(who,text,note){S.log.push({who:who,text:text,note:note||''});}
+  function startFlow(){
+    S.step='menu';
+    S.log=[];
+    say('bot','しらかし接骨院です。\nご用件を、下のボタンから選んでください。');
+  }
+  function bubbles(log){
+    var h='';
+    for(var i=0;i<log.length;i++){
+      var m=log[i];
+      if(m.who==='note'){h+='<div class="wait">'+esc(m.text)+'</div>';continue;}
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.note){h+='<span class="auto">'+esc(m.note)+'</span>';}
+      h+='</div></div>';
+    }
+    return h;
+  }
+  function renderChat(){$('chat').innerHTML=bubbles(S.log);}
+  function renderChoices(){
+    var h='',i;
+    if(S.step==='topic'){
+      h='<p class="hint">文字は打たず、ボタンで選びます。</p>';
+      for(i=0;i<TOPIC_KEYS.length;i++){h+=btn(TOPIC[TOPIC_KEYS[i]],'topic:'+TOPIC_KEYS[i],'half');}
+      h+=btn('もどる','back','half ghost');
+    }else{
+      for(i=0;i<FAQ_KEYS.length;i++){h+=btn(FAQ[FAQ_KEYS[i]].label,'faq:'+FAQ_KEYS[i],'half');}
+      h+=btn('💬 院長に聞く','ask','half fill');
+      if(mineReqs().length){h+=btn('▼ 院長の一覧を見る','goto:s2','full fill');}
+      if(S.log.length>1){h+=btn('もう一度、最初からやってみる','again','full ghost');}
+    }
+    $('choices').innerHTML=h;
+  }
+  function onFaq(k){
+    var f=FAQ[k];if(!f){return;}
+    say('me',f.short);
+    say('bot',f.text,'※ ここまで自動で返ります');
+    S.autos.push({time:'10:40',name:'山田さま',what:f.short,mine:true});
+  }
+  function onTopic(k){
+    if(!TOPIC[k]){return;}
+    say('me','院長に聞く：'+TOPIC[k]);
+    var tail=(k==='tel')?'午前の受付のあと、15時までに、院長からお電話します。':'午前の受付のあと、15時までに、このLINEでお返事します。';
+    say('bot','💬 受け付けました。\nお問い合わせ：'+TOPIC[k]+'\n\n院長はいま施術中です。\n'+tail,'※ ここまで自動です。院長の一覧に1件たまりました');
+    S.reqs.push({id:S.seq++,name:'山田さま',topic:k,time:'今日 10:40',st:'todo',reply:'',at:'',mine:true,thanks:false});
+    S.step='menu';
+  }
+
+  /* ---------- 2. 院長の一覧 ---------- */
+  function renderList(){
+    var todo=0,done=0,i,h='';
+    for(i=0;i<S.reqs.length;i++){if(S.reqs[i].st==='todo'){todo++;}else{done++;}}
+    $('chips').innerHTML='<span class="chip todo">まだ返事していない <b>'+todo+'</b></span><span class="chip">返事した <b>'+done+'</b></span>';
+    var arr=S.reqs.slice().sort(function(a,b){
+      var x=(a.st==='todo'?0:1)-(b.st==='todo'?0:1);
+      return x||(b.id-a.id);
+    });
+    for(i=0;i<arr.length;i++){
+      var r=arr[i];
+      h+='<div class="card '+r.st+'">';
+      h+='<div class="card-top"><span>'+esc(r.time)+'</span><span class="status '+(r.st==='todo'?'todo':'')+'">'+(r.st==='todo'?'まだ返事していない':(r.called?'✅ 電話で返事した':'✅ 返事した'))+'</span></div>';
+      h+='<h3>'+esc(r.name)+'</h3><p>お問い合わせ：<b>'+esc(TOPIC[r.topic])+'</b></p>';
+      if(r.st==='todo'&&r.via==='tel'){
+        h+='<p class="small">📞 留守番電話に入っていた分です。院長が聞いて、ここに足しました。LINEを使わない方です。</p>';
+        h+='<div class="card-act">'+btn('📞 電話で話しました（済みにする）','called:'+r.id,'full fill')+'</div>';
+      }else if(r.st==='todo'){
+        h+='<p class="small">「15時までに'+(r.topic==='tel'?'お電話します':'お返事します')+'」と、先に伝えてあります。</p>';
+        if(S.open===r.id){
+          h+='<div class="card-act"><p class="hint">送る返事を選びます。文字は打ちません。候補の文は、院に合わせて先に決めておきます。</p>';
+          var rp=REPLY[r.topic]||[];
+          for(var j=0;j<rp.length;j++){h+=btn(esc(rp[j]),'rep:'+r.id+':'+j,'full left');}
+          if(r.topic==='tel'||r.topic==='hoken'){h+=btn('📞 電話で話しました（返事は送らず、済みにする）','called:'+r.id,'full left');}
+          h+=btn('とじる','open:'+r.id,'full ghost')+'</div>';
+        }else{
+          h+='<div class="card-act">'+btn('返事を選ぶ','open:'+r.id,'full fill')+'</div>';
+        }
+      }else{
+        h+='<div class="reply">'+esc(r.reply)+'<br><span class="small">'+esc(r.at)+(r.called?' に電話':' に送信')+'</span></div>';
+        if(r.thanks){h+='<p class="small" style="margin-top:6px">'+esc(r.name)+'から「ありがとうございます」が届きました（12:07）</p>';}
+      }
+      h+='</div>';
+    }
+    $('list').innerHTML=h;
+    var a='';
+    for(i=S.autos.length-1;i>=0;i--){
+      var x=S.autos[i];
+      a+='<li><span class="t">'+esc(x.time)+'</span><span class="n">'+esc(x.name)+'</span><span>'+esc(x.what)+'</span></li>';
+    }
+    $('autolist').innerHTML=a;
+  }
+  function onReply(id,idx){
+    var r=findReq(id);if(!r||r.st!=='todo'){return;}
+    var rp=REPLY[r.topic]||[];
+    if(!rp[idx]){return;}
+    r.reply=rp[idx];r.at='今日 12:05';r.st='done';S.open=0;
+  }
+
+  function onCalled(id){
+    var r=findReq(id);if(!r||r.st!=='todo'){return;}
+    r.reply='📞 電話で話しました。';r.at='今日 12:10';r.st='done';r.called=true;S.open=0;
+  }
+
+  /* ---------- 3. 返事が届いたLINE ---------- */
+  function renderPhone2(){
+    var m=mineReqs(),log=[],i,wait='',c='',anyDone=false,needThanks=false;
+    if(!m.length){
+      $('chat2').innerHTML='<div class="wait">まだ何も届いていません。<br>①で「院長に聞く」を押すと、ここに返事が届きます。</div>';
+      $('choices2').innerHTML='';
+      return;
+    }
+    for(i=0;i<m.length;i++){
+      log.push({who:'me',text:'院長に聞く：'+TOPIC[m[i].topic]});
+      log.push({who:'bot',text:'受け付けました。15時までに'+(m[i].topic==='tel'?'お電話します。':'お返事します。'),note:'※ 10:40 に自動で返した返事'});
+    }
+    for(i=0;i<m.length;i++){
+      if(m[i].st==='done'&&m[i].called){
+        log.push({who:'note',text:'（12:10 院長から電話がありました）'});
+      }else if(m[i].st==='done'){
+        anyDone=true;
+        log.push({who:'bot',text:'院長です。\n「'+TOPIC[m[i].topic]+'」について、お返事します。\n\n'+m[i].reply,note:'※ 院長が一覧から選んで送った返事'});
+        if(!m[i].thanks){needThanks=true;}
+      }else{
+        wait='<div class="wait">まだ届いていない返事があります。<br>②で院長が返事を送ると、ここに届きます。</div>';
+      }
+    }
+    if(anyDone&&!needThanks){log.push({who:'me',text:'ありがとうございます'});}
+    if(needThanks){c='<p class="hint">返事はしなくても大丈夫です。デモでは、返したときの見え方も試せます。</p>'+btn('「ありがとうございます」と返す','thanks','full');}
+    $('chat2').innerHTML=bubbles(log)+wait;
+    $('choices2').innerHTML=c;
+  }
+
+  function renderAll(){renderChat();renderChoices();renderList();renderPhone2();}
+  function goTo(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+
+  function onAct(act){
+    var p=act.split(':'),k=p[0],v=p[1],inChat=false,i;
+    if(k==='goto'){goTo(v);return;}
+    if(k==='faq'){
+      if(S.step!=='menu'){return;}
+      onFaq(v);inChat=true;
+    }else if(k==='ask'){
+      if(S.step!=='menu'){return;}
+      say('me','院長に聞く');say('bot','何についてですか？\nボタンで選んでください。\n体のことは、来院のときに院長が直接うかがいます。');S.step='topic';inChat=true;
+    }else if(k==='topic'){
+      if(S.step!=='topic'){return;}
+      onTopic(v);inChat=true;
+    }else if(k==='back'){
+      say('bot','ご用件を、下のボタンから選んでください。');S.step='menu';inChat=true;
+    }else if(k==='again'){
+      var keep=[],ka=[];
+      for(i=0;i<S.reqs.length;i++){if(!S.reqs[i].mine){keep.push(S.reqs[i]);}}
+      for(i=0;i<S.autos.length;i++){if(!S.autos[i].mine){ka.push(S.autos[i]);}}
+      S.reqs=keep;S.autos=ka;S.open=0;startFlow();inChat=true;
+    }else if(k==='open'){
+      v=parseInt(v,10);S.open=(S.open===v?0:v);
+    }else if(k==='rep'){
+      onReply(parseInt(v,10),parseInt(p[2],10));
+    }else if(k==='called'){
+      onCalled(parseInt(v,10));
+    }else if(k==='thanks'){
+      var m=mineReqs();
+      for(i=0;i<m.length;i++){if(m[i].st==='done'&&!m[i].called){m[i].thanks=true;}}
+    }
+    save();renderAll();
+    if(inChat){var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}}
+  }
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnReset').addEventListener('click',function(){S=seed();startFlow();save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  if(!S.log||!S.log.length){startFlow();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

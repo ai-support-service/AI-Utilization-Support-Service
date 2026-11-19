@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>つぐみ製作所（デモ）FAXと電話で受けた注文と、変更の控え</title>
+<style>
+:root{--main:#4A5568;--main-d:#2d3748;--accent:#3182CE;--accent-d:#1c4f80;--accent-s:#d9e8f7;--bg:#F4F6F8;--ink:#1f2630;--sub:#5a6472;--line:#d5dae1;--card:#ffffff;--chat:#dfe4ea;--me:#a6e89b;--warn:#b4530a;--ok:#2f7d4f;--soft:#e6e9ee}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent-s);color:var(--accent-d);border-bottom:3px solid var(--accent);font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+.badge{display:inline-block;margin-top:10px;background:#fff;color:var(--main-d);font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+section{margin-top:26px;scroll-margin-top:44px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--soft);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#262d38;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px;opacity:.9}
+#chat{padding:12px 10px 4px;min-height:150px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:86%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.bubble svg{display:block;width:170px;max-width:100%;height:auto;border-radius:6px}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.third{flex:1 1 calc(33% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.btn.opt{font-weight:400;font-size:14px;padding:8px 12px}
+.btn.opt[aria-pressed="true"]{background:var(--main);color:#fff;font-weight:700}
+input[type=text]{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.next-link{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;margin:6px 0 0;font-size:14px;font-weight:700;color:var(--main-d)}
+/* change form */
+.form{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.form .lab{font-size:13px;font-weight:700;color:var(--main-d);margin:10px 0 6px}
+.form .lab:first-child{margin-top:0}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.from{font-size:14px;background:var(--soft);border-radius:8px;padding:6px 10px;margin-top:10px}
+.from:empty{display:none}
+.fhint{font-size:13px;color:var(--warn);min-height:1.2em;margin:8px 0 0}
+.memo{background:#fff;border:2px solid var(--accent);border-radius:12px;padding:12px;margin-top:12px;font-size:14px}
+.memo .mt{display:block;font-size:12px;font-weight:700;color:var(--accent-d);margin-bottom:6px}
+.memo pre{margin:0;font:inherit;white-space:pre-wrap;word-break:break-word}
+.memo small{display:block;margin-top:8px;font-size:12px;color:var(--sub)}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:12px;margin-top:10px}
+.card.new{background:#fffbe8}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--sub)}
+.tag{font-weight:700;border-radius:6px;padding:1px 8px;font-size:12px;color:var(--main-d);background:var(--soft)}
+.due{font-weight:700;color:var(--ink)}
+.card h3{margin:6px 0 2px;font-size:17px}
+.card p{margin:2px 0;font-size:14px}
+.rev{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;background:var(--accent-d);color:#fff}
+.rev.old{background:#eef0f3;color:var(--sub);text-decoration:line-through}
+.cnt{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;background:#fde8dc;color:var(--warn);margin-left:6px}
+.hist{font-size:12px;background:#fff8dc;border:1px solid #ecd98a;border-radius:6px;padding:4px 8px;margin-top:6px}
+.card-act{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.detail{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+.detail .pic svg{display:block;width:190px;max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+.detail h4{margin:10px 0 4px;font-size:13px;color:var(--main-d)}
+.tl{list-style:none;margin:0;padding:0}
+.ev{padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.ev:last-child{border-bottom:0}
+.ev.new{background:#fff8dc}
+.ev .t{display:block;font-size:12px;color:var(--sub)}
+.none{font-size:13px;color:var(--sub)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px}
+th,td{padding:8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--soft);font-size:12px;color:var(--sub)}
+tr.new td{background:#fff8dc}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+.sub-h{margin:20px 0 6px;font-size:15px;color:var(--main-d)}
+/* more */
+.more{display:grid;gap:8px}
+.ex{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:10px 12px;font-size:14px}
+.ex b{display:block;color:var(--main-d);font-size:14px}
+.ex .lbl{display:inline-block;font-size:12px;font-weight:700;color:var(--accent-d);background:var(--accent-s);border-radius:5px;padding:0 6px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:90%}
+  .btn.third{flex:1 1 calc(50% - 8px)}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「つぐみ製作所」は架空の工場です</div>
+<div class="wrap">
+
+<header class="top">
+  <h1>つぐみ製作所</h1>
+  <p>FAXも電話もホワイトボードも、今のまま。取引先は何も変えません。受けた仕事と、あとから来た変更が、仕事ごとにスマホに残ります。</p>
+  <span class="badge">社長と職人2人の金属加工の工場（デモの設定）</span>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>FAXで届いた注文を、撮って残す</h2></div>
+  <p class="sec-lead">朝8時半、FAXが届いた場面です。届いた紙をスマホで撮って、工場の控えに送ります。撮った紙は、取引先・品物・納期といっしょに、仕事ごとにまとまります。FAXは今のまま。取引先のやり方は変わりません。</p>
+  <span class="who">見ている人：社長（事務所で）</span>
+  <div class="phone">
+    <div class="phone-head"><b>つぐみ製作所の控え</b><span class="clock">8:35</span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <a class="next-link" href="#s2">▼ 午後。電話で変更が来た</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>電話で来た変更を、ボタンで残す</h2></div>
+  <p class="sec-lead">午後2時、電話で変更が来た場面です。電話のあと、手があいた時に、ボタンで残します。打つ所はありません。いつ・だれから・何が変わったかが、その仕事の中に残ります。</p>
+  <span class="who">見ている人：社長（工場で、電話のあと）</span>
+  <div class="form">
+    <div class="lab">どの仕事ですか</div>
+    <div class="opts" id="cJobs"></div>
+    <div class="lab">何が変わりましたか</div>
+    <div class="opts" id="cKinds"></div>
+    <div class="lab" id="cValLab">中身</div>
+    <div class="opts" id="cVals"></div>
+    <div class="from" id="cFrom"></div>
+    <p class="fhint" id="cHint"></p>
+    <button class="btn fill full" id="btnChg" type="button">変更を残す</button>
+  </div>
+  <div id="memo"></div>
+  <a class="next-link" href="#s3">▼ 工場の一覧を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>受けている仕事を、外でも見る</h2></div>
+  <p class="sec-lead">ホワイトボードは今のまま。同じ中身を、外でもスマホで見られます。開くと、いまの図面の版と、変更の記録が出ます。ボードを消しても、ここには残ります。</p>
+  <span class="who">見ている人：社長と職人（工場でも、出先でも）</span>
+  <div class="chips" id="chips"></div>
+  <div id="list"></div>
+  <h3 class="sub-h">納品した仕事の記録</h3>
+  <p class="sec-lead">「納品した」を押した仕事は、ここに残ります。同じ品物がまた来たとき、取引先のボタンで探せます。</p>
+  <div class="opts" id="lf" style="margin-bottom:8px"></div>
+  <input type="text" id="q" placeholder="品物の名前でも探せます（例：フランジ）" aria-label="品物の名前で探す">
+  <div style="height:8px"></div>
+  <div id="ledger"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">＋</div><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下は動かない見本です。</p>
+  <div class="more">
+    <div class="ex"><b><span class="lbl">例</span>前に出した見積もりを探す</b>見積もりの控えを、取引先や品物の名前で探せます。同じ品物の前の控えも、いっしょに出ます。</div>
+    <div class="ex"><b><span class="lbl">例</span>預かっている型と材料の一覧</b>どこから・いつから預かっているかを、写真つきで控えます。</div>
+    <div class="ex"><b><span class="lbl">例</span>朝のお知らせ</b>納期が近い仕事を、朝、社長と職人のスマホに1通でお知らせします。</div>
+  </div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  工場の名前と取引先の名前は架空です。押した内容は、この端末の中だけに残ります。図面と注文書は、絵に置きかえています。<br>
+  FAXと電話は、今のまま使えます。控えは、受けた側だけで残すものです。取引先に新しい道具を入れてもらう形ではありません。<br>
+  図面の写真をどこに置くかは、取引先との約束に合わせて、作る前に決めます。図面は撮らず、注文書だけを残す形にもできます。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='tsugumi_demo_state';
+  var TODAY='11/19（木）';
+  var CL={A:'A社・山田さま',B:'B社・佐藤さま',C:'C社・鈴木さま'};
+  var ITEMS={A:['フランジ','ブラケット'],B:['プレート','カバー'],C:['シャフト','ピン']};
+  var SHAPE={'フランジ':'ring','カバー':'ring','ブラケット':'angle','プレート':'angle','シャフト':'bar','ピン':'bar'};
+  var DUES=['11/25（水）','11/27（金）','12/1（火）','12/4（金）'];
+  var CTIME=['14:05','15:40','16:20'];
+  var KIND={due:'納期',qty:'数',rev:'図面の改訂'};
+
+  function paper(item,rev){
+    var sh=SHAPE[item]||'ring',g='';
+    if(sh==='ring'){
+      g='<circle cx="62" cy="74" r="24" fill="none" stroke="#4A5568" stroke-width="1.5"/><circle cx="62" cy="74" r="9" fill="none" stroke="#4A5568" stroke-width="1.5"/><circle cx="62" cy="57" r="2.5" fill="none" stroke="#4A5568"/><circle cx="62" cy="91" r="2.5" fill="none" stroke="#4A5568"/><circle cx="45" cy="74" r="2.5" fill="none" stroke="#4A5568"/><circle cx="79" cy="74" r="2.5" fill="none" stroke="#4A5568"/><rect x="106" y="50" width="12" height="48" fill="none" stroke="#4A5568" stroke-width="1.5"/>';
+    }else if(sh==='angle'){
+      g='<path d="M38 52 h50 v12 h-38 v34 h-12 z" fill="none" stroke="#4A5568" stroke-width="1.5"/><circle cx="72" cy="58" r="2.5" fill="none" stroke="#4A5568"/><circle cx="44" cy="86" r="2.5" fill="none" stroke="#4A5568"/><rect x="104" y="52" width="14" height="46" fill="none" stroke="#4A5568" stroke-width="1.5"/>';
+    }else{
+      g='<path d="M34 66 h22 v-6 h36 v6 h24 v16 h-24 v6 h-36 v-6 h-22 z" fill="none" stroke="#4A5568" stroke-width="1.5"/><line x1="28" y1="74" x2="122" y2="74" stroke="#4A5568" stroke-width=".8" stroke-dasharray="6 3 1 3"/>';
+    }
+    return '<svg viewBox="0 0 170 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="図面の絵（デモ用）"><rect width="170" height="120" fill="#e3e7ec"/><rect x="18" y="8" width="134" height="104" fill="#fff" stroke="#9aa5b1"/><rect x="26" y="15" width="46" height="6" fill="#4A5568"/><rect x="26" y="26" width="70" height="3" fill="#c3cbd4"/><rect x="26" y="32" width="54" height="3" fill="#c3cbd4"/>'+g+'<line x1="34" y1="105" x2="92" y2="105" stroke="#3182CE"/><line x1="34" y1="102" x2="34" y2="108" stroke="#3182CE"/><line x1="92" y1="102" x2="92" y2="108" stroke="#3182CE"/><line x1="128" y1="52" x2="128" y2="98" stroke="#3182CE"/><line x1="125" y1="52" x2="131" y2="52" stroke="#3182CE"/><line x1="125" y1="98" x2="131" y2="98" stroke="#3182CE"/><rect x="116" y="12" width="30" height="15" fill="#1c4f80"/><text x="131" y="23.5" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">版 '+rev+'</text></svg>';
+  }
+
+  function orderPic(){
+    return '<svg viewBox="0 0 170 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FAXで届いた注文書の絵（デモ用）"><rect width="170" height="120" fill="#e3e7ec"/><rect x="30" y="6" width="110" height="108" fill="#fff" stroke="#9aa5b1"/><rect x="62" y="13" width="46" height="7" fill="#4A5568"/><rect x="38" y="27" width="50" height="3" fill="#c3cbd4"/><rect x="38" y="33" width="38" height="3" fill="#c3cbd4"/><rect x="104" y="27" width="28" height="3" fill="#c3cbd4"/><rect x="38" y="46" width="94" height="40" fill="none" stroke="#4A5568"/><line x1="38" y1="56" x2="132" y2="56" stroke="#4A5568"/><line x1="38" y1="66" x2="132" y2="66" stroke="#c3cbd4"/><line x1="38" y1="76" x2="132" y2="76" stroke="#c3cbd4"/><line x1="84" y1="46" x2="84" y2="86" stroke="#4A5568"/><line x1="108" y1="46" x2="108" y2="86" stroke="#4A5568"/><rect x="42" y="59" width="34" height="3" fill="#3182CE"/><rect x="88" y="59" width="14" height="3" fill="#3182CE"/><rect x="112" y="59" width="16" height="3" fill="#3182CE"/><rect x="38" y="94" width="60" height="3" fill="#c3cbd4"/><rect x="38" y="100" width="44" height="3" fill="#c3cbd4"/></svg>';
+  }
+
+  function seed(){
+    return {
+      seq:6,cn:0,open:0,note:null,lf:'',
+      flow:{step:'start',cl:'',item:'',qty:0},
+      log:[],
+      cf:{job:1,kind:'',val:''},
+      jobs:[
+        {id:1,cl:'A',item:'ブラケット',qty:50,due:'11/20（金）',rev:'B',got:'11/10（火）',st:'act',ship:'',nw:false,
+         revs:[{r:'A',t:'11/10（火）9:10'},{r:'B',t:'11/16（月）15:20'}],
+         chg:[{t:'11/16（月）15:20',by:'電話',tx:'図面の版 A → B（新しい図面を受け取り）',nw:false}]},
+        {id:2,cl:'C',item:'シャフト',qty:20,due:'11/24（火）',rev:'A',got:'11/13（金）',st:'act',ship:'',nw:false,
+         revs:[{r:'A',t:'11/13（金）10:40'}],chg:[]},
+        {id:3,cl:'A',item:'フランジ',qty:30,due:'10/30（金）',rev:'A',got:'10/19（月）',st:'done',ship:'2026/10/30',nw:false,
+         revs:[{r:'A',t:'10/19（月）9:00'}],chg:[]},
+        {id:4,cl:'B',item:'プレート',qty:10,due:'9/18（金）',rev:'C',got:'9/7（月）',st:'done',ship:'2026/09/18',nw:false,
+         revs:[{r:'A',t:'9/7（月）11:00'},{r:'B',t:'9/9（水）14:10'},{r:'C',t:'9/11（金）10:30'}],
+         chg:[{t:'9/9（水）14:10',by:'電話',tx:'図面の版 A → B（新しい図面を受け取り）',nw:false},{t:'9/11（金）10:30',by:'電話',tx:'図面の版 B → C（新しい図面を受け取り）',nw:false}]},
+        {id:5,cl:'A',item:'フランジ',qty:30,due:'8/5（水）',rev:'A',got:'7/27（月）',st:'done',ship:'2026/08/05',nw:false,
+         revs:[{r:'A',t:'7/27（月）9:30'}],chg:[]}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||!S.jobs||!S.flow||!S.cf){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function job(id){for(var i=0;i<S.jobs.length;i++){if(S.jobs[i].id===id){return S.jobs[i];}}return null;}
+  function dueKey(s){var m=/^(\d+)\/(\d+)/.exec(s);return m?(parseInt(m[1],10)*100+parseInt(m[2],10)):9999;}
+  function acts(){
+    var o=[];for(var i=0;i<S.jobs.length;i++){if(S.jobs[i].st==='act'){o.push(S.jobs[i]);}}
+    o.sort(function(a,b){return (dueKey(a.due)-dueKey(b.due))||(a.id-b.id);});
+    return o;
+  }
+  function prevOf(j){
+    var best=null;
+    for(var i=0;i<S.jobs.length;i++){
+      var x=S.jobs[i];
+      if(x.id!==j.id&&x.st==='done'&&x.cl===j.cl&&x.item===j.item){if(!best||x.ship>best.ship){best=x;}}
+    }
+    return best;
+  }
+  function clearNew(){
+    for(var i=0;i<S.jobs.length;i++){S.jobs[i].nw=false;for(var k=0;k<S.jobs[i].chg.length;k++){S.jobs[i].chg[k].nw=false;}}
+  }
+  function goTo(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+
+  /* ---------- 1. 届いた紙を控えに送る ---------- */
+  function say(who,text,opt){S.log.push({who:who,text:text,pic:(opt&&opt.pic)||'',auto:!!(opt&&opt.auto)});}
+  function startFlow(){
+    S.flow={step:'start',cl:'',item:'',qty:0};
+    S.log=[];
+    say('bot','つぐみ製作所の控えです。\n届いた紙を撮って送ると、仕事の一覧に入ります。');
+  }
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">';
+      if(m.pic){h+=orderPic();}else{h+=esc(m.text);}
+      if(m.auto){h+='<span class="auto">※ 届いた紙の写真は、この仕事の中に残ります</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function renderChoices(){
+    var st=S.flow.step,h='',i;
+    if(st==='start'){
+      h='<p class="hint">デモでは、用意した絵を写真の代わりに送ります。注文書と図面を、まとめて1回で送る形です。</p>'+btn('📷 届いたFAXを撮って送る','shot','full fill');
+    }else if(st==='from'){
+      h=btn(CL.A,'from:A','full')+btn(CL.B,'from:B','full')+btn(CL.C,'from:C','full');
+    }else if(st==='item'){
+      var its=ITEMS[S.flow.cl]||[];
+      for(i=0;i<its.length;i++){h+=btn(its[i],'item:'+its[i],'half');}
+      h+=btn('新しい品物','item:新しい品物','full');
+    }else if(st==='qty'){
+      h=btn('10個','qty:10','third')+btn('30個','qty:30','third')+btn('50個','qty:50','third');
+    }else if(st==='due'){
+      h=btn('11/27（金）','due:11/27（金）','third')+btn('12/1（火）','due:12/1（火）','third')+btn('12/4（金）','due:12/4（金）','third');
+    }else if(st==='end'){
+      h=btn('▼ 工場の一覧を見る','goto:s3','full fill')+btn('もう1枚、送ってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function onFlow(k,v){
+    var f=S.flow;
+    if(k==='shot'){
+      if(f.step!=='start'){return;}
+      S.log.push({who:'me',text:'',pic:'order',auto:false});
+      say('bot','受け取りました。\nどちらからの紙ですか？');
+      f.step='from';
+    }else if(k==='from'){
+      if(f.step!=='from'||!CL[v]){return;}
+      f.cl=v;say('me',CL[v]);
+      say('bot','品物を選んでください。\n前に作った品物の名前が出ます。');
+      f.step='item';
+    }else if(k==='item'){
+      if(f.step!=='item'){return;}
+      f.item=v;say('me',v);
+      say('bot','数は、いくつですか？');
+      f.step='qty';
+    }else if(k==='qty'){
+      if(f.step!=='qty'){return;}
+      f.qty=parseInt(v,10)||10;say('me',f.qty+'個');
+      say('bot','納期は、いつですか？');
+      f.step='due';
+    }else if(k==='due'){
+      if(f.step!=='due'){return;}
+      say('me',v);
+      clearNew();
+      var j={id:S.seq++,cl:f.cl,item:f.item,qty:f.qty,due:v,rev:'A',got:TODAY,st:'act',ship:'',nw:true,revs:[{r:'A',t:TODAY+'8:35'}],chg:[]};
+      S.jobs.push(j);
+      var pv=prevOf(j);
+      var t='仕事の一覧に入れました。\n\n'+CL[j.cl]+'\n品物：'+j.item+'\n数：'+j.qty+'個\n納期：'+j.due+'\n図面の版：A';
+      if(pv){t+='\n\n前にも作った品物です。\n前回の納品：'+pv.ship+'（'+pv.qty+'個・版'+pv.rev+'）';}
+      say('bot',t,{auto:true});
+      S.cf.job=j.id;S.cf.kind='';S.cf.val='';
+      f.step='end';
+    }else if(k==='again'){
+      startFlow();
+    }
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  /* ---------- 2. 電話で来た変更を残す ---------- */
+  function renderChange(){
+    var a=acts(),h='',i,j=job(S.cf.job);
+    if(!j||j.st!=='act'){j=a.length?a[0]:null;S.cf.job=j?j.id:0;S.cf.kind='';S.cf.val='';}
+    for(i=0;i<a.length;i++){
+      h+='<button type="button" class="btn opt" aria-pressed="'+(j&&a[i].id===j.id?'true':'false')+'" data-act="cj:'+a[i].id+'">'+esc(CL[a[i].cl].split('・')[0])+'・'+esc(a[i].item)+'</button>';
+    }
+    $('cJobs').innerHTML=h||'<span class="none">受けている仕事はありません。①で注文を足すか、下の「最初の状態に戻す」を押してください。</span>';
+    h='';
+    var ks=['due','qty','rev'];
+    for(i=0;i<ks.length;i++){h+='<button type="button" class="btn opt" aria-pressed="'+(S.cf.kind===ks[i]?'true':'false')+'" data-act="ck:'+ks[i]+'">'+KIND[ks[i]]+'</button>';}
+    $('cKinds').innerHTML=h;
+    h='';
+    var lab='中身';
+    if(j&&S.cf.kind==='due'){
+      lab='新しい納期（いまは '+j.due+'）';
+      for(i=0;i<DUES.length;i++){if(DUES[i]!==j.due){h+='<button type="button" class="btn opt" aria-pressed="'+(S.cf.val===DUES[i]?'true':'false')+'" data-act="cv:'+DUES[i]+'">'+DUES[i]+'</button>';}}
+    }else if(j&&S.cf.kind==='qty'){
+      lab='数（いまは '+j.qty+'個）';
+      h+='<button type="button" class="btn opt" aria-pressed="'+(S.cf.val==='+10'?'true':'false')+'" data-act="cv:+10">10個ふえる</button>';
+      if(j.qty>10){h+='<button type="button" class="btn opt" aria-pressed="'+(S.cf.val==='-10'?'true':'false')+'" data-act="cv:-10">10個へる</button>';}
+    }else if(j&&S.cf.kind==='rev'){
+      lab='図面（いまは 版'+j.rev+'）';
+      h+='<button type="button" class="btn opt" aria-pressed="'+(S.cf.val==='new'?'true':'false')+'" data-act="cv:new">📷 新しい図面を撮って送る</button>';
+    }else{
+      h='<span class="none">上で「何が変わったか」を選ぶと、ここに出ます。</span>';
+    }
+    $('cValLab').innerHTML=esc(lab);
+    $('cVals').innerHTML=h;
+    $('cFrom').innerHTML=j?('だれから：'+esc(CL[j.cl])+'　／　電話で（控える時刻 '+CTIME[Math.min(S.cn,CTIME.length-1)]+'）'):'';
+    var n=S.note;
+    if(n){
+      $('memo').innerHTML='<div class="memo"><span class="mt">'+esc(n.time)+' に残しました。相手に返す、確かめの文</span><pre>'+esc(n.to)+'\n\nいつもありがとうございます。\n本日、お電話でうかがった変更を、下のとおり控えました。念のため、お送りします。\n\n品物：'+esc(n.item)+'\n変更：'+esc(n.tx)+'\n\nちがう所があれば、お知らせください。\n合っていれば、お返事はいりません。\nつぐみ製作所</pre><small>この文は、FAXの送り状やメールに、そのまま使えます。送るのは、変更1件につき1通。送るかどうかは、相手に合わせて決められます。取引先にLINEを入れてもらう形ではありません。</small></div>';
+    }else{
+      $('memo').innerHTML='';
+    }
+  }
+  function nextRev(r){var c=r.charCodeAt(0);return (c>=65&&c<90)?String.fromCharCode(c+1):r+'2';}
+  function onChgSave(){
+    var j=job(S.cf.job),hint=$('cHint');
+    if(!j||j.st!=='act'){hint.innerHTML='仕事を選んでください。';return;}
+    if(!S.cf.kind){hint.innerHTML='「何が変わったか」を選んでください。';return;}
+    if(!S.cf.val){hint.innerHTML='中身を選んでください。';return;}
+    var time=CTIME[Math.min(S.cn,CTIME.length-1)],tx='';
+    if(S.cf.kind==='due'){
+      if(S.cf.val===j.due){hint.innerHTML='いまの納期と同じです。';return;}
+      tx='納期 '+j.due+' → '+S.cf.val;j.due=S.cf.val;
+    }else if(S.cf.kind==='qty'){
+      var d=(S.cf.val==='-10')?-10:10,was=j.qty;
+      if(was+d<=0){hint.innerHTML='これより減らせません。';return;}
+      j.qty=was+d;tx='数 '+was+'個 → '+j.qty+'個';
+    }else{
+      var old=j.rev;j.rev=nextRev(old);j.revs.push({r:j.rev,t:TODAY+time});
+      tx='図面の版 '+old+' → '+j.rev+'（新しい図面を受け取り）';
+    }
+    clearNew();
+    j.chg.push({t:TODAY+time,by:'電話',tx:tx,nw:true});
+    S.note={to:CL[j.cl],time:time,item:j.item,tx:tx};
+    S.cn++;S.open=j.id;S.cf.kind='';S.cf.val='';
+    hint.innerHTML='';
+    save();renderAll();
+  }
+
+  /* ---------- 3. 工場の一覧 ---------- */
+  function renderList(){
+    var a=acts(),h='',i,k,dn=0;
+    for(i=0;i<S.jobs.length;i++){if(S.jobs[i].st==='done'){dn++;}}
+    $('chips').innerHTML='<span class="chip">受けている仕事 <b>'+a.length+'</b></span><span class="chip">納品した記録 <b>'+dn+'</b></span>';
+    for(i=0;i<a.length;i++){
+      var j=a[i],op=(S.open===j.id),pv=prevOf(j);
+      h+='<div class="card'+(j.nw?' new':'')+'" id="j_'+j.id+'">';
+      h+='<div class="card-top"><span class="tag">'+esc(CL[j.cl])+'</span><span>納期 <span class="due">'+esc(j.due)+'</span></span></div>';
+      h+='<h3>'+esc(j.item)+'　'+j.qty+'個</h3>';
+      h+='<p><span class="rev">いまの図面：版 '+esc(j.rev)+'</span>'+(j.chg.length?'<span class="cnt">変更 '+j.chg.length+'件</span>':'')+'</p>';
+      if(pv){h+='<div class="hist">前にも作った品物です。前回の納品：'+esc(pv.ship)+'（'+pv.qty+'個・版'+esc(pv.rev)+'）</div>';}
+      h+='<div class="card-act"><button type="button" class="btn half" data-act="tg:'+j.id+'">'+(op?'閉じる':'中を見る')+'</button><button type="button" class="btn half fill" data-act="ship:'+j.id+'">納品した</button></div>';
+      if(op){
+        h+='<div class="detail"><div class="pic">'+paper(j.item,j.rev)+'</div>';
+        h+='<h4>図面の版</h4><p>';
+        for(k=j.revs.length-1;k>=0;k--){
+          h+='<span class="rev'+(k===j.revs.length-1?'':' old')+'">版 '+esc(j.revs[k].r)+'</span> <span class="none">'+esc(j.revs[k].t)+' 受け取り'+(k===j.revs.length-1?'（いまの版）':'（古い版）')+'</span><br>';
+        }
+        h+='</p><h4>変更の記録</h4>';
+        if(j.chg.length){
+          h+='<ul class="tl">';
+          for(k=0;k<j.chg.length;k++){h+='<li class="ev'+(j.chg[k].nw?' new':'')+'"><span class="t">'+esc(j.chg[k].t)+'　'+esc(j.chg[k].by)+'・'+esc(CL[j.cl])+'から</span>'+esc(j.chg[k].tx)+'</li>';}
+          h+='</ul>';
+        }else{h+='<p class="none">変更はありません。受けた日：'+esc(j.got)+'</p>';}
+        h+='</div>';
+      }
+      h+='</div>';
+    }
+    $('list').innerHTML=h||'<div class="empty">受けている仕事はありません。</div>';
+  }
+  function renderLedger(){
+    var q=($('q').value||'').replace(/\s/g,''),rows='',arr=[],i,fh='',fk=['','A','B','C'];
+    for(i=0;i<fk.length;i++){fh+='<button type="button" class="btn opt" aria-pressed="'+((S.lf||'')===fk[i]?'true':'false')+'" data-act="lf:'+fk[i]+'">'+(fk[i]?esc(CL[fk[i]].split('・')[0]):'ぜんぶ')+'</button>';}
+    $('lf').innerHTML=fh;
+    for(i=0;i<S.jobs.length;i++){if(S.jobs[i].st==='done'){arr.push(S.jobs[i]);}}
+    arr.sort(function(a,b){return a.ship<b.ship?1:(a.ship>b.ship?-1:b.id-a.id);});
+    for(i=0;i<arr.length;i++){
+      var e=arr[i];
+      if(S.lf&&e.cl!==S.lf){continue;}
+      if(q&&(CL[e.cl]+e.item).indexOf(q)<0){continue;}
+      rows+='<tr'+(e.nw?' class="new"':'')+'><td>'+esc(e.ship)+'</td><td>'+esc(CL[e.cl])+'</td><td>'+esc(e.item)+'　'+e.qty+'個<br>版 '+esc(e.rev)+(e.chg.length?'・変更 '+e.chg.length+'件':'')+'</td></tr>';
+    }
+    var un='';
+    for(i=0;i<arr.length;i++){if(arr[i].nw){un='<div style="margin-top:8px"><button type="button" class="btn ghost full" data-act="unship:'+arr[i].id+'">押しまちがいのとき：「'+esc(arr[i].item)+'」を、受けている仕事に戻す</button></div>';}}
+    $('ledger').innerHTML=(rows?'<table><thead><tr><th>納品</th><th>取引先</th><th>品物・数・図面の版</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div class="empty">当てはまる記録はありません。</div>')+un;
+  }
+
+  function renderAll(){renderChat();renderChoices();renderChange();renderList();renderLedger();}
+
+  function onAct(act){
+    var i=act.indexOf(':'),k=i<0?act:act.slice(0,i),v=i<0?'':act.slice(i+1),j;
+    if(k==='goto'){goTo(v);return;}
+    if(k==='shot'||k==='from'||k==='item'||k==='qty'||k==='due'||k==='again'){onFlow(k,v);return;}
+    if(k==='cj'){S.cf.job=parseInt(v,10);S.cf.kind='';S.cf.val='';$('cHint').innerHTML='';save();renderAll();return;}
+    if(k==='ck'){S.cf.kind=v;S.cf.val='';$('cHint').innerHTML='';save();renderAll();return;}
+    if(k==='cv'){S.cf.val=v;$('cHint').innerHTML='';save();renderAll();return;}
+    if(k==='lf'){S.lf=v;save();renderLedger();return;}
+    if(k==='tg'){var id=parseInt(v,10);S.open=(S.open===id)?0:id;save();renderAll();return;}
+    if(k==='unship'){
+      j=job(parseInt(v,10));if(!j||j.st!=='done'||!j.nw){return;}
+      clearNew();
+      j.st='act';j.ship='';j.nw=true;
+      save();renderAll();return;
+    }
+    if(k==='ship'){
+      j=job(parseInt(v,10));if(!j||j.st!=='act'){return;}
+      clearNew();
+      j.st='done';j.ship='2026/11/19';j.nw=true;
+      if(S.open===j.id){S.open=0;}
+      save();renderAll();return;
+    }
+  }
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnChg').addEventListener('click',onChgSave);
+  $('q').addEventListener('input',renderLedger);
+  $('btnReset').addEventListener('click',function(){S=seed();startFlow();$('q').value='';$('cHint').innerHTML='';save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  if(!S.log||!S.log.length){startFlow();}
+  renderAll();
+})();
+</script>
+</body>
+</html>

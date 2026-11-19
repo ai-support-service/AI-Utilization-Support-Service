@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>花屋 つゆあかり（デモ）予約の花の控えと、日ごとの並び</title>
+<style>
+:root{--main:#3F6B4E;--main-d:#2c4d37;--accent:#D9778A;--accent-d:#8f3246;--bg:#FBF7F4;--ink:#26302a;--sub:#5f6b63;--line:#e0dad4;--card:#ffffff;--chat:#e6ede6;--me:#a6e89b;--warn:#b4472c;--ok:#2f7d4f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#33101a;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:12px;align-items:center}
+header.top svg{flex:none;width:58px;height:58px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+.top-sub{background:#fff;border:1px solid var(--line);border-radius:0 0 12px 12px;margin:0 -14px;padding:8px 18px;font-size:13px;color:var(--sub)}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:#e2ece4;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#2f3a33;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+#chat{padding:12px 10px 4px;min-height:150px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:82%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.mini-form{flex-basis:100%;display:grid;gap:6px}
+.mini-form label,.mini-form .lab{font-size:12px;color:var(--sub)}
+.pick{display:flex;flex-wrap:wrap;gap:6px}
+.pick .btn{flex:1 1 auto;padding:6px 10px;font-size:14px;font-weight:400}
+.pick .btn.on{background:var(--main);color:#fff;font-weight:700}
+input[type=text],select{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--warn)}
+.card.done{opacity:.7}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.route{font-weight:700;border-radius:6px;padding:1px 8px;font-size:12px;color:#fff}
+.route.line{background:#06853d}.route.tel{background:#5f6b63}.route.shop{background:var(--main)}
+.card h3{margin:6px 0 4px;font-size:16px}
+.slip{margin:0;padding:0;list-style:none;font-size:14px;border-top:1px dashed var(--line)}
+.slip li{display:flex;gap:8px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.slip li span{flex:none;width:5.2em;color:var(--sub);font-size:12px;padding-top:2px}
+.stamp{font-size:12px;background:#eaf4ec;border:1px solid #bcd9c3;border-radius:6px;padding:4px 8px;margin-top:8px;color:var(--main-d)}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;margin-top:8px;background:#eef0ee;color:var(--sub)}
+.status.todo{background:#fbe6de;color:var(--warn)}
+.status.ok{background:#dff1e6;color:var(--ok)}
+.card-act{margin-top:8px;display:grid;gap:8px}
+.card-act label{font-size:12px;color:var(--sub)}
+.add-box{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px;display:none}
+.add-box.open{display:block}
+/* by day */
+.day{background:#fff;border:1px solid var(--line);border-radius:12px;margin-top:10px;overflow:hidden}
+.day-head{background:#e2ece4;color:var(--main-d);font-weight:700;font-size:15px;padding:8px 12px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.day-head small{font-weight:400;font-size:12px;color:var(--sub)}
+.row{display:flex;gap:10px;padding:9px 12px;border-top:1px solid var(--line);font-size:14px;align-items:flex-start}
+.row.new{background:#fdeef1}
+.row.soft{color:var(--sub)}
+.row .tm{flex:none;width:3em;font-weight:700;color:var(--main-d)}
+.row .bd{flex:1}
+.row .bd small{display:block;font-size:12px;color:var(--sub)}
+.tag{flex:none;font-size:12px;font-weight:700;border-radius:6px;padding:2px 6px;background:#dff1e6;color:var(--ok)}
+.tag.soft{background:#eef0ee;color:var(--sub)}
+.tag.todo{background:#fbe6de;color:var(--warn)}
+.empty{font-size:13px;color:var(--sub);padding:10px 12px;border-top:1px solid var(--line)}
+/* more */
+.more{background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:10px 12px;margin-top:10px}
+.more b{display:block;font-size:15px}
+.more span{display:block;font-size:13px;color:var(--sub)}
+.more .ex{display:inline-block;font-size:12px;font-weight:700;color:var(--accent-d);border:1px solid var(--accent);border-radius:6px;padding:0 6px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .top-sub{margin:0 -12px}
+  .bubble{max-width:88%}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「花屋 つゆあかり」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="花の絵（デモ用）"><circle cx="30" cy="30" r="29" fill="#FBF7F4"/><path d="M30 34 C28 44 30 50 30 54" stroke="#3F6B4E" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M30 46 C22 44 19 39 19 36 C25 36 29 40 30 46 Z" fill="#3F6B4E"/><circle cx="30" cy="14" r="7" fill="#D9778A"/><circle cx="20" cy="21" r="7" fill="#D9778A"/><circle cx="40" cy="21" r="7" fill="#D9778A"/><circle cx="24" cy="31" r="7" fill="#D9778A"/><circle cx="36" cy="31" r="7" fill="#D9778A"/><circle cx="30" cy="23" r="5" fill="#F3D9A4"/></svg>
+  <div>
+    <h1>花屋 つゆあかり</h1>
+    <p>LINE・電話・店頭で受けた予約の花を、受け取りの日の順に、1つに並べられます。</p>
+  </div>
+</header>
+<div class="top-sub">LINEの注文は、お客さんの手元にも同じ控えが残ります。電話・店頭と紙の伝票は、今までどおりです。</div>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>お客さんのスマホ。LINEで花を頼む</h2></div>
+  <p class="sec-lead">ご用途・形・ご予算・色合い・受け取りの日時を、ボタンで選んで送ります。下のボタンを押してみてください。</p>
+  <span class="who">見ている人：お客さん</span>
+  <div class="phone">
+    <div class="phone-head"><b>花屋 つゆあかり</b><span class="clock" id="clock">14:05</span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>店の画面。届いた注文に返事をする</h2></div>
+  <p class="sec-lead">LINEで届いた注文は、ここに自動で入ります。中身を確かめて「この内容でお受けします」を返すと、お客さんの手元にも同じ控えが残ります。</p>
+  <span class="who">見ている人：店の人</span>
+  <div class="chips" id="chips"></div>
+  <button class="btn full" id="btnAdd" type="button">＋ 電話・店頭で受けた注文を足す</button>
+  <p class="sec-lead" style="margin-top:6px">電話と店頭の分は、紙の伝票が元のままです。ここには、名前・用途・受け取りの日時だけを足します。</p>
+  <div class="add-box" id="addBox">
+    <div class="mini-form">
+      <span class="lab">受けた所</span><div class="pick" id="aFrom"></div>
+      <label for="aName">お名前（名字だけ）</label><input type="text" id="aName" value="井上">
+      <span class="lab">用途</span><div class="pick" id="aUse"></div>
+      <span class="lab">受け取りの日</span><div class="pick" id="aDay"></div>
+      <span class="lab">時間帯</span><div class="pick" id="aTime"></div>
+      <button class="btn fill" id="btnAddOk" type="button">一覧に足す</button>
+    </div>
+  </div>
+  <div id="list"></div>
+  <p class="sec-lead" style="margin-top:10px">受け取りの日を過ぎた注文は、自動で「お渡し済み」に回ります。押す所はありません。</p>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>店の画面。作る日の朝に見る並び</h2></div>
+  <p class="sec-lead">LINE・電話・店頭で受けた注文が、受け取りの日と時間帯の順に、1つに並びます。その日に作る分を、ここだけで見られます。</p>
+  <span class="who">見ている人：店の人（朝、作る前に）</span>
+  <div id="days"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">＋</div><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の3つは動かない見本です。</p>
+  <div class="more"><b><span class="ex">例</span>混む時期の、受付の締め切りの知らせ</b><span>母の日やお彼岸の前に、「ご注文は○日まで」を、登録している人へ1通で送る。</span></div>
+  <div class="more"><b><span class="ex">例</span>毎月の定期の注文</b><span>月命日や、店・事務所に飾る花。同じ中身を毎月の一覧に自動で入れる。</span></div>
+  <div class="more"><b><span class="ex">例</span>去年の記念日の前の、ひとこと</b><span>去年、誕生日や命日の花を頼んだ人のうち、「知らせてほしい」と答えた人にだけ、その日の前に1通送る。</span></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店の名前とお客さまの名前は架空です。日付と時刻はデモ用です。入力した内容は、この端末の中だけに残ります。<br>
+  金額は入れていません。〈 〉は、本番で店の値段が入る所です。<br>
+  取り消しや変更の決まり、お代に何を入れるか（包み・税・配達）は、デモでは決めていません。本番で、店の決まりを入れる所です。<br>
+  ここに残るのは、あとで見返すための控えです。<br>
+  電話と店頭の注文は、今までどおり受けられます。紙の伝票も、そのまま使えます。LINEの受付と日ごとの並びは、それに足すものです。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='hana_demo_state';
+  var USES=['🎂 誕生日','🙏 お供え','🎉 開店祝い','🎀 発表会・送別','💐 そのほか'];
+  var SHAPES=['花束','アレンジメント（かご）','おまかせ','相談して決めたい'];
+  var BUDGETS=['小さめ〈 〉円まで','中くらい〈 〉円まで','大きめ〈 〉円から','相談して決めたい'];
+  var COLORS=['赤・ピンク系','黄・オレンジ系','白・グリーン系','おまかせ'];
+  var COLORS_SONAE=['白を中心に','淡い色も入れる','おまかせ'];
+  var DAYS=[{k:'1121',label:'11/21（土）'},{k:'1122',label:'11/22（日）'},{k:'1123',label:'11/23（月・祝）'}];
+  var TIMES=['午前','午後','夕方'];
+  var NOTES=['ご希望のとおりにご用意します','花の種類は、当日の仕入れで変わることがあります','立て札・カードの文字は、あとで確かめさせてください'];
+  var ST={check:'店の返事がまだ',talk:'お客さんと相談中',wait:'お客さんの返事待ち',ok:'確定',done:'お渡し済み'};
+  var ORDER={check:0,talk:1,wait:2,ok:3,done:4};
+  var MEMO={'🎂 誕生日':'母の誕生日です','🙏 お供え':'実家に持って行きます','🎉 開店祝い':'友人の店に贈ります','🎀 発表会・送別':'子どもに渡します','💐 そのほか':''};
+
+  function seed(){
+    return {
+      v:2,
+      seq:6,
+      clock:845,
+      flow:{step:'use',use:'',shape:'',budget:'',color:'',day:'',time:'',oid:0},
+      log:[],
+      orders:[
+        {id:1,route:'line',got:'11/18 21:40',name:'佐藤さま',use:'🎉 開店祝い',shape:'アレンジメント（かご）',budget:'大きめ〈 〉円から',color:'黄・オレンジ系',day:'1122',time:'午前',memo:'立て札の名前は、あとで送ります',st:'wait',note:'立て札・カードの文字は、あとで確かめさせてください',okAt:'',okHow:'',isNew:false},
+        {id:2,route:'tel',got:'11/18 10:15',name:'鈴木さま',use:'🙏 お供え',shape:'',budget:'',color:'',day:'1121',time:'午前',memo:'',st:'ok',note:'',okAt:'11/18 10:15',okHow:'電話で、その場で確かめた',isNew:false},
+        {id:3,route:'shop',got:'11/17 16:30',name:'高橋さま',use:'🎂 誕生日',shape:'',budget:'',color:'',day:'1121',time:'夕方',memo:'',st:'ok',note:'',okAt:'11/17 16:30',okHow:'店頭で、その場で確かめた',isNew:false},
+        {id:4,route:'line',got:'11/19 08:12',name:'田中さま',use:'🎀 発表会・送別',shape:'花束',budget:'小さめ〈 〉円まで',color:'おまかせ',day:'1123',time:'午後',memo:'子どもに渡します',st:'check',note:'',okAt:'',okHow:'',isNew:false},
+        {id:5,route:'shop',got:'11/16 11:20',name:'山本さま',use:'🎂 誕生日',shape:'',budget:'',color:'',day:'1118',time:'夕方',memo:'',st:'done',note:'',okAt:'11/16 11:20',okHow:'店頭で、その場で確かめた',isNew:false}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==2||!S.orders||!S.flow||!S.log){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function two(n){return (n<10?'0':'')+n;}
+  function clockStr(){return two(Math.floor(S.clock/60)%24)+':'+two(S.clock%60);}
+  function stamp(){S.clock+=3;return '11/19 '+clockStr();}
+  function dayLabel(k){for(var i=0;i<DAYS.length;i++){if(DAYS[i].k===k){return DAYS[i].label;}}if(k==='1118'){return '11/18（水）';}return k;}
+  function findOrder(id){for(var i=0;i<S.orders.length;i++){if(S.orders[i].id===id){return S.orders[i];}}return null;}
+  function clearNew(){for(var i=0;i<S.orders.length;i++){S.orders[i].isNew=false;}}
+  function slipText(o){
+    return 'ご用途：'+o.use+'\n形：'+o.shape+'\nご予算：'+o.budget+'\n色合い：'+o.color+'\n受け取り：'+dayLabel(o.day)+' '+o.time;
+  }
+
+  /* ---------- 1. お客さんのLINE ---------- */
+  function say(who,text,auto){S.log.push({who:who,text:text,auto:!!auto});}
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.auto){h+='<span class="auto">※ ここまで自動で返ります</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+    $('clock').innerHTML=clockStr();
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+esc(act)+'">'+esc(label)+'</button>';}
+  function btnRow(arr,key){
+    var h='';
+    for(var i=0;i<arr.length;i++){h+=btn(arr[i],key+':'+i,(arr.length%2===1&&i===arr.length-1)?'full':'half');}
+    return h;
+  }
+  function renderChoices(){
+    var st=S.flow.step,h='',i;
+    if(st==='use'){
+      h=btnRow(USES,'use');
+    }else if(st==='shape'){
+      h=btnRow(SHAPES,'shape');
+    }else if(st==='budget'){
+      h='<p class="hint">デモなので金額は入れていません。本番は、店の値段の幅が入ります。</p>'+btnRow(BUDGETS,'budget');
+    }else if(st==='color'){
+      h=btnRow(S.flow.use==='🙏 お供え'?COLORS_SONAE:COLORS,'color');
+    }else if(st==='day'){
+      h='<p class="hint">きょう・あすの分は、お電話でおたずねください。</p>';
+      for(i=0;i<DAYS.length;i++){h+=btn(DAYS[i].label,'day:'+i,'full');}
+    }else if(st==='time'){
+      for(i=0;i<TIMES.length;i++){h+=btn(TIMES[i],'time:'+i,'full');}
+    }else if(st==='name'){
+      h='<div class="mini-form"><label for="cName">お名前（名字だけでかまいません）</label><input type="text" id="cName" value="山田"><label for="cMemo">伝えておきたいこと（なくてもかまいません）</label><input type="text" id="cMemo" value="'+esc(MEMO[S.flow.use]||'')+'">'+btn('この中身で送る','send','fill')+'</div>';
+    }else if(st==='wait'){
+      h='<p class="hint">店の返事を待っています。下の「2」で、店の人として中身を確かめてください。</p>'+btn('▼ 店の画面を見る','goto:s2','full fill');
+    }else if(st==='confirm'){
+      h=btn('はい、この内容でお願いします','yes','full fill')+btn('変えたい所がある','change','full');
+    }else if(st==='talk'){
+      h='<p class="hint">ここから先は、ふつうのトークでやりとりします。下の「2」で、店の人として続きを押せます。</p>'+btn('▼ 店の画面を見る','goto:s2','full fill')+btn('もう一度、最初からやってみる','again','full ghost');
+    }else if(st==='end'){
+      h=btn('▼ 受け取りの日ごとの並びを見る','goto:s3','full fill')+btn('もう一度、最初からやってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function startFlow(){
+    S.flow={step:'use',use:'',shape:'',budget:'',color:'',day:'',time:'',oid:0};
+    S.log=[];
+    say('bot','花屋 つゆあかりです。\nご注文の中身を、ボタンで順にうかがいます。\nどんなご用途ですか？');
+  }
+  function goTo(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+  function onChoice(act){
+    var p=act.split(':'),k=p[0],v=p.slice(1).join(':'),f=S.flow,o,n,m,list;
+    if(k==='goto'){goTo(v);return;}
+    if(k==='use'){
+      f.use=USES[parseInt(v,10)]||USES[0];say('me',f.use);say('bot','花束とアレンジメント、どちらにしましょう？');f.step='shape';
+    }else if(k==='shape'){
+      f.shape=SHAPES[parseInt(v,10)]||SHAPES[0];say('me',f.shape);say('bot','ご予算を選んでください。');f.step='budget';
+    }else if(k==='budget'){
+      f.budget=BUDGETS[parseInt(v,10)]||BUDGETS[0];say('me',f.budget);say('bot','色合いは、どうしましょう？');f.step='color';
+    }else if(k==='color'){
+      list=(f.use==='🙏 お供え')?COLORS_SONAE:COLORS;
+      f.color=list[parseInt(v,10)]||list[0];say('me',f.color);say('bot','受け取りの日を選んでください。');f.step='day';
+    }else if(k==='day'){
+      f.day=(DAYS[parseInt(v,10)]||DAYS[0]).k;say('me',dayLabel(f.day));say('bot','時間帯は、いつごろですか？');f.step='time';
+    }else if(k==='time'){
+      f.time=TIMES[parseInt(v,10)]||TIMES[0];say('me',f.time);say('bot','お名前と、伝えておきたいことがあれば書いてください。');f.step='name';
+    }else if(k==='send'){
+      n=($('cName').value||'お名前なし').replace(/さま$/,'');m=$('cMemo').value||'';
+      say('me',n+(m?'\n'+m:''));
+      o={id:S.seq++,route:'line',got:stamp(),name:n+'さま',use:f.use,shape:f.shape,budget:f.budget,color:f.color,day:f.day,time:f.time,memo:m,st:'check',note:'',okAt:'',okHow:'',isNew:false};
+      S.orders.push(o);f.oid=o.id;
+      say('bot',n+'さま、ご注文の中身を受け取りました。\n\n【控え】\n'+slipText(o)+'\n\nまだ確定ではありません。店の者が中身を確かめて、お返事します。\nお返事は、店が開いている時間になります。',true);
+      f.step='wait';
+    }else if(k==='yes'){
+      o=findOrder(f.oid);
+      say('me','はい、この内容でお願いします');
+      if(o){clearNew();o.st='ok';o.okAt=stamp();o.okHow='LINEで「はい」';o.isNew=true;
+        say('bot','ありがとうございます。ご注文が決まりました。\n'+dayLabel(o.day)+' '+o.time+'に、お待ちしています。');}
+      f.step='end';
+    }else if(k==='change'){
+      o=findOrder(f.oid);
+      say('me','変えたい所がある');
+      say('bot','承知しました。\n変えたい所を、このままトークに書いて送ってください。店の者が読んで、お返事します。\nお電話でもかまいません。');
+      if(o){o.st='talk';}
+      f.step='talk';
+    }else if(k==='again'){
+      startFlow();
+    }
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  /* ---------- 2. 店の一覧 ---------- */
+  function cmpOrder(a,b){return (ORDER[a.st]-ORDER[b.st])||(b.id-a.id);}
+  function renderList(){
+    var cnt={check:0,talk:0,wait:0,ok:0,done:0},i,j;
+    for(i=0;i<S.orders.length;i++){cnt[S.orders[i].st]++;}
+    $('chips').innerHTML='<span class="chip todo">店の返事がまだ <b>'+(cnt.check+cnt.talk)+'</b></span><span class="chip">返事待ち <b>'+cnt.wait+'</b></span><span class="chip">確定 <b>'+cnt.ok+'</b></span><span class="chip">お渡し済み <b>'+cnt.done+'</b></span>';
+    var arr=S.orders.slice().sort(cmpOrder),h='';
+    for(i=0;i<arr.length;i++){
+      var o=arr[i],todo=(o.st==='check'||o.st==='talk');
+      var rl=o.route==='line'?'LINE':(o.route==='tel'?'電話':'店頭');
+      h+='<div class="card'+(todo?' todo':'')+(o.st==='done'?' done':'')+'" id="o'+o.id+'">';
+      h+='<div class="card-top"><span class="route '+o.route+'">'+rl+'</span><span>受けた日時 '+esc(o.got)+'</span></div>';
+      h+='<h3>'+esc(o.name)+'</h3>';
+      h+='<ul class="slip"><li><span>用途</span>'+esc(o.use)+'</li>';
+      if(o.route==='line'){h+='<li><span>形</span>'+esc(o.shape)+'</li><li><span>ご予算</span>'+esc(o.budget)+'</li><li><span>色合い</span>'+esc(o.color)+'</li>';}
+      h+='<li><span>受け取り</span>'+esc(dayLabel(o.day)+' '+o.time)+'</li>';
+      if(o.route!=='line'){h+='<li><span>中身</span>紙の伝票に書いてあります</li>';}
+      if(o.memo){h+='<li><span>ひとこと</span>'+esc(o.memo)+'</li>';}
+      if(o.note){h+='<li><span>店から</span>'+esc(o.note)+'</li>';}
+      h+='</ul>';
+      h+='<div><span class="status'+(todo?' todo':'')+((o.st==='ok'||o.st==='done')?' ok':'')+'">'+ST[o.st]+'</span></div>';
+      if(o.okAt){h+='<div class="stamp">'+esc(o.okAt)+'　'+esc(o.okHow)+'</div>';}
+      if(o.st==='check'){
+        h+='<div class="card-act"><label for="n'+o.id+'">店からのひとこと</label><select id="n'+o.id+'">';
+        for(j=0;j<NOTES.length;j++){h+='<option>'+NOTES[j]+'</option>';}
+        h+='</select><button type="button" class="btn fill" data-do="accept:'+o.id+'">「この内容でお受けします」を返す</button></div>';
+      }else if(o.st==='wait'){
+        h+='<div class="card-act"><button type="button" class="btn" data-do="tel:'+o.id+'">電話・店頭で返事をもらった。確定にする</button></div>';
+      }else if(o.st==='talk'){
+        h+='<div class="card-act"><button type="button" class="btn fill" data-do="tel:'+o.id+'">相談して決まった。確定にする</button></div>';
+      }
+      h+='</div>';
+    }
+    $('list').innerHTML=h;
+  }
+  function onDo(act){
+    var p=act.split(':'),k=p[0],o=findOrder(parseInt(p[1],10)),sel,mine,was;
+    if(!o){return;}
+    mine=(o.id===S.flow.oid);
+    if(k==='accept'&&o.st==='check'){
+      sel=$('n'+o.id);o.note=sel?sel.value:NOTES[0];o.st='wait';S.clock+=4;
+      if(mine){
+        say('bot',o.name+'、お待たせしました。\nこの内容でお受けします。\n\n【控え】\n'+slipText(o)+'\nお代：〈 〉円（包み・税をふくむ、と書く例。デモでは空欄）\n店から：'+o.note+'\n\nよろしければ「はい」を押してください。\nお電話や店頭でのお返事でもかまいません。');
+        S.flow.step='confirm';
+        save();renderAll();goTo('s1');return;
+      }
+    }else if(k==='tel'&&(o.st==='wait'||o.st==='talk')){
+      was=o.st;
+      clearNew();o.st='ok';o.okAt=stamp();o.okHow=(was==='talk'?'相談して決めた':'電話・店頭で返事をもらった');o.isNew=true;
+      if(mine){
+        say('bot',(was==='talk'?'ご相談した内容で、ご注文が決まりました。':'お返事をありがとうございます。ご注文が決まりました。')+'\n'+dayLabel(o.day)+' '+o.time+'に、お待ちしています。');
+        S.flow.step='end';
+      }
+    }
+    save();renderAll();
+  }
+  var FROMS=['電話','店頭'];
+  var ADD={aFrom:0,aUse:0,aDay:0,aTime:0};
+  function fillPick(id,arr){
+    var h='';
+    for(var i=0;i<arr.length;i++){h+='<button type="button" class="btn'+(ADD[id]===i?' on':'')+'" data-pick="'+id+':'+i+'">'+esc(arr[i])+'</button>';}
+    $(id).innerHTML=h;
+  }
+  function fillAddBox(){
+    var d=[],i;
+    for(i=0;i<DAYS.length;i++){d.push(DAYS[i].label);}
+    fillPick('aFrom',FROMS);fillPick('aUse',USES);fillPick('aDay',d);fillPick('aTime',TIMES);
+  }
+  function onPick(act){
+    var p=act.split(':');
+    if(ADD[p[0]]===undefined){return;}
+    ADD[p[0]]=parseInt(p[1],10)||0;fillAddBox();
+  }
+  function onToggleAdd(){var b=$('addBox');b.className=(b.className.indexOf('open')>=0)?'add-box':'add-box open';}
+  function onAdd(){
+    var n=$('aName').value||'お名前なし',from=(ADD.aFrom===1?'shop':'tel'),t;
+    if(!/さま$/.test(n)){n+='さま';}
+    clearNew();t=stamp();
+    S.orders.push({id:S.seq++,route:from,got:t,name:n,use:USES[ADD.aUse]||USES[0],shape:'',budget:'',color:'',day:(DAYS[ADD.aDay]||DAYS[0]).k,time:TIMES[ADD.aTime]||TIMES[0],memo:'',st:'ok',note:'',okAt:t,okHow:(from==='tel'?'電話で、その場で確かめた':'店頭で、その場で確かめた'),isNew:true});
+    $('addBox').className='add-box';
+    save();renderAll();
+  }
+
+  /* ---------- 3. 受け取りの日ごと ---------- */
+  function timeNo(t){for(var i=0;i<TIMES.length;i++){if(TIMES[i]===t){return i;}}return 9;}
+  function cmpTime(a,b){return (timeNo(a.time)-timeNo(b.time))||(a.id-b.id);}
+  function renderDays(){
+    var h='',i,j;
+    for(i=0;i<DAYS.length;i++){
+      var arr=[],ok=0,yet=0;
+      for(j=0;j<S.orders.length;j++){if(S.orders[j].day===DAYS[i].k){arr.push(S.orders[j]);}}
+      arr.sort(cmpTime);
+      for(j=0;j<arr.length;j++){if(arr[j].st==='ok'||arr[j].st==='done'){ok++;}else{yet++;}}
+      h+='<div class="day"><div class="day-head"><span>'+DAYS[i].label+'</span><small>確定 '+ok+' 件・確かめ中 '+yet+' 件</small></div>';
+      if(!arr.length){h+='<div class="empty">この日の注文は、まだありません。</div>';}
+      for(j=0;j<arr.length;j++){
+        var o=arr[j],fixed=(o.st==='ok'||o.st==='done');
+        h+='<div class="row'+(o.isNew?' new':'')+(fixed?'':' soft')+'"><span class="tm">'+esc(o.time)+'</span><span class="bd">'+esc(o.name)+'　'+esc(o.use)+'<small>'+(o.route==='line'?esc(o.shape)+'・'+esc(o.color)+'・'+esc(o.budget):'中身は紙の伝票に')+(o.memo?'・'+esc(o.memo):'')+'</small></span>';
+        h+='<span class="tag'+(o.st==='done'?' soft':(fixed?'':' todo'))+'">'+(o.st==='done'?'お渡し済み':(fixed?'確定':'確かめ中'))+'</span></div>';
+      }
+      h+='</div>';
+    }
+    $('days').innerHTML=h;
+  }
+
+  function renderAll(){renderChat();renderChoices();renderList();renderDays();}
+
+  function onClick(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&(t.getAttribute('data-act')||t.getAttribute('data-do')||t.getAttribute('data-pick')))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    if(t.getAttribute('data-pick')){onPick(t.getAttribute('data-pick'));}
+    else if(t.getAttribute('data-act')){onChoice(t.getAttribute('data-act'));}
+    else if(t.getAttribute('data-do')){onDo(t.getAttribute('data-do'));}
+  }
+  function onReset(){S=seed();startFlow();save();renderAll();window.scrollTo(0,0);}
+
+  document.addEventListener('click',onClick);
+  $('btnAdd').addEventListener('click',onToggleAdd);
+  $('btnAddOk').addEventListener('click',onAdd);
+  $('btnReset').addEventListener('click',onReset);
+
+  load();
+  if(!S.log.length){startFlow();}
+  fillAddBox();renderAll();
+})();
+</script>
+</body>
+</html>

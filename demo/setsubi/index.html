@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>みなと水道設備（デモ）出面と請求の控え</title>
+<style>
+:root{--main:#3D6A8A;--main-d:#2c4f68;--accent:#F2C230;--bg:#F3F6F8;--ink:#1f2d3a;--sub:#5b6b78;--line:#d5dde3;--card:#ffffff;--chat:#dbe6ee;--me:#a6e89b;--warn:#c2410c;--ok:#2f7d4f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#3a2c00;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:26px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:#e3edf3;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#2d3b47;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+#chat{padding:12px 10px 4px;min-height:120px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:82%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.third{flex:1 1 calc(33% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.btn.small{padding:6px 10px;font-size:13px;font-weight:400;border-color:var(--line);color:var(--sub)}
+.mini-form{flex-basis:100%;display:grid;gap:6px}
+.mini-form label{font-size:12px;color:var(--sub)}
+input[type=text],select{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.next-link{display:block;text-align:center;margin:12px 0 0;padding:11px 0;font-size:14px;font-weight:700;color:var(--main-d)}
+/* month list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.new{border-left:5px solid var(--accent)}
+.m-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card h3{margin:0;font-size:17px}
+.m-sum{font-size:13px;color:var(--sub);white-space:nowrap}
+.m-sum b{font-size:22px;color:var(--main-d)}
+.sites{list-style:none;margin:6px 0 0;padding:0;font-size:14px}
+.sites li{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-top:1px dashed var(--line)}
+.card-act{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.rest{font-size:13px;color:var(--sub);margin:10px 2px 0}
+.add-box{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px;display:none}
+.add-box.open{display:block}
+.add-lead{margin:0 0 8px;font-size:13px;color:var(--sub)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px;margin-top:10px}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{background:#e9eff3;font-size:12px;color:var(--sub)}
+tr.new td{background:#fff8dc}
+td.num,th.num{text-align:right;white-space:nowrap}
+td.blank{text-align:right;color:var(--sub);white-space:nowrap}
+tr.sum td{font-weight:700;background:#f4f7f9}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+/* bill */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.doc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:10px}
+.doc-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--sub)}
+.doc h3{margin:8px 0 0;font-size:18px}
+.doc-from{margin:2px 0 0;font-size:13px;color:var(--sub);text-align:right}
+.doc-note{font-size:12px;color:var(--sub);margin:10px 0 0}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;background:#fde8dc;color:var(--warn)}
+.status.done{background:#dff1e6;color:var(--ok)}
+/* examples */
+.ex{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.ex svg{flex:none;width:44px;height:44px}
+.ex b{display:block;font-size:15px}
+.ex p{margin:2px 0 0;font-size:13px;color:var(--sub)}
+.ex-tag{display:inline-block;font-size:12px;font-weight:700;color:#3a2c00;background:var(--accent);border-radius:4px;padding:0 6px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:88%}
+  th,td{padding:8px 4px}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「みなと水道設備」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <h1>みなと水道設備</h1>
+  <p>夕方、LINEで今日の現場をひと押し。自分の店の控えとして、元請けごとの日数と、月末の請求の下書きが残ります。</p>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>夕方。今日の現場を自分で控える</h2></div>
+  <p class="sec-lead">夕方5時半。自分の店のLINEから「今日の現場は？」が届きます。ボタンを押して答えます。出面（でづら）の控えが、これで1日ぶん残ります。元請けには何も届きません。</p>
+  <span class="who">見ている人：社長（現場に出た人）</span>
+  <div class="phone">
+    <div class="phone-head"><b>みなと水道設備｜出面の控え</b><span class="clock">17:30</span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <a class="next-link" href="#s2">▼ 今月の一覧を見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>月の途中。元請けごとの日数</h2></div>
+  <p class="sec-lead">押した答えが、元請けごとにたまっていきます。月の途中でも、いつでも見られます。1日を1、半日を0.5として、人工（にんく）で数えます。元請けの出面表が来たら、この一覧と見くらべられます。</p>
+  <span class="who">見ている人：社長か、事務をしているご家族</span>
+  <div class="chips" id="chips"></div>
+  <div id="month"></div>
+  <div id="rests"></div>
+  <div style="height:10px"></div>
+  <button class="btn full" id="btnAdd" type="button">＋ あとから日を足す</button>
+  <div class="add-box" id="addBox">
+    <p class="add-lead">手帳を見ながら、まとめて入れられます。LINEで答えない人のぶんも、ここから入れられます。</p>
+    <div class="mini-form">
+      <label for="aDay">日付</label><select id="aDay"></select>
+      <label for="aMoto">元請け</label><select id="aMoto"></select>
+      <label for="aSite">現場</label><input type="text" id="aSite" value="△△町 リフォーム">
+      <label for="aLen">1日・半日</label><select id="aLen"><option value="1">1日</option><option value="0.5">半日</option></select>
+      <label for="aNum">人数</label><select id="aNum"><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option></select>
+      <button class="btn fill" id="btnAddOk" type="button">一覧に足す</button>
+    </div>
+  </div>
+  <a class="next-link" href="#s3">▼ 月末の請求の下書きを見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>月末。自分で出す請求の下書き</h2></div>
+  <p class="sec-lead">元請けごとに、現場と日数をまとめた下書きが出ます。元請けには何も届きません。下書きを見て、いつもの形で出します。デモでは、今日までの分で出しています。</p>
+  <span class="who">見ている人：請求を作る人（社長か、事務をしているご家族）</span>
+  <div class="tabs" id="tabs"></div>
+  <div id="bill"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">ここから下は動かない見本です。</p>
+  <div class="ex">
+    <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="家の絵"><rect width="44" height="44" rx="8" fill="#e3edf3"/><path d="M8 22 L22 10 L36 22" fill="none" stroke="#3D6A8A" stroke-width="3" stroke-linejoin="round"/><rect x="12" y="22" width="20" height="13" fill="#3D6A8A"/><rect x="19" y="26" width="6" height="9" fill="#e3edf3"/></svg>
+    <div><b><span class="ex-tag">例</span>工事したお宅の記録</b><p>いつ・どこを・何に取り替えたかを、お宅ごとに残します。次に呼ばれたとき、名前で探せます。</p></div>
+  </div>
+  <div class="ex">
+    <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="カレンダーの絵"><rect width="44" height="44" rx="8" fill="#e3edf3"/><rect x="9" y="12" width="26" height="23" rx="3" fill="#fff" stroke="#3D6A8A" stroke-width="2.5"/><rect x="9" y="12" width="26" height="7" fill="#3D6A8A"/><rect x="14" y="8" width="3" height="7" rx="1.5" fill="#2c4f68"/><rect x="27" y="8" width="3" height="7" rx="1.5" fill="#2c4f68"/><circle cx="28" cy="28" r="3.5" fill="#F2C230"/></svg>
+    <div><b><span class="ex-tag">例</span>書類の期限の控え</b><p>指定工事店の更新など、書類の期限を入れておくと、近づいたころにLINEへ1通届きます。</p></div>
+  </div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店の名前・元請けの名前・現場は架空です。入れた内容は、この端末の中だけに残ります。単価と金額は、デモでは入れていません。<br>
+  手帳やカレンダーの記録は、今のまま使えます。これは、そこに足すものです。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='setsubi_dezura_demo';
+  var TODAY=19;
+  var WD=['日','月','火','水','木','金','土'];
+  var MOTO=[
+    {id:'a',name:'A工務店',bill:true,ask:'の、どの現場ですか？',sites:['○○町 新築','△△町 リフォーム']},
+    {id:'b',name:'B建設',bill:true,ask:'の、どの現場ですか？',sites:['□□町 アパート','○○台 店舗']},
+    {id:'c',name:'C住建',bill:true,ask:'の、どの現場ですか？',sites:['◇◇町 建て替え']},
+    {id:'own',name:'直接のお客さん',bill:false,ask:'の、どんな仕事でしたか？',sites:['修理','器具の取り替え']}
+  ];
+  var ATTRS=['data-act','data-open','data-del','data-bill','data-check','data-detail'];
+
+  function seed(){
+    return {
+      seq:16,
+      flow:{step:'start',m:'',site:'',len:0},
+      log:[],
+      open:{},
+      bill:'a',
+      detail:false,
+      checked:{},
+      rests:[],
+      ents:[
+        {id:1,d:2,m:'a',site:'○○町 新築',len:1,n:2},
+        {id:2,d:4,m:'a',site:'○○町 新築',len:1,n:2},
+        {id:3,d:5,m:'a',site:'○○町 新築',len:0.5,n:1},
+        {id:4,d:5,m:'own',site:'修理',len:0.5,n:1},
+        {id:5,d:6,m:'b',site:'□□町 アパート',len:1,n:2},
+        {id:6,d:9,m:'b',site:'□□町 アパート',len:1,n:2},
+        {id:7,d:10,m:'a',site:'○○町 新築',len:1,n:1},
+        {id:8,d:11,m:'a',site:'△△町 リフォーム',len:0.5,n:1},
+        {id:9,d:11,m:'own',site:'器具の取り替え',len:0.5,n:1},
+        {id:10,d:12,m:'b',site:'□□町 アパート',len:1,n:1},
+        {id:11,d:13,m:'c',site:'◇◇町 建て替え',len:1,n:1},
+        {id:12,d:14,m:'c',site:'◇◇町 建て替え',len:0.5,n:1},
+        {id:13,d:16,m:'a',site:'○○町 新築',len:1,n:2},
+        {id:14,d:17,m:'a',site:'△△町 リフォーム',len:1,n:1},
+        {id:15,d:18,m:'b',site:'□□町 アパート',len:1,n:2}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||!S.ents||!S.flow||!S.open||!S.checked||!S.rests){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function dl(d){return '11/'+d+'（'+WD[(d-1)%7]+'）';}
+  function fmt(x){var r=Math.round(x*10)/10;return (r%1===0)?String(r):r.toFixed(1);}
+  function lenLabel(len){return len===1?'1日':'半日';}
+  function motoOf(id){for(var i=0;i<MOTO.length;i++){if(MOTO[i].id===id){return MOTO[i];}}return MOTO[0];}
+  function entsOf(m){
+    var out=[];
+    for(var i=0;i<S.ents.length;i++){if(S.ents[i].m===m){out.push(S.ents[i]);}}
+    out.sort(function(a,b){return (a.d-b.d)||(a.id-b.id);});
+    return out;
+  }
+  function sumOf(arr){var t=0;for(var i=0;i<arr.length;i++){t+=arr[i].len*arr[i].n;}return t;}
+  function bySite(arr){
+    var names=[],sums={};
+    for(var i=0;i<arr.length;i++){
+      var k='_'+arr[i].site;
+      if(sums[k]===undefined){sums[k]=0;names.push(arr[i].site);}
+      sums[k]+=arr[i].len*arr[i].n;
+    }
+    var out=[];
+    for(var j=0;j<names.length;j++){out.push({site:names[j],sum:sums['_'+names[j]]});}
+    return out;
+  }
+  function clearNew(){for(var i=0;i<S.ents.length;i++){S.ents[i].isNew=false;}}
+  function lastEnt(){
+    var best=null;
+    for(var i=0;i<S.ents.length;i++){
+      var e=S.ents[i];
+      if(e.d>=TODAY){continue;}
+      if(!best||e.d>best.d||(e.d===best.d&&e.id>best.id)){best=e;}
+    }
+    return best;
+  }
+
+  /* ---------- 1. 社長のLINE ---------- */
+  function say(who,text,auto){S.log.push({who:who,text:text,auto:!!auto});}
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.auto){h+='<span class="auto">※ 返事は自動です。押した内容は、下の一覧にすぐ入ります</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function renderChoices(){
+    var st=S.flow.step,h='',i;
+    if(st==='start'){
+      h='<p class="hint">毎日、決めた時刻に届きます。デモでは17:30です。答えない日があっても、あとから足せます。</p>';
+      var le=lastEnt();
+      if(le&&!S.flow.more){
+        h+=btn((le.d===TODAY-1?'きのうと同じ':'前の日と同じ')+'（'+esc(motoOf(le.m).name)+'・'+esc(le.site)+'・'+lenLabel(le.len)+'×'+le.n+'人）','same','full fill');
+      }
+      for(i=0;i<MOTO.length;i++){
+        h+=btn((MOTO[i].bill?'':'🏠 ')+MOTO[i].name,'moto:'+MOTO[i].id,'half');
+      }
+      h+=btn('今日は休み','rest','full ghost');
+    }else if(st==='site'){
+      var mo=motoOf(S.flow.m);
+      for(i=0;i<mo.sites.length;i++){h+=btn(esc(mo.sites[i]),'site:'+i,'full');}
+      h+=btn('ほかの現場を入れる','site:other','full ghost');
+    }else if(st==='other'){
+      h='<div class="mini-form"><label for="oSite">現場の名前（よく行く現場は、先にボタンにしておけます）</label><input type="text" id="oSite" value="◎◎町 改修">'+btn('これで送る','other','fill')+'</div>';
+    }else if(st==='len'){
+      h=btn('☀️ 1日','len:1','half fill')+btn('🌤 半日','len:0.5','half');
+    }else if(st==='num'){
+      h=btn('1人','num:1','third')+btn('2人','num:2','third')+btn('3人','num:3','third');
+    }else if(st==='end'){
+      h=btn('▼ 今月の一覧を見る','goto','full fill')+btn('同じ日にもう1件足す（午前と午後で別の現場）','more','full')+btn('もう一度、最初からやってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function startFlow(){
+    S.flow={step:'start',m:'',site:'',len:0};
+    S.log=[];
+    say('bot','おつかれさまです。\n11月19日（木）の現場は？\n下のボタンを押すだけです。');
+  }
+  function askLen(){say('bot','1日ですか、半日ですか？');S.flow.step='len';}
+  function keep(mo,site,len,n){
+    var i;
+    clearNew();
+    S.ents.push({id:S.seq++,d:TODAY,m:mo.id,site:site,len:len,n:n,isNew:true});
+    S.checked[mo.id]=false;
+    i=S.rests.indexOf(TODAY);if(i>=0){S.rests.splice(i,1);}
+    say('bot','残しました。\n\n'+dl(TODAY)+' '+mo.name+'\n'+site+'\n'+lenLabel(len)+' × '+n+'人 ＝ '+fmt(len*n)+'人工\n\n今月の'+mo.name+'は、合わせて '+fmt(sumOf(entsOf(mo.id)))+'人工 です。',true);
+    if(mo.bill){S.bill=mo.id;}
+    S.flow.step='end';
+  }
+  function onChoice(act){
+    var p=act.split(':'),k=p[0],v=p.slice(1).join(':'),mo,i;
+    if(k==='moto'){
+      mo=motoOf(v);S.flow.m=mo.id;
+      say('me',mo.name);say('bot',mo.name+mo.ask);S.flow.step='site';
+    }else if(k==='rest'){
+      say('me','今日は休み');
+      say('bot','おつかれさまです。\n'+dl(TODAY)+'は「休み」で残しました。',true);
+      if(S.rests.indexOf(TODAY)<0){S.rests.push(TODAY);}
+      S.flow.step='end';
+    }else if(k==='site'){
+      if(v==='other'){say('me','ほかの現場');say('bot','現場の名前を入れてください。');S.flow.step='other';}
+      else{mo=motoOf(S.flow.m);S.flow.site=mo.sites[parseInt(v,10)]||mo.sites[0];say('me',S.flow.site);askLen();}
+    }else if(k==='other'){
+      S.flow.site=($('oSite').value||'').replace(/^\s+|\s+$/g,'')||'現場名なし';
+      say('me',S.flow.site);askLen();
+    }else if(k==='len'){
+      S.flow.len=(v==='1')?1:0.5;
+      say('me',lenLabel(S.flow.len));say('bot','何人で入りましたか？');S.flow.step='num';
+    }else if(k==='num'){
+      var n=parseInt(v,10)||1;
+      mo=motoOf(S.flow.m);
+      say('me',n+'人');
+      keep(mo,S.flow.site,S.flow.len,n);
+    }else if(k==='same'){
+      var le=lastEnt();
+      if(!le){return;}
+      mo=motoOf(le.m);
+      say('me',(le.d===TODAY-1?'きのうと同じ':'前の日と同じ'));
+      keep(mo,le.site,le.len,le.n);
+    }else if(k==='more'){
+      say('bot','もう1件ですね。\n'+dl(TODAY)+'の、次の現場は？');
+      S.flow={step:'start',m:'',site:'',len:0,more:true};
+    }else if(k==='again'){
+      startFlow();
+    }else if(k==='goto'){
+      var el=$('s2');if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}
+      return;
+    }
+    save();renderAll();
+    var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+  }
+
+  /* ---------- 2. 今月の一覧 ---------- */
+  function renderMonth(){
+    var total=sumOf(S.ents),days={},nd=0,i,j,h='';
+    for(i=0;i<S.ents.length;i++){if(!days['d'+S.ents[i].d]){days['d'+S.ents[i].d]=1;nd++;}}
+    $('chips').innerHTML='<span class="chip">11月の合計 <b>'+fmt(total)+'</b> 人工</span><span class="chip">現場に出た日 <b>'+nd+'</b> 日</span>';
+    for(i=0;i<MOTO.length;i++){
+      var mo=MOTO[i],arr=entsOf(mo.id);
+      if(!arr.length){continue;}
+      var hasNew=false;
+      for(j=0;j<arr.length;j++){if(arr[j].isNew){hasNew=true;}}
+      h+='<div class="card'+(hasNew?' new':'')+'" data-moto="'+mo.id+'">';
+      h+='<div class="m-top"><h3>'+esc(mo.name)+'</h3><div class="m-sum"><b>'+fmt(sumOf(arr))+'</b> 人工</div></div>';
+      var ss=bySite(arr);
+      h+='<ul class="sites">';
+      for(j=0;j<ss.length;j++){h+='<li><span>'+esc(ss[j].site)+'</span><span>'+fmt(ss[j].sum)+' 人工</span></li>';}
+      h+='</ul>';
+      h+='<div class="card-act"><button type="button" class="btn" data-open="'+mo.id+'">'+(S.open[mo.id]?'日ごとの明細を閉じる':'日ごとの明細を開く')+'</button></div>';
+      if(S.open[mo.id]){
+        h+='<table><thead><tr><th>日付</th><th>現場</th><th>入り方</th><th></th></tr></thead><tbody>';
+        for(j=0;j<arr.length;j++){
+          var e=arr[j];
+          h+='<tr'+(e.isNew?' class="new"':'')+'><td>'+dl(e.d)+'</td><td>'+esc(e.site)+'</td><td>'+lenLabel(e.len)+'×'+e.n+'人</td><td><button type="button" class="btn small" data-del="'+e.id+'" aria-label="'+dl(e.d)+'の記録を消す">消す</button></td></tr>';
+        }
+        h+='</tbody></table>';
+      }
+      h+='</div>';
+    }
+    $('month').innerHTML=h||'<div class="empty">今月の記録はまだありません。</div>';
+    var r='';
+    if(S.rests.length){
+      var rs=S.rests.slice().sort(function(a,b){return a-b;}),t=[];
+      for(i=0;i<rs.length;i++){t.push(dl(rs[i]));}
+      r='<p class="rest">休みで残した日：'+t.join('、')+'</p>';
+    }
+    $('rests').innerHTML=r;
+  }
+  function onOpen(m){S.open[m]=!S.open[m];save();renderAll();}
+  function onDel(id){
+    for(var i=0;i<S.ents.length;i++){
+      if(S.ents[i].id===id){S.checked[S.ents[i].m]=false;S.ents.splice(i,1);break;}
+    }
+    save();renderAll();
+  }
+  function fillAddForm(){
+    var h='',i;
+    for(i=1;i<=TODAY;i++){h+='<option value="'+i+'"'+(i===7?' selected':'')+'>'+dl(i)+'</option>';}
+    $('aDay').innerHTML=h;
+    h='';
+    for(i=0;i<MOTO.length;i++){h+='<option value="'+MOTO[i].id+'">'+esc(MOTO[i].name)+'</option>';}
+    $('aMoto').innerHTML=h;
+  }
+  function onAdd(){
+    var d=parseInt($('aDay').value,10)||TODAY,mo=motoOf($('aMoto').value);
+    var site=($('aSite').value||'').replace(/^\s+|\s+$/g,'')||'現場名なし';
+    var len=($('aLen').value==='1')?1:0.5,n=parseInt($('aNum').value,10)||1;
+    clearNew();
+    S.ents.push({id:S.seq++,d:d,m:mo.id,site:site,len:len,n:n,isNew:true});
+    S.checked[mo.id]=false;
+    S.open[mo.id]=true;
+    var i=S.rests.indexOf(d);if(i>=0){S.rests.splice(i,1);}
+    $('addBox').className='add-box';
+    save();renderAll();
+  }
+
+  /* ---------- 3. 請求の下書き ---------- */
+  function renderBill(){
+    var h='',i,mo;
+    for(i=0;i<MOTO.length;i++){
+      if(!MOTO[i].bill){continue;}
+      h+='<button type="button" class="btn third'+(S.bill===MOTO[i].id?' fill':'')+'" data-bill="'+MOTO[i].id+'">'+esc(MOTO[i].name)+'</button>';
+    }
+    $('tabs').innerHTML=h;
+    mo=motoOf(S.bill);
+    var arr=entsOf(mo.id),done=!!S.checked[mo.id];
+    h='<div class="doc">';
+    h+='<div class="doc-top"><span class="status'+(done?' done':'')+'">'+(done?'確かめ済み':'下書き')+'</span><span>2026年11月分（11/1〜11/'+TODAY+'）</span></div>';
+    h+='<h3>'+esc(mo.name)+' 御中</h3><p class="doc-from">みなと水道設備</p>';
+    if(!arr.length){
+      h+='<div class="empty">今月の記録はまだありません。</div></div>';
+      $('bill').innerHTML=h;return;
+    }
+    var ss=bySite(arr);
+    h+='<table><thead><tr><th>現場</th><th class="num">人工</th><th class="num">単価</th><th class="num">金額</th></tr></thead><tbody>';
+    for(i=0;i<ss.length;i++){
+      h+='<tr><td>'+esc(ss[i].site)+'</td><td class="num">'+fmt(ss[i].sum)+'</td><td class="blank">〈　　〉</td><td class="blank">〈　　〉</td></tr>';
+    }
+    h+='<tr class="sum"><td>合計</td><td class="num">'+fmt(sumOf(arr))+'</td><td></td><td class="blank">〈　　〉</td></tr></tbody></table>';
+    if(S.detail){
+      h+='<table id="billDetail"><thead><tr><th>日付</th><th>現場</th><th>入り方</th><th class="num">人工</th></tr></thead><tbody>';
+      for(i=0;i<arr.length;i++){
+        h+='<tr><td>'+dl(arr[i].d)+'</td><td>'+esc(arr[i].site)+'</td><td>'+lenLabel(arr[i].len)+'×'+arr[i].n+'人</td><td class="num">'+fmt(arr[i].len*arr[i].n)+'</td></tr>';
+      }
+      h+='</tbody></table>';
+    }
+    h+='<p class="doc-note">単価と金額の欄は、デモでは空けています。実物では、元請けごとに決めた単価を入れておけます。消費税や、立て替えた経費（駐車場代など）は、デモには入れていません。<br>元請けの決まった用紙や、いつものエクセルの請求書があるときは、この控えを見て書き写せます。</p>';
+    h+='<div class="card-act"><button type="button" class="btn" data-detail="1">'+(S.detail?'日ごとの明細をはずす':'日ごとの明細をつける')+'</button>';
+    h+='<button type="button" class="btn'+(done?'':' fill')+'" data-check="'+mo.id+'">'+(done?'下書きに戻す':'この下書きを確かめた')+'</button></div>';
+    h+='</div>';
+    $('bill').innerHTML=h;
+  }
+  function onBill(m){S.bill=motoOf(m).id;save();renderAll();}
+  function onCheck(m){S.checked[m]=!S.checked[m];save();renderAll();}
+  function onDetail(){S.detail=!S.detail;save();renderAll();}
+
+  function renderAll(){renderChat();renderChoices();renderMonth();renderBill();}
+
+  function hit(t){
+    if(!t||!t.getAttribute){return '';}
+    for(var i=0;i<ATTRS.length;i++){if(t.getAttribute(ATTRS[i])!==null){return ATTRS[i];}}
+    return '';
+  }
+  document.addEventListener('click',function(ev){
+    var t=ev.target,a='';
+    while(t&&t!==document){a=hit(t);if(a){break;}t=t.parentNode;}
+    if(!a||!t||t===document){return;}
+    var v=t.getAttribute(a);
+    if(a==='data-act'){onChoice(v);}
+    else if(a==='data-open'){onOpen(v);}
+    else if(a==='data-del'){onDel(parseInt(v,10));}
+    else if(a==='data-bill'){onBill(v);}
+    else if(a==='data-check'){onCheck(v);}
+    else if(a==='data-detail'){onDetail();}
+  });
+  $('btnAdd').addEventListener('click',function(){var b=$('addBox');b.className=(b.className.indexOf('open')>=0)?'add-box':'add-box open';});
+  $('btnAddOk').addEventListener('click',onAdd);
+  $('btnReset').addEventListener('click',function(){S=seed();startFlow();$('addBox').className='add-box';fillAddForm();save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  if(!S.log||!S.log.length){startFlow();}
+  fillAddForm();renderAll();
+})();
+</script>
+</body>
+</html>

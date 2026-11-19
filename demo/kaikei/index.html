@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ななかまど会計事務所（デモ）まだ届いていない資料のお知らせと、お願いの記録</title>
+<style>
+:root{--main:#2E4A6B;--main-d:#1f3550;--accent:#3BA59A;--bg:#F4F7F9;--ink:#1c2733;--sub:#566472;--line:#d3dce4;--card:#ffffff;--chat:#dce6ee;--me:#a6e89b;--warn:#b4530a;--ok:#2f7d4f;--soft:#e2eaf1;--teal-d:#17574f;--teal-s:#dcf1ee}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:#06302c;font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px}
+header.top h1{margin:0;font-size:21px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+.badge{display:inline-block;margin-top:10px;background:#fff;color:var(--main-d);font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px}
+section{margin-top:26px;scroll-margin-top:40px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--soft);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:#22303f;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px;opacity:.9}
+#chat{padding:12px 10px 4px;min-height:150px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:86%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.bubble svg{display:block;width:150px;max-width:100%;height:auto;margin-top:8px}
+.day{text-align:center;font-size:12px;color:var(--sub);margin:12px 0 4px}
+.day span{background:#fff;border-radius:999px;padding:2px 10px}
+#choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+#choices .hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.btn.opt{font-weight:400;font-size:14px;padding:8px 12px}
+.btn.opt[aria-pressed="true"]{background:var(--main);color:#fff;font-weight:700}
+.next-link{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;margin:6px 0 0;font-size:14px;font-weight:700;color:var(--main-d)}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.chip.ok{border-color:var(--ok);color:var(--ok)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--warn)}
+.card.wait{border-left:5px solid var(--accent)}
+.card.done{border-left:5px solid var(--ok)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.tag{font-weight:700;border-radius:6px;padding:1px 8px;font-size:12px;color:var(--main-d);background:var(--soft)}
+.card h3{margin:6px 0 4px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.docs{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.doc{font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px}
+.doc.got{background:#dff1e6;color:var(--ok)}
+.doc.yet{background:#fde8dc;color:var(--warn)}
+.doc.said,.doc.nsaid{background:var(--teal-s);color:var(--teal-d)}
+.doc.later,.doc.unk{background:#fff4d6;color:#6b4e00}
+.doc.none{background:#eef2f5;color:var(--sub)}
+.last{font-size:13px;color:var(--sub)}
+.card-act{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+.sent{font-size:13px;font-weight:700;color:var(--teal-d);background:var(--teal-s);border-radius:8px;padding:6px 10px;margin-top:8px}
+/* record */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.rows{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);font-size:14px}
+.row:last-child{border-bottom:0}
+.row .nm{flex:1 1 auto}
+.row .btn{min-height:44px;font-size:13px;padding:6px 10px;flex:none;margin-left:auto}
+.sub-h{margin:16px 0 6px;font-size:14px;color:var(--main-d)}
+.tl{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ev{padding:8px 12px;border-bottom:1px solid var(--line);font-size:14px}
+.ev:last-child{border-bottom:0}
+.ev.new{background:#fff8dc}
+.ev .t{display:block;font-size:12px;color:var(--sub)}
+.how{display:inline-block;font-size:12px;font-weight:700;border-radius:5px;padding:0 6px;margin-right:6px;color:var(--main-d);background:var(--soft)}
+.how.rep{color:var(--teal-d);background:var(--teal-s)}
+.how.off{color:var(--ok);background:#dff1e6}
+/* more */
+.more{display:grid;gap:8px}
+.ex{background:#fff;border:1px dashed var(--main);border-radius:12px;padding:10px 12px;font-size:14px}
+.ex b{display:block;color:var(--main-d);font-size:14px}
+.ex .lbl{display:inline-block;font-size:12px;font-weight:700;color:var(--teal-d);background:var(--teal-s);border-radius:5px;padding:0 6px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:26px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:90%}
+  .row{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「ななかまど会計事務所」は架空の事務所です</div>
+<div class="wrap">
+
+<header class="top">
+  <h1>ななかまど会計事務所</h1>
+  <p>まだの資料の名前だけを、LINEでお知らせ。お願いした日と返事が、書き残さなくても顧問先ごとに残ります。資料そのものは、今の置き場所のままです。</p>
+  <span class="badge">所長と職員2人の事務所（デモの設定）</span>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>事務所｜まだの資料をお知らせする</h2></div>
+  <p class="sec-lead">朝9時の一覧です。10月分の資料が、顧問先ごとに並びます。いま事務所でつけている表があれば、それをもとに作ります。まだの資料は、ボタン1つで名前を入れてお知らせできます。</p>
+  <span class="who">見ている人：事務所の担当の方</span>
+  <div class="chips" id="chips"></div>
+  <div id="list"></div>
+  <a class="next-link" href="#s2">▼ 顧問先のスマホを見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>顧問先｜名前だけ届く。返事は押すだけ</h2></div>
+  <p class="sec-lead">届くのは、1回に1通。まだの資料の名前だけです。返事はボタンを押すだけ。資料そのものは、LINEには流しません。</p>
+  <span class="who">見ている人：顧問先の山田さま</span>
+  <div class="phone">
+    <div class="phone-head"><b>ななかまど会計事務所</b><span class="clock" id="clock"></span></div>
+    <div id="chat"></div>
+    <div id="choices"></div>
+  </div>
+  <p class="sec-lead" style="margin-top:8px">LINEを使わない顧問先には、今までどおり電話でお願いします（①の田中さま）。</p>
+  <a class="next-link" href="#s3">▼ 事務所に届いた返事を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>事務所｜お願いと返事が、こう残る</h2></div>
+  <p class="sec-lead">いつ・何を・何回目にお願いして、いつ返事が来たか。顧問先ごとに、こう残ります。電話でお願いした分も、同じ所に残せます。文字を打つ所はありません。</p>
+  <span class="who">見ている人：事務所の担当の方と所長</span>
+  <div class="tabs" id="tabs"></div>
+  <div class="rows" id="rows"></div>
+  <h3 class="sub-h">お願いと返事の記録</h3>
+  <ul class="tl" id="tl"></ul>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">＋</div><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下は動かない見本です。</p>
+  <div class="more">
+    <div class="ex"><b><span class="lbl">例</span>年末調整の書類のお願い</b>配る用紙と集める用紙を、顧問先ごとに一覧にします。まだの会社にだけ、お知らせが届きます。</div>
+    <div class="ex"><b><span class="lbl">例</span>社労士の事務所なら</b>毎月の締めの日に、勤怠の資料がまだの会社へお知らせ。返事はボタンで受けます。</div>
+    <div class="ex"><b><span class="lbl">例</span>行政書士の事務所なら</b>許可の更新の時期を一覧に控えます。前もって、用意する書類の名前をお知らせします。</div>
+  </div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  事務所の名前と顧問先の名前は架空です。押した内容は、この端末の中だけに残ります。<br>
+  資料そのものは、LINEでは受け取りません。置き場所は今のまま（共有フォルダ・郵送・手渡し）です。LINEは、お知らせと返事のボタンだけに使います。<br>
+  会計のソフトや共有フォルダは、今のまま使います。このしくみは、その横に足す「お知らせと記録」の係です。<br>
+  記帳や税の相談は、このしくみでは受けません。今までどおり、担当の方が電話やメールで受けます。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='nanakamado_demo_state';
+  var DOC={bank:'通帳のコピー',sales:'売上の請求書の控え',cost:'経費の領収書',pay:'給与の資料'};
+  var TODAY='11/19（木）';
+  var FOLDER='<svg viewBox="0 0 150 56" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="共有フォルダの絵（デモ用）"><rect width="150" height="56" rx="8" fill="#eef3f7"/><path d="M12 16 h16 l5 5 h21 a3 3 0 0 1 3 3 v18 a3 3 0 0 1 -3 3 h-42 a3 3 0 0 1 -3 -3 v-23 a3 3 0 0 1 3 -3 z" fill="#3BA59A"/><rect x="12" y="24" width="45" height="21" rx="3" fill="#2E4A6B"/><rect x="68" y="18" width="70" height="7" rx="3" fill="#2E4A6B"/><rect x="68" y="31" width="52" height="6" rx="3" fill="#9fb2c4"/></svg>';
+
+  function seed(){
+    return {
+      clock:'9:00',step:'wait',rest:'',qd:false,sel:'yamada',
+      log:[
+        {who:'day',text:'11/12（木）'},
+        {who:'bot',text:'ななかまど会計事務所です。\n10月分で、まだ届いていない資料が2つあります。\n\n・通帳のコピー\n・売上の請求書の控え\n\nいつもの共有フォルダに入れてください。\n行きちがいでしたら、すみません。'}
+      ],
+      cl:[
+        {id:'yamada',name:'山田さま',biz:'塗装',line:true,n:1,tel:false,
+         docs:[{k:'bank',st:'yet',w:''},{k:'sales',st:'yet',w:''},{k:'cost',st:'got',w:''},{k:'pay',st:'got',w:''}],
+         hist:[
+           {t:'11/9（月）16:10',how:'事務所',tx:'受け取り済みにした：経費の領収書・給与の資料',nw:false},
+           {t:'11/12（木）9:00',how:'LINE',tx:'1回目のお知らせ：通帳のコピー・売上の請求書の控え',nw:false}
+         ]},
+        {id:'tanaka',name:'田中さま',biz:'美容室',line:false,n:1,tel:false,
+         docs:[{k:'bank',st:'yet',w:''},{k:'sales',st:'got',w:''},{k:'cost',st:'got',w:''}],
+         hist:[
+           {t:'11/10（火）11:30',how:'事務所',tx:'受け取り済みにした：売上の請求書の控え・経費の領収書（手渡し）',nw:false},
+           {t:'11/12（木）9:20',how:'電話',tx:'1回目のお願い：通帳のコピー',nw:false}
+         ]},
+        {id:'suzuki',name:'鈴木さま',biz:'運送',line:true,n:1,tel:false,
+         docs:[{k:'bank',st:'got',w:''},{k:'sales',st:'got',w:''},{k:'cost',st:'later',w:'11/20（金）'},{k:'pay',st:'got',w:''}],
+         hist:[
+           {t:'11/12（木）9:00',how:'LINE',tx:'1回目のお知らせ：経費の領収書',nw:false},
+           {t:'11/12（木）13:20',how:'返事',tx:'「経費の領収書は、11/20（金）ごろになります」',nw:false}
+         ]},
+        {id:'sato',name:'佐藤さま',biz:'飲食',line:true,n:0,tel:false,
+         docs:[{k:'bank',st:'got',w:''},{k:'sales',st:'got',w:''},{k:'cost',st:'got',w:''},{k:'pay',st:'got',w:''}],
+         hist:[
+           {t:'11/6（金）10:05',how:'事務所',tx:'フォルダで確かめた：4つとも受け取り済み',nw:false}
+         ]}
+      ]
+    };
+  }
+  var S;
+  function load(){
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||!S.cl||!S.log||!S.step){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function cl(id){for(var i=0;i<S.cl.length;i++){if(S.cl[i].id===id){return S.cl[i];}}return null;}
+  function docOf(c,k){for(var i=0;i<c.docs.length;i++){if(c.docs[i].k===k){return c.docs[i];}}return null;}
+  function listBy(c,st){var o=[];for(var i=0;i<c.docs.length;i++){if(c.docs[i].st===st){o.push(c.docs[i]);}}return o;}
+  function names(arr){var o=[];for(var i=0;i<arr.length;i++){o.push(DOC[arr[i].k]);}return o.join('・');}
+  function openDocs(c){var o=[];for(var i=0;i<c.docs.length;i++){var s=c.docs[i].st;if(s!=='got'&&s!=='none'&&s!=='nsaid'){o.push(c.docs[i]);}}return o;}
+  function isDone(c){for(var i=0;i<c.docs.length;i++){var s=c.docs[i].st;if(s!=='got'&&s!=='none'){return false;}}return true;}
+  function clearNew(){for(var i=0;i<S.cl.length;i++){for(var j=0;j<S.cl[i].hist.length;j++){S.cl[i].hist[j].nw=false;}}}
+  function addHist(c,t,how,tx){clearNew();c.hist.push({t:t,how:how,tx:tx,nw:true});}
+  function officeTime(){return (S.step==='end'||S.step==='rest'||S.step==='later')?'10:50':'9:10';}
+  function say(who,text,opt){S.log.push({who:who,text:text,auto:!!(opt&&opt.auto),pic:!!(opt&&opt.pic)});}
+
+  /* ---------- 1. 事務所の一覧 ---------- */
+  function stLabel(d){
+    if(d.st==='got'){return '✓ 受け取り済み';}
+    if(d.st==='yet'){return 'まだ';}
+    if(d.st==='said'){return '「入れました」の返事あり';}
+    if(d.st==='later'){return d.w+'ごろ';}
+    if(d.st==='unk'){return '時期はまだ分からない';}
+    if(d.st==='nsaid'){return '「10月分なし」の返事あり';}
+    return '10月分なし';
+  }
+  function lastAsk(c){
+    var a=null,r=null,i;
+    for(i=0;i<c.hist.length;i++){
+      if(c.hist[i].how==='LINE'||c.hist[i].how==='電話'){a=c.hist[i];r=null;}
+      else if(c.hist[i].how==='返事'){r=c.hist[i];}
+    }
+    if(!a){return 'お願いは出していません';}
+    return '最後のお願い：'+a.t+'（'+a.how+'・'+c.n+'回目）／返事：'+(r?r.t:'まだ');
+  }
+  function renderList(){
+    var done=0,wait=0,todo=0,h='',i,j;
+    for(i=0;i<S.cl.length;i++){
+      var c=S.cl[i],yet=listBy(c,'yet'),cls;
+      if(isDone(c)){done++;cls='done';}else if(yet.length){todo++;cls='todo';}else{wait++;cls='wait';}
+      h+='<div class="card '+cls+'" id="c_'+c.id+'">';
+      h+='<div class="card-top"><span class="tag">'+esc(c.biz)+'</span><span>'+(c.line?'LINEでお知らせ':'LINEは使わない顧問先（電話）')+'</span></div>';
+      h+='<h3>'+esc(c.name)+'</h3><div class="docs">';
+      for(j=0;j<c.docs.length;j++){h+='<span class="doc '+c.docs[j].st+'">'+DOC[c.docs[j].k]+'：'+esc(stLabel(c.docs[j]))+'</span>';}
+      h+='</div><p class="last">'+esc(lastAsk(c))+'</p>';
+      if(isDone(c)){
+        h+='<div class="sent">10月分は、そろいました。</div>';
+      }else if(c.id==='yamada'){
+        if(S.step==='wait'&&!yet.length){
+          h+='';
+        }else if(S.step==='wait'){
+          h+='<div class="card-act"><button type="button" class="btn fill full" data-act="send">まだの資料をLINEでお知らせする（2回目）</button></div>';
+        }else if(S.step==='end'){
+          h+='<div class="sent">返事が届きました。③で中を確かめられます。</div>';
+        }else{
+          h+='<div class="sent">'+TODAY+'9:05 に、2回目を送りました。返事まちです。</div>';
+        }
+      }else if(!c.line&&yet.length){
+        if(c.tel){h+='<div class="sent">'+TODAY+'9:10 に、電話でお願いした記録を残しました。</div>';}
+        else{h+='<div class="card-act"><button type="button" class="btn full" data-act="tel:'+c.id+'">電話でお願いした、を残す（2回目）</button></div>';}
+      }else if(!yet.length){
+        h+='<div class="sent">返事の日までは、お知らせを止めています。</div>';
+      }
+      h+='</div>';
+    }
+    $('list').innerHTML=h;
+    $('chips').innerHTML='<span class="chip ok">そろった <b>'+done+'</b></span><span class="chip">返事あり <b>'+wait+'</b></span><span class="chip todo">返事まだ <b>'+todo+'</b></span>';
+  }
+
+  /* ---------- 2. 顧問先のスマホ ---------- */
+  function renderChat(){
+    var h='';
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      if(m.who==='day'){h+='<div class="day"><span>'+esc(m.text)+'</span></div>';continue;}
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.pic){h+=FOLDER;}
+      if(m.auto){h+='<span class="auto">※ まだの資料の名前は、事務所の一覧から自動で入ります</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+    $('clock').innerHTML=esc(S.clock);
+  }
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+  function renderChoices(){
+    var st=S.step,h='',c=cl('yamada'),yet=listBy(c,'yet'),i;
+    if(st==='wait'){
+      h='<p class="hint">これは先週のお知らせです。①で事務所が「お知らせする」を押すと、今日の分がここに届きます。</p>'+btn('▲ ①の一覧へ','goto:s1','full');
+    }else if(st==='ask'){
+      h=btn(yet.length>1?yet.length+'つとも入れました':'入れました','ans:both','full fill');
+      if(yet.length>1){for(i=0;i<yet.length;i++){h+=btn(DOC[yet[i].k]+'だけ入れました','ans:one:'+yet[i].k,'full');}}
+      h+=btn('少しあとになります','ans:later','half');
+      if(!S.qd){h+=btn('質問があります','ans:q','half');}
+    }else if(st==='rest'){
+      h='<p class="hint">'+DOC[S.rest]+'について</p>'+btn('11/21（土）ごろ','when:11/21（土）','half')+btn('11/24（火）ごろ','when:11/24（火）','half')+btn('10月分はありません','none','half')+btn('まだ分かりません','unk','half');
+    }else if(st==='later'){
+      h=btn('11/21（土）ごろ','whenall:11/21（土）','half')+btn('11/24（火）ごろ','whenall:11/24（火）','half')+btn('まだ分かりません','unk','full');
+    }else if(st==='end'){
+      h=btn('▼ 事務所に届いた返事を見る','goto:s3','full fill')+btn('山田さまのやりとりを、もう一度やってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+  function goTo(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+  function resetYamada(){
+    var z=seed(),i;
+    for(i=0;i<S.cl.length;i++){if(S.cl[i].id==='yamada'){S.cl[i]=z.cl[0];}}
+    S.log=z.log;S.step='wait';S.rest='';S.qd=false;S.clock='9:00';S.sel='yamada';
+  }
+  function onAct(act){
+    var p=act.split(':'),k=p[0],v=p[1]||'',x=p.slice(2).join(':'),c=cl('yamada'),yet,i,d,nm,when;
+    if(k==='goto'){goTo(v);return;}
+    if(k==='send'){
+      if(S.step!=='wait'){return;}
+      yet=listBy(c,'yet');
+      c.n=c.n+1;S.clock='9:05';
+      var lines='';
+      for(i=0;i<yet.length;i++){lines+='・'+DOC[yet[i].k]+'\n';}
+      say('day','今日 '+TODAY);
+      say('bot','ななかまど会計事務所です。\n10月分で、まだ届いていない資料が'+yet.length+'つあります。\n\n'+lines+'\nいつもの共有フォルダに入れてください。\n行きちがいでしたら、すみません。\n\n入れたあとに下のボタンを押してもらえると、次のお知らせが止まります。',{auto:true,pic:true});
+      addHist(c,TODAY+'9:05','LINE',c.n+'回目のお知らせ：'+names(yet));
+      S.step='ask';S.sel='yamada';
+      save();renderAll();goTo('s2');return;
+    }
+    if(k==='tel'){
+      var t=cl(v);if(!t||t.tel){return;}
+      t.n=t.n+1;t.tel=true;
+      addHist(t,TODAY+'9:10','電話',t.n+'回目のお願い：'+names(listBy(t,'yet')));
+      S.sel=t.id;
+      save();renderAll();return;
+    }
+    if(k==='sel'){S.sel=v;save();renderAll();return;}
+    if(k==='got'){
+      var g=cl(v);if(!g){return;}
+      d=docOf(g,x);if(!d||d.st==='got'){return;}
+      var was=d.st;d.st='got';d.w='';
+      addHist(g,TODAY+officeTime(),'事務所',(was==='said'?'フォルダで確かめた：':'受け取り済みにした：')+DOC[x]);
+      if(g.id==='yamada'&&(S.step==='ask'||S.step==='rest'||S.step==='later')){
+        if(!listBy(g,'yet').length||(S.step==='rest'&&x===S.rest)){S.step='end';}
+      }
+      save();renderAll();return;
+    }
+    if(k==='gotall'){
+      var ga=cl(v);if(!ga){return;}
+      var op=openDocs(ga);if(!op.length){return;}
+      var allSaid=true,nm2=names(op);
+      for(i=0;i<op.length;i++){if(op[i].st!=='said'){allSaid=false;}}
+      for(i=0;i<op.length;i++){op[i].st='got';op[i].w='';}
+      addHist(ga,TODAY+officeTime(),'事務所',(allSaid?'フォルダで確かめた：':'受け取り済みにした：')+nm2);
+      if(ga.id==='yamada'&&(S.step==='ask'||S.step==='rest'||S.step==='later')){S.step='end';}
+      save();renderAll();return;
+    }
+    if(k==='noneok'){
+      var no=cl(v);if(!no){return;}
+      d=docOf(no,x);if(!d||d.st!=='nsaid'){return;}
+      d.st='none';d.w='';
+      addHist(no,TODAY+officeTime(),'事務所','「10月分なし」で控えた：'+DOC[x]);
+      save();renderAll();return;
+    }
+    if(k==='again'){resetYamada();save();renderAll();goTo('s1');return;}
+    if(k==='ans'){
+      if(S.step!=='ask'){return;}
+      yet=listBy(c,'yet');
+      if(v==='q'){
+        say('me','質問があります');
+        say('bot','ご質問は、今までどおり担当へ、お電話かメールでお願いします。\nこのLINEは、資料のお知らせ専用です。');
+        S.qd=true;
+      }else if(v==='both'){
+        S.clock='10:42';
+        say('me',yet.length>1?yet.length+'つとも入れました':'入れました');
+        nm=names(yet);
+        for(i=0;i<yet.length;i++){yet[i].st='said';}
+        say('bot','ありがとうございます。\n10:42 にお返事を受けました。事務所でフォルダの中を確かめます。');
+        addHist(c,TODAY+'10:42','返事','「'+(yet.length>1?yet.length+'つとも':'')+'入れました」（'+nm+'）');
+        S.step='end';
+      }else if(v==='one'){
+        d=docOf(c,x);if(!d){return;}
+        S.clock='10:42';
+        say('me',DOC[x]+'だけ入れました');
+        d.st='said';
+        yet=listBy(c,'yet');
+        addHist(c,TODAY+'10:42','返事','「'+DOC[x]+'だけ入れました」');
+        if(yet.length){
+          S.rest=yet[0].k;
+          say('bot',DOC[x]+'、ありがとうございます。\n'+DOC[S.rest]+'は、いつごろになりそうですか？');
+          S.step='rest';
+        }else{
+          say('bot','ありがとうございます。\n10:42 にお返事を受けました。事務所でフォルダの中を確かめます。');
+          S.step='end';
+        }
+      }else if(v==='later'){
+        S.clock='10:42';
+        say('me','少しあとになります');
+        say('bot','わかりました。\nいつごろになりそうですか？');
+        S.step='later';
+      }
+      save();renderAll();scrollChat();return;
+    }
+    if(k==='when'||k==='whenall'){
+      when=p.slice(1).join(':');
+      if(k==='when'){
+        if(S.step!=='rest'){return;}
+        d=docOf(c,S.rest);d.st='later';d.w=when;nm=DOC[S.rest];
+      }else{
+        if(S.step!=='later'){return;}
+        yet=listBy(c,'yet');nm=names(yet);
+        for(i=0;i<yet.length;i++){yet[i].st='later';yet[i].w=when;}
+      }
+      say('me',when+'ごろになります');
+      say('bot','わかりました。'+when+'ごろに、お待ちしています。\nその日までは、こちらからのお知らせを止めておきます。');
+      addHist(c,TODAY+'10:42','返事','「'+nm+'は、'+when+'ごろになります」');
+      S.step='end';
+      save();renderAll();scrollChat();return;
+    }
+    if(k==='unk'){
+      if(S.step==='rest'){
+        d=docOf(c,S.rest);d.st='unk';d.w='';nm=DOC[S.rest];
+      }else if(S.step==='later'){
+        yet=listBy(c,'yet');nm=names(yet);
+        for(i=0;i<yet.length;i++){yet[i].st='unk';yet[i].w='';}
+      }else{return;}
+      say('me','まだ分かりません');
+      say('bot','わかりました。担当に伝えます。');
+      addHist(c,TODAY+'10:42','返事','「'+nm+'は、まだ分かりません」');
+      S.step='end';
+      save();renderAll();scrollChat();return;
+    }
+    if(k==='none'){
+      if(S.step!=='rest'){return;}
+      d=docOf(c,S.rest);d.st='nsaid';d.w='';
+      say('me','10月分はありません');
+      say('bot','わかりました。「10月分はなし」と、担当に伝えます。');
+      addHist(c,TODAY+'10:42','返事','「'+DOC[S.rest]+'は、10月分はありません」');
+      S.step='end';
+      save();renderAll();scrollChat();return;
+    }
+  }
+  function scrollChat(){var ch=$('chat');if(ch&&ch.lastChild&&ch.lastChild.scrollIntoView){ch.lastChild.scrollIntoView({block:'nearest'});}}
+
+  /* ---------- 3. 返事と記録 ---------- */
+  function renderRecord(){
+    var h='',i,c=cl(S.sel)||S.cl[0];
+    for(i=0;i<S.cl.length;i++){
+      h+='<button type="button" class="btn opt" aria-pressed="'+(S.cl[i].id===c.id?'true':'false')+'" data-act="sel:'+S.cl[i].id+'">'+esc(S.cl[i].name)+'</button>';
+    }
+    $('tabs').innerHTML=h;
+    h='';
+    for(i=0;i<c.docs.length;i++){
+      var d=c.docs[i];
+      h+='<div class="row"><span class="nm">'+DOC[d.k]+'</span><span class="doc '+d.st+'">'+esc(stLabel(d))+'</span>';
+      if(d.st==='said'){h+='<button type="button" class="btn fill" data-act="got:'+c.id+':'+d.k+'">フォルダで確かめた</button>';}
+      else if(d.st==='yet'||d.st==='later'||d.st==='unk'){h+='<button type="button" class="btn" data-act="got:'+c.id+':'+d.k+'">受け取り済みにする</button>';}
+      else if(d.st==='nsaid'){h+='<button type="button" class="btn fill" data-act="noneok:'+c.id+':'+d.k+'">「なし」で控える</button>';}
+      h+='</div>';
+    }
+    if(isDone(c)){h+='<div class="row"><span class="nm"><b>'+esc(c.name)+'の10月分は、そろいました。</b></span></div>';}
+    else if(openDocs(c).length>1){h+='<div class="row"><button type="button" class="btn full" data-act="gotall:'+c.id+'">残りの'+openDocs(c).length+'つを、まとめて受け取り済みにする</button></div>';}
+    $('rows').innerHTML=h;
+    h='';
+    for(i=0;i<c.hist.length;i++){
+      var e=c.hist[i],hc=(e.how==='返事'?' rep':(e.how==='事務所'?' off':''));
+      h+='<li class="ev'+(e.nw?' new':'')+'"><span class="t">'+esc(e.t)+'</span><span class="how'+hc+'">'+esc(e.how)+'</span>'+esc(e.tx)+'</li>';
+    }
+    $('tl').innerHTML=h;
+  }
+
+  function renderAll(){renderList();renderChat();renderChoices();renderRecord();}
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnReset').addEventListener('click',function(){S=seed();save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  renderAll();
+})();
+</script>
+</body>
+</html>

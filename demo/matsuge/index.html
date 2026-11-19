@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- GA4 -->
+<script>
+  window.addEventListener('load',function(){var go=function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-7K29K1LZTT';document.head.appendChild(s);};var done=false;var once=function(){if(done)return;done=true;go();};['scroll','touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,once,{passive:true,once:true});});setTimeout(once,5000);});
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7K29K1LZTT', {
+    'send_page_view': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>まつげサロン ゆきのした（デモ）施術のあとの控えと、お直しの相談の記録</title>
+<style>
+:root{--main:#7A4B6A;--main-d:#5a3550;--accent:#E7B8A8;--bg:#FBF6F4;--ink:#3a2a33;--sub:#6e5b66;--line:#e3d6d6;--card:#ffffff;--chat:#efe3e3;--me:#a6e89b;--tint:#f3e6ee;--acc-l:#fbeee9;--acc-d:#4a2a20;--warn:#a8452a;--ok:#2f6f4f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding:0 14px 60px}
+.demo-bar{position:sticky;top:0;z-index:20;background:var(--accent);color:var(--acc-d);font-weight:700;font-size:13px;text-align:center;padding:6px 10px}
+header.top{background:var(--main);color:#fff;margin:0 -14px;padding:18px 18px 16px;display:flex;gap:12px;align-items:center}
+header.top svg{flex:none;width:52px;height:52px}
+header.top h1{margin:0;font-size:20px;letter-spacing:.02em}
+header.top p{margin:6px 0 0;font-size:14px}
+section{margin-top:28px}
+.sec-head{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.sec-no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--main);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+.sec-head h2{margin:0;font-size:17px}
+.sec-lead{margin:0 0 10px;font-size:14px;color:var(--sub)}
+.who{display:inline-block;font-size:12px;font-weight:700;color:var(--main-d);background:var(--tint);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-bottom:8px}
+/* phone */
+.phone{background:var(--chat);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.phone-head{background:var(--ink);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.phone-head b{font-size:15px}
+.clock{font-size:12px}
+.chat{padding:12px 10px 4px;min-height:120px}
+.msg{display:flex;margin:8px 0}
+.msg.me{justify-content:flex-end}
+.bubble{max-width:84%;padding:9px 12px;border-radius:16px;font-size:15px;white-space:pre-line;word-break:break-word}
+.msg.bot .bubble{background:#fff;border-top-left-radius:4px}
+.msg.me .bubble{background:var(--me);border-top-right-radius:4px}
+.bubble .auto{display:block;margin-top:6px;font-size:12px;color:var(--sub)}
+.daysep{text-align:center;margin:12px 0 4px}
+.daysep span{display:inline-block;font-size:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:1px 12px;color:var(--sub)}
+.empty{font-size:13px;color:var(--sub);padding:10px}
+.choices{padding:8px 10px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.hint{flex-basis:100%;font-size:12px;color:var(--sub);margin:0}
+button{font:inherit;cursor:pointer}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--main);background:#fff;color:var(--main-d);font-weight:700;font-size:15px}
+.btn.fill{background:var(--main);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--sub);font-weight:400;font-size:13px}
+.btn.half{flex:1 1 calc(50% - 8px)}
+.btn.full{flex:1 1 100%;width:100%}
+.next-link{display:block;text-align:center;margin:12px 0 0;font-size:14px;font-weight:700;color:var(--main-d);min-height:44px;line-height:44px}
+/* maker */
+.maker{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.maker h3{margin:0 0 4px;font-size:16px}
+.pick-row{margin-top:10px}
+.pick-row .lbl{font-size:12px;color:var(--sub);display:block;margin-bottom:4px}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opt{min-height:44px;min-width:64px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:15px}
+.opt:disabled{opacity:.75;cursor:default}
+.opt.on{background:var(--tint);border-color:var(--main);color:var(--main-d);font-weight:700}
+.pre-note{margin:8px 0 0;font-size:13px;color:var(--main-d);background:var(--tint);border-radius:8px;padding:6px 10px}
+.preview{margin-top:12px;background:var(--acc-l);border:1px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:13px;white-space:pre-line;color:var(--acc-d)}
+.sent-line{margin-top:10px;font-size:14px;font-weight:700;color:var(--ok)}
+/* list */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:12px;border-radius:999px;padding:3px 10px;background:#fff;border:1px solid var(--line)}
+.chip b{font-size:14px}
+.chip.todo{border-color:var(--warn);color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:10px}
+.card.todo{border-left:5px solid var(--warn)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--sub)}
+.card h3{margin:4px 0 2px;font-size:16px}
+.card p{margin:2px 0;font-size:14px}
+.tl{list-style:none;margin:6px 0 0;padding:0;font-size:14px}
+.tl li{padding:4px 0 4px 14px;border-left:3px solid var(--line);margin-left:4px}
+.tl li.hot{border-left-color:var(--warn)}
+.tl li.good{border-left-color:var(--ok)}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:2px 8px;margin-top:8px;background:#f1ecee;color:var(--sub)}
+.status.todo{background:#fbe6dd;color:var(--warn)}
+.status.done{background:#dff1e6;color:var(--ok)}
+.card-act{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+/* record */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px}
+th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+td:first-child{white-space:nowrap}
+th{background:var(--tint);font-size:12px;color:var(--main-d)}
+tr.new td{background:var(--acc-l)}
+/* examples */
+.ex{background:var(--card);border:1px dashed var(--main);border-radius:12px;padding:12px;margin-top:10px}
+.ex b{font-size:15px}
+.ex p{margin:4px 0 0;font-size:14px;color:var(--sub)}
+.ex-tag{display:inline-block;font-size:12px;font-weight:700;background:var(--accent);color:var(--acc-d);border-radius:6px;padding:1px 8px;margin-right:6px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sub);margin-top:28px}
+.note b{color:var(--ink)}
+@media (max-width:768px){
+  .wrap{padding:0 12px 50px}
+  header.top{margin:0 -12px}
+  .bubble{max-width:90%}
+  th,td{padding:7px 6px}
+}
+</style>
+</head>
+<body>
+<div class="demo-bar">これはデモです。「まつげサロン ゆきのした」は架空の店です</div>
+<div class="wrap">
+
+<header class="top">
+  <svg viewBox="0 0 52 52" role="img" aria-label="まつげの絵（デモ用）"><circle cx="26" cy="26" r="25" fill="#fff"/><path d="M10 28 Q26 40 42 28" fill="none" stroke="#7A4B6A" stroke-width="3" stroke-linecap="round"/><path d="M13 30 l-3 5 M19 33 l-2 6 M26 34 v6 M33 33 l2 6 M39 30 l3 5" stroke="#7A4B6A" stroke-width="2.4" stroke-linecap="round"/><circle cx="38" cy="15" r="4" fill="#E7B8A8"/><circle cx="31" cy="12" r="2.4" fill="#E7B8A8"/></svg>
+  <div>
+    <h1>まつげサロン ゆきのした</h1>
+    <p>今日のデザインをLINEの1通で渡し、お直しの相談を同じトークで受けます。予約は、今のままです。</p>
+  </div>
+</header>
+
+<section id="s1">
+  <div class="sec-head"><div class="sec-no">1</div><h2>会計のあと。今日のデザインを1通で送る</h2></div>
+  <p class="sec-lead">今日のデザインをボタンで選ぶと、1通になります。お手入れのお願いと、お直しの決まりは、店でもう決めている文がそのまま入ります。</p>
+  <span class="who">見ている人：店主</span>
+  <div class="maker" id="maker"></div>
+  <a class="next-link" href="#s2">▼ お客さんのスマホを見る</a>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><div class="sec-no">2</div><h2>お客さんのスマホ。控えが残り、お直しの相談もここから</h2></div>
+  <p class="sec-lead">控えはトークに残ります。気になる所が出たら、同じトークから「お直しの相談」を送れます。</p>
+  <span class="who">見ている人：お客さん（山田さま）</span>
+  <div class="phone">
+    <div class="phone-head"><b>まつげサロン ゆきのした</b><span class="clock" id="clock"></span></div>
+    <div class="chat" id="chat"></div>
+    <div class="choices" id="choices"></div>
+  </div>
+  <a class="next-link" href="#s3">▼ 店の画面を見る</a>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><div class="sec-no">3</div><h2>店の画面。お直しの相談は、施術から何日目かと並ぶ</h2></div>
+  <p class="sec-lead">だれに・いつ控えを渡したかと、お直しの相談がいつ来たかが並びます。</p>
+  <span class="who">見ている人：店主</span>
+  <div class="chips" id="chips"></div>
+  <div id="list"></div>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><div class="sec-no">4</div><h2>お客さんごとの記録。①と③が、そのまま並ぶ</h2></div>
+  <p class="sec-lead">①で送った控えと、お直しのやりとりが、何も書かなくてもお客さんごとに並びます。予約サイトや紙のカルテに書いている店は、そちらはそのままで使えます。</p>
+  <span class="who">見ている人：店主</span>
+  <div class="tabs" id="tabs"></div>
+  <div id="record"></div>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><h2>ほかにも作れます</h2></div>
+  <p class="sec-lead">下の3つは動かない見本です。</p>
+  <div class="ex"><b><span class="ex-tag">例</span>付け替えの目安のお知らせ</b><p>「知らせてほしい」を押した人にだけ、目安の日に1通届きます。予約は、今お使いの予約サイトのままです。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>お直しの相談の、月ごとのまとめ</b><p>施術から何日目に、どんな様子の相談が来たかが、月ごとに並びます。</p></div>
+  <div class="ex"><b><span class="ex-tag">例</span>はじめての方への来店前の案内</b><p>予約が決まった方に、場所と当日の流れが届きます。「読みました」が残ります。</p></div>
+</section>
+
+<div class="note">
+  <b>このデモについて</b><br>
+  店の名前とお客さまの名前は架空です。押した内容は、この端末の中だけに残ります。日にちと時刻は、デモ用に決めたものです。<br>
+  予約は受けません。予約サイトと電話は、今のまま使えます。お手入れのお願いと、お直しの日数は見本です。店の決まりに合わせて直せます。お直しをするかどうかは、画面では決めません。店主が決めます。<br>
+  記録は、あとで見返すためのものです。
+  体のことは、このLINEのボタンでは受けません。電話で、店主が直接うかがう形にしています。<br>
+  LINEを使わない方には、同じ控えを紙で渡し、お直しの相談は電話で受ける形です。
+  <div style="margin-top:10px"><button class="btn ghost" id="btnReset" type="button">デモを最初の状態に戻す</button></div>
+</div>
+
+</div>
+<script>
+(function(){
+  var KEY='yukinoshita_demo_state';
+  var CURL=['J','C','D'];
+  var LEN=['9〜10mm','10〜11mm','11〜12mm'];
+  var NUM=['100本','120本','140本'];
+  var KIND={one:'片方だけ取れてきた',all:'全体に取れてきた',dir:'向きがばらつく',tel:'店から電話がほしい'};
+  var REPLY=['11/26（木）13:00','11/27（金）10:30'];
+  var NAMES={yamada:'山田さま',sato:'佐藤さま',takahashi:'高橋さま'};
+  var BASE={
+    yamada:[
+      {d:'2026/09/24',design:'カール C・10mm・100本',memo:'はじめての来店'},
+      {d:'2026/10/22',design:'カール C・10〜11mm・120本',memo:'目尻だけ 11mm'}
+    ],
+    sato:[
+      {d:'2026/10/14',design:'カール J・9〜10mm・100本',memo:''},
+      {d:'2026/11/18',design:'カール J・9〜10mm・100本',memo:'控えを紙で渡した（12:40）'}
+    ],
+    takahashi:[
+      {d:'2026/10/08',design:'カール D・11〜12mm・140本',memo:''},
+      {d:'2026/11/12',design:'カール D・11〜12mm・140本',memo:'控えを送信 → 読みました（18:11）'},
+      {d:'2026/11/16',design:'お直しの相談',memo:'施術から4日目。片方だけ取れてきた'},
+      {d:'2026/11/18',design:'お直し',memo:'11:00 にお直し済み'}
+    ]
+  };
+
+  function seed(){
+    return {
+      v:1,
+      pick:{curl:'C',len:'10〜11mm',num:'120本'},
+      made:null,
+      step:'none',
+      day:0,
+      log:[],
+      read:'',
+      repair:null,
+      openReply:false,
+      view:'yamada'
+    };
+  }
+  var S;
+  function load(){
+    S=null;
+    try{var t=window.localStorage.getItem(KEY);if(t){S=JSON.parse(t);}}catch(e){S=null;}
+    if(!S||S.v!==1||!S.pick||!S.log){S=seed();}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function $(id){return document.getElementById(id);}
+  function btn(label,act,cls){return '<button type="button" class="btn '+(cls||'')+'" data-act="'+act+'">'+label+'</button>';}
+
+  function karteText(p){
+    return '本日はありがとうございました。\n今日の控えです。\n\n【今日のデザイン】\nまつげエクステ（上）\nカール：'+p.curl+'\n長さ：'+p.len+'\n本数：'+p.num+'\n施術：11/19（木）14:00〜15:10\n\n【お手入れのお願い】\n・今日は、まつげをぬらす時間を短めに\n・こすらず、タオルはそっと当てる\n・朝、ブラシで毛の流れをととのえる\n\n【お直しについて】\n施術から7日以内に気になる所があれば、このトークの「お直しの相談」か、お電話でお知らせください。';
+  }
+
+  /* ---------- 1. 控えを作る（店主） ---------- */
+  function optRow(label,key,arr){
+    var h='<div class="pick-row"><span class="lbl">'+label+'</span><div class="opts">';
+    for(var i=0;i<arr.length;i++){
+      var on=(S.pick[key]===arr[i]);
+      h+='<button type="button" class="opt'+(on?' on':'')+'" aria-pressed="'+(on?'true':'false')+'" data-act="pick:'+key+':'+i+'"'+(S.made?' disabled':'')+'>'+esc(arr[i])+'</button>';
+    }
+    return h+'</div></div>';
+  }
+  function renderMaker(){
+    var h='<h3>山田さま　11/19（木）14:00〜15:10</h3><p style="margin:0;font-size:13px;color:#6e5b66">まつげエクステ（上）</p>';
+    if(!S.made){h+='<p class="pre-note">前回（10/22）と同じ内容が、先に入っています。変えた所だけ押します。同じなら、送るボタンだけです。</p>';}
+    h+=optRow('カール','curl',CURL)+optRow('長さ','len',LEN)+optRow('本数','num',NUM);
+    h+='<div class="preview">'+esc(karteText(S.made||S.pick))+'</div>';
+    if(S.made){
+      h+='<div class="sent-line">✅ 15:12 に、山田さまのLINEへ送りました</div>';
+    }else{
+      h+='<div class="card-act">'+btn('💌 山田さまに送る','send','fill full')+'</div><p class="hint" style="margin-top:8px">LINEを使わない方には、同じ文を紙で渡せます。記録には「紙で渡しました」と残ります。</p>';
+    }
+    $('maker').innerHTML=h;
+  }
+
+  /* ---------- 2. お客さんのLINE ---------- */
+  function say(who,text,note){S.log.push({who:who,text:text,note:note||''});}
+  function sep(text){S.log.push({sep:text});}
+  function renderChat(){
+    var h='';
+    if(!S.log.length){h='<div class="empty">まだ何も届いていません。①で控えを送ると、ここに届きます。</div>';}
+    for(var i=0;i<S.log.length;i++){
+      var m=S.log[i];
+      if(m.sep){h+='<div class="daysep"><span>'+esc(m.sep)+'</span></div>';continue;}
+      h+='<div class="msg '+(m.who==='me'?'me':'bot')+'"><div class="bubble">'+esc(m.text);
+      if(m.note){h+='<span class="auto">'+esc(m.note)+'</span>';}
+      h+='</div></div>';
+    }
+    $('chat').innerHTML=h;
+    $('clock').textContent=(S.day===5)?'11/24（火）':'11/19（木）';
+  }
+  function renderChoices(){
+    var st=S.step,h='';
+    if(st==='card'){
+      h=btn('読みました','read','fill full')+'<p class="hint">押さなくても、控えはこのトークに残ります。</p>'+btn('▶ 押さずに、5日後に進める','day5','full ghost');
+    }else if(st==='read'){
+      h='<p class="hint">デモでは、日にちを進められます。</p>'+btn('▶ 5日後に進める','day5','fill full');
+    }else if(st==='day5'){
+      h='<p class="hint">トークの下に、いつも「お直しの相談」のボタンが出ています。</p>'+btn('🪞 お直しの相談をする','ask','fill full');
+    }else if(st==='ask'){
+      h=btn(KIND.one,'kind:one','half')+btn(KIND.all,'kind:all','half')+btn(KIND.dir,'kind:dir','half')+btn(KIND.tel,'kind:tel','half')+btn('もどる','back','full ghost');
+    }else if(st==='sent'){
+      h='<p class="hint">店主の返事を待っています。③の店の画面で返事を選ぶと、ここに届きます。</p>'+btn('▼ 店の画面を見る','goto3','full fill');
+    }else if(st==='offered'){
+      h=btn('この日時でお願いします','ok','half fill')+btn('ほかの日を相談したい','other','half');
+    }else if(st==='end'){
+      h=btn('▼ お客さんごとの記録を見る','goto4','full fill')+btn('もう一度、最初からやってみる','again','full ghost');
+    }
+    $('choices').innerHTML=h;
+  }
+
+  /* ---------- 3. 店の画面 ---------- */
+  function yamadaCard(){
+    var r=S.repair,todo=false,h='',tl='';
+    tl+='<li class="good">控え：11/19 15:12 に送信</li>';
+    if(S.read){tl+='<li class="good">「読みました」：'+esc(S.read)+'</li>';}
+    else{tl+='<li>「読みました」は押されていません（控えはトークに残っています）</li>';}
+    var st='<span class="status">控えを渡しました</span>',act='';
+    if(S.read){st='<span class="status done">読みました</span>';}
+    if(r){
+      tl+='<li class="hot">お直しの相談：11/24 10:05（施術から5日目。店の決まりは7日以内）<br>様子：'+esc(KIND[r.kind])+'</li>';
+      if(r.st==='todo'){
+        todo=true;st='<span class="status todo">お直しの相談・返事まち</span>';
+        if(r.kind==='tel'){act=btn('📞 電話した','called','fill');}
+        else if(S.openReply){
+          act='<p class="hint">日時は、店主が空きを見て選びます。デモでは2つ入れてあります。</p>'+btn(REPLY[0]+' はいかがでしょうか','rep:0','full')+btn(REPLY[1]+' はいかがでしょうか','rep:1','full')+btn('とじる','openrep','full ghost');
+        }else{act=btn('返事を選ぶ','openrep','fill');}
+      }else if(r.st==='offered'){
+        tl+='<li>店の返事：11/24 12:10「'+esc(r.reply)+' はいかがでしょうか」</li>';
+        st='<span class="status">お客さんの返事まち</span>';
+      }else if(r.st==='ok'){
+        tl+='<li>店の返事：11/24 12:10「'+esc(r.reply)+' はいかがでしょうか」</li><li class="good">お客さんの返事：11/24 12:20「この日時でお願いします」</li>';
+        todo=true;st='<span class="status todo">お直しの予定 '+esc(r.reply)+'</span>';
+        act=btn('✅ お直しが済んだ','fixed','fill');
+      }else if(r.st==='tel'){
+        if(r.reply){tl+='<li>店の返事：11/24 12:10「'+esc(r.reply)+' はいかがでしょうか」</li><li class="hot">お客さんの返事：11/24 12:20「ほかの日を相談したい」</li>';}
+        todo=true;st='<span class="status todo">電話で相談</span>';
+        act=btn('📞 電話した','called','fill');
+      }else if(r.st==='called'){
+        if(r.reply){tl+='<li>店の返事：11/24 12:10「'+esc(r.reply)+' はいかがでしょうか」</li><li>お客さんの返事：11/24 12:20「ほかの日を相談したい」</li>';}
+        tl+='<li class="good">11/24 12:30 に電話しました</li>';
+        st='<span class="status done">電話で話しました</span>';
+      }else if(r.st==='done'){
+        tl+='<li>店の返事：11/24 12:10「'+esc(r.reply)+' はいかがでしょうか」</li><li class="good">お客さんの返事：11/24 12:20「この日時でお願いします」</li><li class="good">'+esc(r.reply)+' にお直し済み</li>';
+        st='<span class="status done">お直し済み</span>';
+      }
+    }
+    h+='<div class="card'+(todo?' todo':'')+'" id="cardYamada"><div class="card-top"><span>11/19（木）14:00 施術</span><span>カール '+esc(S.made.curl)+'・'+esc(S.made.len)+'・'+esc(S.made.num)+'</span></div>';
+    h+='<h3>山田さま</h3><ul class="tl">'+tl+'</ul><div>'+st+'</div>';
+    if(act){h+='<div class="card-act">'+act+'</div>';}
+    h+='</div>';
+    return {html:h,todo:todo};
+  }
+  function renderList(){
+    var readn=1,ask=0,h='',y=null;
+    if(S.made){y=yamadaCard();if(S.read){readn++;}if(S.repair&&(S.repair.st==='todo'||S.repair.st==='tel')){ask++;}}
+    var suzuki='<div class="card"><div class="card-top"><span>11/18（水）16:00 施術</span><span>カール C・10〜11mm・120本</span></div><h3>鈴木さま</h3><ul class="tl"><li class="good">控え：11/18 17:05 に送信</li><li>「読みました」は押されていません（控えはトークに残っています）</li></ul><div><span class="status">控えを渡しました</span></div></div>';
+    var sato='<div class="card"><div class="card-top"><span>11/18（水）11:30 施術</span><span>カール J・9〜10mm・100本</span></div><h3>佐藤さま</h3><ul class="tl"><li class="good">控え：11/18 12:40 に紙で渡しました（LINEを使わない方）</li></ul><div><span class="status">紙で渡しました</span></div></div>';
+    var taka='<div class="card"><div class="card-top"><span>11/12（木）15:00 施術</span><span>カール D・11〜12mm・140本</span></div><h3>高橋さま</h3><ul class="tl"><li class="good">控え：11/12 16:20 に送信</li><li class="good">「読みました」：11/12 18:11</li><li>お直しの相談：11/16 9:40（施術から4日目。店の決まりは7日以内）<br>様子：片方だけ取れてきた</li><li class="good">11/18（水）11:00 にお直し済み</li></ul><div><span class="status done">お直し済み</span></div></div>';
+    if(y&&y.todo){h+=y.html+suzuki;}
+    else{h+=suzuki+(y?y.html:'');}
+    h+=sato+taka;
+    if(!S.made){h='<div class="empty">山田さまの控えは、まだ送っていません。①で送ると、ここに並びます。</div>'+h;}
+    $('chips').innerHTML='<span class="chip'+(ask?' todo':'')+'">お直しの相談 <b>'+ask+'</b></span><span class="chip">「読みました」あり <b>'+readn+'</b></span><span class="chip">控えを渡した人 <b>'+(S.made?4:3)+'</b></span>';
+    $('list').innerHTML=h;
+  }
+
+  /* ---------- 4. お客さんごとの記録 ---------- */
+  function recRows(id){
+    var rows=BASE[id].slice();
+    if(id==='yamada'&&S.made){
+      rows.push({d:'2026/11/19',design:'カール '+S.made.curl+'・'+S.made.len+'・'+S.made.num,memo:'控えを送信（15:12）'+(S.read?' → 読みました（15:40）':''),isNew:true});
+      var r=S.repair;
+      if(r){
+        rows.push({d:'2026/11/24',design:'お直しの相談',memo:'施術から5日目。'+KIND[r.kind],isNew:true});
+        if(r.st==='called'){rows.push({d:'2026/11/24',design:'電話',memo:'12:30 に電話しました',isNew:true});}
+        if(r.st==='ok'){rows.push({d:'2026/11/'+r.reply.slice(3,5),design:'お直しの予定',memo:r.reply.slice(8)+'（お客さんの返事あり）',isNew:true});}
+        if(r.st==='done'){rows.push({d:'2026/11/'+r.reply.slice(3,5),design:'お直し',memo:r.reply.slice(8)+' にお直し済み',isNew:true});}
+      }
+    }
+    return rows;
+  }
+  function renderRecord(){
+    var t='',id;
+    for(id in NAMES){if(NAMES.hasOwnProperty(id)){t+='<button type="button" class="opt'+(S.view===id?' on':'')+'" aria-pressed="'+(S.view===id?'true':'false')+'" data-act="view:'+id+'">'+NAMES[id]+'</button>';}}
+    $('tabs').innerHTML=t;
+    var rows=recRows(S.view).slice().reverse(),h='';
+    for(var i=0;i<rows.length;i++){
+      var e=rows[i];
+      h+='<tr'+(e.isNew?' class="new"':'')+'><td>'+esc(e.d)+'</td><td>'+esc(e.design)+'</td><td>'+esc(e.memo||'—')+'</td></tr>';
+    }
+    $('record').innerHTML='<table><thead><tr><th>日付</th><th>デザイン・できごと</th><th>メモ</th></tr></thead><tbody>'+h+'</tbody></table>';
+  }
+
+  function renderAll(){renderMaker();renderChat();renderChoices();renderList();renderRecord();}
+  function goto(id){var el=$(id);if(el&&el.scrollIntoView){el.scrollIntoView({behavior:'smooth'});}}
+
+  function onAct(act){
+    var p=act.split(':'),k=p[0];
+    if(k==='pick'){
+      if(S.made){return;}
+      var arr=(p[1]==='curl')?CURL:((p[1]==='len')?LEN:NUM);
+      S.pick[p[1]]=arr[parseInt(p[2],10)];
+    }else if(k==='send'){
+      if(S.made){return;}
+      S.made={curl:S.pick.curl,len:S.pick.len,num:S.pick.num};
+      S.log=[];sep('11/19（木）');
+      say('bot',karteText(S.made),'※ 15:12 に届いた控え。店主がボタンで選んだ内容です');
+      S.step='card';
+      save();renderAll();goto('s2');return;
+    }else if(k==='read'){
+      say('me','読みました');
+      say('bot','ありがとうございます。\nこの控えは、このトークにいつでも残っています。','※ ここは自動で返ります');
+      S.read='11/19 15:40';S.step='read';
+    }else if(k==='day5'){
+      S.day=5;sep('11/24（火）5日後');S.step='day5';
+    }else if(k==='ask'){
+      say('me','お直しの相談');
+      say('bot','どんな様子ですか？\nボタンで選んでください。');
+      S.step='ask';
+    }else if(k==='back'){
+      S.log.pop();S.log.pop();S.step='day5';
+    }else if(k==='kind'){
+      say('me',KIND[p[1]]);
+      if(p[1]==='tel'){
+        say('bot','受け付けました。\n\n・施術の日：11/19（今日で5日目）\n\n店主からお電話します。施術が続く日は、あすになることがあります。','※ ここまで自動で返ります');
+      }else{
+        say('bot','受け付けました。\n\n・施術の日：11/19（今日で5日目）\n・様子：'+KIND[p[1]]+'\n\n店主が施術の合間に見て、このトークでお返事します。お休みの日は、次の営業日になります。\n体のことで気になる所があるときは、ボタンではなく、お電話ください。','※ ここまで自動で返ります');
+      }
+      S.repair={kind:p[1],st:'todo',reply:''};
+      S.openReply=false;
+      S.step=(p[1]==='tel')?'end':'sent';
+    }else if(k==='openrep'){
+      S.openReply=!S.openReply;
+    }else if(k==='rep'){
+      if(!S.repair||S.repair.st!=='todo'){return;}
+      S.repair.reply=REPLY[parseInt(p[1],10)];S.repair.st='offered';S.openReply=false;
+      say('bot','ゆきのしたです。ご連絡ありがとうございます。\nお直しは '+S.repair.reply+' はいかがでしょうか。','※ 12:10 に店主が選んで送った返事');
+      S.step='offered';
+      save();renderAll();goto('s2');return;
+    }else if(k==='ok'){
+      say('me','この日時でお願いします');
+      say('bot',S.repair.reply+' にお待ちしています。','※ ここは自動で返ります');
+      S.repair.st='ok';S.step='end';
+    }else if(k==='other'){
+      say('me','ほかの日を相談したい');
+      say('bot','承知しました。店主からお電話します。施術が続く日は、あすになることがあります。','※ ここは自動で返ります');
+      S.repair.st='tel';S.step='end';
+    }else if(k==='called'){
+      if(S.repair){S.repair.st='called';}
+    }else if(k==='fixed'){
+      if(S.repair&&S.repair.st==='ok'){S.repair.st='done';}
+      S.view='yamada';save();renderAll();goto('s4');return;
+    }else if(k==='view'){
+      S.view=p[1];
+    }else if(k==='goto3'){goto('s3');return;
+    }else if(k==='goto4'){S.view='yamada';save();renderAll();goto('s4');return;
+    }else if(k==='again'){
+      S=seed();save();renderAll();goto('s1');return;
+    }
+    save();renderAll();
+    if(k==='read'||k==='day5'||k==='ask'||k==='kind'||k==='ok'||k==='other'||k==='back'){
+      var c=$('chat');if(c&&c.lastChild&&c.lastChild.scrollIntoView){c.lastChild.scrollIntoView({block:'nearest'});}
+    }
+  }
+
+  document.addEventListener('click',function(ev){
+    var t=ev.target;
+    while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-act'))){t=t.parentNode;}
+    if(!t||t===document||!t.getAttribute){return;}
+    if(t.disabled){return;}
+    onAct(t.getAttribute('data-act'));
+  });
+  $('btnReset').addEventListener('click',function(){S=seed();save();renderAll();window.scrollTo(0,0);});
+
+  load();
+  renderAll();
+})();
+</script>
+</body>
+</html>
