@@ -19,7 +19,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#4F1F1F">
-<title>ごはん処 はつづき（デモ）発注の控え・納品の確かめ・月初の請求のくらべ</title>
+<title>酒と肴 はつづき（デモ）発注の控え・納品の確かめ・月初の請求のくらべ</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=Antonio:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -856,7 +856,7 @@ input[type=date].inp{-webkit-appearance:none;appearance:none;}
   <div class="nav-brand">
     <span class="nav-logo" aria-hidden="true"><svg viewBox="0 0 24 24" class="ic" style="width:24px;height:24px;"><use href="#i-bowl"></use></svg></span>
     <div>
-      <div class="nav-name" data-brand="name">ごはん処 はつづき</div>
+      <div class="nav-name" data-brand="name">酒と肴 はつづき</div>
       <div class="nav-sub" data-brand="sub">Hatsuzuki Shiire Note</div>
     </div>
   </div>
@@ -865,7 +865,7 @@ input[type=date].inp{-webkit-appearance:none;appearance:none;}
     <button type="button" class="nav-line" data-act="line-open"><svg class="ic"><use href="#i-chat"></use></svg>LINEを見る</button>
   </div>
 </div>
-<div class="strip">これはデモです。「<span data-brand="name">ごはん処 はつづき</span>」は架空の店です<small>入れた中身は、この端末の中だけに残ります。仕入れ先にもお客さんにも、何も届きません</small></div>
+<div class="strip">これはデモです。「<span data-brand="name">酒と肴 はつづき</span>」は架空の店です<small>入れた中身は、この端末の中だけに残ります。仕入れ先にもお客さんにも、何も届きません</small></div>
 
 <div class="screens">
 
@@ -1138,7 +1138,7 @@ input[type=date].inp{-webkit-appearance:none;appearance:none;}
       <div class="card-hd"><span class="ht"><svg class="ic"><use href="#i-info"></use></svg>このデモについて</span></div>
       <div class="card-body about">
         <ul>
-          <li>これはデモです。「ごはん処 はつづき」は架空の店です。仕入れ先・お客さん・数字は、すべてデモ用です。事例ではありません。</li>
+          <li>これはデモです。「酒と肴 はつづき」は架空の店です。仕入れ先・お客さん・数字は、すべてデモ用です。事例ではありません。</li>
           <li>入れた中身は、この端末の中だけに残ります。どこにも送られません。</li>
           <li>LINEの画面と、FAXの紙・納品書・請求書・レシートは絵です。実際のLINEにもFAXにも届きません。仕入れ先にもお客さんにも、何も届きません。</li>
           <li>この仕組みは、発注の文と控えを出すだけです。FAXを送る・留守電に入れる・電話をかけるのは店主です。仕入れ先の注文の道具の代わりではありません。</li>
@@ -1331,7 +1331,7 @@ input[type=date].inp{-webkit-appearance:none;appearance:none;}
 
 <script>
 // ============================================================
-// ごはん処 はつづき（架空の店）｜仕入れの線の控え — デモ
+// 酒と肴 はつづき（架空の店）｜仕入れの線の控え — デモ
 // 閉店後の1回で「発注の控え」を残し、昼に「納品の確かめ」、月初に「請求とくらべる」
 // 送る・かけるのは店主。仕入れ先には何も届きません（入れた中身は、この端末の中だけに残ります）
 // ============================================================
@@ -1716,7 +1716,7 @@ function findIn(arr, f) { for (var i = 0; i < arr.length; i++) { if (f(arr[i])) 
 function seed() {
   var D = {
     v: VER, tab: 'home', tick: 0,
-    shop: { name: 'ごはん処 はつづき', sub: 'Hatsuzuki Shiire Note', boss: '店主', crew: ['店主', '家族', 'アルバイト'], seats: 20, open: '17:00〜23:00' },
+    shop: { name: '酒と肴 はつづき', sub: 'Hatsuzuki Shiire Note', boss: '店主', crew: ['店主', '家族', 'アルバイト'], seats: 20, open: '17:00〜23:00' },
     set: { notify: true, time: '23:20', off: [0], ratio: 3, fr: 10, fz: -15, places: ['市場', 'スーパー'] },
     vendors: clone(VENDORS_DEFAULT), items: seedItems(),
     orders: [], dlvs: [], rets: [], cash: [], invs: [], closes: [], eisei: [], signs: [], rsvs: [], menu: clone(MENU_DEFAULT), plans: {},
@@ -3997,7 +3997,7 @@ function syncFlow() {
 }
 function renderLine() {
   var h = '', i, lg = S.sline.log;
-  $('lvName').textContent = S.shop.name.replace('ごはん処 ', '') + ' 閉店後メモ';
+  $('lvName').textContent = S.shop.name.replace('酒と肴 ', '') + ' 閉店後メモ';
   $('lvSub').textContent = '店主のLINE（ほかの人には届きません）';
   $('lvClock').textContent = nowHM();
   for (i = 0; i < lg.length; i++) { h += bubbleHtml(lg[i]); }
